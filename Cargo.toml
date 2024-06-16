@@ -1,0 +1,33 @@
+[package]
+name = "portfolio-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+console_error_panic_hook = "0.1.7"
+console_log = "1.0.0"
+# https://crates.io/crates/icondata
+icondata = "0.3.1"
+leptos = { version = "0.6.12", features = ["csr"] }
+# https://carloskiki.github.io/icondata/
+leptos_icons = "0.3.1"
+# https://github.com/gaucho-labs/leptos-image
+leptos_image = { version = "0.2.0", optional = true }
+leptos_meta = { version = "0.6.12", features = ["csr"] }
+leptos_router = { version = "0.6.12", features = ["csr"] }
+# https://github.com/SorenHolstHansen/leptos_toaster
+leptos_toaster = "0.1.7"
+log = "0.4.21"
+
+[features]
+leptos_image = ["dep:leptos_image"]
+
+[lib]
+name = "portfolio"
+path = "src/lib.rs"
+
+[workspace]
+members = ["."]
+
+[[workspace.metadata.leptos]]
+projects = [{ name = "portfolio-rs", path = "." }]
