@@ -15,10 +15,13 @@ pub fn Experience(
                 <div class="aspect-square w-3 bg-gray-600 rounded-full absolute left-0 translate-x-[-29.5px] z-10 top-1" />
                 <div class="text-gray-500 text-sm">{date}</div>
                 <div class="text-gray-800 text-xl">{title}</div>
-                <div class="text-gray-600 text-md mb-1">
-                    <a class="flex items-center" href={url} target="_blank">{company}<Icon width="1em" height="1em" icon=i::ChArrowUpRight /></a>
+                <div class="text-gray-500 text-md mb-1">
+                    <a class="group flex items-center hover:text-gray-900 duration-150" href={url} target="_blank">
+                        {company}
+                        <Icon width="1em" height="1em" class="duration-150 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
+                    </a>
                 </div>
-                <div class="text-gray-700 text-sm">
+                <div class="text-gray-700 text-sm antialiased">
                     {description}
                 </div>
             </div>

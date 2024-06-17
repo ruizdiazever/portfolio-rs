@@ -75,7 +75,7 @@ pub fn Home() -> impl IntoView {
                     <Experience
                         date="October 2021 - July 2022".to_string()
                         title="Software Developer".to_string()
-                        company="Aeronautica Militare (Italian Air Force)".to_string()
+                        company="Be".to_string()
                         description="My main work consists of integrations of components made by the Data Science area in the workflow of applications with Python Standalone (pure Python 3 without frameworks).
                         On the other hand, I have been responsible for developing the frontend and most of the backend of a very important project with Vue.js on the client side and a backend with a REST API with Flask.".to_string()
                         url="https://www.aeronautica.difesa.it/".to_string()

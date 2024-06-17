@@ -1,0 +1,48 @@
+name: Release to Vercel
+
+on:
+push:
+    branches:
+    - main
+env:
+CARGO_TERM_COLOR: always
+VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+Vercel-Production-Deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: git-checkout
+        uses: actions/checkout@v3
+
+    - uses: dtolnay/rust-toolchain@nightly
+        with:
+        components: clippy, rustfmt
+    - uses: Swatinem/rust-cache@v2
+    - name: Setup Rust
+        run: |
+        rustup target add wasm32-unknown-unknown
+        cargo clippy
+        cargo fmt --check
+
+    - name: Download and install Trunk binary
+        run: wget -qO- https://github.com/trunk-rs/trunk/releases/download/v0.18.2/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
+
+
+    - name: Build with Trunk
+        run: ./trunk build --release
+
+    - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+    - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Deploy to Vercel & Display URL
+        id: deployment
+        working-directory: ./dist
+        run: |
+        vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_STEP_SUMMARY
+        echo $GITHUB_STEP_SUMMARY
