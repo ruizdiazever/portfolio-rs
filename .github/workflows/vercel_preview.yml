@@ -4,91 +4,90 @@
 name: Leptos CSR Vercel Preview
 
 on:
-pull_request:
-    branches: [ "main" ]
+  pull_request:
+    branches: ["main"]
 
-workflow_dispatch:
+  workflow_dispatch:
 
 env:
-CARGO_TERM_COLOR: always
-VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  CARGO_TERM_COLOR: always
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
-fmt:
+  fmt:
     name: Rustfmt
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: dtolnay/rust-toolchain@nightly
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
         with:
-        components: rustfmt
-    - name: Enforce formatting
+          components: rustfmt
+      - name: Enforce formatting
         run: cargo fmt --check
 
-clippy:
+  clippy:
     name: Clippy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: dtolnay/rust-toolchain@nightly
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
         with:
-        components: clippy
-    - uses: Swatinem/rust-cache@v2
-    - name: Linting
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Linting
         run: cargo clippy -- -D warnings
 
-test:
+  test:
     name: Test
     runs-on: ubuntu-latest
     needs: [fmt, clippy]
     steps:
-    - uses: actions/checkout@v4
-    - uses: dtolnay/rust-toolchain@nightly
-    - uses: Swatinem/rust-cache@v2
-    - name: Run tests
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2
+      - name: Run tests
         run: cargo test
 
-build-and-preview-deploy:
+  build-and-preview-deploy:
     runs-on: ubuntu-latest
     name: Build and Preview
 
     needs: [test, clippy, fmt]
 
     permissions:
-    pull-requests: write
+      pull-requests: write
 
     environment:
-    name: preview
-    url: ${{ steps.preview.outputs.preview-url }}
+      name: preview
+      url: ${{ steps.preview.outputs.preview-url }}
 
     steps:
-    - name: git-checkout
+      - name: git-checkout
         uses: actions/checkout@v4
 
-    - uses: dtolnay/rust-toolchain@nightly
-    - uses: Swatinem/rust-cache@v2
-    - name: Build
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2
+      - name: Build
         run: rustup target add wasm32-unknown-unknown
 
-    - name: Download and install Trunk binary
+      - name: Download and install Trunk binary
         run: wget -qO- https://github.com/trunk-rs/trunk/releases/download/v0.18.2/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
 
-
-    - name: Build with Trunk
+      - name: Build with Trunk
         run: ./trunk build --release
 
-    - name: Preview Deploy
+      - name: Preview Deploy
         id: preview
         uses: amondnet/vercel-action@v25.1.1
         with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        github-comment: true
-        working-directory: ./dist
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          github-comment: true
+          working-directory: ./dist
 
-    - name: Display Deployed URL
+      - name: Display Deployed URL
         run: |
-        echo "Deployed app URL: ${{ steps.preview.outputs.preview-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "Deployed app URL: ${{ steps.preview.outputs.preview-url }}" >> $GITHUB_STEP_SUMMARY

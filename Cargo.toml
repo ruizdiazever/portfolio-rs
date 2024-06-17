@@ -8,7 +8,7 @@ console_error_panic_hook = "0.1.7"
 console_log = "1.0.0"
 # https://crates.io/crates/icondata
 icondata = "0.3.1"
-leptos = { version = "0.6.12", features = ["csr", "nightly"] }
+leptos = { version = "0.6.12", features = ["csr"] }
 # https://carloskiki.github.io/icondata/
 leptos_icons = "0.3.1"
 # https://github.com/gaucho-labs/leptos-image
