@@ -1,3 +1,3 @@
-# Portfolio.rs
+# portfolio.rs
 
-Portfolio powered by Rust, Leptos, PostgreSQL and Axum
+Portfolio WASM powered by Rust with Leptos
