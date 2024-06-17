@@ -1,4 +1,4 @@
-use crate::layouts::components::header::Header;
+use crate::layouts::components::{footer::Footer, header::Header};
 use leptos::*;
 use leptos_meta::*;
 
@@ -16,5 +16,6 @@ where
             {render_prop()}
             {children()}
         </div>
+        <Footer/>
     }
 }

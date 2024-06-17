@@ -5,7 +5,7 @@ use leptos::*;
 use leptos_icons::*;
 
 const DESCRIPTION: &str =
-    "I'm Ever, a software developer enginner based in Italy with +3 years of experience.";
+    "I'm Ever, a software developer based in Italy with +3 years of experience.";
 
 const SUB_DESCRIPTION: &str = "I'm passionate about science, state-of-the-art tech, design
 and development.";
@@ -22,12 +22,24 @@ pub fn Home() -> impl IntoView {
             // Childrens
             <h1 class="text-2xl mt-6">Projects</h1>
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
-                <Project github=true title="portfolio-rs".to_string() description="Portfolio WASM powered by Rust".to_string()>
+                <Project
+                    github=true
+                    title="portfolio-rs".to_string()
+                    description="Portfolio WASM powered by Rust".to_string()
+                    url="https://portfolio-rs-gamma.vercel.app/".to_string()
+                    repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiLeptos />
                     <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
                 </Project>
-                <Project github=false title="BERLi".to_string() description="Async Software Managment".to_string()>
+                <Project
+                    github=false
+                    title="BERLi".to_string()
+                    description="Async Software Managment".to_string()
+                    url="https://www.berli.app".to_string()
+                    repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
                     <Icon width="1.3em" height="1.3em" icon=i::SiAstro />
@@ -35,7 +47,13 @@ pub fn Home() -> impl IntoView {
                     <Icon width="1.3em" height="1.3em" icon=i::SiInfluxdb />
                     <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
                 </Project>
-                <Project github=false title="Aura".to_string() description="Design Engineering Company".to_string()>
+                <Project
+                    github=false
+                    title="Aura".to_string()
+                    description="Design Engineering Company".to_string()
+                    url="https://www.auradesign.dk".to_string()
+                    repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
                     <Icon width="1.3em" height="1.3em" icon=i::SiAstro />
@@ -43,7 +61,13 @@ pub fn Home() -> impl IntoView {
                     <Icon width="1.3em" height="1.3em" icon=i::SiInfluxdb />
                     <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
                 </Project>
-                <Project github=false title="Picu".to_string() description="STATE-OF-THE-ART IoT Platform".to_string()>
+                <Project
+                    github=false
+                    title="Picu".to_string()
+                    description="STATE-OF-THE-ART IoT Platform".to_string()
+                    url="https://www.picuindusties.com".to_string()
+                    repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
                     <Icon width="1.3em" height="1.3em" icon=i::SiEspressif />

@@ -8,6 +8,7 @@ pub mod layouts {
     pub mod layout;
 
     pub mod components {
+        pub mod footer;
         pub mod header;
     }
 }
