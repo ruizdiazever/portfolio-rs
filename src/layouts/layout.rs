@@ -1,4 +1,4 @@
-use crate::layout::components::header::Header;
+use crate::layouts::components::header::Header;
 use leptos::*;
 use leptos_meta::*;
 

@@ -1,5 +1,5 @@
 use crate::components::home::{experience::Experience, project::Project};
-use crate::layout::layout::Layout;
+use crate::layouts::layout::Layout;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;

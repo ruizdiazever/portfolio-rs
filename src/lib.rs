@@ -4,7 +4,7 @@ pub mod pages {
     pub mod home;
 }
 
-pub mod layout {
+pub mod layouts {
     pub mod layout;
 
     pub mod components {
