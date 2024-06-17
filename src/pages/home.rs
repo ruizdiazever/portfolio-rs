@@ -22,17 +22,17 @@ pub fn Home() -> impl IntoView {
             // Childrens
             <h1 class="text-2xl mt-6">Projects</h1>
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
-                <Project
-                    github=true
-                    title="portfolio-rs".to_string()
-                    description="Portfolio WASM powered by Rust".to_string()
-                    url="https://portfolio-rs-gamma.vercel.app/".to_string()
-                    repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
-                >
-                    <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiLeptos />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
-                </Project>
+                // <Project
+                //     github=true
+                //     title="portfolio-rs".to_string()
+                //     description="Portfolio WASM powered by Rust".to_string()
+                //     url="https://portfolio-rs-gamma.vercel.app/".to_string()
+                //     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                // >
+                //     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
+                //     <Icon width="1.3em" height="1.3em" icon=i::SiLeptos />
+                //     <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
+                // </Project>
                 <Project
                     github=false
                     title="BERLi".to_string()
@@ -99,10 +99,10 @@ pub fn Home() -> impl IntoView {
                     <Experience
                         date="October 2021 - July 2022".to_string()
                         title="Software Developer".to_string()
-                        company="Be".to_string()
+                        company="Qi4M".to_string()
                         description="My main work consists of integrations of components made by the Data Science area in the workflow of applications with Python Standalone (pure Python 3 without frameworks).
                         On the other hand, I have been responsible for developing the frontend and most of the backend of a very important project with Vue.js on the client side and a backend with a REST API with Flask.".to_string()
-                        url="https://www.aeronautica.difesa.it/".to_string()
+                        url="https://www.qi4m.com/".to_string()
                     />
                   </div>
             </div>
