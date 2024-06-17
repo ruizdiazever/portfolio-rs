@@ -1,31 +1,75 @@
-name: Release to Vercel
+# For more info re: vercel action see:
+# https://github.com/amondnet/vercel-action
+
+name: Leptos CSR Vercel Preview
 
 on:
-push:
-    branches:
-    - main
+pull_request:
+    branches: [ "main" ]
+
+workflow_dispatch:
+
 env:
 CARGO_TERM_COLOR: always
 VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
-Vercel-Production-Deployment:
+fmt:
+    name: Rustfmt
     runs-on: ubuntu-latest
-    environment: production
     steps:
-    - name: git-checkout
-        uses: actions/checkout@v3
-
+    - uses: actions/checkout@v4
     - uses: dtolnay/rust-toolchain@nightly
         with:
-        components: clippy, rustfmt
+        components: rustfmt
+    - name: Enforce formatting
+        run: cargo fmt --check
+
+clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: dtolnay/rust-toolchain@nightly
+        with:
+        components: clippy
     - uses: Swatinem/rust-cache@v2
-    - name: Setup Rust
-        run: |
-        rustup target add wasm32-unknown-unknown
-        cargo clippy
-        cargo fmt --check
+    - name: Linting
+        run: cargo clippy -- -D warnings
+
+test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: [fmt, clippy]
+    steps:
+    - uses: actions/checkout@v4
+    - uses: dtolnay/rust-toolchain@nightly
+    - uses: Swatinem/rust-cache@v2
+    - name: Run tests
+        run: cargo test
+
+build-and-preview-deploy:
+    runs-on: ubuntu-latest
+    name: Build and Preview
+
+    needs: [test, clippy, fmt]
+
+    permissions:
+    pull-requests: write
+
+    environment:
+    name: preview
+    url: ${{ steps.preview.outputs.preview-url }}
+
+    steps:
+    - name: git-checkout
+        uses: actions/checkout@v4
+
+    - uses: dtolnay/rust-toolchain@nightly
+    - uses: Swatinem/rust-cache@v2
+    - name: Build
+        run: rustup target add wasm32-unknown-unknown
 
     - name: Download and install Trunk binary
         run: wget -qO- https://github.com/trunk-rs/trunk/releases/download/v0.18.2/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
@@ -34,15 +78,17 @@ Vercel-Production-Deployment:
     - name: Build with Trunk
         run: ./trunk build --release
 
-    - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
-    - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-    - name: Deploy to Vercel & Display URL
-        id: deployment
+    - name: Preview Deploy
+        id: preview
+        uses: amondnet/vercel-action@v25.1.1
+        with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        github-comment: true
         working-directory: ./dist
+
+    - name: Display Deployed URL
         run: |
-        vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_STEP_SUMMARY
-        echo $GITHUB_STEP_SUMMARY
+        echo "Deployed app URL: ${{ steps.preview.outputs.preview-url }}" >> $GITHUB_STEP_SUMMARY
