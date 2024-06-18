@@ -18,7 +18,7 @@ pub fn Berli() -> impl IntoView {
     view! {
         <Layout>
             <Project title=title subtitle=subtitle category=category date=date>
-                <h1 class="text-2xl text-gray-800">The reason</h1>
+                <h1 class="text-2xl text-gray-800">The reasons</h1>
                 <article class="text-gray-800 space-y-3 ">
                     <p>{intro_1}</p>
                     <p>{intro_2}</p>
@@ -26,8 +26,8 @@ pub fn Berli() -> impl IntoView {
 
                 <h1 class="text-2xl text-gray-800">Architecture</h1>
                 <img
-                    class="h-8 w-auto rounded-full"
-                    src="public/images/picu_arch.webp"
+                    class="w-auto rounded-lg mx-auto"
+                    src="/images/picu_arch.webp"
                     alt="Architecture"
                     width="64"
                     height="64"

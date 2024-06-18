@@ -1,8 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.twotone-icon-secondary-color {
-    fill: #aaf8aa;
-    opacity: 0.5;
-}
