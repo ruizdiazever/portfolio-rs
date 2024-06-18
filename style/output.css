@@ -910,6 +910,18 @@ video {
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
+.underline {
+  text-decoration-line: underline;
+}
+
+.decoration-gray-400 {
+  text-decoration-color: #9ca3af;
+}
+
+.decoration-dashed {
+  text-decoration-style: dashed;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -989,6 +1001,11 @@ body {
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.hover\:text-blue-800:hover {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 
 .hover\:text-gray-700:hover {
