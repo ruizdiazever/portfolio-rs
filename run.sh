@@ -1,3 +1,3 @@
 #!/usr/bin/bash
-# rustup override set nightly
 trunk serve --open
+#RUST_LOG=debug trunk serve --open

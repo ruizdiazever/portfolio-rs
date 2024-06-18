@@ -1,4 +1,4 @@
-use crate::components::home::{experience::Experience, project::Project};
+use crate::components::home::{experience::Experience, project_card::Project};
 use crate::layouts::layout::Layout;
 use icondata as i;
 use leptos::*;
@@ -13,31 +13,20 @@ and development.";
 #[component]
 pub fn Home() -> impl IntoView {
     view! {
-        <Layout render_prop=|| view! {
+        <Layout>
+            // Childrens
             <p class="text-gray-600 text-lg text-left">
                 {DESCRIPTION}
                 <br/>
                 {SUB_DESCRIPTION}
-            </p> }>
-            // Childrens
+            </p>
             <h1 class="text-2xl mt-6">Projects</h1>
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
-                // <Project
-                //     github=true
-                //     title="portfolio-rs".to_string()
-                //     description="Portfolio WASM powered by Rust".to_string()
-                //     url="https://portfolio-rs-gamma.vercel.app/".to_string()
-                //     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
-                // >
-                //     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
-                //     <Icon width="1.3em" height="1.3em" icon=i::SiLeptos />
-                //     <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
-                // </Project>
                 <Project
                     github=false
                     title="BERLi".to_string()
                     description="Async Software Managment".to_string()
-                    url="https://www.berli.app".to_string()
+                    url="/projects/berli".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
                 >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />

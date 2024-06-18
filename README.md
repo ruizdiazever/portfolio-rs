@@ -1,6 +1,6 @@
 # Portfolio WASM
 
-<img src="./src/files/mascot.png" alt="drawing" width="100"/>
+<img src="./public/img/mascot.png" alt="drawing" width="100"/>
 
 Portfolio WASM powered by Rust with Leptos
 
