@@ -9,14 +9,14 @@ pub fn Footer() -> impl IntoView {
     view! {
         <header>
         <footer>
-          <div class="mx-auto max-w-screen-md px-4 py-8 sm:px-6 lg:px-8 mt-10">
+          <div class="mx-auto max-w-screen-md px-4 py-8 sm:px-6 lg:px-8 mt-10 antialiased">
             <div class="flex flex-col md:flex-row items-center justify-between">
-              <div class="flex justify-center text-gray-600 sm:justify-start text-sm antialiased gap-2">
+              <div class="flex justify-center text-gray-600 sm:justify-start text-sm gap-2">
                 <Icon width="1.3em" height="1.3em" icon=i::AiHeartFilled />
                 Rust Evangelist Strike Force
               </div>
 
-              <p class="flex mt-4 text-center text-sm text-gray-500 lg:mt-0 lg:text-right antialiased">
+              <p class="flex mt-4 text-center text-sm text-gray-500 lg:mt-0 lg:text-right">
                 Ever Ruiz Diaz - {year}
               </p>
             </div>

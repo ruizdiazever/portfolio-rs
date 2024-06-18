@@ -21,7 +21,7 @@ pub fn Experience(
                         <Icon width="1em" height="1em" class="duration-150 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
                     </a>
                 </div>
-                <div class="text-gray-700 text-sm antialiased">
+                <div class="text-gray-700 text-sm">
                     {description}
                 </div>
             </div>

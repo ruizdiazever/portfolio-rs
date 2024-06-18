@@ -12,7 +12,7 @@ where
 
     view! {
         <Header/>
-        <div class="flex flex-col justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8">
+        <div class="flex flex-col justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased">
             {render_prop()}
             {children()}
         </div>
