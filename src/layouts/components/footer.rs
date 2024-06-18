@@ -17,7 +17,7 @@ pub fn Footer() -> impl IntoView {
               </div>
 
               <p class="flex mt-4 text-center text-sm text-gray-500 lg:mt-0 lg:text-right">
-                Ever Ruiz Diaz - {year}
+                Ever Ruiz Diaz<span class="mx-1">-</span>{year}
               </p>
             </div>
           </div>
