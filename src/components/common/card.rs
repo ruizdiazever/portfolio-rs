@@ -5,10 +5,10 @@ use leptos_icons::*;
 #[component]
 pub fn Tech(title: String, description: String, uri: String) -> impl IntoView {
     view! {
-        <div class="bg-white rounded-lg hover:bg-gray-50 shadow-md md:w-40 w-full" title={description}>
+        <div class="bg-white rounded-lg hover:bg-gray-50 shadow-md xs:w-40 w-full" title={description}>
             <a href={uri} target="_blank">
                 <div class="group p-3">
-                    <h3 class="flex items-center text-lg font-semibold gap-1 hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-gray-400">
+                    <h3 class="flex items-center text-lg xs:text-md font-semibold gap-1 hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-gray-400">
                         {title}
                         <Icon width="1em" height="1em" class="text-gray-500 duration-150 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
                     </h3>
@@ -38,7 +38,7 @@ pub fn TechList() -> impl IntoView {
     ];
 
     view! {
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {techs.iter().map(|(title, description, uri)| {
                 view! {
                     <Tech title={title.clone()} description={description.clone()} uri={uri.clone()} />
