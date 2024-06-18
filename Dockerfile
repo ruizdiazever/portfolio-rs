@@ -25,6 +25,8 @@ COPY --from=builder /work/target/release/portfolio /app/
 COPY --from=builder /work/target/site /app/site
 COPY --from=builder /work/Cargo.toml /app/
 
+RUN echo "Exposing PORT: $PORT"
+
 EXPOSE $PORT
 ENV LEPTOS_SITE_ROOT=./site
 

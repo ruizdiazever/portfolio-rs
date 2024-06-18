@@ -8,7 +8,7 @@ pub fn Layout(children: Children) -> impl IntoView {
 
     view! {
         <Header/>
-        <div class="flex flex-col justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased">
+        <div class="flex flex-col justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased bg-[#fafafa]">
             {children()}
         </div>
         <Footer/>

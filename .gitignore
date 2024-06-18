@@ -144,3 +144,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .vercel
+.DS_Store

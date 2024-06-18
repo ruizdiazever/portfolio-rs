@@ -5,7 +5,7 @@ use leptos_icons::*;
 #[component]
 pub fn Header() -> impl IntoView {
     view! {
-        <header>
+        <header class="mt-6">
           <div class="mx-auto max-w-screen-md px-6 sm:px-6 lg:px-8 mb-6 antialiased">
             <div class="flex h-16 items-center justify-between">
               <div class="md:flex md:items-center md:gap-12">
