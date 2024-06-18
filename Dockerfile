@@ -15,6 +15,9 @@ RUN rustup target add wasm32-unknown-unknown
 WORKDIR /work
 COPY . .
 
+RUN echo "Exposing PORT.."
+RUN echo $PORT
+
 RUN cargo leptos build --release -vv
 
 FROM rustlang/rust:nightly-alpine as runner
@@ -25,9 +28,9 @@ COPY --from=builder /work/target/release/portfolio /app/
 COPY --from=builder /work/target/site /app/site
 COPY --from=builder /work/Cargo.toml /app/
 
-RUN echo "Exposing PORT: $PORT"
 
-EXPOSE $PORT
+
+EXPOSE 3000
 ENV LEPTOS_SITE_ROOT=./site
 
 CMD ["/app/portfolio"]
