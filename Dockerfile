@@ -28,4 +28,4 @@ COPY --from=builder /work/Cargo.toml /app/
 EXPOSE $PORT
 ENV LEPTOS_SITE_ROOT=./site
 
-CMD ["/app/portfoli-rs"]
+CMD ["/app/portfolio-rs"]
