@@ -26,7 +26,7 @@ http = "1"
 # Personal
 leptos_icons = "0.3.1" # https://crates.io/crates/icondata
 icondata = "0.3.1"     # https://carloskiki.github.io/icondata/
-chrono = "0.4.38"
+chrono = "0.4.38"      # https://crates.io/crates/chrono
 
 
 [features]
