@@ -6,7 +6,7 @@ use leptos_icons::*;
 pub fn Tech(title: String, description: String, uri: String) -> impl IntoView {
     view! {
         <div class="bg-white rounded-lg hover:bg-gray-50 shadow-md xs:w-40 w-full" title={description}>
-            <a href={uri} target="_blank">
+            <a href={uri} target="_blank" rel="noopener">
                 <div class="group p-3">
                     <h3 class="flex items-center text-lg xs:text-md font-semibold gap-1 hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-gray-400">
                         {title}

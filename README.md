@@ -1,6 +1,6 @@
 # Portfolio WASM
 
-<img src="./public/images/mascot.png" alt="drawing" width="100"/>
+<img src="./public/images/mascot.png" alt="Ferris, mascot of Rust" width="100"/>
 
 Portfolio WASM powered by Rust with Leptos and Axum
 

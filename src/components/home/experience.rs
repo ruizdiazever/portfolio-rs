@@ -16,7 +16,7 @@ pub fn Experience(
                 <div class="text-gray-500 text-sm">{date}</div>
                 <div class="text-gray-800 text-xl">{title}</div>
                 <div class="text-gray-500 text-md mb-1">
-                    <a class="group flex items-center hover:text-[#68b5fc] duration-200" href={url} target="_blank">
+                    <a class="group flex items-center hover:text-[#68b5fc] duration-200" href={url} rel="noopener" target="_blank">
                         {company}
                         <Icon width="1em" height="1em" class="duration-200 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
                     </a>

@@ -17,13 +17,13 @@ pub fn Header() -> impl IntoView {
                     </a>
                 </div>
                 <div class="flex gap-2 h-100">
-                    <a href="https://x.com/EverToujours" target="_blank" class="block text-gray-600 rounded-md p-2 text-sm font-medium text-black transition hover:bg-gray-100">
+                    <a rel="noopener" href="https://x.com/EverToujours" target="_blank" class="block text-gray-600 rounded-md p-2 text-sm font-medium text-black transition hover:bg-gray-100">
                         <Icon width="1.3em" height="1.3em" icon=i::BsTwitterX />
                     </a>
-                    <a href="https://github.com/ruizdiazever" target="_blank" class="block text-gray-600 rounded-md p-2 text-sm font-medium text-black transition hover:bg-gray-100">
+                    <a rel="noopener" href="https://github.com/ruizdiazever" target="_blank" class="block text-gray-600 rounded-md p-2 text-sm font-medium text-black transition hover:bg-gray-100">
                         <Icon width="1.3em" height="1.3em" icon=i::FaGithubBrands />
                     </a>
-                    <a href="https://www.linkedin.com/" target="_blank" class="block text-gray-600 rounded-md p-2 text-sm font-medium text-black transition hover:bg-gray-100">
+                    <a rel="noopener" href="https://www.linkedin.com/" target="_blank" class="block text-gray-600 rounded-md p-2 text-sm font-medium text-black transition hover:bg-gray-100">
                         <Icon width="1.3em" height="1.3em" icon=i::BsLinkedin />
                     </a>
                 </div>

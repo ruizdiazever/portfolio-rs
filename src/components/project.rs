@@ -12,7 +12,7 @@ pub fn Project(
 ) -> impl IntoView {
     view! {
             <div class="text-gray-600">
-                <h1 class="text-3xl text-gray-800 mb-2">{title}</h1>
+                <h1 class="text-4xl text-gray-800 mb-2">{title}</h1>
                 <p>{subtitle}</p>
                 <div class="flex justify-between my-6">
                     <div class="flex gap-1">

@@ -19,6 +19,7 @@ pub fn Link(title: String, link: String, blank: bool) -> impl IntoView {
     view! {
         <a
             href={link}
+            rel="noopener"
             target={linked}
             class="text-gray-600 duration-200 hover:text-[#68b5fc] group flex items-center gap-1 hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-[#68b5fc]"
         >
@@ -36,6 +37,7 @@ pub fn LinkSimple(title: String, link: String, blank: bool) -> impl IntoView {
         view! {
             <a
                 href={link}
+                rel="noopener"
                 target={linked}
                 class="group inline-flex items-center hover:text-[#68b5fc] text-[#0074de] duration-200 hover:underline underline-offset-4 decoration-dashed decoration-[#57b1fc]">
                     {title}
@@ -46,6 +48,7 @@ pub fn LinkSimple(title: String, link: String, blank: bool) -> impl IntoView {
         view! {
             <a
                 href={link}
+                rel="noopener"
                 target={linked}
                 class="hover:text-[#68b5fc] text-[#0074de] duration-200 hover:underline underline-offset-4 decoration-dashed decoration-[#57b1fc]">
                 {title}

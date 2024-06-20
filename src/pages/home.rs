@@ -1,8 +1,7 @@
+use crate::components::common::values::Icon;
 use crate::components::home::{experience::Experience, project_card::Project};
 use crate::layouts::layout::Layout;
-use icondata as i;
 use leptos::*;
-use leptos_icons::*;
 
 const DESCRIPTION: &str =
     "I'm Ever, a software developer based in Italy with +3 years of experience.";
@@ -12,6 +11,40 @@ and development.";
 
 #[component]
 pub fn Home() -> impl IntoView {
+    // Icons
+    let picu_icons = vec![
+        Icon::Rust.to_view(),
+        Icon::PostgreSQL.to_view(),
+        Icon::Svelte.to_view(),
+        Icon::Astro.to_view(),
+        Icon::Flutter.to_view(),
+        Icon::TailwindCSS.to_view(),
+        Icon::InfluxDB.to_view(),
+        Icon::Grafana.to_view(),
+    ];
+
+    let aura_icons = vec![
+        Icon::Rust.to_view(),
+        Icon::PostgreSQL.to_view(),
+        Icon::Astro.to_view(),
+        Icon::Svelte.to_view(),
+        Icon::TailwindCSS.to_view(),
+        Icon::InfluxDB.to_view(),
+        Icon::Grafana.to_view(),
+        Icon::Docker.to_view(),
+    ];
+
+    let berli_icons = vec![
+        Icon::Rust.to_view(),
+        Icon::PostgreSQL.to_view(),
+        Icon::Svelte.to_view(),
+        Icon::Astro.to_view(),
+        Icon::TailwindCSS.to_view(),
+        Icon::InfluxDB.to_view(),
+        Icon::Grafana.to_view(),
+        Icon::Docker.to_view(),
+    ];
+
     view! {
         <Layout>
             // Childrens
@@ -30,12 +63,7 @@ pub fn Home() -> impl IntoView {
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
                     blank=false
                 >
-                    <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiAstro />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiPostgresql />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiInfluxdb />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
+                    {picu_icons}
                 </Project>
                 <Project
                     github=false
@@ -45,12 +73,7 @@ pub fn Home() -> impl IntoView {
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
                     blank=false
                 >
-                    <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiAstro />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiPostgresql />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiInfluxdb />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
+                    {aura_icons}
                 </Project>
                 <Project
                     github=false
@@ -60,14 +83,7 @@ pub fn Home() -> impl IntoView {
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
                     blank=false
                 >
-                    <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiEspressif />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiFlutter />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiAstro />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiPostgresql />
-                    <Icon width="1.3em" height="1.3em" icon=i::SiInfluxdb />
-                    <Icon width="1.3em" height="1.3em" icon=i::BiTailwindCss />
+                    {berli_icons}
                 </Project>
             </div>
             <h1 class="text-2xl mt-6">Experience</h1>

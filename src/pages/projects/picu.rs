@@ -1,4 +1,3 @@
-use crate::components::common::card::TechList;
 use crate::components::common::values::Link;
 use crate::components::project::Project;
 use crate::layouts::layout::Layout;
@@ -33,18 +32,23 @@ pub fn Picu() -> impl IntoView {
     view! {
         <Layout>
             <Project title=title subtitle=subtitle categories=categories date=date>
-                <h1 class="text-2xl text-gray-800">Motivation</h1>
+                <h1 id="motivation" class="text-2xl text-gray-800">
+                    <a href="#motivation">Motivation</a>
+                </h1>
                 <article class="text-gray-800 space-y-3 ">
                     <p>{intro_1}</p>
                     <p>{intro_2}</p>
                 </article>
 
                 // Stack
-                <h1 class="text-2xl text-gray-800">Stack</h1>
+                <h1 id="stack" class="text-2xl text-gray-800">
+                    <a href="#stack">Stack</a>
+                </h1>
                 <p class="text-gray-800">
                     The <strong>backend</strong> side at the beginning was in doubt between
                     {link_actix} and {link_axum} and although the first
-                    one showed better performance, the community supported Axum more.</p>
+                    one showed better performance, the community supported Axum more.
+                </p>
                 <p class="text-gray-800">
                     Also the fact that it came from the people of {link_tokio}
                     was a guarantee in terms of support and evolution.
@@ -69,33 +73,38 @@ pub fn Picu() -> impl IntoView {
                     I will leave it in another post so as not to extend this one too much.
                 </p>
                 // Architecture
-                <h1 class="text-2xl text-gray-800">Architecture</h1>
+                <h1 id="architecture" class="text-2xl text-gray-800">
+                    <a href="#architecture">Architecture</a>
+                </h1>
                 <p class="text-gray-800">A simple schematic of the main API and some of the components around it</p>
                 <img
                     class="w-auto rounded-lg mx-auto"
                     src="/images/picu_arch.png"
-                    alt="Architecture"
+                    alt="Picu basic architecture diagram"
                     width="64"
                     height="64"
                     href="/"
                 />
 
-                // Links
-                <h1 class="text-2xl text-gray-800">Links</h1>
-                <TechList/>
-
+                // Very soon
                 <h1 class="text-3xl text-gray-800 text-center">Very soon</h1>
 
-                // Links
-                <h1 class="text-2xl text-gray-800">Store</h1>
+                // Store
+                <h1 id="store" class="text-2xl text-gray-800">
+                    <a href="#store">Store</a>
+                </h1>
                 <p class="text-gray-600 flex items-center gap-2">Work in progress <Icon width="1em" height="1em" icon=i::AiClockCircleOutlined /></p>
 
                 // Mobile
-                <h1 class="text-2xl text-gray-800">Mobile</h1>
+                <h1 id="mobile" class="text-2xl text-gray-800">
+                    <a href="#mobile">Mobile with Flutter</a>
+                </h1>
                 <p class="text-gray-600 flex items-center gap-2">Work in progress <Icon width="1em" height="1em" icon=i::AiClockCircleOutlined /></p>
 
                 // Guarantee availability and reliability
-                <h1 class="text-2xl text-gray-800">Guarantee availability and reliability</h1>
+                <h1 id="guarantee" class="text-2xl text-gray-800">
+                    <a href="#guarantee">Guarantee availability and reliability</a>
+                </h1>
                 <p class="text-gray-600 flex items-center gap-2">Work in progress <Icon width="1em" height="1em" icon=i::AiClockCircleOutlined /></p>
             </Project>
         </Layout>

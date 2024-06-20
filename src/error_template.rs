@@ -1,5 +1,7 @@
 use http::status::StatusCode;
+use icondata as i;
 use leptos::*;
+use leptos_icons::*;
 use thiserror::Error;
 
 #[derive(Clone, Debug, Error)]
@@ -52,21 +54,27 @@ pub fn ErrorTemplate(
     }
 
     view! {
-        <h1>{if errors.len() > 1 {"Errors"} else {"Error"}}</h1>
-        <For
-            // a function that returns the items we're iterating over; a signal is fine
-            each= move || {errors.clone().into_iter().enumerate()}
-            // a unique key for each item as a reference
-            key=|(index, _error)| *index
-            // renders each item to a view
-            children=move |error| {
-                let error_string = error.1.to_string();
-                let error_code= error.1.status_code();
-                view! {
-                    <h2>{error_code.to_string()}</h2>
-                    <p>"Error: " {error_string}</p>
+        <div class="grid h-screen place-content-center bg-white px-4 antialiased">
+            <h1 class="text-center mb-6">{if errors.len() > 1 {"Errors"} else {"Error"}}</h1>
+            <For
+                // a function that returns the items we're iterating over; a signal is fine
+                each= move || {errors.clone().into_iter().enumerate()}
+                // a unique key for each item as a reference
+                key=|(index, _error)| *index
+                // renders each item to a view
+                children=move |error| {
+                    let error_string = error.1.to_string();
+                    let error_code= error.1.status_code();
+                    view! {
+
+                        <h1 class="uppercase tracking-widest text-gray-500 text-xl">{error_code.to_string()} | {error_string}</h1>
+                        <a href="/" class="flex items-center justify-center text-center gap-1 mt-6 duration-200 hover:text-[#68b5fc]">
+                            <Icon width="1.1em" height="1.1em" icon=i::BiArrowBackRegular />
+                            Go back home
+                        </a>
+                    }
                 }
-            }
-        />
+            />
+        </div>
     }
 }

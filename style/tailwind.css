@@ -5,3 +5,7 @@
 body {
     background-color: #fafafa;
 }
+
+h1 {
+    scroll-margin-top: 5rem; /* o la altura de tu header sticky */
+}

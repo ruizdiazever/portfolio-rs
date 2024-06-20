@@ -678,6 +678,10 @@ video {
   height: 100%;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .w-3 {
   width: 0.75rem;
 }
@@ -713,6 +717,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.place-content-center {
+  place-content: center;
 }
 
 .place-items-center {
@@ -878,6 +886,11 @@ video {
   line-height: 2.25rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -899,6 +912,14 @@ video {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.tracking-widest {
+  letter-spacing: 0.1em;
 }
 
 .text-\[\#0074de\] {
@@ -983,6 +1004,11 @@ video {
 
 body {
   background-color: #fafafa;
+}
+
+h1 {
+  scroll-margin-top: 5rem;
+  /* o la altura de tu header sticky */
 }
 
 .after\:absolute::after {
