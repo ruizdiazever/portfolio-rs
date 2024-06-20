@@ -5,7 +5,7 @@ RUN apk update && \
     apk add --no-cache bash curl npm libc-dev binaryen
 # protoc openssl-dev protobuf-dev gcc git g++ libc-dev make binaryen
 
-RUN npm install -g sass
+RUN npm install -g sass tailwindcss
 
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/leptos-rs/cargo-leptos/releases/download/v0.2.17/cargo-leptos-installer.sh | sh
 
