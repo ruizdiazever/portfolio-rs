@@ -1,3 +1,4 @@
+use crate::components::common::link::Link;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
@@ -9,6 +10,7 @@ pub fn Project(
     description: String,
     github: bool,
     url: String,
+    blank: bool,
     repository: String,
 ) -> impl IntoView {
     view! {
@@ -16,10 +18,7 @@ pub fn Project(
             <div class="relative p-2 flex h-full transform items-start border border-gray-300 hover:border-gray-400 transition duration-200 ease-out hover:ease-in rounded-md bg-white">
                 <div class="flex flex-col px-2 my-2 gap-2 !pt-0">
                     <div class="flex justify-between">
-                        <a class="group flex items-center gap-1 hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-gray-400" href={url} target="_blank">
-                            <h2 class="text-xl font-medium text-gray-600 hover:text-gray-700">{title.clone()}</h2>
-                            <Icon width="1em" height="1em" class="text-gray-500 duration-150 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
-                        </a>
+                        <Link title=title link=url blank=blank/>
                         {if github {
                             view! {
                                 <span>

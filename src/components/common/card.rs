@@ -10,7 +10,7 @@ pub fn Tech(title: String, description: String, uri: String) -> impl IntoView {
                 <div class="group p-3">
                     <h3 class="flex items-center text-lg xs:text-md font-semibold gap-1 hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-gray-400">
                         {title}
-                        <Icon width="1em" height="1em" class="text-gray-500 duration-150 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
+                        <Icon width="1em" height="1em" class="text-gray-500 duration-200 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
                     </h3>
                 </div>
             </a>

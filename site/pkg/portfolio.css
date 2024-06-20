@@ -391,6 +391,10 @@ img, video {
   display: flex;
 }
 
+.inline-flex {
+  display: inline-flex;
+}
+
 .grid {
   display: grid;
 }
@@ -638,6 +642,11 @@ img, video {
   font-weight: 600;
 }
 
+.text-\[\#0074de\] {
+  --tw-text-opacity: 1;
+  color: rgb(0 116 222 / var(--tw-text-opacity));
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -663,16 +672,16 @@ img, video {
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
-.underline {
-  text-decoration-line: underline;
-}
-
-.decoration-gray-400 {
-  text-decoration-color: #9ca3af;
+.decoration-\[\#57b1fc\] {
+  text-decoration-color: #57b1fc;
 }
 
 .decoration-dashed {
   text-decoration-style: dashed;
+}
+
+.underline-offset-1 {
+  text-underline-offset: 1px;
 }
 
 .antialiased {
@@ -691,10 +700,6 @@ img, video {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  transition-duration: .15s;
-}
-
-.duration-150 {
   transition-duration: .15s;
 }
 
@@ -751,28 +756,22 @@ body {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
-.hover\:text-black:hover {
+.hover\:text-\[\#68b5fc\]:hover {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(104 181 252 / var(--tw-text-opacity));
 }
 
-.hover\:text-blue-800:hover {
+.hover\:text-gray-950:hover {
   --tw-text-opacity: 1;
-  color: rgb(30 64 175 / var(--tw-text-opacity));
-}
-
-.hover\:text-gray-700:hover {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-.hover\:text-gray-900:hover {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
+  color: rgb(3 7 18 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+
+.hover\:decoration-\[\#68b5fc\]:hover {
+  text-decoration-color: #68b5fc;
 }
 
 .hover\:decoration-gray-400:hover {
@@ -810,10 +809,6 @@ body {
 @media (min-width: 768px) {
   .md\:flex {
     display: flex;
-  }
-
-  .md\:w-40 {
-    width: 10rem;
   }
 
   .md\:grid-cols-2 {

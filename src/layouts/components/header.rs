@@ -9,7 +9,7 @@ pub fn Header() -> impl IntoView {
           <div class="mx-auto max-w-screen-md px-6 sm:px-6 lg:px-8 mb-6 antialiased">
             <div class="flex h-16 items-center justify-between">
               <div class="md:flex md:items-center md:gap-12">
-                <a href="/" class="block text-gray-700 text-lg hover:text-black">
+                <a href="/" class="block text-lg text-gray-700 hover:text-gray-950 duration-200">
                     everdev.it
                 </a>
               </div>

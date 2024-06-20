@@ -24,10 +24,11 @@ pub fn Home() -> impl IntoView {
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
                 <Project
                     github=false
-                    title="BERLi".to_string()
+                    title="Picu".to_string()
                     description="Async Software Managment".to_string()
-                    url="/projects/berli".to_string()
+                    url="/projects/picu".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                    blank=false
                 >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
@@ -40,8 +41,9 @@ pub fn Home() -> impl IntoView {
                     github=false
                     title="Aura".to_string()
                     description="Design Engineering Company".to_string()
-                    url="https://www.auradesign.dk".to_string()
+                    url="/projects/aura".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                    blank=false
                 >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
@@ -52,10 +54,11 @@ pub fn Home() -> impl IntoView {
                 </Project>
                 <Project
                     github=false
-                    title="Picu".to_string()
+                    title="BERLi".to_string()
                     description="STATE-OF-THE-ART IoT Platform".to_string()
-                    url="https://www.picuindusties.com".to_string()
+                    url="/projects/berli".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                    blank=false
                 >
                     <Icon width="1.3em" height="1.3em" icon=i::FaRustBrands />
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />

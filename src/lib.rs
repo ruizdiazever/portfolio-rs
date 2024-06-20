@@ -16,7 +16,9 @@ pub mod pages {
     pub mod home;
 
     pub mod projects {
+        pub mod aura;
         pub mod berli;
+        pub mod picu;
     }
 }
 
@@ -39,5 +41,8 @@ pub mod components {
 
     pub mod common {
         pub mod card;
+        pub mod link;
+        pub mod values;
+        pub mod working;
     }
 }

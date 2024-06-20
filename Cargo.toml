@@ -24,9 +24,9 @@ tracing = { version = "0.1", optional = true }
 http = "1"
 
 # Personal
-leptos_icons = "0.3.1"                                        # https://crates.io/crates/icondata
-icondata = "0.3.1"                                            # https://carloskiki.github.io/icondata/
-chrono = "0.4.38"                                             # https://crates.io/crates/chrono
+leptos_icons = "0.3.1"
+icondata = "0.3.1"
+chrono = "0.4.38"
 simple_logger = { version = "5.0.0", features = ["colored"] }
 serde = { version = "1.0.203", features = ["derive"] }
 log = "0.4.21"
