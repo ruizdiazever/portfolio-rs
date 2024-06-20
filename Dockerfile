@@ -18,6 +18,7 @@ COPY . .
 RUN echo "Exposing PORT.."
 RUN echo $PORT
 
+RUN npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
 RUN cargo leptos build --release -vv
 
 FROM rustlang/rust:nightly-alpine as runner

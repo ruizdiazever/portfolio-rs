@@ -37,7 +37,7 @@ pub fn LinkSimple(title: String, link: String, blank: bool) -> impl IntoView {
             <a
                 href={link}
                 target={linked}
-                class="inline-flex items-center hover:text-[#68b5fc] text-[#0074de] duration-200 hover:underline underline-offset-1 decoration-dashed decoration-[#57b1fc]">
+                class="group inline-flex items-center hover:text-[#68b5fc] text-[#0074de] duration-200 hover:underline underline-offset-4 decoration-dashed decoration-[#57b1fc]">
                     {title}
                     <Icon width="0.7em" height="0.7em" class="hover:text-[#68b5fc] text-[#0074de] duration-200 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
             </a>
@@ -47,7 +47,7 @@ pub fn LinkSimple(title: String, link: String, blank: bool) -> impl IntoView {
             <a
                 href={link}
                 target={linked}
-                class="hover:text-[#68b5fc] text-[#0074de] duration-200 hover:underline underline-offset-1 decoration-dashed decoration-[#57b1fc]">
+                class="hover:text-[#68b5fc] text-[#0074de] duration-200 hover:underline underline-offset-4 decoration-dashed decoration-[#57b1fc]">
                 {title}
             </a>
         }
