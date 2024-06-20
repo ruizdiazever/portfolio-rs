@@ -8,8 +8,8 @@ use leptos_icons::*;
 #[component]
 pub fn Picu() -> impl IntoView {
     // Project
-    let title = "Picu".to_string();
-    let subtitle = "A cutting-edge IoT platform powered by Rust".to_string();
+    let title = "Picu IoT".to_string();
+    let subtitle = "Cutting-edge IoT platform powered by Rust".to_string();
     let date = "Jun 18, 2024".to_string();
     let categories = vec![
         "Rust".to_string(),

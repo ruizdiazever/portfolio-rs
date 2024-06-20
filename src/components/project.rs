@@ -12,6 +12,14 @@ pub fn Project(
 ) -> impl IntoView {
     view! {
             <div class="text-gray-600">
+                <a
+                    href="/"
+                    class="mb-2 text-gray-600 duration-200
+                    group flex items-center gap-1"
+                >
+                    <Icon class="duration-150 group-hover:translate-x-[-2.5px]" width="1em" height="1em" icon=i::IoChevronBack />
+                    <p class="text-sm">BACK</p>
+                </a>
                 <h1 class="text-4xl text-gray-800 mb-2">{title}</h1>
                 <p>{subtitle}</p>
                 <div class="flex justify-between my-6">

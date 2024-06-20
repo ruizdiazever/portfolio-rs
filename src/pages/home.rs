@@ -57,7 +57,7 @@ pub fn Home() -> impl IntoView {
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
                 <Project
                     github=false
-                    title="Picu".to_string()
+                    title="Picu IoT".to_string()
                     description="Async Software Managment".to_string()
                     url="/projects/picu".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
@@ -67,7 +67,7 @@ pub fn Home() -> impl IntoView {
                 </Project>
                 <Project
                     github=false
-                    title="Aura".to_string()
+                    title="Aura Design".to_string()
                     description="Design Engineering Company".to_string()
                     url="/projects/aura".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
@@ -77,7 +77,7 @@ pub fn Home() -> impl IntoView {
                 </Project>
                 <Project
                     github=false
-                    title="BERLi".to_string()
+                    title="BERLi System".to_string()
                     description="STATE-OF-THE-ART IoT Platform".to_string()
                     url="/projects/berli".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()

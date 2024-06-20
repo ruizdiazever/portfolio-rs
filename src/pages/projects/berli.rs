@@ -6,8 +6,8 @@ use leptos::*;
 #[component]
 pub fn Berli() -> impl IntoView {
     // Project
-    let title = "BERLi".to_string();
-    let subtitle = "BERLi System is a async software managment".to_string();
+    let title = "BERLi System".to_string();
+    let subtitle = "Asynchronous enterprise software management".to_string();
     let date = "Jun 18, 2024".to_string();
 
     let categories = vec![
