@@ -14,11 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Run TailwindCSS
+        run: npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
+
       - uses: Swatinem/rust-cache@v2
+
       - run: rustup target add wasm32-unknown-unknown
+
       - name: Install Leptos
         run: cargo install --locked cargo-leptos
+
       - name: Build
         run: cargo-leptos build
+
       - name: Run tests
         run: cargo-leptos test
