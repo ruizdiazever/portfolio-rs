@@ -1,5 +1,6 @@
 use crate::components::common::values::Icon;
 use crate::components::home::{experience::Experience, project_card::Project};
+use crate::components::home::entry::Entry;
 use crate::layouts::layout::Layout;
 use leptos::*;
 
@@ -45,6 +46,18 @@ pub fn Home() -> impl IntoView {
         Icon::Docker.to_view(),
     ];
 
+    let categories_portfolio = vec![
+        "Project".to_string(),
+        "Rust".to_string(),
+        "Astro".to_string(),
+    ];
+
+    let categories_cookies = vec![
+        "GraphQL".to_string(),
+        "Rust".to_string(),
+        "Axum".to_string()
+    ];
+
     view! {
         <Layout>
             // Childrens
@@ -53,7 +66,7 @@ pub fn Home() -> impl IntoView {
                 <br/>
                 {SUB_DESCRIPTION}
             </p>
-            <h1 class="text-2xl mt-6">Projects</h1>
+            <h1 class="text-2xl font-medium mt-6">Projects</h1>
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
                 <Project
                     github=false
@@ -86,7 +99,27 @@ pub fn Home() -> impl IntoView {
                     {berli_icons}
                 </Project>
             </div>
-            <h1 class="text-2xl mt-6">Experience</h1>
+
+            // Blog
+            <h1 class="text-2xl font-medium mt-6">Blog</h1>
+            <Entry
+                title="Portfolio WASM".to_string()
+                description="My new portfolio WASM powered by Rust with Leptos".to_string()
+                uri="/blog/portfolio".to_string()
+                time=5
+                date="Jun 20, 2024".to_string()
+                categories=categories_portfolio
+            />
+            <Entry
+                title="Cookies with GraphQL in Rust".to_string()
+                description="Learn best practices and enhance the security of your GraphQL interface in Rust".to_string()
+                uri="/blog/portfolio".to_string()
+                time=5
+                date="Jun 20, 2024".to_string()
+                categories=categories_cookies
+            />
+
+            <h1 class="text-2xl font-medium mt-6">Experience</h1>
             <div class="relative flex flex-col gap-4">
                   <div class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10">
                     <Experience

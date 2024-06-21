@@ -37,6 +37,7 @@ pub mod components {
     pub mod home {
         pub mod experience;
         pub mod project_card;
+        pub mod entry;
     }
 
     pub mod common {

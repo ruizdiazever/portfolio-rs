@@ -11,8 +11,8 @@ pub fn Header() -> impl IntoView {
                 <div class="md:flex md:items-center md:gap-12">
                     <a href="/" class="flex items-center justify-center text-gray-900 hover:text-gray-950 duration-200">
                         <div class="block items-center justify-center">
-                            <p class="text-xl font-semibold">Ever Ruiz Diaz</p>
-                            <p class="text-md">Rust Developer</p>
+                            <p class="text-2xl font-semibold">Ever Ruiz Diaz</p>
+                            <p class="text-lg">Rust Developer</p>
                         </div>
                     </a>
                 </div>
