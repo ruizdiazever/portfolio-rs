@@ -13,7 +13,7 @@ pub fn Entry(
     categories: Vec<String>
 ) -> impl IntoView {
     view! {
-        <div class="flex flex-row items-center h-36 md:h-32 p-4 border border-gray-300
+        <div class="flex flex-row items-center h-auto md:h-36 lg:h-32  p-4 border border-gray-300
             hover:border-gray-400 transition duration-200 ease-out
             hover:ease-in rounded-md bg-white shadow-sm hover:shadow-md
             transition-shadow relative">
@@ -23,7 +23,7 @@ pub fn Entry(
                     <Link title={title} link={uri} blank={false}/>
                     <div class="flex items-center gap-2">
                         <Icon width="1em" height="1em" icon=i::AiClockCircleOutlined />
-                        <span class="text-sm text-muted-foreground">{time} min read</span>
+                        <span class="flex md:gap-1 text-sm text-muted-foreground">{time} min <span class="hidden md:block">read</span></span>
                     </div>
                 </div>
                 <p class="text-sm text-muted-foreground">
