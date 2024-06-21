@@ -6,7 +6,7 @@ use leptos_icons::*;
 pub fn Helpful() -> impl IntoView {
     view! {
         <div class="flex items-center mx-auto justify-center
-            p-2 w-[22rem] text-sm mt-10 gap-x-4
+            p-2 w-[22rem] text-sm mt-10 gap-x-4 bg-white
             shadow-sm rounded-full border border-gray-200 ">
           <p class="text-muted-foreground">Was this helpful?</p>
           <div class="flex items-center">

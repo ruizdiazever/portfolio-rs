@@ -212,7 +212,7 @@ impl Link {
                     link="https://www.nio.com/ep9".to_string()
                     blank=true
                 />
-            }
+            },
         }
     }
 }
