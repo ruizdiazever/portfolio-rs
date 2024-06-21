@@ -46,16 +46,29 @@ pub fn Home() -> impl IntoView {
         Icon::Docker.to_view(),
     ];
 
-    let categories_portfolio = vec![
-        "Project".to_string(),
-        "Rust".to_string(),
-        "Astro".to_string(),
+    let tags_post_portfolio = vec![
+        "graphql".to_string(),
+        "rust".to_string(),
+        "leptos".to_string(),
+        "wasm".to_string(),
+        "web".to_string(),
+        "webassembly".to_string(),
+        "axum".to_string(),
+        "tailwindcss".to_string(),
     ];
 
-    let categories_cookies = vec![
-        "GraphQL".to_string(),
-        "Rust".to_string(),
-        "Axum".to_string()
+    let tags_post_cookies = vec![
+        "graphql".to_string(),
+        "rust".to_string(),
+        "axum".to_string(),
+        "cookies".to_string(),
+        "security".to_string(),
+        "auth".to_string(),
+        "credentials".to_string(),
+        "async-graphql".to_string(),
+        "async-graphql".to_string(),
+        "backend".to_string(),
+        "api".to_string(),
     ];
 
     view! {
@@ -108,7 +121,7 @@ pub fn Home() -> impl IntoView {
                 uri="/blog/portfolio".to_string()
                 time=5
                 date="Jun 20, 2024".to_string()
-                categories=categories_portfolio
+                tags=tags_post_portfolio
             />
             <Entry
                 title="Cookies with GraphQL in Rust".to_string()
@@ -116,7 +129,7 @@ pub fn Home() -> impl IntoView {
                 uri="/blog/portfolio".to_string()
                 time=5
                 date="Jun 20, 2024".to_string()
-                categories=categories_cookies
+                tags=tags_post_cookies
             />
 
             <h1 class="text-2xl font-medium mt-6">Experience</h1>

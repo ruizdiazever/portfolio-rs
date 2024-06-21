@@ -123,6 +123,7 @@ pub enum Link {
     Apple,
     Leptos,
     Guille,
+    Nio
 }
 
 impl Link {
@@ -203,6 +204,12 @@ impl Link {
             Link::Apple => view! {
                 <LinkSimple title="Apple".to_string()
                     link="https://developer.apple.com/design/human-interface-guidelines/".to_string()
+                    blank=true
+                />
+            },
+            Link::Nio => view! {
+                <LinkSimple title="Nio".to_string()
+                    link="https://www.nio.com/ep9".to_string()
                     blank=true
                 />
             }

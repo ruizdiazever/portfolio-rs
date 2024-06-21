@@ -13,6 +13,7 @@ pub fn Working() -> impl IntoView {
     let link_apple = Link::Apple.to_view();
     let link_spacex = Link::SpaceX.to_view();
     let link_guille = Link::Guille.to_view();
+    let link_nio = Link::Nio.to_view();
 
     view! {
         // Very soon
@@ -26,7 +27,7 @@ pub fn Working() -> impl IntoView {
             This portfolio is more than just a collection of projects; it reflects my commitment to excellence and innovation in the tech industry.
         </p>
         <p class="text-gray-700">
-            Inspired by the achievements of {link_spacex}, {link_apple}, {link_nothing}, and {link_vercel}, with {link_guille} as a role model for Latinos in software development, I strive for top-tier standards.
+            Inspired by the achievements of {link_vercel}, {link_nio}, {link_spacex}, {link_apple}, and {link_nothing}, with {link_guille} as a role model for Latinos in software development, I strive for top-tier standards.
         </p>
         <p class="text-gray-700">
             Explore sections currently under development, exemplifying quality and precision.

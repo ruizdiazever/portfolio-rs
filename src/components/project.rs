@@ -1,6 +1,7 @@
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
+use crate::components::common::helpful::Helpful;
 
 #[component]
 pub fn Project(
@@ -41,6 +42,8 @@ pub fn Project(
                 </div>
                 <hr/>
                 <div class="mt-6 space-y-4">{children()}</div>
+
+                <Helpful/>
             </div>
     }
 }

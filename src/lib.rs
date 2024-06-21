@@ -45,5 +45,6 @@ pub mod components {
         pub mod link;
         pub mod values;
         pub mod working;
+        pub mod helpful;
     }
 }

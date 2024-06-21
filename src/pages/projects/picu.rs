@@ -77,17 +77,21 @@ pub fn Picu() -> impl IntoView {
                     <a href="#architecture">Architecture</a>
                 </h1>
                 <p class="text-gray-800">A simple schematic of the main API and some of the components around it</p>
-                <img
-                    class="w-auto rounded-lg mx-auto"
-                    src="/images/picu_arch.png"
-                    alt="Picu basic architecture diagram"
-                    width="64"
-                    height="64"
-                    href="/"
-                />
+
+                <div class="inset-0 -z-10 w-full bg-slate-50
+                border border-gray-300 rounded rounded-lg mx-auto shadow
+                bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
+                bg-[size:6rem_4rem]">
+                        <img
+                            class="w-full bg-transparent"
+                            src="/images/picu_arch.svg"
+                            alt="Picu basic architecture diagram"
+                            href="/"
+                        />
+                </div>
 
                 // Very soon
-                <h1 class="text-3xl text-gray-800 text-center">Very soon</h1>
+                <h1 class="text-3xl text-gray-800 text-center mt-3">Very soon</h1>
 
                 // Store
                 <h1 id="store" class="text-2xl text-gray-800">
