@@ -21,7 +21,7 @@ pub fn Link(title: String, link: String, blank: bool) -> impl IntoView {
             href={link}
             rel="noopener"
             target={linked}
-            class="text-gray-700 duration-200 hover:text-[#68b5fc] group flex items-center gap-1
+            class="text-gray-800 duration-200 hover:text-[#68b5fc] group flex items-center gap-1
             hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-[#68b5fc]"
         >
             <p class="text-md md:text-lg lg:text-xl font-medium">{title}</p>

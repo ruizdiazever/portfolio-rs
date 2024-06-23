@@ -26,7 +26,7 @@ pub fn ProjectCard(
                         {if github {
                             view! {
                                 <span>
-                                    <a href={repository} rel="noopener" target="_blank" class="absolute top-3 right-3 text-gray-700">
+                                    <a href={repository} rel="noopener" target="_blank" class="absolute top-3 right-3 text-gray-700 hover:text-[#68b5fc]">
                                         <Icon width="1.2em" height="1.2em" icon=i::FaGithubBrands />
                                     </a>
                                 </span>

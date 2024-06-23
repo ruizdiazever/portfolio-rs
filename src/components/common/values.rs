@@ -26,82 +26,82 @@ impl Icon {
     pub fn to_view(&self) -> impl IntoView {
         match self {
             Icon::Rust => view! {
-                <a title="Rust" href="https://astro.build/" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Rust" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiRust />
                 </a>
             },
             Icon::Leptos => view! {
-                <a href="https://astro.build/" title="ExpressIf" rel="noopener" target="_blank">
+                <a title="ExpressIf" href="https://astro.build/" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiEspressif />
                 </a>
             },
             Icon::Axum => view! {
-                <a title="Axum" href="https://github.com/tokio-rs/axum"  rel="noopener" target="_blank">
+                <a href="https://github.com/tokio-rs/axum" title="Axum" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiRust />
                 </a>
             },
             Icon::Astro => view! {
-                <a title="Astro" href="https://astro.build/" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Astro" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiAstro />
                 </a>
             },
             Icon::Svelte => view! {
-                <a href="https://svelte.dev/" title="Svelte" rel="noopener" target="_blank">
+                <a href="https://svelte.dev/" title="Svelte" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiSvelte />
                 </a>
             },
             Icon::PostgreSQL => view! {
-                <a href="https://astro.build/" title="PostgreSQL" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="PostgreSQL" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::BiPostgresql />
                 </a>
             },
             Icon::InfluxDB => view! {
-                <a href="https://www.influxdata.com/" title="InfluxDB" rel="noopener" target="_blank">
+                <a href="https://www.influxdata.com/" title="InfluxDB" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiInfluxdb />
                 </a>
             },
             Icon::TailwindCSS => view! {
-                <a href="https://astro.build/" title="TailwindCSS" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="TailwindCSS" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiTailwindcss />
                 </a>
             },
             Icon::Flutter => view! {
-                <a href="https://astro.build/" title="Flutter" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Flutter" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiFlutter />
                 </a>
             },
             Icon::ExpressIf => view! {
-                <a href="https://astro.build/" title="ExpressIf" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="ExpressIf" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiEspressif />
                 </a>
             },
             Icon::Vercel => view! {
-                <a href="https://astro.build/" title="Vercel" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Vercel" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiVercel />
                 </a>
             },
             Icon::Docker => view! {
-                <a href="https://astro.build/" title="Docker" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Docker" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiDocker />
                 </a>
             },
             Icon::Kubernetes => view! {
-                <a href="https://astro.build/" title="Kubernetes" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Kubernetes" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiKubernetes />
                 </a>
             },
             Icon::Linux => view! {
-                <a href="https://astro.build/" title="GNU/Linux" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="GNU/Linux" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiLinux />
                 </a>
             },
             Icon::Python => view! {
-                <a href="https://astro.build/" title="Python" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Python" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiPython />
                 </a>
             },
             Icon::Grafana => view! {
-                <a href="https://astro.build/" title="Grafana" rel="noopener" target="_blank">
+                <a href="https://astro.build/" title="Grafana" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiGrafana />
                 </a>
             },
@@ -123,7 +123,7 @@ pub enum Link {
     Apple,
     Leptos,
     Guille,
-    Nio
+    Nio,
 }
 
 impl Link {
