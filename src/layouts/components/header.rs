@@ -8,13 +8,13 @@ pub fn Header() -> impl IntoView {
         <header class="flex items-center justify-between max-w-screen-md mx-auto
         mt-6 sticky top-0 backdrop-blur-lg z-50 antialiased
         px-6 sm:px-6 lg:px-8">
-          <div class="flex flex-col items-start gap-1">
+          <a href="/" class="flex flex-col items-start gap-1">
             <div class="text-2xl font-semibold">Ever Ruiz Diaz</div>
             <div class="text-muted-foreground text-md text-gray-600">Rust Developer</div>
-          </div>
+          </a>
           <div class="flex items-center gap-2">
             <button
-                class="text-gray-700 hover:text-[#68b5fc]
+                class="inline-flex items-center justify-center w-8 h-8 text-gray-700 hover:text-[#68b5fc]
                 rounded-md transition duration-200
                 bg-muted focus:outline-none focus:ring-1 focus:ring-ring"
                 size="icon"
