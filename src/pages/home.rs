@@ -1,6 +1,7 @@
 use crate::components::common::values::Icon;
-use crate::components::home::{experience::Experience, project_card::Project};
 use crate::components::home::entry::Entry;
+use crate::components::home::experience::Experience;
+use crate::components::project::card::ProjectCard;
 use crate::layouts::layout::Layout;
 use leptos::*;
 
@@ -81,8 +82,8 @@ pub fn Home() -> impl IntoView {
             </p>
             <h1 class="text-2xl font-medium mt-6">Projects</h1>
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
-                <Project
-                    github=false
+                <ProjectCard
+                    github=true
                     title="Picu IoT".to_string()
                     description="Async Software Managment".to_string()
                     url="/projects/picu".to_string()
@@ -90,8 +91,8 @@ pub fn Home() -> impl IntoView {
                     blank=false
                 >
                     {picu_icons}
-                </Project>
-                <Project
+                </ProjectCard>
+                <ProjectCard
                     github=false
                     title="Aura Design".to_string()
                     description="Design Engineering Company".to_string()
@@ -100,8 +101,8 @@ pub fn Home() -> impl IntoView {
                     blank=false
                 >
                     {aura_icons}
-                </Project>
-                <Project
+                </ProjectCard>
+                <ProjectCard
                     github=false
                     title="BERLi System".to_string()
                     description="STATE-OF-THE-ART IoT Platform".to_string()
@@ -110,7 +111,7 @@ pub fn Home() -> impl IntoView {
                     blank=false
                 >
                     {berli_icons}
-                </Project>
+                </ProjectCard>
             </div>
 
             // Blog

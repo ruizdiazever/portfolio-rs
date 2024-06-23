@@ -6,7 +6,6 @@ async fn main() {
     use leptos_axum::{generate_route_list, LeptosRoutes};
     use portfolio::app::*;
     use portfolio::fileserv::file_and_error_handler;
-    use portfolio::db::initialize_states;
 
     simple_logger::SimpleLogger::new()
         .env()
@@ -32,9 +31,6 @@ async fn main() {
         port,
     );
     let routes = generate_route_list(App);
-
-    // TiKV
-    initialize_states().await.unwrap();
 
     // build our application with a route
     let app = Router::new()

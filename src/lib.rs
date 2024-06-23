@@ -1,6 +1,5 @@
 pub mod app;
 pub mod error_template;
-pub mod db;
 
 #[cfg(feature = "ssr")]
 pub mod fileserv;
@@ -20,10 +19,12 @@ pub mod pages {
         pub mod aura;
         pub mod berli;
         pub mod picu;
+        pub mod test;
     }
 }
 
 pub mod layouts {
+    pub mod clean;
     pub mod layout;
 
     pub mod components {
@@ -33,19 +34,21 @@ pub mod layouts {
 }
 
 pub mod components {
-    pub mod project;
+    pub mod project {
+        pub mod card;
+        pub mod project;
+    }
 
     pub mod home {
-        pub mod experience;
-        pub mod project_card;
         pub mod entry;
+        pub mod experience;
     }
 
     pub mod common {
         pub mod card;
+        pub mod helpful;
         pub mod link;
         pub mod values;
         pub mod working;
-        pub mod helpful;
     }
 }

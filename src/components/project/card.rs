@@ -4,7 +4,7 @@ use leptos::*;
 use leptos_icons::*;
 
 #[component]
-pub fn Project(
+pub fn ProjectCard(
     children: Children,
     title: String,
     description: String,

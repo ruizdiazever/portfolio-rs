@@ -1,5 +1,5 @@
 use crate::components::common::values::Link;
-use crate::components::project::Project;
+use crate::components::project::project::Project;
 use crate::layouts::layout::Layout;
 use icondata as i;
 use leptos::*;
