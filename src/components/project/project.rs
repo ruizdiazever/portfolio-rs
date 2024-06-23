@@ -14,7 +14,7 @@ pub fn Project(
     view! {
             <div class="relative">
                 <div class="fixed bottom-4 left-1/2 -translate-x-1/2
-                    md:top-8 md:left-8 md:ml-10">
+                    lg:top-8 lg:left-8 lg:ml-10">
                     <a
                         href="/"
                         class="group inline-flex h-10 items-center justify-center
