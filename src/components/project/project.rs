@@ -36,7 +36,7 @@ pub fn Project(
                         </div>
                     </div>
                     <div class="space-y-2 not-prose">
-                        <p>{subtitle}</p>
+                        <p class="text-md lg:text-lg">{subtitle}</p>
                         <div class="flex justify-left items-center text-sm text-gray-600 space-x-4">
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::OcEyeSm />
