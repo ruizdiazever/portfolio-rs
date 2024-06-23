@@ -36,7 +36,6 @@ pub fn ProjectCard(
                                 <span/>
                             }
                         }}
-
                     </div>
                     <p class="text-sm text-gray-600 truncate ...">{description.clone()}</p>
                     <div class="flex gap-4 mt-1">
