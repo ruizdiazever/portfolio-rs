@@ -9,32 +9,32 @@ name = "portfolio"
 path = "src/lib.rs"
 
 [dependencies]
-axum = { version = "0.7", optional = true }
+axum = { version = "0.7.5", optional = true }
 console_error_panic_hook = "0.1"
-leptos = { version = "0.6", features = ["nightly", "tracing"] }
-leptos_axum = { version = "0.6", optional = true }
-leptos_meta = { version = "0.6", features = ["nightly"] }
-leptos_router = { version = "0.6", features = ["nightly"] }
-tokio = { version = "1", features = ["full"], optional = true }
+leptos = { version = "0.6.14", features = ["nightly", "tracing"] }
+leptos_axum = { version = "0.6.14", optional = true }
+leptos_meta = { version = "0.6.14", features = ["nightly"] }
+leptos_router = { version = "0.6.14", features = ["nightly"] }
+tokio = { version = "1.40.0", features = ["full"], optional = true }
 tower = { version = "0.4", optional = true }
 tower-http = { version = "0.5", features = ["fs"], optional = true }
-wasm-bindgen = "=0.2.92"
-thiserror = "1"
+wasm-bindgen = "0.2.93"
+thiserror = "1.0.63"
 tracing = { version = "0.1", optional = true }
 http = "1"
 
 
 # Personal
 leptos_icons = "0.3.1"
-icondata = "0.3.1"
+icondata = "0.4.0"
 chrono = "0.4.38"
 simple_logger = { version = "5.0.0", features = ["colored"] }
-serde = { version = "1.0.203", features = ["derive"] }
-log = "0.4.21"
+serde = { version = "1.0.209", features = ["derive"] }
+log = "0.4.22"
 cfg-if = "1.0.0"
-reqwest = { version = "0.11.23", features = ["json"] }
-serde_json = "1.0.116"
-uuid = { version = "1.8.0", features = ["v4", "serde"] }
+reqwest = { version = "0.12.7", features = ["json"] }
+serde_json = "1.0.127"
+uuid = { version = "1.10.0", features = ["v4", "serde"] }
 
 
 [features]
@@ -79,7 +79,7 @@ style-file = "style/output.css"
 assets-dir = "public"
 
 # The IP and port (ex: 127.0.0.1:3000) where the server serves the content. Use it in your server setup.
-site-addr = "127.0.0.1:3000"
+site-addr = "127.0.0.1:3002"
 
 # The port to use for automatic reload monitoring
 reload-port = 3001
