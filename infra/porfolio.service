@@ -1,0 +1,14 @@
+[Unit]
+Description=Portfolio WASM
+After=network.target
+Requires=docker.service
+
+[Service]
+User=root
+Group=root
+Restart=always
+WorkingDirectory=/opt/portfolio
+ExecStart=/opt/portfolio/target/release/portfolio
+
+[Install]
+WantedBy=multi-user.target
