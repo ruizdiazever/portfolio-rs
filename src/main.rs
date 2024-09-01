@@ -21,15 +21,6 @@ async fn main() {
     // The file would need to be included with the executable when moved to deployment
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
-
-    let port = std::env::var("PORT")
-        .ok()
-        .and_then(|p| p.parse::<u16>().ok())
-        .unwrap_or(3000);
-    let addr = std::net::SocketAddr::new(
-        std::net::IpAddr::V4(std::net::Ipv4Addr::new(0, 0, 0, 0)),
-        port,
-    );
     let routes = generate_route_list(App);
 
     // build our application with a route
@@ -38,8 +29,11 @@ async fn main() {
         .fallback(file_and_error_handler)
         .with_state(leptos_options);
 
+    let addr = std::env::var("LEPTOS_SITE_ADDR").unwrap();
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    logging::log!("listening on http://{}", &addr);
+
+    logging::log!("Listening on http://{}", &addr);
+
     axum::serve(listener, app.into_make_service())
         .await
         .unwrap();
