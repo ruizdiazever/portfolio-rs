@@ -16,14 +16,14 @@ exit_code=$?
 echo "3) Exit code of Portfolio WASM build: $exit_code"
 
 # Remove the berli-core folder
-sudo rm -rf /opt/portfolio
+sudo rm -rf /opt/portfolio-rs
 exit_code=$?
-echo "4) Exit code of 'sudo rm -rf /opt/portfolio': $exit_code"
+echo "4) Exit code of 'sudo rm -rf /opt/portfolio-rs': $exit_code"
 
 # Copy the berli-core folder to /opt/berli
-sudo cp -r ../portfolio /opt
+sudo cp -r ../portfolio-rs /opt
 exit_code=$?
-echo "5) Exit code of 'sudo cp -r ../portfolio /opt': $exit_code"
+echo "5) Exit code of 'sudo cp -r ../portfolio-rs /opt': $exit_code"
 
 # Start the berli service
 sudo systemctl start portfolio

@@ -7,8 +7,8 @@ Requires=docker.service
 User=root
 Group=root
 Restart=always
-WorkingDirectory=/opt/portfolio
-ExecStart=/opt/portfolio/target/release/portfolio
+WorkingDirectory=/opt/portfolio-rs
+ExecStart=/opt/portfolio-rs/target/release/portfolio
 
 [Install]
 WantedBy=multi-user.target
