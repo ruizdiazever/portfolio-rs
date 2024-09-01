@@ -11,8 +11,15 @@ RUN tar -xvf cargo-binstall-x86_64-unknown-linux-musl.tgz
 RUN cp cargo-binstall /usr/local/cargo/bin
 
 # Dependencies
-RUN apk update && \
-    apk add --no-cache bash curl npm libc-dev binaryen
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    bash \
+    curl \
+    npm \
+    libc-dev \
+    binaryen && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 RUN npm install -g sass tailwindcss
 
 # Install cargo-leptos
