@@ -4,7 +4,6 @@
 
 Portfolio WASM powered by Rust with Leptos and Axum
 
-
 ## Powered by ⚡️
 
 - [Rust](https://www.rust-lang.org/): most powerfull language in solar system.
@@ -35,4 +34,13 @@ LEPTOS_RELOAD_PORT="3001"
 
 REDIS_PASSWORD=
 REDIS_URL=
+```
+
+## Run
+```bash
+rustup toolchain install nightly
+rustup default nightly
+cargo install cargo-leptos
+rustup target add wasm32-unknown-unknown
+cargo leptos watch
 ```
