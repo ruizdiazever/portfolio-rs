@@ -1,0 +1,68 @@
+{
+  "portfolio": [
+    "GraphQL",
+    "Rust",
+    "Leptos",
+    "Web",
+    "WebAssembly",
+    "WASM",
+    "Axum",
+    "TailwindCSS"
+  ],
+  "cookies": [
+    "GraphQL",
+    "Rust",
+    "Axum",
+    "cookies",
+    "security",
+    "auth",
+    "credentials",
+    "async-graphql",
+    "async-graphql",
+    "backend",
+    "api"
+  ],
+  "picu": [
+    "GraphQL",
+    "Rust",
+    "Axum",
+    "IoT",
+    "security",
+    "auth",
+    "credentials",
+    "async-graphql",
+    "backend",
+    "api",
+    "project"
+  ],
+  "aura": [
+    "GraphQL",
+    "Rust",
+    "Axum",
+    "IoT",
+    "security",
+    "auth",
+    "credentials",
+    "async-graphql",
+    "backend",
+    "api",
+    "project",
+    "design"
+  ],
+  "berli": [
+    "GraphQL",
+    "Rust",
+    "Axum",
+    "IoT",
+    "security",
+    "auth",
+    "credentials",
+    "async-graphql",
+    "backend",
+    "api",
+    "project",
+    "design",
+    "system",
+    "BERLi"
+  ]
+}

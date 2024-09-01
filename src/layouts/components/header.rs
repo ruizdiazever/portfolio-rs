@@ -13,18 +13,20 @@ pub fn Header() -> impl IntoView {
             <div class="text-muted-foreground text-md text-gray-600">Rust Developer</div>
           </a>
           <div class="flex items-center gap-2">
-            <button
-                class="inline-flex items-center justify-center w-8 h-8 text-gray-700 hover:text-[#68b5fc]
-                rounded-md transition duration-200
-                bg-muted focus:outline-none focus:ring-1 focus:ring-ring"
-                size="icon"
-            >
-              <Icon class="h-5 w-5" icon=i::CgSearch />
-              <span class="sr-only">Search</span>
-            </button>
-            <Icon class="h-5 w-5 transform rotate-90 text-gray-500" icon=i::AiMinusOutlined />
+            // Search
+            // <button
+            //     class="inline-flex items-center justify-center w-8 h-8 text-gray-700 hover:text-[#68b5fc]
+            //     rounded-md transition duration-200
+            //     bg-muted focus:outline-none focus:ring-1 focus:ring-ring"
+            //     size="icon"
+            // >
+            //   <Icon class="h-5 w-5" icon=i::CgSearch />
+            //   <span class="sr-only">Search</span>
+            // </button>
+            // <Icon class="h-5 w-5 transform rotate-90 text-gray-500" icon=i::AiMinusOutlined />
+            // Linkedin
             <a
-                href="https://www.linkedin.com/" rel="noopener" target="_blank"
+                href="https://www.linkedin.com/in/everdev/" rel="noopener" target="_blank"
                 class="inline-flex items-center justify-center text-gray-700 hover:text-[#68b5fc]
                 w-8 h-8 rounded-md text-sm font-medium transition hover:bg-gray-100
                 bg-muted focus:outline-none focus:ring-1 focus:ring-ring duration-200"
@@ -32,8 +34,9 @@ pub fn Header() -> impl IntoView {
               <Icon class="h-5 w-5" icon=i::BsLinkedin />
               <span class="sr-only">LinkedIn</span>
             </a>
+            // GitHub
             <a
-                href="https://www.linkedin.com/" rel="noopener" target="_blank"
+                href="https://github.com/ruizdiazever" rel="noopener" target="_blank"
                 class="inline-flex items-center justify-center text-gray-700 hover:text-[#68b5fc]
                 w-8 h-8 rounded-md text-sm font-medium transition hover:bg-gray-100
                 bg-muted focus:outline-none focus:ring-1 focus:ring-ring duration-200"

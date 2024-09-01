@@ -21,6 +21,16 @@ pub mod pages {
         pub mod picu;
         pub mod test;
     }
+
+    pub mod blog {
+        pub mod cookies;
+        pub mod portfolio;
+    }
+}
+
+pub mod common {
+    pub mod json;
+    pub mod req;
 }
 
 pub mod layouts {

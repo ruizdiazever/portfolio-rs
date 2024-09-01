@@ -1,3 +1,4 @@
+use crate::common::json::get_vector_from_json_file;
 use crate::components::common::values::Icon;
 use crate::components::home::entry::Entry;
 use crate::components::home::experience::Experience;
@@ -6,10 +7,9 @@ use crate::layouts::layout::Layout;
 use leptos::*;
 
 const DESCRIPTION: &str =
-    "I'm Ever, a software developer based in Italy with +3 years of experience.";
+    "I'm Ever, a Software Developer with +4 years of experience crafting innovation.";
 
-const SUB_DESCRIPTION: &str = "I'm passionate about science, state-of-the-art tech, design
-and development.";
+const SUB_DESCRIPTION: &str = "I'm fueled by a passion for merging cutting-edge tech, design and science to create immersive experiences that push the boundaries.";
 
 #[component]
 pub fn Home() -> impl IntoView {
@@ -47,30 +47,8 @@ pub fn Home() -> impl IntoView {
         Icon::Docker.to_view(),
     ];
 
-    let tags_post_portfolio = vec![
-        "graphql".to_string(),
-        "rust".to_string(),
-        "leptos".to_string(),
-        "wasm".to_string(),
-        "web".to_string(),
-        "webassembly".to_string(),
-        "axum".to_string(),
-        "tailwindcss".to_string(),
-    ];
-
-    let tags_post_cookies = vec![
-        "graphql".to_string(),
-        "rust".to_string(),
-        "axum".to_string(),
-        "cookies".to_string(),
-        "security".to_string(),
-        "auth".to_string(),
-        "credentials".to_string(),
-        "async-graphql".to_string(),
-        "async-graphql".to_string(),
-        "backend".to_string(),
-        "api".to_string(),
-    ];
+    let tags_post_cookies = get_vector_from_json_file("cookies");
+    let tags_porfolio = get_vector_from_json_file("portfolio");
 
     view! {
         <Layout>
@@ -85,7 +63,7 @@ pub fn Home() -> impl IntoView {
                 <ProjectCard
                     github=true
                     title="Picu IoT".to_string()
-                    description="Async Software Managment".to_string()
+                    description="STATE-OF-THE-ART IoT Platform".to_string()
                     url="/projects/picu".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
                     blank=false
@@ -105,7 +83,7 @@ pub fn Home() -> impl IntoView {
                 <ProjectCard
                     github=false
                     title="BERLi System".to_string()
-                    description="STATE-OF-THE-ART IoT Platform".to_string()
+                    description="Async Software Managment".to_string()
                     url="/projects/berli".to_string()
                     repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
                     blank=false
@@ -117,16 +95,18 @@ pub fn Home() -> impl IntoView {
             // Blog
             <h1 class="text-2xl font-medium mt-6">Blog</h1>
             <Entry
+                id="9a5f3584-5a8a-4c22-8460-2d775d54d89b".to_string()
                 title="Portfolio WASM".to_string()
-                description="My new portfolio WASM powered by Rust with Leptos".to_string()
+                description="My new portfolio WASM, a history of performance and love powered by Rust with Leptos".to_string()
                 uri="/blog/portfolio".to_string()
                 time=5
                 date="Jun 20, 2024".to_string()
-                tags=tags_post_portfolio
+                tags=tags_porfolio
             />
             <Entry
-                title="Cookies with GraphQL in Rust".to_string()
-                description="Learn best practices and enhance the security of your GraphQL interface in Rust".to_string()
+                id="f7583be4-ebf7-48a9-928d-5a058f0aabd9".to_string()
+                title="Refresh/access token with Rust".to_string()
+                description="Learn best practices and enhance the security of your Axum and GraphQL API in Rust".to_string()
                 uri="/blog/portfolio".to_string()
                 time=5
                 date="Jun 20, 2024".to_string()

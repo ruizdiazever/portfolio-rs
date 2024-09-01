@@ -1,3 +1,5 @@
+use crate::common::json::get_vector_from_json_file;
+use crate::common::req::post_visit_request;
 use crate::components::common::helpful::Helpful;
 use icondata as i;
 use leptos::*;
@@ -5,12 +7,20 @@ use leptos_icons::*;
 
 #[component]
 pub fn Project(
+    id: String,
     title: String,
     subtitle: String,
-    categories: Vec<String>,
+    tags_key: &'static str,
     date: String,
     children: Children,
 ) -> impl IntoView {
+    let tags_post = get_vector_from_json_file(tags_key);
+
+    let views = create_resource(
+        move || id.clone(),
+        |id| async { post_visit_request(id).await },
+    );
+
     view! {
             <div class="relative">
                 <div class="fixed bottom-4 left-1/2 -translate-x-1/2
@@ -40,28 +50,21 @@ pub fn Project(
                         <div class="flex justify-left items-center text-sm text-gray-600 space-x-4">
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::OcEyeSm />
-                                157.k views
+                                <Suspense fallback=move || view! {<p>"Loading.."</p> }>
+                                    <ErrorBoundary fallback=|_| {view! {<p>"0"</p>}}>
+                                        { move || { views.get()} }
+                                    </ErrorBoundary>
+                                </Suspense>
+                                views
                             </section>
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::BsTag />
-                                20 Tags
+                                {tags_post.len()} Tags
                             </section>
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::AiClockCircleOutlined />
                                 {date}
                             </section>
-                        </div>
-                        <div class="flex justify-between">
-                            <div class="flex gap-1 mt-1">
-                                {categories.iter().map(|category| {
-                                    view! {
-                                        <span class="flex items-center justify-center whitespace-nowrap
-                                        rounded-lg bg-gray-100 border border-gray-300 h-6 px-2.5 py-1 text-sm text-gray-700">
-                                            {category}
-                                        </span>
-                                    }
-                                }).collect::<Vec<_>>()}
-                            </div>
                         </div>
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />

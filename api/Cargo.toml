@@ -1,0 +1,33 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.5", features = ["macros", "tower-log"] }
+tokio = { version = "1.37.0", features = ["full"] }
+redis = { version = "0.24.0", features = ["tokio-comp"] }
+dotenvy = "0.15.7"
+
+# Axum builds on the types in Tower
+tower = { version = "0.4.13", features = ["timeout"] }
+tower-http = { version = "0.5.2", features = ["trace", "cors"] }
+
+# Utilities
+reqwest = { version = "0.11.23", features = ["json"] }
+serde = { version = "1.0.200", features = ["derive"] }
+serde_json = "1.0.116"
+uuid = { version = "1.8.0", features = ["v4", "serde"] }
+
+# Logger
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "std"] }
+
+# Handler error
+thiserror = "1.0.59"
+anyhow = "1.0.82"
+
+
+[lib]
+name = "api"
+path = "src/lib.rs"

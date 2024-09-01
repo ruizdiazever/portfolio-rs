@@ -1,17 +1,24 @@
+use crate::common::req::get_visit_request;
+use crate::components::common::link::Link;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
-use crate::components::common::link::Link;
 
 #[component]
 pub fn Entry(
+    id: String,
     title: String,
     description: String,
     uri: String,
     time: u8,
     date: String,
-    tags: Vec<String>
+    tags: Vec<String>,
 ) -> impl IntoView {
+    let views = create_resource(
+        move || id.clone(),
+        |id| async { get_visit_request(id).await },
+    );
+
     view! {
         <div class="relative flex flex-wrap flex-row items-center h-auto md:h-36 lg:h-32  p-4 border border-gray-300
             hover:border-gray-400 transition duration-200 hover:ease-in
@@ -32,7 +39,12 @@ pub fn Entry(
                 <div class="flex justify-left items-center mt-2 text-sm text-gray-600 space-x-4">
                     <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                         <Icon icon=i::OcEyeSm />
-                        157.k views
+                        <Suspense fallback=move || view! {<p>"Loading.."</p> }>
+                            <ErrorBoundary fallback=|_| {view! {<p>"0"</p>}}>
+                                { move || { views.get()} }
+                            </ErrorBoundary>
+                        </Suspense>
+                        views
                     </section>
                     <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                         <Icon icon=i::BsTag />

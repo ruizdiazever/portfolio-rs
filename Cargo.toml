@@ -23,6 +23,7 @@ thiserror = "1"
 tracing = { version = "0.1", optional = true }
 http = "1"
 
+
 # Personal
 leptos_icons = "0.3.1"
 icondata = "0.3.1"
@@ -31,6 +32,9 @@ simple_logger = { version = "5.0.0", features = ["colored"] }
 serde = { version = "1.0.203", features = ["derive"] }
 log = "0.4.21"
 cfg-if = "1.0.0"
+reqwest = { version = "0.11.23", features = ["json"] }
+serde_json = "1.0.116"
+uuid = { version = "1.8.0", features = ["v4", "serde"] }
 
 
 [features]
