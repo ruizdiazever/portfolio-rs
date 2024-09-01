@@ -2,7 +2,7 @@
 FROM rustlang/rust:nightly-alpine as builder
 
 RUN apk update && \
-    apk add --no-cache bash curl npm libc-dev binaryen
+    apk add --no-cache bash curl npm libc-dev binaryen pkgconfig openssl-dev gcc
 
 RUN npm install -g sass tailwindcss
 
@@ -18,7 +18,6 @@ COPY . .
 RUN npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
 
 RUN cargo update
-RUN cargo install cargo-leptos
 RUN cargo leptos build --release -vv
 
 FROM rustlang/rust:nightly-alpine as runner
