@@ -2,12 +2,11 @@
 FROM rustlang/rust:nightly-alpine as builder
 
 RUN apk update && \
-    apk add --no-cache bash curl npm libc-dev binaryen
-# protoc openssl-dev protobuf-dev gcc git g++ libc-dev make binaryen
+    apk add --no-cache bash curl npm libc-dev binaryen protoc openssl-dev protobuf-dev gcc git g++ libc-dev make binaryen
 
 RUN npm install -g sass tailwindcss
 
-RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/leptos-rs/cargo-leptos/releases/download/v0.2.17/cargo-leptos-installer.sh | sh
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/leptos-rs/cargo-leptos/releases/download/v0.2.20/cargo-leptos-installer.sh | sh
 
 # Add the WASM target
 RUN rustup target add wasm32-unknown-unknown
@@ -19,6 +18,7 @@ RUN echo "Exposing PORT.."
 RUN echo $PORT
 
 RUN npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
+RUN npx update-browserslist-db@latest
 RUN cargo leptos build --release -vv
 
 FROM rustlang/rust:nightly-alpine as runner

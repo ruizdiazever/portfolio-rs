@@ -1,104 +1,61 @@
 services:
-  pd1:
-    image: pingcap/pd:latest
-    container_name: pd1
-    ports:
-      - "2379:2379"
-      - "2380:2380"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/pd1:/data
-    command:
-      - --name=pd1
-      - --data-dir=/data/pd1
-      - --client-urls=http://0.0.0.0:2379
-      - --advertise-client-urls=http://pd1:2379
-      - --peer-urls=http://0.0.0.0:2380
-      - --advertise-peer-urls=http://pd1:2380
-      - --initial-cluster=pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380
-  pd2:
-    image: pingcap/pd:latest
-    container_name: pd2
-    ports:
-      - "2381:2379"
-      - "2382:2380"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/pd2:/data
-    command:
-      - --name=pd2
-      - --data-dir=/data/pd2
-      - --client-urls=http://0.0.0.0:2379
-      - --advertise-client-urls=http://pd2:2379
-      - --peer-urls=http://0.0.0.0:2380
-      - --advertise-peer-urls=http://pd2:2380
-      - --initial-cluster=pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380
-  pd3:
-    image: pingcap/pd:latest
-    container_name: pd3
-    ports:
-      - "2383:2379"
-      - "2384:2380"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/pd3:/data
-    command:
-      - --name=pd3
-      - --data-dir=/data/pd3
-      - --client-urls=http://0.0.0.0:2379
-      - --advertise-client-urls=http://pd3:2379
-      - --peer-urls=http://0.0.0.0:2380
-      - --advertise-peer-urls=http://pd3:2380
-      - --initial-cluster=pd1=http://pd1:2380,pd2=http://pd2:2380,pd3=http://pd3:2380
-  tikv1:
-    image: pingcap/tikv:latest
-    container_name: tikv1
-    ports:
-      - "20160:20160"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/tikv1:/data
-    command:
-      - --pd-endpoints=http://pd1:2379,http://pd2:2379,http://pd3:2379
-      - --addr=0.0.0.0:20160
-      - --advertise-addr=tikv1:20160
-      - --data-dir=/data/tikv1
-  tikv2:
-    image: pingcap/tikv:latest
-    container_name: tikv2
-    ports:
-      - "20161:20160"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/tikv2:/data
-    command:
-      - --pd-endpoints=http://pd1:2379,http://pd2:2379,http://pd3:2379
-      - --addr=0.0.0.0:20160
-      - --advertise-addr=tikv2:20160
-      - --data-dir=/data/tikv2
-  tikv3:
-    image: pingcap/tikv:latest
-    container_name: tikv3
-    ports:
-      - "20162:20160"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./data/tikv3:/data
-    command:
-      - --pd-endpoints=http://pd1:2379,http://pd2:2379,http://pd3:2379
-      - --addr=0.0.0.0:20160
-      - --advertise-addr=tikv3:20160
-      - --data-dir=/data/tikv3
-  client:
-    container_name: portfolio_rs
+  site:
+    container_name: portfolio_site
     build:
-      dockerfile: ./Dockerfile
-    restart: always
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
-      - 3000:3000
+      - "3003:3003"
+  redis:
+    image: redis:alpine
+    container_name: portfolio_redis
+    restart: always
+    env_file:
+      - .env
     environment:
-      - LEPTOS_OUTPUT_NAME=portfolio
-      - LEPTOS_SITE_ROOT=site"
-      - LEPTOS_SITE_PKG_DIR=pkg
-      - LEPTOS_SITE_ADDR=127.0.0.1:3000
-      - LEPTOS_RELOAD_PORT=3001
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    command:
+      [
+        "redis-server",
+        "--requirepass",
+        "${REDIS_PASSWORD}",
+        "--appendonly",
+        "yes",
+      ]
+    ports:
+      - "6381:6379"
+    security_opt:
+      - no-new-privileges
+    # To prevent denial of service attacks
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+    networks:
+      - portfolio_db_net
+    volumes:
+      - redis_data:/data
+  psql:
+    image: postgres:latest
+    container_name: portfolio_psql
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=ever
+      - POSTGRES_DB=portfolio
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - portfolio_db_net
+    user: postgres
+volumes:
+  psql_data:
+  redis_data:
+
+networks:
+  portfolio_db_net:
