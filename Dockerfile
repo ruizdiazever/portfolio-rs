@@ -18,7 +18,6 @@ RUN echo "Exposing PORT.."
 RUN echo $PORT
 
 RUN npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
-RUN npx update-browserslist-db@latest
 RUN cargo leptos build --release -vv
 
 FROM rustlang/rust:nightly-alpine as runner
