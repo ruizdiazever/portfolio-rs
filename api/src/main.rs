@@ -19,7 +19,6 @@ async fn main() -> anyhow::Result<()> {
     let redis_client = match redis::Client::open(&*redis_url) {
         Ok(client) => {
             info!("RedisDB connection was successful!");
-            info!("RedisDB URL: {}", redis_url);
             client
         }
         Err(e) => {

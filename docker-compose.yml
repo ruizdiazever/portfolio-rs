@@ -1,4 +1,11 @@
 services:
+  api:
+    image: rustlang/rust:nightly-alpine
+    container_name: portfolio_api
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    command: ["cargo", "run", "--release"]
   site:
     container_name: portfolio_site
     build:
