@@ -20,7 +20,7 @@ RUN apt-get update && \
     binaryen && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-RUN npm install -g sass tailwindcss
+RUN npm install -g sass tailwindcss postcss autoprefixer
 
 # Install cargo-leptos
 RUN cargo binstall cargo-leptos -y
@@ -34,7 +34,7 @@ WORKDIR /app
 COPY . .
 
 # TailwindCSS
-RUN npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
+RUN npx tailwindcss@latest -i ./style/tailwind.css -o ./style/output.css
 
 # Build the app
 RUN cargo leptos build --release -vv
