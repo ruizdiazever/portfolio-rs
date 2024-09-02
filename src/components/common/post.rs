@@ -6,7 +6,7 @@ use leptos::*;
 use leptos_icons::*;
 
 #[component]
-pub fn Project(
+pub fn Post(
     id: String,
     title: String,
     subtitle: String,
@@ -42,28 +42,28 @@ pub fn Project(
                         <h1 class="text-4xl text-gray-800">{title}</h1>
                         <div class="flex items-center gap-2 text-gray-600">
                             <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
-                            <span class="flex md:gap-1 font-medium text-muted-foreground">5 min <span class="hidden md:block">read</span></span>
+                            <code class="flex md:gap-1 text-muted-foreground">5 min <code class="hidden md:block">read</code></code>
                         </div>
                     </div>
                     <div class="space-y-2 not-prose">
                         <p class="text-md lg:text-lg">{subtitle}</p>
                         <div class="flex justify-left items-center text-sm text-gray-600 space-x-4">
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
-                                <Icon icon=i::OcEyeSm />
-                                <Suspense fallback=move || view! {<p>"Loading.."</p> }>
-                                    <ErrorBoundary fallback=|_| {view! {<p>"0"</p>}}>
-                                        { move || { views.get()} }
-                                    </ErrorBoundary>
-                                </Suspense>
-                                views
+                                <Icon icon=i::AiClockCircleOutlined />
+                                <code>{date}</code>
                             </section>
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::BsTag />
-                                {tags_post.len()} Tags
+                                <code>{tags_post.len()} Tags</code>
                             </section>
-                            <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
-                                <Icon icon=i::AiClockCircleOutlined />
-                                {date}
+                            <section class="flex items-center justify-center gap-1 flex-wrap font-medium backdrop-filter backdrop-blur-md animate-backdrop transition duration-700 ease-in-out">
+                                <Icon icon=i::OcEyeSm />
+                                <Suspense fallback=move || view! {<code>0</code>}>
+                                    <ErrorBoundary fallback=|_| {view! {<code>0</code>}}>
+                                        <code>{ move || { views.get()} }</code>
+                                    </ErrorBoundary>
+                                </Suspense>
+                                <code>views</code>
                             </section>
                         </div>
                     </div>

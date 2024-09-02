@@ -1,5 +1,4 @@
-use crate::components::common::working::Working;
-use crate::components::project::project::Project;
+use crate::components::common::{working::Working, post::Post};
 use crate::layouts::layout::Layout;
 use leptos::*;
 
@@ -14,9 +13,9 @@ pub fn Cookies() -> impl IntoView {
 
     view! {
         <Layout>
-            <Project title=title subtitle=subtitle tags_key=tags_key date=date id=id>
+            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id>
                 <Working/>
-            </Project>
+            </Post>
         </Layout>
     }
 }

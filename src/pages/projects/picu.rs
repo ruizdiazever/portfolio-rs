@@ -1,5 +1,5 @@
+use crate::components::common::post::Post;
 use crate::components::common::values::Link;
-use crate::components::project::project::Project;
 use crate::layouts::layout::Layout;
 use icondata as i;
 use leptos::*;
@@ -28,7 +28,7 @@ pub fn Picu() -> impl IntoView {
 
     view! {
         <Layout>
-            <Project title=title subtitle=subtitle tags_key=tags_key date=date id=id>
+            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id>
                 <h1 id="motivation" class="text-2xl text-gray-800">
                     <a href="#motivation">Motivation</a>
                 </h1>
@@ -107,7 +107,7 @@ pub fn Picu() -> impl IntoView {
                     <a href="#guarantee">Guarantee availability and reliability</a>
                 </h1>
                 <p class="text-gray-600 flex items-center gap-2">Work in progress <Icon width="1em" height="1em" icon=i::AiClockCircleOutlined /></p>
-            </Project>
+            </Post>
         </Layout>
     }
 }

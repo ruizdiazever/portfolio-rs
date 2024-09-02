@@ -7,9 +7,9 @@ use crate::layouts::layout::Layout;
 use leptos::*;
 
 const DESCRIPTION: &str =
-    "I'm Ever, a Software Developer with +4 years of experience crafting innovation.";
+    "Hello, I'm Ever, a Senior Software Engineer.";
 
-const SUB_DESCRIPTION: &str = "I'm fueled by a passion for merging cutting-edge tech, design and science to create immersive experiences that push the boundaries.";
+const SUB_DESCRIPTION: &str = "I am passionate about cutting-edge technology, design and science and I like to combine them to create innovative solutions.";
 
 #[component]
 pub fn Home() -> impl IntoView {
@@ -58,6 +58,27 @@ pub fn Home() -> impl IntoView {
                 <br/>
                 {SUB_DESCRIPTION}
             </p>
+            // Blog
+            <h1 class="text-2xl font-medium mt-6">Blog</h1>
+            <Entry
+                id="9a5f3584-5a8a-4c22-8460-2d775d54d89b".to_string()
+                title="Portfolio WASM".to_string()
+                description="My new portfolio WASM, a history of performance and love powered by Rust with Leptos".to_string()
+                uri="/blog/portfolio".to_string()
+                time=5
+                date="Jun 20, 2024".to_string()
+                tags=tags_porfolio
+            />
+            <Entry
+                id="f7583be4-ebf7-48a9-928d-5a058f0aabd9".to_string()
+                title="Refresh/access token with Rust".to_string()
+                description="Learn best practices and enhance the security of your Axum and GraphQL API in Rust".to_string()
+                uri="/blog/cookies".to_string()
+                time=5
+                date="Jun 20, 2024".to_string()
+                tags=tags_post_cookies
+            />
+            // Projects
             <h1 class="text-2xl font-medium mt-6">Projects</h1>
             <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
                 <ProjectCard
@@ -91,28 +112,7 @@ pub fn Home() -> impl IntoView {
                     {berli_icons}
                 </ProjectCard>
             </div>
-
-            // Blog
-            <h1 class="text-2xl font-medium mt-6">Blog</h1>
-            <Entry
-                id="9a5f3584-5a8a-4c22-8460-2d775d54d89b".to_string()
-                title="Portfolio WASM".to_string()
-                description="My new portfolio WASM, a history of performance and love powered by Rust with Leptos".to_string()
-                uri="/blog/portfolio".to_string()
-                time=5
-                date="Jun 20, 2024".to_string()
-                tags=tags_porfolio
-            />
-            <Entry
-                id="f7583be4-ebf7-48a9-928d-5a058f0aabd9".to_string()
-                title="Refresh/access token with Rust".to_string()
-                description="Learn best practices and enhance the security of your Axum and GraphQL API in Rust".to_string()
-                uri="/blog/cookies".to_string()
-                time=5
-                date="Jun 20, 2024".to_string()
-                tags=tags_post_cookies
-            />
-
+            // Experience
             <h1 class="text-2xl font-medium mt-6">Experience</h1>
             <div class="relative flex flex-col gap-4">
                   <div class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10">

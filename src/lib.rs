@@ -46,7 +46,6 @@ pub mod layouts {
 pub mod components {
     pub mod project {
         pub mod card;
-        pub mod project;
     }
 
     pub mod home {
@@ -60,5 +59,6 @@ pub mod components {
         pub mod link;
         pub mod values;
         pub mod working;
+        pub mod post;
     }
 }
