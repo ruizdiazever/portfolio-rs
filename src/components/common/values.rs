@@ -20,18 +20,19 @@ pub enum Icon {
     Linux,
     Python,
     Grafana,
+    RedisDB
 }
 
 impl Icon {
     pub fn to_view(&self) -> impl IntoView {
         match self {
             Icon::Rust => view! {
-                <a href="https://astro.build/" title="Rust" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://www.rust-lang.org/" title="Rust" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiRust />
                 </a>
             },
             Icon::Leptos => view! {
-                <a title="ExpressIf" href="https://astro.build/" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a title="ExpressIf" href="https://www.leptos.dev/" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiEspressif />
                 </a>
             },
@@ -51,7 +52,7 @@ impl Icon {
                 </a>
             },
             Icon::PostgreSQL => view! {
-                <a href="https://astro.build/" title="PostgreSQL" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://www.postgresql.org/" title="PostgreSQL" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::BiPostgresql />
                 </a>
             },
@@ -61,48 +62,53 @@ impl Icon {
                 </a>
             },
             Icon::TailwindCSS => view! {
-                <a href="https://astro.build/" title="TailwindCSS" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://tailwindcss.com/" title="TailwindCSS" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiTailwindcss />
                 </a>
             },
             Icon::Flutter => view! {
-                <a href="https://astro.build/" title="Flutter" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://flutter.dev/" title="Flutter" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiFlutter />
                 </a>
             },
             Icon::ExpressIf => view! {
-                <a href="https://astro.build/" title="ExpressIf" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://www.espressif.com/" title="ExpressIf" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiEspressif />
                 </a>
             },
             Icon::Vercel => view! {
-                <a href="https://astro.build/" title="Vercel" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://vercel.com/" title="Vercel" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiVercel />
                 </a>
             },
             Icon::Docker => view! {
-                <a href="https://astro.build/" title="Docker" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://www.docker.com/" title="Docker" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiDocker />
                 </a>
             },
             Icon::Kubernetes => view! {
-                <a href="https://astro.build/" title="Kubernetes" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://kubernetes.io/" title="Kubernetes" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiKubernetes />
                 </a>
             },
             Icon::Linux => view! {
-                <a href="https://astro.build/" title="GNU/Linux" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://www.linuxfoundation.org/" title="GNU/Linux" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiLinux />
                 </a>
             },
             Icon::Python => view! {
-                <a href="https://astro.build/" title="Python" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://www.python.org/" title="Python" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiPython />
                 </a>
             },
             Icon::Grafana => view! {
-                <a href="https://astro.build/" title="Grafana" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://grafana.com/oss/grafana/" title="Grafana" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiGrafana />
+                </a>
+            },
+            Icon::RedisDB => view! {
+                <a href="https://redis.io/" title="Grafana" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                    <Icon width="1.3em" height="1.3em" icon=i::SiRedis />
                 </a>
             },
         }
@@ -124,6 +130,9 @@ pub enum Link {
     Leptos,
     Guille,
     Nio,
+    RedisDB,
+    Grafana,
+    InfluxDB
 }
 
 impl Link {
@@ -210,6 +219,24 @@ impl Link {
             Link::Nio => view! {
                 <LinkSimple title="Nio".to_string()
                     link="https://www.nio.com/ep9".to_string()
+                    blank=true
+                />
+            },
+            Link::RedisDB => view! {
+                <LinkSimple title="RedisDB".to_string()
+                    link="https://redis.io/".to_string()
+                    blank=true
+                />
+            },
+            Link::Grafana => view! {
+                <LinkSimple title="Grafana".to_string()
+                    link="https://grafana.com/oss/grafana/".to_string()
+                    blank=true
+                />
+            },
+            Link::InfluxDB => view! {
+                <LinkSimple title="InfluxDB".to_string()
+                    link="https://www.influxdata.com/".to_string()
                     blank=true
                 />
             },
