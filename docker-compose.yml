@@ -10,14 +10,14 @@ services:
     ports:
       - "3002:3002"
     command: ["cargo", "run", "--release"]
-  site:
-    container_name: portfolio_site
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "3003:3003"
+  #site:
+  #  container_name: portfolio_site
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  restart: unless-stopped
+  #  ports:
+  #    - "3003:3003"
   redis:
     image: redis:alpine
     container_name: portfolio_redis
@@ -48,24 +48,24 @@ services:
       - portfolio_db_net
     volumes:
       - redis_data:/data
-  psql:
-    image: postgres:latest
-    container_name: portfolio_psql
-    restart: always
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_USER=ever
-      - POSTGRES_DB=portfolio
-    volumes:
-      - psql_data:/var/lib/postgresql/data
-    ports:
-      - "5434:5432"
-    networks:
-      - portfolio_db_net
-    user: postgres
+  # psql:
+  #   image: postgres:latest
+  #   container_name: portfolio_psql
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - POSTGRES_USER=ever
+  #     - POSTGRES_DB=portfolio
+  #   volumes:
+  #     - psql_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5434:5432"
+  #   networks:
+  #     - portfolio_db_net
+  #   user: postgres
 volumes:
-  psql_data:
+  # psql_data:
   redis_data:
 
 networks:
