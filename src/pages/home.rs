@@ -65,7 +65,7 @@ pub fn Home() -> impl IntoView {
                 title="Portfolio WASM".to_string()
                 description="My new portfolio WASM, a history of performance and love powered by Rust with Leptos".to_string()
                 uri="/blog/portfolio".to_string()
-                time=5
+                time=2
                 date="Jun 20, 2024".to_string()
                 tags=tags_porfolio
             />
@@ -74,7 +74,7 @@ pub fn Home() -> impl IntoView {
                 title="Secure auth with Rust".to_string()
                 description="Refresh/access token with Axum and async-graphql".to_string()
                 uri="/blog/cookies".to_string()
-                time=5
+                time=0
                 date="Jun 20, 2024".to_string()
                 tags=tags_post_cookies
             />
