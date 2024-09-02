@@ -2,10 +2,14 @@
 #[tokio::main]
 async fn main() {
     use axum::Router;
+    use dotenvy::dotenv;
     use leptos::*;
     use leptos_axum::{generate_route_list, LeptosRoutes};
     use portfolio::app::*;
     use portfolio::fileserv::file_and_error_handler;
+
+    // Load environment configuration from .env
+    dotenv().expect("Set your configuration in a .env file");
 
     simple_logger::SimpleLogger::new()
         .env()
