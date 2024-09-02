@@ -59,7 +59,7 @@ pub fn Portfolio() -> impl IntoView {
                 <h1 id="stack" class="text-2xl text-gray-800">
                     <a href="#stack">Stack and Architecture</a>
                 </h1>
-                <p>In addition to Leptos I have used {link_axum} again to create a microservice which uses
+                <p>In addition to Leptos I have used {link_axum} to create a microservice which uses
                 {link_redis} for persistence. I use the API for some web features like visits or feedback.</p>
                 <div class="inset-0 -z-10 w-full bg-slate-50 my-30
                 border border-gray-300 rounded rounded-lg mx-auto shadow
@@ -93,7 +93,7 @@ pub fn Portfolio() -> impl IntoView {
                 </h1>
                 <p>
                     As I show in the graph above, I have used {link_grafana} and {link_influx}
-                    (also made in Rust by the way) for monitoring.
+                    (another wonderful project powered by Rust) for monitoring.
                     For those who do not know these technologies, InfluxDB is a
                     timeseries database that has its own system for data collection
                     and Grafana serves as a client for this data. In addition, InfluxDB
