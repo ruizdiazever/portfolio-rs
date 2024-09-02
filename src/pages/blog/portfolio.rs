@@ -74,7 +74,7 @@ pub fn Portfolio() -> impl IntoView {
                 </div>
                 <div class="flex flex-col items-center justify-center">
                     <figcaption class="text-sm text-muted-foreground">
-                        Image by
+                        Image created using
                         <a
                             href="https://app.diagrams.net/"
                             rel="noopener noreferrer"
