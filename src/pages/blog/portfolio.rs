@@ -61,6 +61,7 @@ pub fn Portfolio() -> impl IntoView {
                 </h1>
                 <p>In addition to Leptos I have used {link_axum} to create a microservice which uses
                 {link_redis} for persistence. I use the API for some web features like visits or feedback.</p>
+                <p>All of this deployed on my own server at home.</p>
                 <div class="inset-0 -z-10 w-full bg-slate-50 my-30
                 border border-gray-300 rounded rounded-lg mx-auto shadow
                 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
