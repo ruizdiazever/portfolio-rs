@@ -9,10 +9,11 @@ use leptos_icons::*;
 pub fn Picu() -> impl IntoView {
     // Project
     let id = "b3678579-1593-4c8e-891c-7a933f7a3760".to_string();
-    let title = "Picu IoT".to_string();
-    let subtitle = "Cutting-edge IoT platform powered by Rust".to_string();
-    let date = "Jun 18, 2024".to_string();
+    let title = "Picu IoT";
+    let subtitle = "Cutting-edge IoT platform powered by Rust";
+    let date = "Jun 18, 2024";
     let tags_key = "picu";
+    let min = "0";
 
     // BERLi
     let intro_1 = "Picu was born out of my desire to master Rust and learn in parallel about embedded systems and IoT.";
@@ -28,7 +29,7 @@ pub fn Picu() -> impl IntoView {
 
     view! {
         <Layout>
-            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id>
+            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id min=min>
                 <h1 id="motivation" class="text-2xl text-gray-800">
                     <a href="#motivation">Motivation</a>
                 </h1>

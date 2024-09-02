@@ -8,11 +8,12 @@ use leptos_icons::*;
 #[component]
 pub fn Post(
     id: String,
-    title: String,
-    subtitle: String,
+    title: &'static str,
+    subtitle: &'static str,
     tags_key: &'static str,
-    date: String,
+    date: &'static str,
     children: Children,
+    min: &'static str
 ) -> impl IntoView {
     let tags_post = get_vector_from_json_file(tags_key);
 
@@ -40,10 +41,20 @@ pub fn Post(
                 </div>
                 <article class="text-gray-600">
                     <div class="flex items-center justify-between mb-3">
-                        <h1 class="text-4xl text-gray-800">{title}</h1>
-                        <div class="flex items-center gap-2 text-gray-600">
+                        <div>
+                            <div class="flex visible md:invisible items-center gap-2 text-gray-600">
+                                <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
+                                <code class="flex md:gap-1 text-muted-foreground">
+                                    {min} mins read
+                                </code>
+                            </div>
+                            <h1 class="text-4xl text-gray-800">{title}</h1>
+                        </div>
+                        <div class="flex invisible md:visible items-center gap-2 text-gray-600">
                             <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
-                            <code class="flex md:gap-1 text-muted-foreground">5 min <code class="hidden md:block">read</code></code>
+                            <code class="flex md:gap-1 text-muted-foreground">
+                                {min} mins read
+                            </code>
                         </div>
                     </div>
                     <div class="space-y-2 not-prose">
@@ -74,7 +85,7 @@ pub fn Post(
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
                     <div class="mt-6 space-y-4">{children()}</div>
-                    <Helpful/>
+                    // <Helpful/>
                 </article>
             </div>
     }

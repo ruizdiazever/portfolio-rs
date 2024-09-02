@@ -9,10 +9,11 @@ use icondata as i;
 pub fn Portfolio() -> impl IntoView {
     // Project
     let id = "9a5f3584-5a8a-4c22-8460-2d775d54d89b".to_string();
-    let title = "Portfolio WASM".to_string();
-    let subtitle = "Portfolio WASM powered by Rust with Leptos".to_string();
-    let date = "Aug 31, 2024".to_string();
+    let title = "Portfolio WASM";
+    let subtitle = "Portfolio WASM powered by Rust with Leptos";
+    let date = "Aug 31, 2024";
     let tags_key = "portfolio";
+    let min = "2";
 
     // Links
     let link_rust = Link::Rust.to_view();
@@ -30,7 +31,7 @@ pub fn Portfolio() -> impl IntoView {
 
     view! {
         <Layout>
-            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id>
+            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id min=min>
                 // Journey
                 <h1 id="journey" class="text-2xl text-gray-800">
                     <a href="#journey">The Journey to Excellence</a>
@@ -46,7 +47,8 @@ pub fn Portfolio() -> impl IntoView {
                     <a href="#design">Design</a>
                 </h1>
                 <p class="text-gray-700">
-                    Inspired by the achievements of {link_vercel}, {link_nio}, {link_spacex}, {link_apple}, and {link_nothing}, with {link_guille} as a role model for Latinos in software development, I strive for top-tier standards.
+                    Inspired by the achievements of {link_vercel}, {link_nio}, {link_spacex}, {link_apple}, and {link_nothing},
+                    with {link_guille} as a role model for Latin Americans in software development, I strive for top-tier standards.
                 </p>
                 <p class="text-gray-700">
                     Explore sections currently under development, exemplifying quality and precision.
