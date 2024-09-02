@@ -3,7 +3,7 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
-use crate::pages::blog::portfolio::Portfolio;
+use crate::pages::blog::{portfolio::Portfolio, cookies::Cookies};
 use crate::pages::home::Home;
 use crate::pages::projects::{aura::Aura, berli::Berli, picu::Picu, test::Test};
 
@@ -40,6 +40,7 @@ pub fn App() -> impl IntoView {
                     <Route path="/projects/test" view=  move || view! { <Test/> }/>
                     // Blog
                     <Route path="/blog/portfolio" view=  move || view! { <Portfolio/> }/>
+                    <Route path="/blog/cookies" view=  move || view! { <Cookies/> }/>
                 </Routes>
             </main>
         </Router>

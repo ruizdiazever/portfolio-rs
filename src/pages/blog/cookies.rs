@@ -4,7 +4,7 @@ use crate::layouts::layout::Layout;
 use leptos::*;
 
 #[component]
-pub fn Portfolio() -> impl IntoView {
+pub fn Cookies() -> impl IntoView {
     // Project
     let id = "f7583be4-ebf7-48a9-928d-5a058f0aabd9".to_string();
     let title = "Refresh/access token with Rust".to_string();
