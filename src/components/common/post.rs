@@ -40,7 +40,7 @@ pub fn Post(
                     </a>
                 </div>
                 <article class="text-gray-600">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between mb-2 md:mb-3">
                         <div>
                             <div class="flex visible md:invisible items-center gap-2 text-gray-600">
                                 <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
@@ -48,7 +48,7 @@ pub fn Post(
                                     {min} mins read
                                 </code>
                             </div>
-                            <h1 class="text-4xl text-gray-800">{title}</h1>
+                            <h1 class="text-3xl md:text-4xl text-gray-800">{title}</h1>
                         </div>
                         <div class="flex invisible md:visible items-center gap-2 text-gray-600">
                             <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
