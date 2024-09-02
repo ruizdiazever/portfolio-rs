@@ -5,19 +5,13 @@ services:
       context: ./api
       dockerfile: Dockerfile
     restart: unless-stopped
+    networks:
+      - portfolio_net
     env_file:
       - .env
     ports:
       - "3002:3002"
     command: ["cargo", "run", "--release"]
-  site:
-    container_name: portfolio_site
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "3003:3003"
   redis:
     image: redis:alpine
     container_name: portfolio_redis
@@ -40,33 +34,15 @@ services:
       - no-new-privileges
     deploy:
       resources:
-        # To prevent denial of service attacks
         limits:
           cpus: "0.50"
           memory: 256M
     networks:
-      - portfolio_db_net
+      - portfolio_net
     volumes:
       - redis_data:/data
-  psql:
-    image: postgres:latest
-    container_name: portfolio_psql
-    restart: always
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_USER=ever
-      - POSTGRES_DB=portfolio
-    volumes:
-      - psql_data:/var/lib/postgresql/data
-    ports:
-      - "5434:5432"
-    networks:
-      - portfolio_db_net
-    user: postgres
 volumes:
-  psql_data:
   redis_data:
 
 networks:
-  portfolio_db_net:
+  portfolio_net:

@@ -26,8 +26,8 @@ impl Config {
 
 pub fn cors_config() -> Result<CorsLayer, Error> {
     let origins = vec![
-        HeaderValue::from_str("http://localhost:3000")?,
-        HeaderValue::from_str("http://127.0.0.1:3000/")?,
+        HeaderValue::from_str("http://localhost:3003")?,
+        HeaderValue::from_str("http://127.0.0.1:3003/")?,
     ];
 
     let cors_layer = CorsLayer::new()
