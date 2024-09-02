@@ -8,7 +8,7 @@ pub fn Header() -> impl IntoView {
         <header class="flex items-center justify-between max-w-screen-md mx-auto
         mt-6 sticky top-0 backdrop-blur-lg z-50 antialiased
         px-6 sm:px-6 lg:px-8">
-          <a href="/" class="flex flex-col items-start gap-1">
+          <a href="/" rel="external" class="flex flex-col items-start gap-1">
             <div class="text-2xl font-semibold">Ever Ruiz Diaz</div>
             <div class="text-muted-foreground text-md text-gray-600">Rust Developer</div>
           </a>

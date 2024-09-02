@@ -27,6 +27,7 @@ pub fn Post(
                     lg:top-8 lg:left-8 lg:ml-10">
                     <a
                         href="/"
+                        rel="external"
                         class="group inline-flex h-10 items-center justify-center
                         rounded-full bg-white px-4 text-sm text-primary-foreground
                         shadow transition-colors hover:bg-primary/90 focus-visible:outline-none
