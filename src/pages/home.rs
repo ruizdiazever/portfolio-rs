@@ -71,8 +71,8 @@ pub fn Home() -> impl IntoView {
             />
             <Entry
                 id="f7583be4-ebf7-48a9-928d-5a058f0aabd9".to_string()
-                title="Refresh/access token with Rust".to_string()
-                description="Learn best practices and enhance the security of your Axum and GraphQL API in Rust".to_string()
+                title="Secure auth with Rust".to_string()
+                description="Refresh/access token with Axum and async-graphql".to_string()
                 uri="/blog/cookies".to_string()
                 time=5
                 date="Jun 20, 2024".to_string()
