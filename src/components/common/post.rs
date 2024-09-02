@@ -56,14 +56,18 @@ pub fn Post(
                                 <Icon icon=i::BsTag />
                                 <code>{tags_post.len()} Tags</code>
                             </section>
-                            <section class="flex items-center justify-center gap-1 flex-wrap font-medium backdrop-filter backdrop-blur-md animate-backdrop transition duration-700 ease-in-out">
-                                <Icon icon=i::OcEyeSm />
-                                <Suspense fallback=move || view! {<code>0</code>}>
-                                    <ErrorBoundary fallback=|_| {view! {<code>0</code>}}>
-                                        <code>{ move || { views.get()} }</code>
-                                    </ErrorBoundary>
-                                </Suspense>
-                                <code>views</code>
+                            <section class="flex w-28 items-left">
+                                <code class="flex items-center justify-center gap-1 flex-wrap font-medium">
+                                    <Icon icon=i::OcEyeSm />
+                                    <Suspense fallback=move || view! {0}>
+                                        <ErrorBoundary fallback=|_| {view! {0}}>
+                                            <span class="backdrop-filter backdrop-blur-md animate-backdrop transition duration-700 ease-in-out">
+                                                { move || { views.get()} }
+                                            </span>
+                                        </ErrorBoundary>
+                                    </Suspense>
+                                    views
+                                </code>
                             </section>
                         </div>
                     </div>
