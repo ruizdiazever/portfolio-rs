@@ -7,6 +7,9 @@ exit_code=0
 sudo systemctl stop portfolio.service
 echo "1) Exit code of 'sudo systemctl stop portfolio.service': $exit_code"
 
+# CSS
+npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
+
 # Build the cargo project
 echo "2) Building Portfolio WASM with cargo, please wait.."
 export PATH="$HOME/.cargo/bin:$PATH"
