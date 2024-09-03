@@ -16,9 +16,10 @@ pub fn ProjectCard(
     view! {
         <div class="group relative block h-32 w-full">
             <div class="relative p-2 flex h-full
-                transform items-start border border-gray-300 hover:border-gray-400
-                transition duration-200 ease-out hover:ease-in rounded-md bg-white
-                shadow-sm hover:shadow-mdtransition-shadow
+                border border-gray-300
+                hover:border-gray-400 transition duration-200 hover:ease-in
+                rounded-md bg-white shadow-sm hover:shadow-md
+                transition-shadow
                 ">
                 <div class="flex flex-col px-2 my-2 gap-2 !pt-0">
                     <div class="flex justify-between">
