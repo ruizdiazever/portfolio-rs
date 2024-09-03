@@ -13,36 +13,44 @@ pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-        // Injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
-        <Stylesheet id="leptos" href="/pkg/portfolio.css"/>
-        <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
+        <!DOCTYPE html>
+        <html lang="en">
+            <body>
+                // Injects a stylesheet into the document <head>
+                // id=leptos means cargo-leptos will hot-reload this stylesheet
+                <Stylesheet id="leptos" href="/pkg/portfolio.css"/>
+                <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
 
-        // Sets the document title
-        <Title text="Ever Ruiz Diaz"/>
+                // Sets the document title
+                <Title text="Ever Ruiz Diaz"/>
 
-        // Meta
-        <Meta name="description" content="Chasing Excellence"/>
-        <Meta name="keywords" content="ever, ever ruiz diaz, portfolio, software engineer, rust developer" />
-        <Meta name="robots" content="index, follow" />
-        <Meta name="googlebot" content="index, follow" />
+                // Meta
+                <Meta charset="utf-8"/>
+                <Meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <Meta name="description" content="Chasing Excellence"/>
+                <Meta name="keywords" content="ever, ever ruiz diaz, portfolio, software engineer, rust developer" />
+                <Meta name="robots" content="index, follow" />
+                <Meta name="googlebot" content="index, follow" />
 
-        // Facebook Meta Tags
-        <Meta property="og:url" content="https://www.everdev.it" />
-        <Meta property="og:type" content="website"/>
-        <Meta property="og:title" content="Ever Ruiz Diaz"/>
-        <Meta property="og:description" content="Chasing Excellence"/>
-        <Meta property="og:image" content="https://opengraph.b-cdn.net/production/images/14346c08-4465-430f-8474-ea9ffce8fede.png?token=oUjmrdUgBWgksOH-7-6tSte0PNtG5cLcvaLU8UDHR40&height=675&width=1200&expires=33261385714"/>
-        <Meta name="og:locale" content="en_EN" />
+                // Facebook Meta Tags
+                <Meta property="og:url" content="https://www.everdev.it" />
+                <Meta property="og:type" content="website"/>
+                <Meta property="og:title" content="Ever Ruiz Diaz"/>
+                <Meta property="og:description" content="Chasing Excellence"/>
+                <Meta property="og:image" content="https://opengraph.b-cdn.net/production/images/14346c08-4465-430f-8474-ea9ffce8fede.png?token=oUjmrdUgBWgksOH-7-6tSte0PNtG5cLcvaLU8UDHR40&height=675&width=1200&expires=33261385714"/>
+                <Meta name="og:locale" content="en_EN" />
 
-        // Twitter Meta Tags
-        <Meta name="twitter:card" content="summary_large_image"/>
-        <Meta property="twitter:domain" content="@EverToujours"/>
-        <Meta name="twitter:creator" content="@EverToujours" />
-        <Meta property="twitter:url" content="https://x.com/EverToujours"/>
-        <Meta name="twitter:title" content="Ever Ruiz Diaz"/>
-        <Meta name="twitter:description" content="Chasing Excellence"/>
-        <Meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/14346c08-4465-430f-8474-ea9ffce8fede.png?token=oUjmrdUgBWgksOH-7-6tSte0PNtG5cLcvaLU8UDHR40&height=675&width=1200&expires=33261385714"/>
+                // Twitter Meta Tags
+                <Meta name="twitter:card" content="summary_large_image"/>
+                <Meta property="twitter:domain" content="@EverToujours"/>
+                <Meta name="twitter:creator" content="@EverToujours" />
+                <Meta property="twitter:url" content="https://x.com/EverToujours"/>
+                <Meta name="twitter:title" content="Ever Ruiz Diaz"/>
+                <Meta name="twitter:description" content="Chasing Excellence"/>
+                <Meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/14346c08-4465-430f-8474-ea9ffce8fede.png?token=oUjmrdUgBWgksOH-7-6tSte0PNtG5cLcvaLU8UDHR40&height=675&width=1200&expires=33261385714"/>
+
+            </body>
+        </html>
 
         // Content for this welcome page
         <Router fallback=|| {
