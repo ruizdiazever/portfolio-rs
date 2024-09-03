@@ -23,6 +23,10 @@ pub fn App() -> impl IntoView {
 
         // Meta
         <Meta name="description" content="Chasing Excellence"/>
+        <Meta name="keywords" content="ever, ever ruiz diaz, portfolio, software engineer, rust developer" />
+        <meta name="og:locale" content="en_EN" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
 
         // Facebook Meta Tags
         <Meta property="og:url" content="https://www.everdev.it" />
@@ -33,8 +37,9 @@ pub fn App() -> impl IntoView {
 
         // Twitter Meta Tags
         <Meta name="twitter:card" content="summary_large_image"/>
-        <Meta property="twitter:domain" content="everdev.it"/>
-        <Meta property="twitter:url" content="https://www.everdev.it"/>
+        <Meta property="twitter:domain" content="@EverToujours"/>
+        <Meta name="twitter:creator" content="@EverToujours" />
+        <Meta property="twitter:url" content="https://x.com/EverToujours"/>
         <Meta name="twitter:title" content="Ever Ruiz Diaz"/>
         <Meta name="twitter:description" content="Chasing Excellence"/>
         <Meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/1f770785-fa00-4cee-8f6e-cf8e09db5a15.png?token=PuajrLKhozdYPi5WF8N_txgnTDJtvFJy7WWCJh9Jymo&height=600&width=1200&expires=33261370253"/>
