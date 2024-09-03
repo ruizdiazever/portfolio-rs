@@ -104,7 +104,7 @@ pub fn Portfolio() -> impl IntoView {
                 <div class="flex flex-col items-center justify-center">
                     <img
                         class="w-auto mx-auto"
-                        src="/images/grafana.png"
+                        src="/images/grafana.webp"
                         alt="Grafana"
                         title="Working with Sofia, my universe!"
                     />

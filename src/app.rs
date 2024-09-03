@@ -32,7 +32,7 @@ pub fn App() -> impl IntoView {
         <Meta property="og:type" content="website"/>
         <Meta property="og:title" content="Ever Ruiz Diaz"/>
         <Meta property="og:description" content="Chasing Excellence"/>
-        <Meta property="og:image" content="https://opengraph.b-cdn.net/production/images/1f770785-fa00-4cee-8f6e-cf8e09db5a15.png?token=PuajrLKhozdYPi5WF8N_txgnTDJtvFJy7WWCJh9Jymo&height=600&width=1200&expires=33261370253"/>
+        <Meta property="og:image" content="https://opengraph.b-cdn.net/production/images/89efb0aa-ca09-4fc6-a42f-7943493775d4.png?token=IjmsxMYRx7gVNjWDN7RXmUjFoTtdbk2ImQ7bpFSKPHI&height=675&width=1200&expires=33261379334"/>
         <Meta name="og:locale" content="en_EN" />
 
         // Twitter Meta Tags
@@ -42,7 +42,7 @@ pub fn App() -> impl IntoView {
         <Meta property="twitter:url" content="https://x.com/EverToujours"/>
         <Meta name="twitter:title" content="Ever Ruiz Diaz"/>
         <Meta name="twitter:description" content="Chasing Excellence"/>
-        <Meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/1f770785-fa00-4cee-8f6e-cf8e09db5a15.png?token=PuajrLKhozdYPi5WF8N_txgnTDJtvFJy7WWCJh9Jymo&height=600&width=1200&expires=33261370253"/>
+        <Meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/89efb0aa-ca09-4fc6-a42f-7943493775d4.png?token=IjmsxMYRx7gVNjWDN7RXmUjFoTtdbk2ImQ7bpFSKPHI&height=675&width=1200&expires=33261379334"/>
 
         // Content for this welcome page
         <Router fallback=|| {
