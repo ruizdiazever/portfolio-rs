@@ -1,4 +1,4 @@
-use crate::common::req::get_visit_request;
+use crate::common::api::get_visit_request;
 use crate::components::common::link::Link;
 use icondata as i;
 use leptos::*;

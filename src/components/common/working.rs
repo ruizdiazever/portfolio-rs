@@ -8,7 +8,7 @@ pub fn Working() -> impl IntoView {
         <h1 id="journey" class="text-2xl text-gray-800 text-center">
             <a href="#journey">Work in progress...</a>
         </h1>
-        <div class="flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center justify-center pb-72">
             <img
                 class="w-auto mx-auto"
                 src="/illustration/working.svg"

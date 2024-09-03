@@ -1,5 +1,5 @@
-use crate::common::json::get_vector_from_json_file;
-use crate::common::req::post_visit_request;
+use crate::common::config::get_vector_from_json_file;
+use crate::common::api::post_visit_request;
 use crate::components::common::helpful::Helpful;
 use icondata as i;
 use leptos::*;
@@ -68,7 +68,7 @@ pub fn Post(
                                 <Icon icon=i::BsTag />
                                 <code>{tags_post.len()} Tags</code>
                             </section>
-                            <section class="flex w-28 items-left">
+                            <section class="flex items-left">
                                 <code class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                     <Icon icon=i::OcEyeSm />
                                     <Suspense fallback=move || view! {0}>
@@ -85,7 +85,7 @@ pub fn Post(
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
                     <div class="mt-6 space-y-4">{children()}</div>
-                    // <Helpful/>
+                    <Helpful/>
                 </article>
             </div>
     }

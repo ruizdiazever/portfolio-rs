@@ -1,4 +1,4 @@
-use crate::common::json::get_vector_from_json_file;
+use crate::common::config::get_vector_from_json_file;
 use crate::components::common::values::Icon;
 use crate::components::home::entry::Entry;
 use crate::components::home::experience::Experience;

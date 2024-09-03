@@ -3,6 +3,8 @@
 async fn main() {
     use axum::Router;
     use dotenvy::dotenv;
+    use tracing::info;
+    use tracing_subscriber::EnvFilter;
     use leptos::*;
     use leptos_axum::{generate_route_list, LeptosRoutes};
     use portfolio::app::*;
@@ -11,12 +13,10 @@ async fn main() {
     // Load environment configuration from .env
     dotenv().expect("Set your configuration in a .env file");
 
-    simple_logger::SimpleLogger::new()
-        .env()
-        .with_level(log::LevelFilter::Info)
-        .with_colors(true)
-        .init()
-        .expect("Couldn't initialize logging");
+    // Init Tracing
+    tracing_subscriber::fmt()
+        .with_env_filter(EnvFilter::from_default_env())
+        .init();
 
     // Setting get_configuration(None) means we'll be using cargo-leptos's env values
     // For deployment these variables are:
@@ -36,7 +36,7 @@ async fn main() {
     let addr = std::env::var("LEPTOS_SITE_ADDR").unwrap();
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
 
-    logging::log!("Listening on http://{}", &addr);
+    info!("Listening on http://{}", &addr);
 
     axum::serve(listener, app.into_make_service())
         .await

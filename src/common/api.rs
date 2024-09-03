@@ -3,7 +3,8 @@ use serde_json::json;
 
 pub async fn post_visit_request(project_id: String) -> i64 {
     let client = Client::new();
-    let url = "http://127.0.0.1:3002/visit".to_string();
+    let api_url = std::env::var("API_URL").unwrap();
+    let url = format!("{}/visit", api_url);
 
     let body = json!({
         "project_id": project_id,
@@ -33,7 +34,8 @@ pub async fn post_visit_request(project_id: String) -> i64 {
 
 pub async fn get_visit_request(project_id: String) -> i64 {
     let client = Client::new();
-    let url = format!("http://127.0.0.1:3002/visit/{}", project_id);
+    let api_url = std::env::var("API_URL").unwrap();
+    let url = format!("{}/visit/{}", api_url, project_id);
 
     match client.get(&url).send().await {
         Ok(response) => {

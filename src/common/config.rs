@@ -2,7 +2,7 @@ use serde_json::Value;
 use std::fs;
 
 pub fn get_vector_from_json_file(key: &str) -> Vec<String> {
-    let json_content = match fs::read_to_string("src/common/tags.json") {
+    let json_content = match fs::read_to_string("src/static/tags.json") {
         Ok(content) => content,
         Err(_) => return Vec::new(),
     };
