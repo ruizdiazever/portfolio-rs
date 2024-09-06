@@ -1,6 +1,5 @@
 pub mod app;
 
-
 #[cfg(feature = "ssr")]
 pub mod fileserv;
 
@@ -61,8 +60,9 @@ pub mod components {
         pub mod card;
         pub mod helpful;
         pub mod link;
+        pub mod modal;
+        pub mod post;
         pub mod values;
         pub mod working;
-        pub mod post;
     }
 }

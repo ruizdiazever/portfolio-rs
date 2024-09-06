@@ -1,9 +1,9 @@
 use crate::components::common::post::Post;
 use crate::components::common::values::Link;
 use crate::layouts::layout::Layout;
+use icondata as i;
 use leptos::*;
 use leptos_icons::*;
-use icondata as i;
 
 #[component]
 pub fn Portfolio() -> impl IntoView {
@@ -106,7 +106,7 @@ pub fn Portfolio() -> impl IntoView {
                         class="w-auto mx-auto"
                         src="/images/grafana.webp"
                         alt="Grafana"
-                        title="Working with Sofia, my universe!"
+                        title="Grafana, observability… at your service"
                     />
                 </div>
                 // Soon

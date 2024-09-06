@@ -1,5 +1,5 @@
-use crate::common::config::get_vector_from_json_file;
 use crate::common::api::post_visit_request;
+use crate::common::config::get_vector_from_json_file;
 use crate::components::common::helpful::Helpful;
 use icondata as i;
 use leptos::*;
@@ -13,7 +13,7 @@ pub fn Post(
     tags_key: &'static str,
     date: &'static str,
     children: Children,
-    min: &'static str
+    min: &'static str,
 ) -> impl IntoView {
     let tags_post = get_vector_from_json_file(tags_key);
 
@@ -85,7 +85,7 @@ pub fn Post(
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
                     <div class="mt-6 space-y-4">{children()}</div>
-                    // <Helpful/>
+                    <Helpful/>
                 </article>
             </div>
     }
