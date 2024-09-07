@@ -1,5 +1,4 @@
-use crate::common::api::post_visit_request;
-use crate::common::config::get_vector_from_json_file;
+use crate::utils::api::post_visit_request;
 use crate::components::common::helpful::Helpful;
 use icondata as i;
 use leptos::*;
@@ -8,14 +7,13 @@ use leptos_icons::*;
 #[component]
 pub fn Post(
     id: String,
-    title: &'static str,
-    subtitle: &'static str,
-    tags_key: &'static str,
-    date: &'static str,
+    title: String,
+    description: String,
+    date: String,
     children: Children,
-    min: &'static str,
+    readtime: u8,
+    tags: Vec<String>
 ) -> impl IntoView {
-    let tags_post = get_vector_from_json_file(tags_key);
 
     let views = create_resource(
         move || id.clone(),
@@ -45,7 +43,7 @@ pub fn Post(
                             <div class="flex visible md:invisible items-center gap-2 text-gray-600">
                                 <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
                                 <code class="flex md:gap-1 text-muted-foreground">
-                                    {min} mins read
+                                    {readtime} mins read
                                 </code>
                             </div>
                             <h1 class="text-3xl md:text-4xl text-gray-800">{title}</h1>
@@ -53,12 +51,12 @@ pub fn Post(
                         <div class="flex invisible md:visible items-center gap-2 text-gray-600">
                             <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
                             <code class="flex md:gap-1 text-muted-foreground">
-                                {min} mins read
+                                {readtime} mins read
                             </code>
                         </div>
                     </div>
                     <div class="space-y-2 not-prose">
-                        <p class="text-md lg:text-lg">{subtitle}</p>
+                        <p class="text-md lg:text-lg">{description}</p>
                         <div class="flex justify-left items-center text-sm text-gray-600 space-x-4">
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::AiClockCircleOutlined />
@@ -66,7 +64,7 @@ pub fn Post(
                             </section>
                             <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
                                 <Icon icon=i::BsTag />
-                                <code>{tags_post.len()} Tags</code>
+                                <code>{tags.len()} Tags</code>
                             </section>
                             <section class="flex items-left">
                                 <code class="flex items-center justify-center gap-1 flex-wrap font-medium">
@@ -85,7 +83,7 @@ pub fn Post(
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
                     <div class="mt-6 space-y-4">{children()}</div>
-                    <Helpful/>
+                    // <Helpful/>
                 </article>
             </div>
     }

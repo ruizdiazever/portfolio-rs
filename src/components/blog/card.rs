@@ -1,16 +1,16 @@
-use crate::common::api::get_visit_request;
+use crate::utils::api::get_visit_request;
 use crate::components::common::link::Link;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
 
 #[component]
-pub fn Entry(
+pub fn CardPostBlog(
     id: String,
     title: String,
     description: String,
-    uri: String,
-    time: u8,
+    url: String,
+    readtime: u8,
     date: String,
     tags: Vec<String>,
 ) -> impl IntoView {
@@ -27,10 +27,10 @@ pub fn Entry(
 
             <div class="flex-1 flex flex-col gap-2">
                 <div class="flex justify-between items-center">
-                    <Link title={title} link={uri} blank={false}/>
+                    <Link title={title} link={url} blank={false}/>
                     <div class="flex items-center gap-2 text-gray-600">
                         <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
-                        <span class="flex md:gap-1 text-sm font-medium text-muted-foreground">{time} min <span class="hidden md:block">read</span></span>
+                        <span class="flex md:gap-1 text-sm font-medium text-muted-foreground">{readtime} min <span class="hidden md:block">read</span></span>
                     </div>
                 </div>
                 <p class="text-sm text-muted-foreground">

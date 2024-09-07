@@ -1,5 +1,6 @@
 use reqwest::Client;
 use serde_json::json;
+use leptos::tracing::error;
 
 pub async fn post_visit_request(project_id: String) -> i64 {
     let client = Client::new();
@@ -16,17 +17,17 @@ pub async fn post_visit_request(project_id: String) -> i64 {
                 match response.json::<serde_json::Value>().await {
                     Ok(data) => data["visits"].as_i64().unwrap_or(0),
                     Err(err) => {
-                        println!("Failed to parse JSON response: {}", err);
+                        error!("Failed to parse JSON response: {}", err);
                         0
                     }
                 }
             } else {
-                println!("Error during the visit request: {}", response.status());
+                error!("Error during the visit request: {}", response.status());
                 0
             }
         }
         Err(err) => {
-            println!("POST request failed: {}", err);
+            error!("POST request failed: {}", err);
             0
         }
     }
@@ -43,17 +44,17 @@ pub async fn get_visit_request(project_id: String) -> i64 {
                 match response.json::<serde_json::Value>().await {
                     Ok(data) => data["visits"].as_i64().unwrap_or(0),
                     Err(err) => {
-                        println!("Failed to parse JSON response: {}", err);
+                        error!("Failed to parse JSON response: {}", err);
                         0
                     }
                 }
             } else {
-                println!("Error during the visit request: {}", response.status());
+                error!("Error during the visit request: {}", response.status());
                 0
             }
         }
         Err(err) => {
-            println!("POST request failed: {}", err);
+            error!("POST request failed: {}", err);
             0
         }
     }

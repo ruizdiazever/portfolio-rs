@@ -1,0 +1,80 @@
+{
+  "posts": [
+    {
+      "id": "b3678579-1593-4c8e-891c-7a933f7a3760",
+      "human_id": "picu-iot",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/projects/picu",
+      "title": "Picu IoT",
+      "description": "STATE-OF-THE-ART IoT Platform",
+      "readtime": 2,
+      "tags": [
+        "GraphQL",
+        "Rust",
+        "Axum",
+        "IoT",
+        "security",
+        "auth",
+        "credentials",
+        "async-graphql",
+        "backend",
+        "api",
+        "project"
+      ],
+      "date": "Jan 18, 2024"
+    },
+    {
+      "id": "e3399a11-7ce6-4cdc-aba6-7d88d2a412b6",
+      "human_id": "aura-design",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/projects/aura",
+      "title": "Aura Design",
+      "description": "Engineering Design Company",
+      "readtime": 0,
+      "tags": [
+        "GraphQL",
+        "Rust",
+        "Axum",
+        "IoT",
+        "security",
+        "auth",
+        "credentials",
+        "async-graphql",
+        "backend",
+        "api",
+        "project",
+        "design"
+      ],
+      "date": "Jun 20, 2024"
+    },
+    {
+      "id": "468ebc44-4ef0-4e41-8b05-525010becb11",
+      "human_id": "berli-system",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/projects/berli",
+      "title": "BERLi System",
+      "description": "Async Enterprise Software Management",
+      "readtime": 0,
+      "tags": [
+        "GraphQL",
+        "Rust",
+        "Axum",
+        "IoT",
+        "security",
+        "auth",
+        "credentials",
+        "async-graphql",
+        "backend",
+        "api",
+        "project",
+        "design",
+        "system",
+        "BERLi"
+      ],
+      "date": "Jun 20, 2024"
+    }
+  ]
+}

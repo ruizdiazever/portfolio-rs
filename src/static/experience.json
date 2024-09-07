@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "date": "Jan 2023 - Present",
+      "title": "Tech Lead",
+      "company": "Anritsu",
+      "url": "https://www.anritsu.com/en-gb/",
+      "description": "Python lead developer in M4 Platform Team at Anritsu. My work consists in Python code quality control and modern interface development using RestAPI or GraphQL in VMs and Cloud infrastructures."
+    },
+    {
+      "date": "July 2022 - December 2022",
+      "title": "Senior Software Engineer",
+      "company": "Aeronautica Militare (Italian Air Force)",
+      "url": "https://www.aeronautica.difesa.it/",
+      "description": "I successfully developed a key microservice for the military aviation weather system, greatly improving my team's DX and service performance along the way by migrating the API from Flask to FastAPI."
+    },
+    {
+      "date": "October 2021 - July 2022",
+      "title": "Software Developer",
+      "company": "Qi4M",
+      "url": "https://www.qi4m.com/",
+      "description": "My main work consists of integrations of components made by the Data Science area in the workflow of applications with Python Standalone (pure Python 3 without frameworks). On the other hand, I have been responsible for developing the frontend and most of the backend of a very important project with Vue.js on the client side and a backend with a REST API with Flask."
+    }
+  ]
+}

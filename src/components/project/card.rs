@@ -1,11 +1,51 @@
 use crate::components::common::link::Link;
+use std::collections::HashMap;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
+use lazy_static::lazy_static;
+use crate::components::common::values::Icon;
+
+lazy_static! {
+    static ref ICONS_MAP: HashMap<&'static str, Vec<Icon>> = {
+        let mut map = HashMap::new();
+        map.insert("picu-iot", vec![
+            Icon::Rust,
+            Icon::PostgreSQL,
+            Icon::Svelte,
+            Icon::Astro,
+            Icon::Flutter,
+            Icon::TailwindCSS,
+            Icon::InfluxDB,
+            Icon::Grafana,
+        ]);
+        map.insert("aura-design", vec![
+            Icon::Rust,
+            Icon::PostgreSQL,
+            Icon::Astro,
+            Icon::Svelte,
+            Icon::TailwindCSS,
+            Icon::InfluxDB,
+            Icon::Grafana,
+            Icon::Docker,
+        ]);
+        map.insert("berli-system", vec![
+            Icon::Rust,
+            Icon::PostgreSQL,
+            Icon::Svelte,
+            Icon::Astro,
+            Icon::TailwindCSS,
+            Icon::InfluxDB,
+            Icon::Grafana,
+            Icon::Docker,
+        ]);
+        map
+    };
+}
 
 #[component]
 pub fn ProjectCard(
-    children: Children,
+    human_id: String,
     title: String,
     description: String,
     github: bool,
@@ -13,6 +53,9 @@ pub fn ProjectCard(
     blank: bool,
     repository: String,
 ) -> impl IntoView {
+    let binding = vec![];
+    let icons = ICONS_MAP.get(&*human_id).unwrap_or(&binding);
+
     view! {
         <div class="group relative block h-32 w-full">
             <div class="relative p-2 flex h-full
@@ -40,7 +83,7 @@ pub fn ProjectCard(
                     </div>
                     <p class="text-sm text-gray-600 truncate ...">{description.clone()}</p>
                     <div class="flex gap-4 mt-1">
-                        {children()}
+                        {icons.iter().map(|icon| icon.to_view()).collect::<Vec<_>>()}
                     </div>
                 </div>
           </div>

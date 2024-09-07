@@ -1,11 +1,11 @@
 use crate::security::error_template::{AppError, ErrorTemplate};
-use leptos_meta::{provide_meta_context, Link, Meta, Stylesheet, Title};
 use leptos::*;
+use leptos_meta::{provide_meta_context, Link, Meta, Stylesheet, Title};
 use leptos_router::*;
 
-use crate::pages::blog::{portfolio::Portfolio, cookies::Cookies};
+use crate::pages::blog::{auth::Auth, portfolio::Portfolio};
 use crate::pages::home::Home;
-use crate::pages::projects::{aura::Aura, berli::Berli, picu::Picu, test::Test};
+use crate::pages::projects::{aura::Aura, berli::Berli, picu::Picu};
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -63,15 +63,15 @@ pub fn App() -> impl IntoView {
         }>
             <main>
                 <Routes>
+                    // Home
                     <Route path="/" view=  move || view! { <Home/> }/>
                     // Projects
                     <Route path="/projects/picu" view=  move || view! { <Picu/> }/>
                     <Route path="/projects/aura" view=  move || view! { <Aura/> }/>
                     <Route path="/projects/berli" view=  move || view! { <Berli/> }/>
-                    <Route path="/projects/test" view=  move || view! { <Test/> }/>
                     // Blog
                     <Route path="/blog/portfolio" view=  move || view! { <Portfolio/> }/>
-                    <Route path="/blog/cookies" view=  move || view! { <Cookies/> }/>
+                    <Route path="/blog/auth" view=  move || view! { <Auth/> }/>
                 </Routes>
             </main>
         </Router>

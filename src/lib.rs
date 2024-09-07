@@ -22,18 +22,18 @@ pub mod pages {
         pub mod aura;
         pub mod berli;
         pub mod picu;
-        pub mod test;
     }
 
     pub mod blog {
-        pub mod cookies;
+        pub mod auth;
         pub mod portfolio;
     }
 }
 
-pub mod common {
+pub mod utils {
     pub mod api;
     pub mod config;
+    pub mod models;
 }
 
 pub mod layouts {
@@ -47,21 +47,25 @@ pub mod layouts {
 }
 
 pub mod components {
-    pub mod project {
+    pub mod blog {
         pub mod card;
+        pub mod post;
     }
 
-    pub mod home {
+    pub mod experience {
         pub mod entry;
-        pub mod experience;
+    }
+
+    pub mod project {
+        pub mod card;
+        pub mod post;
+        pub mod tech;
     }
 
     pub mod common {
-        pub mod card;
         pub mod helpful;
         pub mod link;
         pub mod modal;
-        pub mod post;
         pub mod values;
         pub mod working;
     }

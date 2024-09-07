@@ -1,22 +1,35 @@
-use crate::components::common::{working::Working, post::Post};
+use crate::components::project::post::Post;
+use crate::utils::config::get_project_by_id;
+use crate::components::common::working::Working;
 use crate::layouts::layout::Layout;
 use leptos::*;
+use uuid::{uuid, Uuid};
 
 #[component]
 pub fn Berli() -> impl IntoView {
-    // Project
-    let id = "468ebc44-4ef0-4e41-8b05-525010becb11".to_string();
-    let title = "BERLi System";
-    let subtitle = "Asynchronous enterprise software management";
-    let date = "Jun 18, 2024";
-    let tags_key = "berli";
-    let min = "0";
+    const ID: Uuid = uuid!("468ebc44-4ef0-4e41-8b05-525010becb11");
+    let project = get_project_by_id(ID);
 
-    view! {
-        <Layout>
-            <Post title=title subtitle=subtitle tags_key=tags_key date=date id=id min=min>
-                <Working/>
-            </Post>
-        </Layout>
+    if let Some(project) = project {
+        view! {
+            <Layout>
+                <Post
+                    id=project.id.to_string()
+                    title=project.title
+                    description=project.description
+                    date=project.date
+                    readtime=project.readtime
+                    tags=project.tags
+                >
+                    <Working/>
+                </Post>
+            </Layout>
+        }
+    } else {
+        view! {
+            <Layout>
+                <p>"Project not found"</p>
+            </Layout>
+        }
     }
 }
