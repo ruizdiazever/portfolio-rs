@@ -82,8 +82,11 @@ pub fn Post(
                         </div>
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
+
+                    // POST
                     <div class="mt-6 space-y-4">{children()}</div>
-                    // <Helpful/>
+
+                    <Helpful/>
                 </article>
             </div>
     }

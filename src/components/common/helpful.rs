@@ -5,7 +5,7 @@ use leptos_icons::*;
 
 #[component]
 pub fn Helpful() -> impl IntoView {
-    let (show_feedback, set_show_feedback) = create_signal(true);
+    let (show_feedback, set_show_feedback) = create_signal(false);
     let (selected_option, set_selected_option) = create_signal(0);
 
     let open_feedback = move |option: u8| {
