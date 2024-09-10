@@ -14,7 +14,7 @@ use tracing::{error, info};
 use crate::common::ui::homepage;
 use crate::config::{cors_config, Config};
 use crate::security::error::Error;
-use crate::services::visits;
+use crate::services::{feedback, visualizations};
 
 pub type Result<T, E = Error> = std::result::Result<T, E>;
 
@@ -58,7 +58,8 @@ pub async fn serve(config: Config, redis_client: redis::Client) -> Result<(), Er
 fn api_router(api_context: ApiContext) -> Result<Router, Error> {
     let router = Router::new()
         .route("/", get(homepage))
-        .merge(visits::visit_routes())
+        .merge(visualizations::visit_routes())
+        .merge(feedback::feedback_routes())
         .layer(
             ServiceBuilder::new()
                 .layer(TraceLayer::new_for_http())

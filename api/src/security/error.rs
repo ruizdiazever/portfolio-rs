@@ -1,6 +1,7 @@
 use axum::http::header::{InvalidHeaderValue, WWW_AUTHENTICATE};
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
+use lettre::address::AddressError;
 use axum::Json;
 use serde_json::json;
 use std::{borrow::Cow, collections::HashMap};
@@ -30,6 +31,12 @@ pub enum Error {
     Request(#[from] reqwest::Error),
     #[error("RedisDB error")]
     RedisDbError(#[from] redis::RedisError),
+    #[error("Adress error")]
+    AddressError(#[from] AddressError),
+    #[error("Lettre transport SMTP error")]
+    LettreTransError(#[from] lettre::transport::smtp::Error),
+    #[error("Handlebar template error")]
+    HandlebarTemplateError(#[from] handlebars::TemplateError),
 }
 
 // REST (does not apply to graphql)

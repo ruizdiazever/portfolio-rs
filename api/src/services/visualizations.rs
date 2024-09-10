@@ -1,4 +1,4 @@
-use crate::redis::post::{get_visit, sum_visit};
+use crate::redis::visualizations::{get_visit, sum_visit};
 use crate::routes::{ApiContext, Result};
 use crate::security::error::Error;
 use axum::{
