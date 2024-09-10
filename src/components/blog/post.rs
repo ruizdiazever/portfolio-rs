@@ -1,5 +1,5 @@
-use crate::utils::api::post_visit_request;
 use crate::components::common::helpful::Helpful;
+use crate::utils::api::post_visit_request;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
@@ -12,8 +12,9 @@ pub fn Post(
     date: String,
     children: Children,
     readtime: u8,
-    tags: Vec<String>
+    tags: Vec<String>,
 ) -> impl IntoView {
+    let (id_signal, _set_id) = create_signal(id.clone());
 
     let views = create_resource(
         move || id.clone(),
@@ -38,21 +39,21 @@ pub fn Post(
                     </a>
                 </div>
                 <article class="text-gray-600">
+                    <div class="flex justify-end invisible md:visible items-center gap-2 text-gray-600">
+                        <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
+                        <p class="flex md:gap-1 text-muted-foreground text-md">
+                            {readtime} mins read
+                        </p>
+                    </div>
                     <div class="flex items-center justify-between mb-2 md:mb-3">
-                        <div>
-                            <div class="flex visible md:invisible items-center gap-2 text-gray-600">
+                        <div class="w-full">
+                            <div class="flex justify-end visible md:invisible items-center gap-2 text-gray-600">
                                 <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
-                                <code class="flex md:gap-1 text-muted-foreground">
+                                <p class="flex md:gap-1 text-muted-foreground text-md">
                                     {readtime} mins read
-                                </code>
+                                </p>
                             </div>
                             <h1 class="text-3xl md:text-4xl text-gray-800">{title}</h1>
-                        </div>
-                        <div class="flex invisible md:visible items-center gap-2 text-gray-600">
-                            <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
-                            <code class="flex md:gap-1 text-muted-foreground">
-                                {readtime} mins read
-                            </code>
                         </div>
                     </div>
                     <div class="space-y-2 not-prose">
@@ -83,7 +84,7 @@ pub fn Post(
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
                     <div class="mt-6 space-y-4">{children()}</div>
-                    <Helpful/>
+                    <Helpful id=id_signal/>
                 </article>
             </div>
     }

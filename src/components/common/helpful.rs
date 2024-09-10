@@ -4,7 +4,7 @@ use leptos::*;
 use leptos_icons::*;
 
 #[component]
-pub fn Helpful() -> impl IntoView {
+pub fn Helpful(id: ReadSignal<String>) -> impl IntoView {
     let (show_feedback, set_show_feedback) = create_signal(false);
     let (selected_option, set_selected_option) = create_signal(0);
 
@@ -38,6 +38,6 @@ pub fn Helpful() -> impl IntoView {
           </div>
         </div>
 
-        <Feedback show=show_feedback option=selected_option></Feedback>
+        <Feedback show=show_feedback option=selected_option id=id></Feedback>
     }
 }
