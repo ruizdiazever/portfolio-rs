@@ -15,6 +15,7 @@ pub fn Post(
     tags: Vec<String>,
 ) -> impl IntoView {
     let (id_signal, _set_id) = create_signal(id.clone());
+    let (title_signal, _set_title) = create_signal(title.clone());
 
     let views = create_resource(
         move || id.clone(),
@@ -84,7 +85,7 @@ pub fn Post(
                     </div>
                     <hr class="my-8 h-px border-0 bg-gray-300" />
                     <div class="mt-6 space-y-4">{children()}</div>
-                    <Helpful id=id_signal/>
+                    <Helpful id=id_signal title=title_signal/>
                 </article>
             </div>
     }

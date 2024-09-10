@@ -2,32 +2,67 @@ use icondata as i;
 use leptos::{html::Dialog, *};
 use leptos_icons::*;
 use leptos_router::*;
-use tracing::info;
 
 #[server]
-pub async fn server_thing(option: u8, feedback: String, id: String) -> Result<(), ServerFnError> {
+pub async fn server_thing(
+    id: String,
+    reaction: u8,
+    msg: String,
+    title: String,
+) -> Result<(), ServerFnError> {
+    use crate::utils::api::post_feedback_request;
+    use tracing::info;
+
     info!(
-        "Running on server with option: {} and feedback: {} and id: {}",
-        option, feedback, id
+        "Sending feedback with id: {}, reaction: {} and msg: {}",
+        id, reaction, msg
     );
+
+    post_feedback_request(id, reaction, msg, title).await;
     Ok(())
 }
 
 #[component]
 pub fn Feedback(
     show: ReadSignal<bool>,
-    option: ReadSignal<u8>,
     id: ReadSignal<String>,
+    reaction: ReadSignal<u8>,
+    title: ReadSignal<String>,
 ) -> impl IntoView {
     let action = create_server_action::<ServerThing>();
     let dialog_ref = create_node_ref::<Dialog>();
-    let (feedback, set_feedback) = create_signal(String::new());
+    let (msg, set_msg) = create_signal(String::new());
+    let (error, set_error) = create_signal(None::<String>);
 
     create_effect(move |_| {
         if let Some(dialog) = dialog_ref.get() {
             dialog.set_open(show.get());
         }
     });
+
+    let validate_message = move || {
+        if msg().len() < 1 {
+            set_error.set(Some("Please enter your feedback".to_string()));
+            return false;
+        } else {
+            set_error.set(None);
+            return true;
+        }
+    };
+
+    let submit_form = move |_| {
+        if validate_message() {
+            action.dispatch(ServerThing {
+                id: id.get(),
+                reaction: reaction.get(),
+                msg: msg.get(),
+                title: title.get(),
+            });
+            if let Some(dialog) = dialog_ref.get() {
+                dialog.set_open(false);
+            }
+        }
+    };
 
     view! {
         <dialog node_ref=dialog_ref>
@@ -48,26 +83,23 @@ pub fn Feedback(
                             <textarea
                                 type="text"
                                 on:input=move |ev| {
-                                    set_feedback.set(event_target_value(&ev));
+                                    set_msg.set(event_target_value(&ev));
+                                    validate_message();
                                 }
-                                prop:value=feedback
+                                prop:value=msg
                                 class="resize-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
                                 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Enter your feedback"
                             />
+                            {move || error().map(|err| view! { <div class="mt-2 text-sm text-red-500">{err}</div> })}
                         </div>
                     </div>
 
                     <ActionForm action>
                         <div class="flex justify-end">
                             <button
-                                on:click=move |_| {
-                                action.dispatch(ServerThing { option: option.get(), feedback: feedback.get(), id: id.get() });
-                                if let Some(dialog) = dialog_ref.get() {
-                                    dialog.set_open(false);
-                                }
-                            }
-                            class="px-4 py-2 bg-black text-white rounded-lg
+                                on:click=submit_form
+                                class="px-4 py-2 bg-black text-white rounded-lg
                                 hover:bg-[#5e626f] focus:outline-none focus:ring-2
                                 focus:ring-blue-500 focus:ring-offset-2"
                             >
