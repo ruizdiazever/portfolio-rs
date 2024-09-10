@@ -1,4 +1,4 @@
-use leptos::tracing::error;
+use tracing::error;
 use reqwest::Client;
 use serde_json::json;
 
