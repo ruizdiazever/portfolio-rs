@@ -175,8 +175,8 @@ pub fn Portfolio() -> impl IntoView {
                                           </tr>
                                           <tr>
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Administration</td>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Cockpit</td>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Open web-based UI to servers by RedHat</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Cockpit and SSH</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Cockpit is a open web-based UI to servers</td>
                                           </tr>
                                           <tr>
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Monitoring</td>
