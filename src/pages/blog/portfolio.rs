@@ -166,7 +166,7 @@ pub fn Portfolio() -> impl IntoView {
                                           <tr>
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">HTTPS Server</td>
                                             <td class="whitespace-nowrap px-4 py-2 text-gray-700">Caddy</td>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Reverse Proxy</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Reverse Proxy and SSL</td>
                                           </tr>
                                           <tr>
                                             <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Domain</td>
