@@ -7,7 +7,7 @@
       "home": true,
       "url": "/projects/picu",
       "title": "Picu IoT",
-      "description": "STATE-OF-THE-ART IoT Platform",
+      "description": "Top-notch IoT Project powered by Rust",
       "readtime": 2,
       "tags": [
         "GraphQL",

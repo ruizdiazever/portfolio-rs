@@ -43,7 +43,7 @@ pub fn Post(
                     <div class="flex justify-end invisible md:visible items-center gap-2 text-gray-600">
                         <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
                         <p class="flex md:gap-1 text-muted-foreground text-md">
-                            {readtime} mins read
+                            {readtime} min read
                         </p>
                     </div>
                     <div class="flex items-center justify-between mb-2 md:mb-3">
@@ -51,7 +51,7 @@ pub fn Post(
                             <div class="flex justify-end visible md:invisible items-center gap-2 text-gray-600">
                                 <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
                                 <p class="flex md:gap-1 text-muted-foreground text-md">
-                                    {readtime} mins read
+                                    {readtime} min read
                                 </p>
                             </div>
                             <h1 class="text-3xl md:text-4xl text-gray-800">{title}</h1>
@@ -64,7 +64,7 @@ pub fn Post(
                                 <Icon icon=i::AiClockCircleOutlined />
                                 <code>{date}</code>
                             </section>
-                            <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
+                            <section class="flex items-center justify-center gap-1 flex-wrap font-medium" title={tags.join(", ")}>
                                 <Icon icon=i::BsTag />
                                 <code>{tags.len()} Tags</code>
                             </section>

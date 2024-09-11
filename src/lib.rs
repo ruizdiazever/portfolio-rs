@@ -63,6 +63,7 @@ pub mod components {
     }
 
     pub mod common {
+        pub mod feature;
         pub mod helpful;
         pub mod link;
         pub mod modal;

@@ -1,20 +1,18 @@
 use crate::components::blog::post::Post;
-use crate::utils::config::get_post_by_id;
+use crate::components::common::feature::Feature;
 use crate::components::common::values::Link;
 use crate::layouts::layout::Layout;
-use uuid::{uuid, Uuid};
+use crate::utils::config::get_post_by_id;
 use icondata as i;
 use leptos::*;
 use leptos_icons::*;
+use uuid::{uuid, Uuid};
 
 #[component]
 pub fn Portfolio() -> impl IntoView {
     const ID: Uuid = uuid!("9a5f3584-5a8a-4c22-8460-2d775d54d89b");
 
-    let post_resource = create_resource(
-        || (),
-        move |_| async move { get_post_by_id(ID) },
-    );
+    let post_resource = create_resource(|| (), move |_| async move { get_post_by_id(ID) });
 
     view! {
         <Layout>
@@ -34,7 +32,7 @@ pub fn Portfolio() -> impl IntoView {
                                 >
                                     // Journey
                                     <h1 id="journey" class="text-2xl text-gray-800">
-                                        <a href="#journey">The Journey to Excellence</a>
+                                        <a href="#journey">The journey to excellence</a>
                                     </h1>
                                     <p class="text-gray-700">
                                         Welcome to my WASM portfolio, a cutting-edge showcase of my work
@@ -45,6 +43,12 @@ pub fn Portfolio() -> impl IntoView {
                                         This portfolio is more than just a collection of projects;
                                         it reflects my commitment to excellence and innovation in the tech industry.
                                     </p>
+                                    // Stack
+                                    <h1 id="stack" class="text-2xl text-gray-800">
+                                        <a href="#stack">Stack</a>
+                                    </h1>
+                                    <p>In addition to Leptos I have used {Link::Axum.to_view()} to create a microservice which uses
+                                    {Link::RedisDB.to_view()} for persistence. I use the API for some web features like visits or feedback.</p>
                                     // Design
                                     <h1 id="design" class="text-2xl text-gray-800">
                                         <a href="#design">Design</a>
@@ -60,13 +64,36 @@ pub fn Portfolio() -> impl IntoView {
                                         Every element is thoughtfully curated to create a functional and aesthetically pleasing digital space.
                                         Though some parts are still in progress, I am excited to share this journey with you.
                                     </p>
-                                    // Stack
-                                    <h1 id="stack" class="text-2xl text-gray-800">
-                                        <a href="#stack">Stack and Architecture</a>
+                                    // Features
+                                    <h1 id="features" class="text-2xl text-gray-800">
+                                        <a href="#features">Features</a>
                                     </h1>
-                                    <p>In addition to Leptos I have used {Link::Axum.to_view()} to create a microservice which uses
-                                    {Link::RedisDB.to_view()} for persistence. I use the API for some web features like visits or feedback.</p>
-                                    <p>All of this deployed on my own server at home.</p>
+
+                                    <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
+                                        <Feature
+                                            title="SSR with Hydration"
+                                            description="Server-side rendering for faster initial load times,
+                                            combined with client-side hydration for dynamic interactivity.">
+                                            <Icon class="w-6 h-6 text-indigo-600" icon=i::BiServerRegular />
+                                        </Feature>
+                                        <Feature
+                                            title="Feedback"
+                                            description="Feedback mechanism leverages RedisDB and SMPT to efficiently deliver email notifications of readers.">
+                                            <Icon class="w-6 h-6 text-indigo-600" icon=i::VsReactions />
+                                        </Feature>
+                                        <Feature title="Insights"
+                                            description="Each post has a counter that registers the visit and adds it to a unique counter in RedisDB.">
+                                            <Icon class="w-6 h-6 text-indigo-600" icon=i::CgInsights />
+                                        </Feature>
+                                        // <Feature title="Search"
+                                        //     description="Powered by Meilisearch, a powerful, open-source search engine coded in Rust.">
+                                        //     <Icon class="w-6 h-6 text-indigo-600" icon=i::AiSearchOutlined />
+                                        // </Feature>
+                                    </div>
+                                    // Architecture
+                                    <h1 id="architecture" class="text-2xl text-gray-800">
+                                        <a href="#architecture">Architecture</a>
+                                    </h1>
                                     <div class="inset-0 -z-10 w-full bg-slate-50 my-30
                                     border border-gray-300 rounded rounded-lg mx-auto shadow
                                     bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
@@ -113,6 +140,56 @@ pub fn Portfolio() -> impl IntoView {
                                             alt="Grafana"
                                             title="Grafana, observability… at your service"
                                         />
+                                    </div>
+                                    // Deployment
+                                    <h1 id="deployment" class="text-2xl text-gray-800">
+                                        <a href="#deployment">Deployment</a>
+                                    </h1>
+                                    <p>I have deployed the entire portfolio and the various technologies around it on my own beloved mini server.</p>
+                                    <p>The thrill of technological success is palpable. After working tirelessly, I have launched my portfolio and the entire technological environment surrounding it on my own server, a true palace of innovation:</p>
+                                    <div class="overflow-x-auto rounded-lg border border-gray-200">
+                                      <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+                                        <thead class="ltr:text-left rtl:text-right">
+                                          <tr>
+                                            <th class="text-left whitespace-nowrap px-4 py-2 font-medium text-gray-900">Component</th>
+                                            <th class="text-left whitespace-nowrap px-4 py-2 font-medium text-gray-900">Name</th>
+                                            <th class="text-left whitespace-nowrap px-4 py-2 font-medium text-gray-900 md:block hidden">Description</th>
+                                          </tr>
+                                        </thead>
+
+                                        <tbody class="divide-y divide-gray-200">
+                                          <tr>
+                                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">OS</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Fedora Server 40</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">GNU/Linux</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">HTTPS Server</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Caddy</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Reverse Proxy</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Domain</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">SquareSpace</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Provider</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Administration</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Cockpit</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Open web-based UI to servers by RedHat</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Monitoring</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Grafana with InfluxDB</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Best stack to availability and reliability</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Alerts</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">InfluxDB with Telegram</td>
+                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700 md:block hidden">Using Email SMTP and Telegram bot</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
                                     </div>
                                     // Soon
                                     <h1 id="soon" class="text-2xl text-gray-800">
