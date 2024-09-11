@@ -55,6 +55,7 @@ pub fn Home() -> impl IntoView {
                 company=ex.company
                 description=ex.description
                 url=ex.url
+                current=ex.current
             />
         }
     }).collect::<Vec<_>>();

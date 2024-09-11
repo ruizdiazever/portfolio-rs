@@ -9,10 +9,15 @@ pub fn Experience(
     company: String,
     description: String,
     url: String,
+    current: bool
 ) -> impl IntoView {
     view! {
             <div class="grid gap-1 relative">
-                <div class="aspect-square w-3 bg-gray-600 rounded-full absolute left-0 translate-x-[-29.5px] z-10 top-1" />
+                <div
+                    class={move || format!("aspect-square w-3 rounded-full absolute left-0 translate-x-[-29.5px] z-10 top-1 {}",
+                        if current { "bg-gray-600" } else { "bg-gray-300" }
+                    )}
+                />
                 <div class="text-gray-500 text-sm">{date}</div>
                 <div class="text-gray-800 text-xl">{title}</div>
                 <div class="text-gray-500 text-md mb-1">

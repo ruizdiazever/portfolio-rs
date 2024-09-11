@@ -50,6 +50,7 @@ pub struct Experience {
     pub company: String,
     pub url: String,
     pub description: String,
+    pub current: bool,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
