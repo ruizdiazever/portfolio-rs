@@ -11,13 +11,13 @@ lazy_static! {
         let mut map = HashMap::new();
         map.insert("picu-iot", vec![
             Icon::Rust,
+            Icon::ExpressIf,
             Icon::PostgreSQL,
+            Icon::RedisDB,
+            Icon::Flutter,
             Icon::Svelte,
             Icon::Astro,
-            Icon::Flutter,
             Icon::TailwindCSS,
-            Icon::InfluxDB,
-            Icon::Grafana,
         ]);
         map.insert("aura-design", vec![
             Icon::Rust,
@@ -25,8 +25,6 @@ lazy_static! {
             Icon::Astro,
             Icon::Svelte,
             Icon::TailwindCSS,
-            Icon::InfluxDB,
-            Icon::Grafana,
             Icon::Docker,
         ]);
         map.insert("berli-system", vec![
@@ -35,8 +33,6 @@ lazy_static! {
             Icon::Svelte,
             Icon::Astro,
             Icon::TailwindCSS,
-            Icon::InfluxDB,
-            Icon::Grafana,
             Icon::Docker,
         ]);
         map

@@ -107,7 +107,7 @@ impl Icon {
                 </a>
             },
             Icon::RedisDB => view! {
-                <a href="https://redis.io/" title="Grafana" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
+                <a href="https://redis.io/" title="RedisDB" rel="noopener" class="text-gray-700 hover:text-[#68b5fc]" target="_blank">
                     <Icon width="1.3em" height="1.3em" icon=i::SiRedis />
                 </a>
             },

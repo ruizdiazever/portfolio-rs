@@ -46,7 +46,7 @@ pub fn CardPostBlog(
                         </Suspense>
                         views
                     </section>
-                    <section class="flex items-center justify-center gap-1 flex-wrap font-medium">
+                    <section class="flex items-center justify-center gap-1 flex-wrap font-medium" title={tags.join(", ")}>
                         <Icon icon=i::BsTag />
                         {tags.len()} Tags
                     </section>

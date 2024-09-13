@@ -9,13 +9,14 @@
       "description": "New portfolio WASM, a history of performance and love powered by Rust with Leptos",
       "readtime": 2,
       "tags": [
-        "GraphQL",
         "Rust",
         "Leptos",
-        "Web",
         "WebAssembly",
-        "WASM",
         "Axum",
+        "Web",
+        "WASM",
+        "RedisDB",
+        "SMTP",
         "TailwindCSS"
       ],
       "date": "Jun 20, 2024"
@@ -37,7 +38,7 @@
         "auth",
         "credentials",
         "async-graphql",
-        "async-graphql",
+        "JWT",
         "backend",
         "api"
       ],
