@@ -3,16 +3,16 @@
 async fn main() {
     use axum::Router;
     use dotenvy::dotenv;
-    use tracing::info;
-    use tracing_subscriber::EnvFilter;
     use leptos::*;
     use leptos_axum::{generate_route_list, LeptosRoutes};
+    use portfolio::app::*;
+    use portfolio::fileserv::file_and_error_handler;
     use tower_http::compression::{
         predicate::{NotForContentType, SizeAbove},
         CompressionLayer, CompressionLevel, Predicate,
     };
-    use portfolio::app::*;
-    use portfolio::fileserv::file_and_error_handler;
+    use tracing::info;
+    use tracing_subscriber::EnvFilter;
 
     // Load environment configuration from .env
     dotenv().expect("Set your configuration in a .env file");
@@ -36,9 +36,9 @@ async fn main() {
         .and(NotForContentType::GRPC)
         .and(NotForContentType::IMAGES)
         // Prevent compressing assets that are already statically compressed
-        .and(NotForContentType::const_new("application/javascript"))
-        .and(NotForContentType::const_new("application/wasm"))
-        .and(NotForContentType::const_new("text/css"));
+        //.and(NotForContentType::const_new("application/javascript"))
+        //.and(NotForContentType::const_new("text/css"))
+        .and(NotForContentType::const_new("application/wasm"));
 
     // build our application with a route
     let app = Router::new()
