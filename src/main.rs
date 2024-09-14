@@ -36,8 +36,8 @@ async fn main() {
         .and(NotForContentType::GRPC)
         .and(NotForContentType::IMAGES)
         // Prevent compressing assets that are already statically compressed
-        //.and(NotForContentType::const_new("application/javascript"))
-        //.and(NotForContentType::const_new("text/css"))
+        .and(NotForContentType::const_new("application/javascript"))
+        .and(NotForContentType::const_new("text/css"))
         .and(NotForContentType::const_new("application/wasm"));
 
     // build our application with a route
@@ -45,7 +45,7 @@ async fn main() {
         .leptos_routes(&leptos_options, routes, App)
         .layer(
             CompressionLayer::new()
-                .quality(CompressionLevel::Best)
+                .quality(CompressionLevel::Default)
                 .compress_when(predicate),
         )
         .fallback(file_and_error_handler)
