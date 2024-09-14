@@ -45,7 +45,7 @@ async fn main() {
         .leptos_routes(&leptos_options, routes, App)
         .layer(
             CompressionLayer::new()
-                .quality(CompressionLevel::Fastest)
+                .quality(CompressionLevel::Best)
                 .compress_when(predicate),
         )
         .fallback(file_and_error_handler)
