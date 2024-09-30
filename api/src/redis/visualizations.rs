@@ -35,7 +35,7 @@ pub async fn sum_visit(ctx: &ApiContext, project_id: Uuid) -> Result<i64, Error>
         .hincr::<_, _, _, i64>(VISITS_HASH, field, 1)
         .await
         .map_err(|e| {
-            error!("Error al incrementar visitas en Redis: {:?}", e);
+            error!("Error increasing visits in Redis: {:?}", e);
             Error::Anyhow(anyhow::anyhow!("RedisDB error"))
         })?;
 
@@ -55,7 +55,7 @@ pub async fn get_visit(ctx: &ApiContext, project_id: Uuid) -> Result<i64, Error>
 
     let field = format!("{}{}", VISITS_FIELD_PREFIX, project_id);
     let visits: Option<i64> = redis_client.hget(VISITS_HASH, field).await.map_err(|e| {
-        error!("Error al obtener visitas de Redis: {:?}", e);
+        error!("Error getting hits from Redis: {:?}", e);
         Error::Anyhow(anyhow::anyhow!("RedisDB error"))
     })?;
 

@@ -23,6 +23,45 @@ pub async fn server_thing(
 }
 
 #[component]
+pub fn InfoModal(show: ReadSignal<bool>, text: ReadSignal<String>) -> impl IntoView {
+    let dialog_ref = create_node_ref::<Dialog>();
+    let action = create_server_action::<ServerThing>();
+
+    create_effect(move |_| {
+        if let Some(dialog) = dialog_ref.get() {
+            dialog.set_open(show.get());
+        }
+    });
+
+    let modal_content = move || {
+        view! {
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold">Information</h2>
+                <ActionForm action>
+                    <button formmethod="dialog" class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 rounded">
+                        <Icon class="h-5 w-5" icon=i::AiCloseOutlined />
+                        <span class="sr-only">Close</span>
+                    </button>
+                </ActionForm>
+            </div>
+            <div class="space-y-4 mb-4 antialiased text-gray-600">
+                <p>{text.get()}</p>
+            </div>
+        }
+    };
+
+    view! {
+        <dialog node_ref=dialog_ref>
+            <div class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-40 flex items-center justify-center">
+                <div role="dialog" aria-modal="true" aria-labelledby="modal-title" class="bg-white rounded-lg shadow-xl p-6 m-4 max-w-sm w-full max-h-full text-left">
+                    {modal_content}
+                </div>
+            </div>
+        </dialog>
+    }
+}
+
+#[component]
 pub fn Feedback(
     show: ReadSignal<bool>,
     id: ReadSignal<String>,

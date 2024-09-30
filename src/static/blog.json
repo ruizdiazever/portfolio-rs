@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "511bc558-3f6e-4375-8e57-37e19519f1db",
+      "author": ["Ever Ruiz Diaz", "Community"],
+      "home": true,
+      "url": "/blog/rust",
+      "title": "Organizations using Rust",
+      "description": "Forging the future, companies building with Rust",
+      "readtime": 3,
+      "tags": ["Rust", "Industry", "State", "Companies"],
+      "date": "Sep 30, 2024",
+      "active": true
+    },
+    {
       "id": "9a5f3584-5a8a-4c22-8460-2d775d54d89b",
       "author": ["Ever Ruiz Diaz"],
       "home": true,
@@ -19,7 +31,8 @@
         "SMTP",
         "TailwindCSS"
       ],
-      "date": "Jun 20, 2024"
+      "date": "Jun 20, 2024",
+      "active": true
     },
     {
       "id": "f7583be4-ebf7-48a9-928d-5a058f0aabd9",
@@ -42,7 +55,8 @@
         "backend",
         "api"
       ],
-      "date": "Jun 20, 2024"
+      "date": "Jun 20, 2024",
+      "active": false
     }
   ]
 }

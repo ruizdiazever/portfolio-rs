@@ -21,7 +21,6 @@ pub struct ProjectsFile {
     pub posts: Vec<Project>,
 }
 
-
 // BLOG
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Post {
@@ -34,8 +33,26 @@ pub struct Post {
     pub readtime: u8,
     pub tags: Vec<String>,
     pub date: String,
+    pub active: bool,
 }
 
+// Organizations using Rust
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct Organization {
+    pub name: String,
+    pub url: String,
+    pub founded: i32,
+    pub industry: String,
+    pub description: String,
+    pub country: String,
+    pub market: bool,
+    pub source: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct OrganizationsFile {
+    pub organizations: Vec<Organization>,
+}
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct BlogFile {

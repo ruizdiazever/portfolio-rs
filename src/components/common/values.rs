@@ -20,7 +20,7 @@ pub enum Icon {
     Linux,
     Python,
     Grafana,
-    RedisDB
+    RedisDB,
 }
 
 impl Icon {
@@ -132,7 +132,8 @@ pub enum Link {
     Nio,
     RedisDB,
     Grafana,
-    InfluxDB
+    InfluxDB,
+    State,
 }
 
 impl Link {
@@ -237,6 +238,12 @@ impl Link {
             Link::InfluxDB => view! {
                 <LinkSimple title="InfluxDB".to_string()
                     link="https://www.influxdata.com/".to_string()
+                    blank=true
+                />
+            },
+            Link::State => view! {
+                <LinkSimple title="GitHub Repository".to_string()
+                    link="https://github.com/ruizdiazever/portfolio-rs/blob/main/src/static/organizations.json".to_string()
                     blank=true
                 />
             },

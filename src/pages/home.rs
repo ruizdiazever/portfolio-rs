@@ -1,12 +1,11 @@
-use crate::utils::config::{get_projects_from_json, get_posts_from_json, get_experience_from_json};
 use crate::components::blog::card::CardPostBlog;
 use crate::components::experience::entry::Experience;
 use crate::components::project::card::ProjectCard;
 use crate::layouts::layout::Layout;
+use crate::utils::config::{get_experience_from_json, get_posts_from_json, get_projects_from_json};
 use leptos::*;
 
-const DESCRIPTION: &str =
-    "Hello, I'm Ever, a Senior Software Engineer.";
+const DESCRIPTION: &str = "Hello, I'm Ever, a Senior Software Engineer.";
 
 const SUB_DESCRIPTION: &str = "I am passionate about cutting-edge technology, design and science and I like to combine them to create innovative solutions.";
 
@@ -17,48 +16,58 @@ pub fn Home() -> impl IntoView {
     let experiences = get_experience_from_json();
 
     // Projects
-    let project_cards = projects.into_iter().map(|project| {
-        view! {
-            <ProjectCard
-                github=false
-                human_id=project.human_id
-                title=project.title
-                description=project.description
-                url=project.url
-                repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
-                blank=false
-            />
-        }
-    }).collect::<Vec<_>>();
+    let project_cards = projects
+        .into_iter()
+        .map(|project| {
+            view! {
+                <ProjectCard
+                    github=false
+                    human_id=project.human_id
+                    title=project.title
+                    description=project.description
+                    url=project.url
+                    repository="https://github.com/ruizdiazever/portfolio-rs".to_string()
+                    blank=false
+                />
+            }
+        })
+        .collect::<Vec<_>>();
 
     // Blog posts
-    let posts_cards = posts.into_iter().map(|post| {
-        view! {
-            <CardPostBlog
-                id=post.id.to_string()
-                title=post.title
-                description=post.description
-                url=post.url
-                readtime=post.readtime
-                date=post.date
-                tags=post.tags
-            />
-        }
-    }).collect::<Vec<_>>();
+    let posts_cards = posts
+        .into_iter()
+        .filter(|project| project.active)
+        .map(|post| {
+            view! {
+                <CardPostBlog
+                    id=post.id.to_string()
+                    title=post.title
+                    description=post.description
+                    url=post.url
+                    readtime=post.readtime
+                    date=post.date
+                    tags=post.tags
+                />
+            }
+        })
+        .collect::<Vec<_>>();
 
     // Experiences
-    let experiences_entries = experiences.into_iter().map(|ex| {
-        view! {
-            <Experience
-                date=ex.date
-                title=ex.title
-                company=ex.company
-                description=ex.description
-                url=ex.url
-                current=ex.current
-            />
-        }
-    }).collect::<Vec<_>>();
+    let experiences_entries = experiences
+        .into_iter()
+        .map(|ex| {
+            view! {
+                <Experience
+                    date=ex.date
+                    title=ex.title
+                    company=ex.company
+                    description=ex.description
+                    url=ex.url
+                    current=ex.current
+                />
+            }
+        })
+        .collect::<Vec<_>>();
 
     view! {
         <Layout>
