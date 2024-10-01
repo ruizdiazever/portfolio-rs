@@ -14,6 +14,10 @@ pub fn State() -> impl IntoView {
     let organizations = create_resource(|| (), move |_| async move { get_orgs_from_json() });
     let post_resource = create_resource(|| (), move |_| async move { get_post_by_id(ID) });
 
+    let intro = r#" opening doors for developers
+        skilled in this game-changing language. Learn how Rust's exceptional ergonomics are revolutionizing
+        engineering by providing safety, speed, and ease of use—reshaping the future of software development."#;
+
     let (show_description, set_show_description) = create_signal(false);
     let (description, set_description) = create_signal("".to_string());
     let open_description = move |text: &str| {
@@ -42,9 +46,7 @@ pub fn State() -> impl IntoView {
                                         <a href="#tomorrow">Building Tomorrow</a>
                                     </h1>
                                     <p class="text-gray-700">
-                                        Discover the companies and organizations embracing {Link::Rust.to_view()}, opening doors for developers
-                                        skilled in this gamechanging language. Learn how Rust is exceptional ergonomics are
-                                        revolutionizing engineering by providing safety, speed, and ease of usereshaping the future of software development.
+                                        Discover the companies and organizations embracing {Link::Rust.to_view()}, {intro}
                                     </p>
                                     // List
                                     <h1 id="list" class="text-2xl text-gray-800">
