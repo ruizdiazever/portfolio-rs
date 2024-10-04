@@ -45,6 +45,7 @@ pub struct Organization {
     pub industry: String,
     pub description: String,
     pub country: String,
+    pub sponsor: String,
     pub market: bool,
     pub source: String,
 }

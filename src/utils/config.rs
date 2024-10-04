@@ -132,3 +132,11 @@ pub fn get_project_by_id(project_id: Uuid) -> Option<Project> {
         .into_iter()
         .find(|post| post.id == project_id)
 }
+
+pub fn capitalize_first_letter(s: &str) -> String {
+    if let Some(first) = s.chars().next() {
+        first.to_uppercase().to_string() + &s[first.len_utf8()..]
+    } else {
+        String::new()
+    }
+}

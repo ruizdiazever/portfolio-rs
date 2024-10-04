@@ -40,19 +40,19 @@ pub fn Post(
                     </a>
                 </div>
                 <article class="text-gray-600">
-                    <div class="flex justify-end invisible md:visible items-center gap-2 text-gray-600">
+                    <div class="flex justify-start md:justify-end invisible md:visible items-center gap-2 text-gray-600">
                         <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
                         <p class="flex md:gap-1 text-muted-foreground text-md">
                             {readtime} min read
                         </p>
                     </div>
-                    <div class="flex items-center justify-between mb-2 md:mb-3">
+                    <div class="flex items-start justify-between mb-2 md:mb-3">
                         <div class="w-full">
-                            <div class="flex justify-end visible md:invisible items-center gap-2 text-gray-600">
-                                <Icon width="1em" height="1em" icon=i::RiTimerSystemLine />
-                                <p class="flex md:gap-1 text-muted-foreground text-md">
+                            <div class="flex visible md:invisible items-center gap-2 text-gray-600">
+                                <p class="flex md:gap-1 text-muted-foreground text-xs">
                                     {readtime} min read
                                 </p>
+                                <Icon width="0.8em" height="0.8em" icon=i::RiTimerSystemLine />
                             </div>
                             <h1 class="text-3xl md:text-4xl text-gray-800">{title}</h1>
                         </div>
