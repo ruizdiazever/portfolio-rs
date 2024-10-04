@@ -73,6 +73,17 @@
       "source": "https://github.com/exein-io/pulsar"
     },
     {
+      "name": "ExpressIf",
+      "url": "https://www.espressif.com/en",
+      "founded": 2008,
+      "industry": "Semiconductors IoT",
+      "description": "Espressif Systems is a public, multinational, fabless, semiconductor company focused on developing cutting-edge, wireless-communication, low-power chipsets.",
+      "country": "China",
+      "market": false,
+      "sponsor": "",
+      "source": "https://docs.esp-rs.org/book/"
+    },
+    {
       "name": "Matic",
       "url": "https://maticrobots.com/",
       "founded": 2017,
