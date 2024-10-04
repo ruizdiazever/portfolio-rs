@@ -95,6 +95,17 @@
       "source": "https://maticrobots.com/blog/why-rust-its-the-safe-choice/"
     },
     {
+      "name": "LambdaClass",
+      "url": "https://lambdaclass.com/",
+      "founded": 2017,
+      "industry": "Research and Engineering",
+      "description": "Lambda is a deep tech venture studio and investment firm with expertise in a variety of industries, including gaming, machine learning, cryptography, database design, distributed systems, programming languages, compiler development, high-frequency trading, real-time bidding, embedded devices, aerospace, and biotech. ",
+      "country": "Argentina",
+      "market": false,
+      "sponsor": "",
+      "source": "https://github.com/lambdaclass/"
+    },
+    {
       "name": "Azure",
       "url": "https://azure.microsoft.com/",
       "founded": 2010,

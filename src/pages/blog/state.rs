@@ -64,13 +64,13 @@ pub fn State() -> impl IntoView {
                                         <tbody class="divide-y divide-gray-200">
                                             <tr class="hover:bg-[#fafafa]">
                                                 <td class="whitespace-nowrap pl-2 md:px-4 py-2 font-medium text-gray-900">
-                                                    <Icon class="fill-red-500 stroke-red-500 h-4 w-4" icon=i::SiGithubsponsors />
+                                                    <Icon class="fill-red-500 stroke-red-500 h-4 w-4" icon=i::AiHeartFilled />
                                                 </td>
                                                 <td class="whitespace-nowrap px-2 md:px-4 py-2 text-gray-700">Founder and Sponsor of Rust Foundation</td>
                                             </tr>
                                             <tr class="hover:bg-[#fafafa]">
                                                 <td class="whitespace-nowrap pl-2 md:px-4 py-2 font-medium text-gray-900">
-                                                    <Icon class="group-hover:translate-x-[1.5px] h-4 w-4" icon=i::SiGithubsponsors />
+                                                    <Icon class="group-hover:translate-x-[1.5px] h-4 w-4" icon=i::AiHeartFilled />
                                                 </td>
                                                 <td class="whitespace-nowrap px-2 md:px-4 py-2 text-gray-700">Sponsor of Rust Foundation</td>
                                             </tr>
@@ -122,11 +122,11 @@ pub fn State() -> impl IntoView {
                                                                         {move || {
                                                                             if &org.sponsor.as_str() == &"founder" {
                                                                                 view! {
-                                                                                    <Icon class="fill-red-500 stroke-red-500" width="1em" height="1em" icon=i::SiGithubsponsors />
+                                                                                    <Icon class="fill-red-500 stroke-red-500 " width="1em" height="1em" icon=i::AiHeartFilled />
                                                                                 }
                                                                             } else if &org.sponsor.as_str() != &"" && &org.sponsor.as_str() != &"founder" {
                                                                                 view! {
-                                                                                    <Icon width="1em" height="1em" icon=i::SiGithubsponsors />
+                                                                                    <Icon width="1em" height="1em" icon=i::AiHeartFilled />
                                                                                 }
                                                                             } else {
                                                                                 view! {
