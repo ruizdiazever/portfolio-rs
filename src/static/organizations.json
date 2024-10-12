@@ -533,6 +533,28 @@
       "market": false,
       "sponsor": "silver",
       "source": "https://www.linkedin.com/posts/rust-foundation_introducing-rustrover-a-standalone-rust-activity-7107743912433209345-gTYw/"
+    },
+    {
+      "name": "Sequentech",
+      "url": "https://sequentech.io/",
+      "founded": 2021,
+      "industry": "Research and Engineering",
+      "description": "Open Source, End-to-End Verifiable Online Voting Platform For Elections",
+      "country": "USA",
+      "market": false,
+      "sponsor": "",
+      "source": "https://github.com/sequentech/"
+    },
+    {
+      "name": "SUSE Linux",
+      "url": "https://suse.com/",
+      "founded": 1992,
+      "industry": "Research and Engineering",
+      "description": "GNU/Linux distribution for community and enterprises",
+      "country": "Germany",
+      "market": false,
+      "sponsor": "",
+      "source": "https://github.com/suse/"
     }
   ]
 }
