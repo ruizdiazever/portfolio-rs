@@ -48,10 +48,10 @@ pub fn State() -> impl IntoView {
                                     <p class="text-gray-700">
                                         Discover the companies and organizations embracing {Link::Rust.to_view()}, {intro}
                                     </p>
+                                    // Icons
                                     <h1 id="icon" class="text-xl text-gray-800">
                                         <a href="#icon">Meaning of icons</a>
                                     </h1>
-                                    // Icons
                                     <div class="overflow-x-auto rounded-lg border border-gray-200">
                                         <table class="min-w-full divide-y-2 divide-gray-200 bg-white md:text-sm text-xs">
                                         <thead class="ltr:text-left rtl:text-right bg-[#fafafa]">

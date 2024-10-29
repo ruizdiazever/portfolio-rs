@@ -17,25 +17,6 @@ Portfolio WASM powered by Rust with Leptos and Axum
 key-value database coded in Rust.
 - [Meilisearch](https://www.meilisearch.com/): a powerful, open-source search engine offering fast and relevant full-text searches in Rust.
 
-## Env
-
-To set in Cloud
-
-```
-API_VERSION="0.0.1"
-API_SERVER_URL="127.0.0.1:3002"
-RUST_LOG=api=debug,tower_http=info
-
-LEPTOS_OUTPUT_NAME="portfolio"
-LEPTOS_SITE_ROOT="site"
-LEPTOS_SITE_PKG_DIR="pkg"
-LEPTOS_SITE_ADDR="127.0.0.1:3003"
-LEPTOS_RELOAD_PORT="3001"
-
-REDIS_PASSWORD=
-REDIS_URL=
-```
-
 ## Run
 ```bash
 rustup toolchain install nightly
