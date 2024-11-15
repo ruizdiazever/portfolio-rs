@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "aa614ca5-0940-41a1-bf80-710096df26ac",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/blog/hardware/minisforum",
+      "title": "Updating Minisforum MS-01 bios",
+      "description": "The MS-01 mini pc is a good product to use as a server",
+      "readtime": 3,
+      "tags": ["Hardware", "Server", "Workstation", "Bios"],
+      "date": "Nov 15, 2024",
+      "active": true
+    },
+    {
       "id": "511bc558-3f6e-4375-8e57-37e19519f1db",
       "author": ["Ever Ruiz Diaz", "Community"],
       "home": true,

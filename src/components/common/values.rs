@@ -134,6 +134,8 @@ pub enum Link {
     Grafana,
     InfluxDB,
     State,
+    BERLi,
+    Aura,
 }
 
 impl Link {
@@ -244,6 +246,18 @@ impl Link {
             Link::State => view! {
                 <LinkSimple title="GitHub Repository".to_string()
                     link="https://github.com/ruizdiazever/portfolio-rs/blob/main/src/static/organizations.json".to_string()
+                    blank=true
+                />
+            },
+            Link::BERLi => view! {
+                <LinkSimple title="BERLi".to_string()
+                    link="https://www.berli.app".to_string()
+                    blank=true
+                />
+            },
+            Link::Aura => view! {
+                <LinkSimple title="Aura".to_string()
+                    link="https://store.everdev.it/en".to_string()
                     blank=true
                 />
             },

@@ -3,6 +3,7 @@ use leptos::*;
 use leptos_meta::{provide_meta_context, Link, Meta, Stylesheet, Title};
 use leptos_router::*;
 
+use crate::pages::blog::ms::Ms;
 use crate::pages::blog::{auth::Auth, portfolio::Portfolio, state::State};
 use crate::pages::home::Home;
 use crate::pages::projects::{aura::Aura, berli::Berli, picu::Picu};
@@ -73,6 +74,7 @@ pub fn App() -> impl IntoView {
                     <Route path="/blog/portfolio" view=  move || view! { <Portfolio/> }/>
                     <Route path="/blog/auth" view=  move || view! { <Auth/> }/>
                     <Route path="/blog/rust" view=  move || view! { <State/> }/>
+                    <Route path="/blog/hardware/minisforum" view=  move || view! { <Ms/> }/>
                 </Routes>
             </main>
         </Router>
