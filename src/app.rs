@@ -4,7 +4,7 @@ use leptos_meta::{provide_meta_context, Link, Meta, Stylesheet, Title};
 use leptos_router::*;
 
 use crate::pages::blog::ms::Ms;
-use crate::pages::blog::{auth::Auth, portfolio::Portfolio, state::State};
+use crate::pages::blog::{auth::Auth, orgs::State, portfolio::Portfolio};
 use crate::pages::home::Home;
 use crate::pages::projects::{aura::Aura, berli::Berli, picu::Picu};
 
@@ -67,14 +67,14 @@ pub fn App() -> impl IntoView {
                     // Home
                     <Route path="/" view=  move || view! { <Home/> }/>
                     // Projects
-                    <Route path="/projects/picu" view=  move || view! { <Picu/> }/>
-                    <Route path="/projects/aura" view=  move || view! { <Aura/> }/>
-                    <Route path="/projects/berli" view=  move || view! { <Berli/> }/>
+                    <Route path="/projects/picu-iot" view=  move || view! { <Picu/> }/>
+                    <Route path="/projects/aura-design" view=  move || view! { <Aura/> }/>
+                    <Route path="/projects/berli-system" view=  move || view! { <Berli/> }/>
                     // Blog
-                    <Route path="/blog/portfolio" view=  move || view! { <Portfolio/> }/>
-                    <Route path="/blog/auth" view=  move || view! { <Auth/> }/>
-                    <Route path="/blog/rust" view=  move || view! { <State/> }/>
-                    <Route path="/blog/hardware/minisforum" view=  move || view! { <Ms/> }/>
+                    <Route path="/blog/portfolio-wasm" view=  move || view! { <Portfolio/> }/>
+                    <Route path="/blog/auth-refresh-acess-token" view=  move || view! { <Auth/> }/>
+                    <Route path="/blog/organizations-using-rust" view=  move || view! { <State/> }/>
+                    <Route path=r#"/blog/hardware/minisforum-ms-01"# view=  move || view! { <Ms/> }/>
                 </Routes>
             </main>
         </Router>

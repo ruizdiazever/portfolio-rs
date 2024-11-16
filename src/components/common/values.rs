@@ -136,6 +136,7 @@ pub enum Link {
     State,
     BERLi,
     Aura,
+    Ms01,
 }
 
 impl Link {
@@ -258,6 +259,12 @@ impl Link {
             Link::Aura => view! {
                 <LinkSimple title="Aura".to_string()
                     link="https://store.everdev.it/en".to_string()
+                    blank=true
+                />
+            },
+            Link::Ms01 => view! {
+                <LinkSimple title="MS-01".to_string()
+                    link="https://store.minisforum.de/en/products/ms-01".to_string()
                     blank=true
                 />
             },

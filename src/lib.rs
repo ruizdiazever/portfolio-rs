@@ -27,8 +27,8 @@ pub mod pages {
     pub mod blog {
         pub mod auth;
         pub mod ms;
+        pub mod orgs;
         pub mod portfolio;
-        pub mod state;
     }
 }
 

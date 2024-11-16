@@ -63,21 +63,17 @@ pub fn Ms() -> impl IntoView {
                                       <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                                         <thead class="text-left">
                                           <tr>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">#</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Type</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Version</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Description</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Link</th>
+                                            <th class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-gray-900">#</th>
+                                            <th class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-gray-900">Description</th>
+                                            <th class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-gray-900">Link</th>
                                           </tr>
                                         </thead>
 
                                         <tbody class="divide-y divide-gray-200">
                                             <tr>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Bios</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">ZIP</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Latest</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Official BIOS</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">Bios</td>
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">Official BIOS</td>
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">
                                                     <a class="group flex items-center hover:text-[#68b5fc] duration-200" href="https://www.minisforum.com/new/support?lang=en#/support/page/download/108" rel="noopener" target="_blank">
                                                         Web
                                                         <Icon width="1em" height="1em" class="duration-200 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
@@ -85,11 +81,9 @@ pub fn Ms() -> impl IntoView {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">UEFI Shell</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">ISO</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Latest</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">UEFI Shell</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">UEFI Shell</td>
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">ISO of UEFI Shell</td>
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">
                                                     <a class="group flex items-center hover:text-[#68b5fc] duration-200" href="https://github.com/pbatard/UEFI-Shell/releases" rel="noopener" target="_blank">
                                                         GitHub
                                                         <Icon width="1em" height="1em" class="duration-200 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
@@ -97,11 +91,9 @@ pub fn Ms() -> impl IntoView {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Rufus</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">EXE</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Latest</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">Bootable USB tool</td>
-                                                <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">Rufus</td>
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">Bootable USB tool</td>
+                                                <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">
                                                     <a class="group flex items-center hover:text-[#68b5fc] duration-200" href="https://rufus.ie/en/" rel="noopener" target="_blank">
                                                         Web
                                                         <Icon width="1em" height="1em" class="duration-200 group-hover:translate-x-[1.5px]" icon=i::ChArrowUpRight />
@@ -111,7 +103,6 @@ pub fn Ms() -> impl IntoView {
                                         </tbody>
                                       </table>
                                     </div>
-
 
                                     // Bootable
                                     <h1 id="boot" class="text-2xl text-gray-800">
@@ -125,19 +116,17 @@ pub fn Ms() -> impl IntoView {
                                       <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                                         <thead class="text-left">
                                           <tr>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Device</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Boot selection</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Partition scheme</th>
-                                            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Filesystem</th>
+                                            <th class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-gray-900">Boot selection</th>
+                                            <th class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-gray-900">Partition scheme</th>
+                                            <th class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-gray-900">Filesystem</th>
                                           </tr>
                                         </thead>
 
                                         <tbody class="divide-y divide-gray-200">
                                           <tr>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">Your pendrive</td>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">UEFI-Shell latest ISO</td>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">GPT</td>
-                                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">FAT32</td>
+                                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">UEFI-Shell latest ISO</td>
+                                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">GPT</td>
+                                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-gray-700">FAT32</td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -165,9 +154,7 @@ pub fn Ms() -> impl IntoView {
                                     <h1 id="computers" class="text-2xl text-gray-800">
                                         <a href="#computers">Computers never sleep</a>
                                     </h1>
-                                    <p>
-                                        {thats} all, if you have any questions you can write to me.
-                                    </p>
+                                    <p>You can find all detailed technical specifications and pricing information in {Link::Ms01.to_view()}. {thats} all, if you have any questions you can write to me.</p>
                                     <img
                                         class="w-full grayscale rounded-lg"
                                         src="/images/mf.webp"
