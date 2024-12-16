@@ -13,9 +13,6 @@ async fn main() {
     use tracing::info;
     use tracing_subscriber::EnvFilter;
 
-    // Load environment configuration from .env
-    dotenvy::from_filename(".env").expect("Set your configuration in a .env file");
-
     // Init Tracing
     tracing_subscriber::fmt()
         .with_env_filter(EnvFilter::from_default_env())
