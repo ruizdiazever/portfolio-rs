@@ -12,6 +12,8 @@ services:
         required: true
     ports:
       - 3002:3002
+    depends_on:
+      - redis
     command: ["cargo", "run", "--release"]
   wasm:
     container_name: portfolio-rs-wasm
@@ -26,6 +28,8 @@ services:
         required: true
     ports:
       - "3003:3003"
+    depends_on:
+      - api
   redis:
     image: redis:alpine
     container_name: portfolio-rs-redis
