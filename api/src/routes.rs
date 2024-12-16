@@ -9,10 +9,10 @@ use reqwest::Client;
 use std::{net::SocketAddr, sync::Arc, time::Duration};
 use tower::{timeout::TimeoutLayer, ServiceBuilder};
 use tower_http::trace::TraceLayer;
-use tracing::{error, info};
 
+use crate::cfg::ConfigPortfolio;
 use crate::common::ui::homepage;
-use crate::config::{cors_config, Config};
+use crate::cors::cors_config;
 use crate::security::error::Error;
 use crate::services::{feedback, visualizations};
 
@@ -20,14 +20,14 @@ pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 #[derive(Clone)]
 pub struct ApiContext {
-    pub env: Arc<Config>,
+    pub env: Arc<ConfigPortfolio>,
     pub ctx: Client,
     pub redis_client: redis::Client,
 }
 
-pub async fn serve(config: Config, redis_client: redis::Client) -> Result<(), Error> {
+pub async fn serve(config: ConfigPortfolio, redis_client: redis::Client) -> Result<(), Error> {
     // Envs
-    let server = config.server_url.clone();
+    let server = config.api_server_url.clone();
 
     let ctx = Client::new();
     let api_context = ApiContext {
@@ -39,10 +39,10 @@ pub async fn serve(config: Config, redis_client: redis::Client) -> Result<(), Er
     let cors_layer = cors_config()?;
     let app = api_router(api_context)?.layer(cors_layer);
 
+    tracing::info!("Launching server: {}", server);
     let addr = tokio::net::TcpListener::bind(&server)
         .await
-        .expect("Check SERVER in your .env");
-    info!("Launching server: http://{}/", server);
+        .expect("Check your env values");
 
     axum::serve(
         addr,
@@ -75,7 +75,7 @@ fn api_router(api_context: ApiContext) -> Result<Router, Error> {
 }
 
 async fn fallback_handler(uri: Uri) -> impl IntoResponse {
-    error!("No route for {}", uri);
+    tracing::error!("No route for {}", uri);
     (StatusCode::NOT_FOUND, format!("No route for {}", uri))
 }
 

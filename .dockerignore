@@ -1,1 +1,7 @@
 target/
+site/
+node_modules/
+targetsVniPp/
+Cargo.lock
+pnpm-lock.yaml
+.DS_Store

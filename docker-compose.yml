@@ -1,6 +1,6 @@
 services:
   api:
-    container_name: portfolio_wasm
+    container_name: portfolio-rs-api
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -11,11 +11,24 @@ services:
       - path: ./.env
         required: true
     ports:
-      - "3002:3002"
+      - 3002:3002
     command: ["cargo", "run", "--release"]
+  wasm:
+    container_name: portfolio-rs-wasm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - portfolio_wasm_net
+    env_file:
+      - path: ./.env
+        required: true
+    ports:
+      - "3003:3003"
   redis:
     image: redis:alpine
-    container_name: portfolio_redis
+    container_name: portfolio-rs-redis
     restart: always
     env_file:
       - path: ./.env
@@ -31,7 +44,7 @@ services:
         "yes",
       ]
     ports:
-      - "6381:6379"
+      - 6379:6379
     security_opt:
       - no-new-privileges
     deploy:
@@ -45,6 +58,5 @@ services:
       - redis_data:/data
 volumes:
   redis_data:
-
 networks:
-  portfolio_net:
+  portfolio_wasm_net:

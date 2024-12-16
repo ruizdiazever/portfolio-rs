@@ -1,4 +1,5 @@
-pub mod config;
+pub mod cfg;
+pub mod cors;
 pub mod routes;
 
 pub mod security {
@@ -7,9 +8,9 @@ pub mod security {
 }
 
 pub mod common {
-    pub mod ui;
     pub mod html;
     pub mod send_feedback;
+    pub mod ui;
 }
 
 pub mod redis {
