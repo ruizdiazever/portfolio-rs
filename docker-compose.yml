@@ -30,6 +30,7 @@ services:
     image: redis:alpine
     container_name: portfolio-rs-redis
     restart: always
+
     env_file:
       - path: ./.env
         required: true
@@ -40,11 +41,13 @@ services:
         "redis-server",
         "--requirepass",
         "${REDIS_PASSWORD}",
+        "--port",
+        "6389",
         "--appendonly",
         "yes",
       ]
     ports:
-      - 6379:6379
+      - 6389:6389
     security_opt:
       - no-new-privileges
     deploy:
