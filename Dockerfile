@@ -1,5 +1,5 @@
 # Builder
-FROM rustlang/rust:nightly-bullseye as builder
+FROM rustlang/rust:nightly-bullseye AS builder
 RUN wget https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-musl.tgz
 RUN tar -xvf cargo-binstall-x86_64-unknown-linux-musl.tgz
 RUN cp cargo-binstall /usr/local/cargo/bin
@@ -12,8 +12,7 @@ RUN cargo install cargo-leptos
 RUN cargo leptos build --release -vv
 
 # Runner
-FROM debian:bookworm-slim as runtime
-WORKDIR /app
+FROM debian:bookworm-slim AS runtime
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     && apt-get autoremove -y \
