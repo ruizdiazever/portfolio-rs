@@ -12,7 +12,7 @@ RUN cargo install cargo-leptos
 RUN cargo leptos build --release -vv
 
 # Runner
-FROM rust:slim-bookworm AS runtime
+FROM rust:slim-bullseye AS runtime
 WORKDIR /app
 RUN apt-get update -y \
     && apt-get install -y openssl ca-certificates \
