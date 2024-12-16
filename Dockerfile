@@ -8,6 +8,7 @@ RUN rustup target add wasm32-unknown-unknown
 RUN mkdir -p /app
 WORKDIR /app
 COPY . .
+RUN cargo install cargo-leptos
 RUN cargo leptos build --release -vv
 
 # Runner

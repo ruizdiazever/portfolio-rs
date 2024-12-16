@@ -9,7 +9,7 @@ name = "portfolio"
 path = "src/lib.rs"
 
 [dependencies]
-axum = { version = "0.7.7", features = [
+axum = { version = "0.7.9", features = [
     "macros",
     "tower-log",
 ], optional = true }
@@ -18,9 +18,9 @@ leptos = { version = "0.6.14", features = ["nightly", "tracing"] }
 leptos_axum = { version = "0.6.14", optional = true }
 leptos_meta = { version = "0.6.14", features = ["nightly"] }
 leptos_router = { version = "0.6.14", features = ["nightly"] }
-tokio = { version = "1.40.0", features = ["full"], optional = true }
-tower = { version = "0.5.1", optional = true }
-tower-http = { version = "0.6.1", features = [
+tokio = { version = "1.42.0", features = ["full"], optional = true }
+tower = { version = "0.5.2", optional = true }
+tower-http = { version = "0.6.2", features = [
     "fs",
     "trace",
     "cors",
@@ -29,27 +29,27 @@ tower-http = { version = "0.6.1", features = [
     "compression-zstd",
     "compression-gzip",
 ], optional = true }
-wasm-bindgen = "0.2.96"
-thiserror = "1.0.64"
+wasm-bindgen = "0.2.99"
+thiserror = "2.0.7"
 http = "1"
 
 
 # Personal
 leptos_icons = "0.3.1"
 icondata = "0.4.0"
-chrono = "0.4.38"
-serde = { version = "1.0.210", features = ["derive"] }
+chrono = "0.4.39"
+serde = { version = "1.0.216", features = ["derive"] }
 cfg-if = "1.0.0"
-reqwest = { version = "0.12.8", features = ["json"] }
-serde_json = "1.0.128"
-uuid = { version = "1.10.0", features = ["v4", "serde"] }
+reqwest = { version = "0.12.9", features = ["json"] }
+serde_json = "1.0.133"
+uuid = { version = "1.11.0", features = ["v4", "serde"] }
 dotenvy = "0.15.7"
-anyhow = "1.0.89"
+anyhow = "1.0.94"
 lazy_static = "1.5.0"
 
 # Logger
-tracing = { version = "0.1.40", optional = true }
-tracing-subscriber = { version = "0.3.18", features = ["env-filter", "std"] }
+tracing = { version = "0.1.41", optional = true }
+tracing-subscriber = { version = "0.3.19", features = ["env-filter", "std"] }
 
 
 [features]

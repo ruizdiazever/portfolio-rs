@@ -13,4 +13,4 @@ if [ -f .env ]; then
 fi
 
 npx tailwindcss -i ./style/tailwind.css -o ./style/output.css
-./target/release/portfolio
+cargo leptos watch
