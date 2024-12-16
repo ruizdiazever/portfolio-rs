@@ -62,7 +62,7 @@ services:
         "yes",
       ]
     ports:
-      - 6389:6379
+      - 6389:6378
     security_opt:
       - no-new-privileges
     deploy:
