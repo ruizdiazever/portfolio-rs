@@ -13,11 +13,13 @@ services:
     environment:
       - PRODUCTION=false
       - API_VERSION=0.0.1
-      - API_SERVER_URL=localhost:3002
+      - API_SERVER_URL=0.0.0.0:3002
       - RUST_LOG=api=debug,tower_http=info
       - EMAIL=ruizdiaz.oe@gmail.com
       - SMTP_USERNAME=ruizdiaz.oe@gmail.com
       - RUST_LOG=api=info,tower_http=info
+    ports:
+      - "3002:3002"
     depends_on:
       - redis
     command: ["cargo", "run", "--release"]
@@ -36,7 +38,7 @@ services:
       - LEPTOS_SITE_PKG_DIR=pkg
       - LEPTOS_SITE_ADDR=0.0.0.0:3003
       - LEPTOS_RELOAD_PORT=3020
-      - API_URL=http://portfolio-rs-api:3002
+      - API_URL=http://0.0.0.0:3002
     env_file:
       - path: ./.env
         required: true
