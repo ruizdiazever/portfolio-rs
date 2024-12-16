@@ -13,6 +13,7 @@ RUN cargo leptos build --release -vv
 
 # Runner
 FROM debian:bookworm-slim AS runtime
+WORKDIR /app
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     && apt-get autoremove -y \
@@ -25,4 +26,4 @@ ENV PRODUCTION=false \
     RUST_LOG=api=debug,tower_http=info \
     EMAIL=ruizdiaz.oe@gmail.com \
     SMTP_USERNAME=ruizdiaz.oe@gmail.com
-CMD ["/app/target/release/portfolio"]
+CMD ["/app/app/target/release/portfolio"]
