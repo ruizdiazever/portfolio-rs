@@ -2,7 +2,6 @@
 #[tokio::main]
 async fn main() {
     use axum::Router;
-    use dotenvy::dotenv;
     use leptos::*;
     use leptos_axum::{generate_route_list, LeptosRoutes};
     use portfolio::app::*;
@@ -15,7 +14,7 @@ async fn main() {
     use tracing_subscriber::EnvFilter;
 
     // Load environment configuration from .env
-    dotenv().expect("Set your configuration in a .env file");
+    dotenvy::from_filename(".env").expect("Set your configuration in a .env file");
 
     // Init Tracing
     tracing_subscriber::fmt()
