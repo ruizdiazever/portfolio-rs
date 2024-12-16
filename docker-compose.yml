@@ -10,6 +10,14 @@ services:
     env_file:
       - path: ./.env
         required: true
+    environment:
+      - PRODUCTION=false
+      - API_VERSION=0.0.1
+      - API_SERVER_URL=localhost:3002
+      - RUST_LOG=api=debug,tower_http=info
+      - EMAIL=ruizdiaz.oe@gmail.com
+      - SMTP_USERNAME=ruizdiaz.oe@gmail.com
+      - RUST_LOG=api=info,tower_http=info
     depends_on:
       - redis
     command: ["cargo", "run", "--release"]
@@ -22,19 +30,13 @@ services:
     networks:
       - portfolio_wasm_net
     environment:
-      - PRODUCTION=false
-      - API_VERSION=0.0.1
-      - API_SERVER_URL=api:3002
-      - RUST_LOG=api=debug,tower_http=info
-      - EMAIL=ruizdiaz.oe@gmail.com
-      - SMTP_USERNAME=ruizdiaz.oe@gmail.com
       - RUST_LOG=portfolio=info,tower_http=info
       - LEPTOS_OUTPUT_NAME=portfolio
       - LEPTOS_SITE_ROOT=site
       - LEPTOS_SITE_PKG_DIR=pkg
       - LEPTOS_SITE_ADDR=0.0.0.0:3003
       - LEPTOS_RELOAD_PORT=3020
-      - API_URL=http://localhost:3002
+      - API_URL=http://portfolio-rs-api:3002
     env_file:
       - path: ./.env
         required: true
