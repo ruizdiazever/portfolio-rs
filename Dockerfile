@@ -20,10 +20,4 @@ RUN apt-get update -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=builder . .
-ENV PRODUCTION=false \
-    API_VERSION=0.0.1 \
-    API_SERVER_URL=0.0.0.0:3002 \
-    RUST_LOG=api=debug,tower_http=info \
-    EMAIL=ruizdiaz.oe@gmail.com \
-    SMTP_USERNAME=ruizdiaz.oe@gmail.com
 CMD ["/app/app/target/release/portfolio"]
