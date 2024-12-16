@@ -10,8 +10,6 @@ services:
     env_file:
       - path: ./.env
         required: true
-    ports:
-      - 3002:3002
     depends_on:
       - redis
     command: ["cargo", "run", "--release"]
@@ -26,7 +24,7 @@ services:
     environment:
       - PRODUCTION=false
       - API_VERSION=0.0.1
-      - API_SERVER_URL=0.0.0.0:3002
+      - API_SERVER_URL=api:3002
       - RUST_LOG=api=debug,tower_http=info
       - EMAIL=ruizdiaz.oe@gmail.com
       - SMTP_USERNAME=ruizdiaz.oe@gmail.com
@@ -61,8 +59,6 @@ services:
         "--appendonly",
         "yes",
       ]
-    ports:
-      - 6389:6378
     security_opt:
       - no-new-privileges
     deploy:
