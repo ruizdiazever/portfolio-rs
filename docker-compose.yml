@@ -38,7 +38,7 @@ services:
       - LEPTOS_SITE_PKG_DIR=pkg
       - LEPTOS_SITE_ADDR=0.0.0.0:3003
       - LEPTOS_RELOAD_PORT=3020
-      - API_URL=http://0.0.0.0:3002
+      - API_URL=portfolio-rs-api:3002
     env_file:
       - path: ./.env
         required: true
