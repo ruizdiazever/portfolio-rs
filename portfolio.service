@@ -1,0 +1,21 @@
+[Unit]
+Description=Portfolio WASM
+After=network.target
+Requires=docker.service
+
+[Service]
+User=root
+Group=root
+Restart=always
+WorkingDirectory=/opt/portfolio-rs
+Environment=RUST_LOG=portfolio=info,tower_http=info
+Environment=LEPTOS_OUTPUT_NAME=portfolio
+Environment=LEPTOS_SITE_ROOT=site
+Environment=LEPTOS_SITE_PKG_DIR=pkg
+Environment=LEPTOS_SITE_ADDR=0.0.0.0:3003
+Environment=LEPTOS_RELOAD_PORT=3020
+Environment=API_URL=http://localhost:3002
+ExecStart=/opt/portfolio-rs/target/release/portfolio
+
+[Install]
+WantedBy=multi-user.target

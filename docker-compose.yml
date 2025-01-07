@@ -1,4 +1,28 @@
 services:
+  # wasm:
+  #   container_name: portfolio-rs-wasm
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   networks:
+  #     - portfolio_wasm_net
+  #   environment:
+  #     - RUST_LOG=portfolio=info,tower_http=info
+  #     - LEPTOS_OUTPUT_NAME=portfolio
+  #     - LEPTOS_SITE_ROOT=site
+  #     - LEPTOS_SITE_PKG_DIR=pkg
+  #     - LEPTOS_SITE_ADDR=0.0.0.0:3003
+  #     - LEPTOS_RELOAD_PORT=3020
+  #     - API_URL=portfolio-rs-api:3002
+  #   env_file:
+  #     - path: ./.env
+  #       required: true
+  #   ports:
+  #     - "3003:3003"
+  #   depends_on:
+  #     - api
+  #     - redis
   api:
     container_name: portfolio-rs-api
     build:
@@ -23,29 +47,6 @@ services:
     depends_on:
       - redis
     command: ["cargo", "run", "--release"]
-  wasm:
-    container_name: portfolio-rs-wasm
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    networks:
-      - portfolio_wasm_net
-    environment:
-      - RUST_LOG=portfolio=info,tower_http=info
-      - LEPTOS_OUTPUT_NAME=portfolio
-      - LEPTOS_SITE_ROOT=site
-      - LEPTOS_SITE_PKG_DIR=pkg
-      - LEPTOS_SITE_ADDR=0.0.0.0:3003
-      - LEPTOS_RELOAD_PORT=3020
-      - API_URL=portfolio-rs-api:3002
-    env_file:
-      - path: ./.env
-        required: true
-    ports:
-      - "3003:3003"
-    depends_on:
-      - api
   redis:
     image: redis:alpine
     container_name: portfolio-rs-redis
