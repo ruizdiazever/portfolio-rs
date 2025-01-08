@@ -1,40 +1,49 @@
 use crate::components::common::link::Link;
-use std::collections::HashMap;
+use crate::components::common::values::Icon;
 use icondata as i;
+use lazy_static::lazy_static;
 use leptos::*;
 use leptos_icons::*;
-use lazy_static::lazy_static;
-use crate::components::common::values::Icon;
+use std::collections::HashMap;
 
 lazy_static! {
     static ref ICONS_MAP: HashMap<&'static str, Vec<Icon>> = {
         let mut map = HashMap::new();
-        map.insert("picu-iot", vec![
-            Icon::Rust,
-            Icon::ExpressIf,
-            Icon::PostgreSQL,
-            Icon::RedisDB,
-            Icon::Flutter,
-            Icon::Svelte,
-            Icon::Astro,
-            Icon::TailwindCSS,
-        ]);
-        map.insert("aura-design", vec![
-            Icon::Rust,
-            Icon::PostgreSQL,
-            Icon::Astro,
-            Icon::Svelte,
-            Icon::TailwindCSS,
-            Icon::Docker,
-        ]);
-        map.insert("berli-system", vec![
-            Icon::Rust,
-            Icon::PostgreSQL,
-            Icon::Svelte,
-            Icon::Astro,
-            Icon::TailwindCSS,
-            Icon::Docker,
-        ]);
+        map.insert(
+            "picu-iot",
+            vec![
+                Icon::Rust,
+                Icon::ExpressIf,
+                Icon::PostgreSQL,
+                Icon::RedisDB,
+                Icon::Flutter,
+                Icon::Svelte,
+                Icon::Astro,
+                Icon::TailwindCSS,
+            ],
+        );
+        map.insert(
+            "raau-design",
+            vec![
+                Icon::Rust,
+                Icon::PostgreSQL,
+                Icon::Astro,
+                Icon::Svelte,
+                Icon::TailwindCSS,
+                Icon::Docker,
+            ],
+        );
+        map.insert(
+            "berli-system",
+            vec![
+                Icon::Rust,
+                Icon::PostgreSQL,
+                Icon::Svelte,
+                Icon::Astro,
+                Icon::TailwindCSS,
+                Icon::Docker,
+            ],
+        );
         map
     };
 }
