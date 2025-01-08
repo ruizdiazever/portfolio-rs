@@ -1,18 +1,15 @@
-use crate::components::project::post::Post;
-use crate::utils::config::get_project_by_id;
 use crate::components::common::working::Working;
+use crate::components::project::post::Post;
 use crate::layouts::layout::Layout;
+use crate::utils::config::get_project_by_id;
 use leptos::*;
 use uuid::{uuid, Uuid};
 
 #[component]
-pub fn Aura() -> impl IntoView {
+pub fn Raau() -> impl IntoView {
     const ID: Uuid = uuid!("e3399a11-7ce6-4cdc-aba6-7d88d2a412b6");
 
-    let project_resource = create_resource(
-        || (),
-        move |_| async move { get_project_by_id(ID) },
-    );
+    let project_resource = create_resource(|| (), move |_| async move { get_project_by_id(ID) });
 
     view! {
         <Layout>

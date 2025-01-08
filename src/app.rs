@@ -6,7 +6,7 @@ use leptos_router::*;
 use crate::pages::blog::ms::Ms;
 use crate::pages::blog::{auth::Auth, orgs::State, portfolio::Portfolio};
 use crate::pages::home::Home;
-use crate::pages::projects::{aura::Aura, berli::Berli, picu::Picu};
+use crate::pages::projects::{berli::Berli, picu::Picu, raau::Raau};
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -68,7 +68,7 @@ pub fn App() -> impl IntoView {
                     <Route path="/" view=  move || view! { <Home/> }/>
                     // Projects
                     <Route path="/projects/picu-iot" view=  move || view! { <Picu/> }/>
-                    <Route path="/projects/aura-design" view=  move || view! { <Aura/> }/>
+                    <Route path="/projects/raau-design" view=  move || view! { <Raau/> }/>
                     <Route path="/projects/berli-system" view=  move || view! { <Berli/> }/>
                     // Blog
                     <Route path="/blog/portfolio-wasm" view=  move || view! { <Portfolio/> }/>

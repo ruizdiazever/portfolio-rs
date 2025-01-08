@@ -135,7 +135,7 @@ pub enum Link {
     InfluxDB,
     State,
     BERLi,
-    Aura,
+    Raau,
     Ms01,
 }
 
@@ -256,9 +256,9 @@ impl Link {
                     blank=true
                 />
             },
-            Link::Aura => view! {
-                <LinkSimple title="Aura".to_string()
-                    link="https://store.everdev.it/en".to_string()
+            Link::Raau => view! {
+                <LinkSimple title="RAAU".to_string()
+                    link="https://store.raau.design/en".to_string()
                     blank=true
                 />
             },

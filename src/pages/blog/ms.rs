@@ -43,7 +43,7 @@ pub fn Ms() -> impl IntoView {
                                     Fed up with the costs and limitations of renting a virtual server,
                                     I decided to set up my own dedicated server. To my pleasant surprise,
                                     it {wasnt} as complicated as I expected! {thats} how I got my first dedicated machine,
-                                    which now hosts {Link::Aura.to_view()}, {Link::BERLi.to_view()}, and this website.
+                                    which now hosts {Link::Raau.to_view()}, {Link::BERLi.to_view()}, and this website.
                                     </p>
                                     // Prerequisites
                                     <h1 id="prerequisites" class="text-2xl text-gray-800">

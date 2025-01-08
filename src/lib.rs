@@ -19,9 +19,9 @@ pub mod pages {
     pub mod home;
 
     pub mod projects {
-        pub mod aura;
         pub mod berli;
         pub mod picu;
+        pub mod raau;
     }
 
     pub mod blog {
