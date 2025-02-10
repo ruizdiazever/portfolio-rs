@@ -50,6 +50,8 @@ pub fn App() -> impl IntoView {
                 <Meta name="twitter:description" content="Chasing Excellence"/>
                 <Meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/14346c08-4465-430f-8474-ea9ffce8fede.png?token=oUjmrdUgBWgksOH-7-6tSte0PNtG5cLcvaLU8UDHR40&height=675&width=1200&expires=33261385714"/>
 
+                // Plausible Analytics
+                <script defer data-domain="everdev.it" src="https://plausible.berli.app/js/script.js"></script>
             </body>
         </html>
 
