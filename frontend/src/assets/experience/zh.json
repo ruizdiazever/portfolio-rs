@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "startDate": "2023-01-01",
+      "endDate": null,
+      "position": "技术负责人",
+      "company": "Anritsu",
+      "url": "https://www.anritsu.com/en-gb/",
+      "description": "在Anritsu的M4平台团队中担任Python首席开发人员。我的工作包括Python代码质量控制以及使用RestAPI或GraphQL在虚拟机和云基础设施中开发现代接口。",
+      "current": true
+    },
+    {
+      "startDate": "2022-07-01",
+      "endDate": "2022-12-31",
+      "position": "高级软件工程师",
+      "company": "Aeronautica Militare",
+      "url": "https://www.aeronautica.difesa.it/",
+      "description": "我成功开发了军事航空天气系统的关键微服务，通过将API从Flask迁移到FastAPI，大大提高了团队的开发体验（DX）和服务性能。",
+      "current": false
+    },
+    {
+      "startDate": "2021-10-01",
+      "endDate": "2022-06-31",
+      "position": "软件开发人员",
+      "company": "Qi4M",
+      "url": "https://www.qi4m.com/",
+      "description": "我的主要工作包括将数据科学领域开发的组件集成到使用Python Standalone（纯Python 3，无框架）的应用程序工作流中。另一方面，我负责开发一个非常重要项目的前端和后端，客户端使用Vue.js，后端使用带有Flask的REST API。",
+      "current": false
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+---
+import { Icon } from "astro-icon/components";
+import * as m from "@paraglide/messages.js";
+import Lang from "./lang.svelte";
+import Toggle from "$lib/components/darkmode/toggle.svelte";
+import { Button } from "$lib/components/ui/button/index.js";
+---
+
+<header
+    class="flex items-center justify-between max-w-screen-md mx-auto
+mt-6 sticky top-0 backdrop-blur-lg z-50 antialiased
+px-6 sm:px-6 lg:px-8 bg-transparent"
+>
+    <a href="/" rel="external" class="flex flex-col items-start gap-1">
+        <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+            Ever Ruiz Diaz
+        </div>
+        <div class="text-gray-600 dark:text-gray-400">{m.rustDev()}</div>
+    </a>
+    <div class="flex items-center">
+        <Lang client:idle />
+        <Toggle client:idle />
+
+        <Button
+            href="https://www.linkedin.com/in/everdev/"
+            variant="ghost"
+            rel="noopener"
+            target="_blank"
+            size="icon"
+        >
+            <Icon
+                name="linkedin"
+                title="LinkedIn"
+                class="h-[1.2rem] w-[1.2rem]"
+            />
+        </Button>
+        <Button
+            href="https://www.linkedin.com/in/everdev/"
+            variant="ghost"
+            rel="noopener"
+            target="_blank"
+            size="icon"
+        >
+            <Icon name="github" title="GitHub" class="h-[1.2rem] w-[1.2rem]" />
+        </Button>
+    </div>
+</header>

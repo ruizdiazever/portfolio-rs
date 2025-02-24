@@ -1,0 +1,140 @@
+---
+import { seoConfig } from "$lib/common/seoConfig";
+import inter from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2";
+import "@fontsource-variable/inter";
+import "$lib/styles/app.css";
+
+interface Props {
+    title: string;
+    description?: string;
+    preloadImgLCP?: string;
+    canonical?: string;
+    image?: string;
+}
+
+const {
+    title,
+    description = seoConfig.description,
+    preloadImgLCP,
+    canonical,
+    image = seoConfig.image.url,
+} = Astro.props;
+
+const canonicalURL = canonical
+    ? new URL(canonical, Astro.site)
+    : new URL(Astro.url.pathname, Astro.site);
+---
+
+<title>{title}</title>
+<meta charset="UTF-8" />
+<meta name="description" content={description} />
+<link type="text/plain" rel="author" href="/humans.txt" />
+<link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
+{
+    preloadImgLCP && (
+        <link
+            rel="preload"
+            href={preloadImgLCP}
+            as="image"
+            type="image/webp"
+            crossorigin
+        />
+    )
+}
+<!-- Manifest -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png" />
+<link
+    rel="apple-touch-icon"
+    sizes="114x114"
+    href="/icons/apple-icon-114x114.png"
+/>
+<link
+    rel="apple-touch-icon"
+    sizes="120x120"
+    href="/icons/apple-icon-120x120.png"
+/>
+<link
+    rel="apple-touch-icon"
+    sizes="144x144"
+    href="/icons/apple-icon-144x144.png"
+/>
+<link
+    rel="apple-touch-icon"
+    sizes="152x152"
+    href="/icons/apple-icon-152x152.png"
+/>
+<link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/icons/apple-icon-180x180.png"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="192x192"
+    href="/icons/android-icon-192x192.png"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/icons/favicon-32x32.png"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="96x96"
+    href="/icons/favicon-96x96.png"
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/icons/favicon-16x16.png"
+/>
+
+<link rel="canonical" href={canonicalURL} />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="msapplication-TileColor" content="#ffffff" />
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+<meta name="theme-color" content={seoConfig.themeColor} />
+<meta name="keywords" content={seoConfig.keywords.join(", ")} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content={seoConfig.twitter.card} />
+<meta name="twitter:site" content={seoConfig.twitter.site} />
+<meta name="twitter:creator" content={seoConfig.twitter.creator} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta
+    name="twitter:image"
+    content={new URL(image, Astro.site)}
+    onerror="/BERLi.webp"
+/>
+
+<!-- Open Graph / Facebook -->
+<meta
+    property="og:image"
+    content={new URL(image, Astro.site)}
+    onerror="/BERLi.webp"
+/>
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={seoConfig.facebook.url} />
+<meta property="og:site_name" content={seoConfig.siteName} />
+<meta property="og:type" content={seoConfig.facebook.type} />
+<meta property="og:locale" content={seoConfig.locale} />
+<meta property="fb:app_id" content={seoConfig.facebook.appId} />
+
+<!-- Robots -->
+<meta name="robots" content={seoConfig.robots} />
+<meta name="googlebot" content={seoConfig.robots} />
+
+<!-- Additional Meta Tags -->
+<meta name="msapplication-config" content="/browserconfig.xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />

@@ -1,0 +1,27 @@
+---
+import { Icon } from "astro-icon/components";
+import * as m from "@paraglide/messages.js";
+---
+
+<footer>
+    <div
+        class="mx-auto max-w-screen-md px-4 py-8 sm:px-6 lg:px-8 mt-10 antialiased bg-transparent border-t border-gray-100 dark:border-gray-800"
+    >
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div
+                class="flex justify-center text-gray-600 dark:text-gray-400 sm:justify-start text-sm gap-2 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+            >
+                <Icon name="heart" title="Rust" size="1.3em" />
+                {m.rustLover()}
+            </div>
+
+            <p
+                class="flex mt-4 text-center text-sm text-gray-500 dark:text-gray-400 lg:mt-0 lg:text-right"
+            >
+                Ever Ruiz Diaz<span class="mx-1">-</span>{
+                    new Date().getFullYear()
+                }
+            </p>
+        </div>
+    </div>
+</footer>

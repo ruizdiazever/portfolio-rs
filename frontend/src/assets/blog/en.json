@@ -1,0 +1,74 @@
+{
+  "posts": [
+    {
+      "id": "aa614ca5-0940-41a1-bf80-710096df26ac",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/blog/hardware/minisforum-ms-01",
+      "title": "Updating MS-01 bios",
+      "description": "Minisforum MS-01: a compact and powerful server with a lot of features",
+      "readtime": 3,
+      "tags": ["Hardware", "Server", "Workstation", "Bios", "Minisforum"],
+      "date": "2024-11-15",
+      "active": true
+    },
+    {
+      "id": "511bc558-3f6e-4375-8e57-37e19519f1db",
+      "author": ["Ever Ruiz Diaz", "Community"],
+      "home": true,
+      "url": "/blog/organizations-using-rust",
+      "title": "Organizations using Rust",
+      "description": "Forging the future, companies building with Rust",
+      "readtime": 3,
+      "tags": ["Rust", "Industry", "State", "Companies"],
+      "date": "2024-09-30",
+      "active": true
+    },
+    {
+      "id": "9a5f3584-5a8a-4c22-8460-2d775d54d89b",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/blog/portfolio-wasm",
+      "title": "Portfolio WASM",
+      "description": "New portfolio WASM, a history of performance and love powered by Rust with Leptos",
+      "readtime": 2,
+      "tags": [
+        "Rust",
+        "Leptos",
+        "WebAssembly",
+        "Axum",
+        "Web",
+        "WASM",
+        "RedisDB",
+        "SMTP",
+        "TailwindCSS"
+      ],
+      "date": "2024-06-20",
+      "active": true
+    },
+    {
+      "id": "f7583be4-ebf7-48a9-928d-5a058f0aabd9",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/blog/auth-refresh-acess-token",
+      "title": "Secure Auth with Rust",
+      "description": "Refresh/access token with Axum and async-graphql",
+      "readtime": 1,
+      "tags": [
+        "GraphQL",
+        "Rust",
+        "Axum",
+        "cookies",
+        "security",
+        "auth",
+        "credentials",
+        "async-graphql",
+        "JWT",
+        "backend",
+        "api"
+      ],
+      "date": "2024-06-20",
+      "active": false
+    }
+  ]
+}

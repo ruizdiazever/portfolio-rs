@@ -1,0 +1,69 @@
+---
+import Hero from "./Hero.astro";
+import Blog from "./cards/Blog.astro";
+import Experience from "./cards/Experience.astro";
+import Project from "./cards/Project.astro";
+import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
+import { getEntriesFromJson } from "$lib/common/getExperience.ts";
+import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
+import { languageTag } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
+
+const posts = await getPostsFromJson(languageTag());
+const entries = await getEntriesFromJson(languageTag());
+const projects = await getProjectsFromJson(languageTag());
+---
+
+<Hero />
+
+<h1 class="text-2xl font-medium mt-6">{m.blog()}</h1>
+{
+    posts.map((post) => (
+        <Blog
+            link={post.url}
+            title={post.title}
+            description={post.description}
+            tags={post.tags}
+            date={post.date}
+            readTime={10}
+        />
+    ))
+}
+
+<h1 class="text-2xl font-medium mt-6">{m.projects()}</h1>
+<div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
+    {
+        projects.map((entry) => (
+            <Project
+                url={entry.url}
+                title={entry.title}
+                description={entry.description}
+                url={entry.url}
+                github={entry.github}
+                repository={entry.repository}
+                tags={entry.tags}
+                icons={entry.icons}
+            />
+        ))
+    }
+</div>
+
+<h1 class="text-2xl font-medium mt-6">{m.experience()}</h1>
+<div class="relative flex flex-col gap-4">
+    <div
+        class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
+    >
+        {
+            entries.map((entry) => (
+                <Experience
+                    company={entry.company}
+                    position={entry.position}
+                    description={entry.description}
+                    startDate={entry.startDate}
+                    endDate={entry.endDate}
+                    current={entry.current}
+                />
+            ))
+        }
+    </div>
+</div>

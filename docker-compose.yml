@@ -1,36 +1,43 @@
 services:
-  # wasm:
-  #   container_name: portfolio-rs-wasm
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   networks:
-  #     - portfolio_wasm_net
-  #   environment:
-  #     - RUST_LOG=portfolio=info,tower_http=info
-  #     - LEPTOS_OUTPUT_NAME=portfolio
-  #     - LEPTOS_SITE_ROOT=site
-  #     - LEPTOS_SITE_PKG_DIR=pkg
-  #     - LEPTOS_SITE_ADDR=0.0.0.0:3003
-  #     - LEPTOS_RELOAD_PORT=3020
-  #     - API_URL=portfolio-rs-api:3002
-  #   env_file:
-  #     - path: ./.env
-  #       required: true
-  #   ports:
-  #     - "3003:3003"
-  #   depends_on:
-  #     - api
-  #     - redis
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: portfolio-client
+    init: true
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: true
+    depends_on:
+      - api
+      - redis
+    ports:
+      - "4321:4321"
+    networks:
+      - portfolio_net
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:4321",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
   api:
-    container_name: portfolio-rs-api
+    container_name: portfolio-api
     build:
       context: ./api
       dockerfile: Dockerfile
     restart: unless-stopped
     networks:
-      - portfolio_wasm_net
+      - portfolio_net
     env_file:
       - path: ./.env
         required: true
@@ -49,7 +56,7 @@ services:
     command: ["cargo", "run", "--release"]
   redis:
     image: redis:alpine
-    container_name: portfolio-rs-redis
+    container_name: portfolio-redis
     restart: always
     env_file:
       - path: ./.env
@@ -72,10 +79,20 @@ services:
           cpus: "0.50"
           memory: 256M
     networks:
-      - portfolio_wasm_net
+      - portfolio_net
     volumes:
       - redis_data:/data
+  beszel-agent:
+    image: henrygd/beszel-agent:latest
+    container_name: portfolio-beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      PORT: 45876
+      KEY: ""
 volumes:
   redis_data:
 networks:
-  portfolio_wasm_net:
+  portfolio_net:

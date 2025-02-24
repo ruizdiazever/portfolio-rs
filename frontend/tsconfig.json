@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "$lib/*": ["./src/*"],
+      "@paraglide/*": ["./src/paraglide/*"]
+    }
+  },
+  "exclude": ["src/paraglide", "node_modules/", "dist"],
+  "include": ["src", "astro.config.mjs", "**/*", ".astro/types.d.ts"],
+  "extends": ["astro/tsconfigs/strict"]
+}
