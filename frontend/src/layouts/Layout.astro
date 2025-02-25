@@ -14,8 +14,18 @@ interface Props {
     canonical?: string;
     image?: string;
     isHomePage?: boolean;
+    showHeader?: boolean;
+    showFooter?: boolean;
 }
-const { title, description, preloadImgLCP, canonical, image } = Astro.props;
+const {
+    title,
+    description,
+    preloadImgLCP,
+    canonical,
+    image,
+    showHeader = true,
+    showFooter = true,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -62,13 +72,13 @@ const { title, description, preloadImgLCP, canonical, image } = Astro.props;
     </head>
     <body class="bg-[#fafafa] dark:bg-[#0a0a0a]">
         <ModeWatcher client:load />
-        <Header />
-        <div
-            class="flex flex-col justify-center mt-10 mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased"
+        {showHeader && <Header />}
+        <main
+            class="flex flex-col overflow-x-clip flex-1 justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased"
         >
             <slot />
-        </div>
-        <Footer />
+        </main>
+        {showFooter && <Footer />}
     </body>
 </html>
 

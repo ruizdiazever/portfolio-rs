@@ -21,7 +21,7 @@ const projects = await getProjectsFromJson();
     posts.map((post) => (
         <Blog
             title={post.title[languageTag()]}
-            url={post.url}
+            url={`/${languageTag()}${post.url}`}
             description={post.description[languageTag()]}
             readTime={10}
             views={10}

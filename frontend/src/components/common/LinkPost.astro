@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    url: string;
+    title: string;
+}
+
+let { title, url }: Props = Astro.props;
+---
+
+<a
+    href={url}
+    rel="noopener"
+    target="_blank"
+    class="group inline-flex items-center hover:text-[#68b5fc] text-[#0074de] dark:text-[#68b5fc] dark:hover:text-[#8cc7fd] duration-200
+    hover:underline underline-offset-4 decoration-dashed decoration-[#57b1fc]"
+>
+    {title}
+    <Icon
+        name="arrow-up-right"
+        title="Link"
+        size="1rem"
+        class="duration-200 group-hover:translate-x-[1.5px]"
+    />
+</a>

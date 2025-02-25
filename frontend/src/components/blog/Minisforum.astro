@@ -1,0 +1,217 @@
+---
+import Post from "$lib/components/common/Post.astro";
+import { getPost } from "$lib/common/getPost";
+import { Icon } from "astro-icon/components";
+import { languageTag } from "@paraglide/runtime";
+import { Image } from "astro:assets";
+import MsImg from "$lib/assets/images/mf.webp";
+import LinkPost from "$lib/components/common/LinkPost.astro";
+import { BerliLink, RaauLink, Ms01Link } from "$lib/common/consts";
+
+const downloadsTableData = [
+    {
+        name: "Bios",
+        description: "Official BIOS",
+        link: "https://www.minisforum.com/new/support?lang=en#/support/page/download/108",
+        linkText: "Web",
+    },
+    {
+        name: "UEFI Shell",
+        description: "ISO of UEFI Shell",
+        link: "https://github.com/pbatard/UEFI-Shell/releases",
+        linkText: "GitHub",
+    },
+    {
+        name: "Rufus",
+        description: "Bootable USB tool",
+        link: "https://rufus.ie/en/",
+        linkText: "Web",
+    },
+];
+
+const bootTableData = [
+    {
+        bootSelection: "UEFI-Shell latest ISO",
+        partitionScheme: "GPT",
+        filesystem: "FAT32",
+    },
+];
+
+const post = await getPost("aa614ca5-0940-41a1-bf80-710096df26ac");
+---
+
+<Post
+    title={post.title[languageTag()]}
+    url={post.url}
+    description={post.description[languageTag()]}
+    readTime={post.readTime}
+    author={post.author}
+    tags={post.tags}
+    date={post.date}
+>
+    <h1 id="freedom" class="text-2xl font-medium text-card-foreground">
+        <a href="#freedom">Freedom</a>
+    </h1>
+    <p class="text-card-foreground">
+        Fed up with the costs and limitations of renting a virtual server, I
+        decided to set up my own dedicated server. To my pleasant surprise, it
+        wasnt as complicated as I expected! thats how I got my first dedicated
+        machine, which now hosts <LinkPost
+            title={RaauLink.title}
+            url={RaauLink.url}
+        />, <LinkPost title={BerliLink.title} url={BerliLink.url} />, and this
+        website.
+    </p>
+
+    <h1 id="prerequisites" class="text-2xl font-medium text-card-foreground">
+        <a href="#prerequisites">Prerequisites</a>
+    </h1>
+    <p class="text-card-foreground flex items-center gap-2">
+        A pendrive and internet
+        <Icon
+            width="1em"
+            height="1em"
+            class="duration-200 group-hover:translate-x-[1.5px]"
+            name="heart"
+        />
+    </p>
+
+    <h1 id="downloads" class="text-2xl font-medium text-card-foreground">
+        <a href="#downloads">Downloads</a>
+    </h1>
+    <p class="text-card-foreground">A list of files that you need download</p>
+    <div class="overflow-x-auto rounded-lg border border-border">
+        <table
+            class="min-w-full divide-y-2 divide-border bg-background text-sm"
+        >
+            <thead class="text-left">
+                <tr>
+                    <th
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        >#</th
+                    >
+                    <th
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        >Description</th
+                    >
+                    <th
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        >Link</th
+                    >
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-border">
+                {
+                    downloadsTableData.map((item) => (
+                        <tr>
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                                {item.name}
+                            </td>
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                                {item.description}
+                            </td>
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                                <LinkPost
+                                    title={item.linkText}
+                                    url={item.link}
+                                />
+                            </td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <h1 id="boot" class="text-2xl font-medium text-card-foreground">
+        <a href="#boot">Booteable</a>
+    </h1>
+    <p class="text-card-foreground">
+        Now you need to use the UEFI Shell ISO and boot it to the pendrive. You
+        need create the booteable pendrive in this scheme:
+    </p>
+    <div class="overflow-x-auto rounded-lg border border-border">
+        <table
+            class="min-w-full divide-y-2 divide-border bg-background text-sm"
+        >
+            <thead class="text-left">
+                <tr>
+                    <th
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                    >
+                        Boot selection
+                    </th>
+                    <th
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                    >
+                        Partition scheme
+                    </th>
+                    <th
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                    >
+                        Filesystem
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-border">
+                {
+                    bootTableData.map((item) => (
+                        <tr>
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                                {item.bootSelection}
+                            </td>
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                                {item.partitionScheme}
+                            </td>
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                                {item.filesystem}
+                            </td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="text-card-foreground">
+        Then extract the bios in the .zip and copy it to the pendrive that you
+        boot with the UEFI Shell.
+    </p>
+
+    <h1 id="update" class="text-2xl font-medium text-card-foreground">
+        <a href="#update">Update</a>
+    </h1>
+
+    <p class="text-card-foreground">
+        Insert the pendrive in the <LinkPost
+            title={Ms01Link.title}
+            url={Ms01Link.url}
+        /> and reboot, hit <code>DEL</code> to enter the BIOS menu, select UEFI Shell
+        or boot from the pendrive.. type and enter
+        <code>FS0:</code> and select <code>AfuEfiFlash.nsh</code>
+    </p>
+    <p class="text-card-foreground flex items-center gap-2">
+        The update will start automatically..
+        <Icon
+            width="1em"
+            height="1em"
+            class="duration-200 group-hover:translate-x-[1.5px]"
+            name="rocket"
+        />
+    </p>
+
+    <h1 id="computers" class="text-2xl font-medium text-card-foreground">
+        <a href="#computers">Computers never sleep</a>
+    </h1>
+    <p class="text-card-foreground">
+        You can find all detailed technical specifications and pricing
+        information in MS-01. Thats all, if you have any questions you can write
+        to me.
+    </p>
+    <Image
+        src={MsImg}
+        alt="A description of my image."
+        class="w-full rounded-lg grayscale"
+    />
+</Post>

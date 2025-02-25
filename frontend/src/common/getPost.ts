@@ -27,7 +27,7 @@ const blogDataSchema = z.object({
 
 type Post = z.infer<typeof postSchema>;
 
-export async function getPostsFromJson(): Promise<Post[]> {
+export async function getPost(id: string): Promise<Post | undefined> {
   const filePath = path.join(process.cwd(), "src", "assets", "posts.json");
   const rawData = await fs.readFile(filePath, "utf-8");
   const parsedData = JSON.parse(rawData);
@@ -37,6 +37,6 @@ export async function getPostsFromJson(): Promise<Post[]> {
       `Invalid JSON structure for posts.json: ${result.error.message}`,
     );
   }
-  const activePosts = result.data.posts.filter((post: Post) => post.active);
-  return activePosts;
+  const post = result.data.posts.find((post: Post) => post.id === id);
+  return post;
 }

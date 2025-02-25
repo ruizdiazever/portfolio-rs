@@ -1,0 +1,24 @@
+---
+import Layout from "$lib/layouts/Layout.astro";
+
+Astro.response.status = 404;
+const defaultTitle: string = "Page not found";
+
+const { message = defaultTitle } = Astro.props as { message: string };
+---
+
+<Layout
+    description="404 Error - Page not found"
+    title={defaultTitle}
+    showFooter={false}
+    showHeader={false}
+>
+    <section class="grid place-content-center h-screen">
+        <span class="text-6xl font-bold">404</span>
+        <h1 class="mt-4 text-xl">{message}</h1>
+        <a href="/" class="mt-6 font-semibold">
+            Go back home
+            <span aria-hidden="true"> &rarr;</span>
+        </a>
+    </section>
+</Layout>

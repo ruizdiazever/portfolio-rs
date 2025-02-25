@@ -1,0 +1,109 @@
+---
+import { Icon } from "astro-icon/components";
+import dayjs from "dayjs";
+import { languageTag } from "@paraglide/runtime";
+
+interface Props {
+    title: string;
+    url: string;
+    description: string;
+    readTime: number;
+    author: string[];
+    tags: string[];
+    date: Date;
+}
+
+let { title, description, readTime, tags, date, author }: Props = Astro.props;
+let views = 0;
+---
+
+<div class="relative">
+    <div
+        class="fixed bottom-4 left-1/2 -translate-x-1/2
+        lg:top-8 lg:left-8 lg:ml-10"
+    >
+        <a
+            href="/"
+            rel="external"
+            class="group border inline-flex h-10 items-center justify-center
+        rounded-full px-4 text-sm bg-background text-foreground
+        shadow transition-colors hover:bg-muted focus-visible:outline-none
+        focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none
+        disabled:opacity-50 gap-1 hover:shadow-lg hover:font-semibold
+        dark:bg-background dark:text-foreground dark:hover:bg-muted"
+        >
+            <Icon
+                class="duration-150 group-hover:translate-x-[-2.5px] text-foreground dark:text-foreground"
+                name="chevron-left"
+                title="Back"
+                size="1rem"
+            />
+            <p class="text-sm text-foreground dark:text-foreground">Back</p>
+        </a>
+    </div>
+    <article class="text-card-foreground">
+        <div
+            class="flex justify-start md:justify-end invisible md:visible items-center gap-2 text-card-foreground"
+        >
+            <Icon name="timer" title="Read time" size="1rem" />
+            <p class="flex md:gap-1 text-card-foreground text-md">
+                {readTime} min read
+            </p>
+        </div>
+        <div class="flex items-start justify-between mb-2 md:mb-3">
+            <div class="w-full">
+                <div
+                    class="flex visible md:invisible items-center gap-2 text-card-foreground"
+                >
+                    <p class="flex md:gap-1 text-card-foreground text-xs">
+                        {readTime} min read
+                    </p>
+                    <Icon name="timer" title="Read time" size="0.8rem" />
+                </div>
+                <h1 class="text-3xl md:text-4xl text-foreground">{title}</h1>
+            </div>
+        </div>
+        <div class="space-y-2 not-prose">
+            <p class="text-md lg:text-lg">{description}</p>
+            <div
+                class="flex justify-left items-center text-sm text-card-foreground space-x-4"
+            >
+                <section
+                    class="flex items-center justify-center gap-1 flex-wrap font-medium"
+                >
+                    <Icon name="timer" title="Date" size="0.8rem" />
+                    <code>
+                        {
+                            languageTag() === "zh"
+                                ? `${dayjs(date).format("YYYY年MM月")}`
+                                : `${dayjs(date).format("MMM YYYY")}`
+                        }
+                    </code>
+                </section>
+                <section
+                    class="flex items-center justify-center gap-1 flex-wrap font-medium"
+                    title={tags.join(", ")}
+                >
+                    <Icon name="tag" title="Tags" size="0.8rem" />
+                    <code>{tags.length} Tags</code>
+                </section>
+                <section class="flex items-left">
+                    <code
+                        class="flex items-center justify-center gap-1 flex-wrap font-medium"
+                    >
+                        <Icon name="eye" title="Viewws" size="0.8rem" />
+
+                        <span
+                            class="backdrop-filter backdrop-blur-md animate-backdrop transition duration-700 ease-in-out"
+                        >
+                            {views}
+                        </span>
+                        views
+                    </code>
+                </section>
+            </div>
+        </div>
+        <hr class="my-8 h-px border-0 bg-gray-300" />
+        <div class="mt-6 space-y-4"><slot /></div>
+    </article>
+</div>
