@@ -38,6 +38,7 @@ const bootTableData = [
 ];
 
 const post = await getPost("aa614ca5-0940-41a1-bf80-710096df26ac");
+if (!post) throw new Error("Post not found");
 ---
 
 <Post
