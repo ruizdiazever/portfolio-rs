@@ -1,59 +1,6 @@
 {
   "posts": [
     {
-      "id": "b3678579-1593-4c8e-891c-7a933f7a3760",
-      "slug": "picu-iot",
-      "author": ["Ever Ruiz Diaz"],
-      "home": true,
-      "url": "/projects/picu-iot",
-      "title": "Picu IoT",
-      "repository": "",
-      "description": "Top-notch IoT Project powered by Rust",
-      "readtime": 2,
-      "icons": ["docker", "rust", "graphql"],
-      "tags": [
-        "GraphQL",
-        "Rust",
-        "Axum",
-        "IoT",
-        "security",
-        "auth",
-        "credentials",
-        "async-graphql",
-        "backend",
-        "api",
-        "project"
-      ],
-      "date": "2024-01-18"
-    },
-    {
-      "id": "e3399a11-7ce6-4cdc-aba6-7d88d2a412b6",
-      "slug": "raau-design",
-      "author": ["Ever Ruiz Diaz"],
-      "home": true,
-      "url": "/projects/raau-design",
-      "title": "RAAU Design",
-      "repository": "",
-      "description": "Engineering Design Company",
-      "readtime": 0,
-      "icons": ["docker", "rust", "graphql"],
-      "tags": [
-        "GraphQL",
-        "Rust",
-        "Axum",
-        "IoT",
-        "security",
-        "auth",
-        "credentials",
-        "async-graphql",
-        "backend",
-        "api",
-        "project",
-        "design"
-      ],
-      "date": "2024-06-20"
-    },
-    {
       "id": "468ebc44-4ef0-4e41-8b05-525010becb11",
       "slug": "berli-system",
       "author": ["Ever Ruiz Diaz"],
@@ -61,9 +8,20 @@
       "url": "/projects/berli-system",
       "title": "BERLi Platform",
       "repository": "",
-      "description": "Async Enterprise Software Management",
+      "description": {
+        "en": "Async Enterprise Software Management",
+        "zh": "异步企业软件管理"
+      },
       "readtime": 0,
-      "icons": ["docker", "rust", "graphql"],
+      "tech": [
+        "rust",
+        "docker",
+        "postgres",
+        "redis",
+        "meilisearch",
+        "proxmox",
+        "caddy"
+      ],
       "tags": [
         "GraphQL",
         "Rust",
@@ -82,6 +40,65 @@
         "docker"
       ],
       "date": "2024-06-20"
+    },
+    {
+      "id": "e3399a11-7ce6-4cdc-aba6-7d88d2a412b6",
+      "slug": "raau-design",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/projects/raau-design",
+      "title": "RAAU Design",
+      "repository": "",
+      "description": {
+        "en": "Engineering Design Company",
+        "zh": "工程设计公司"
+      },
+      "readtime": 0,
+      "tech": ["docker", "rust", "graphql"],
+      "tags": [
+        "GraphQL",
+        "Rust",
+        "Axum",
+        "IoT",
+        "security",
+        "auth",
+        "credentials",
+        "async-graphql",
+        "backend",
+        "api",
+        "project",
+        "design"
+      ],
+      "date": "2024-06-20"
+    },
+    {
+      "id": "b3678579-1593-4c8e-891c-7a933f7a3760",
+      "slug": "picu-iot",
+      "author": ["Ever Ruiz Diaz"],
+      "home": true,
+      "url": "/projects/picu-iot",
+      "title": "Picu IoT",
+      "repository": "",
+      "description": {
+        "en": "Top-notch IoT Project powered by Rust",
+        "zh": "由Rust驱动的顶级IoT项目"
+      },
+      "readtime": 2,
+      "tech": ["rust", "docker", "graphql", "postgres", "redis"],
+      "tags": [
+        "GraphQL",
+        "Rust",
+        "Axum",
+        "IoT",
+        "security",
+        "auth",
+        "credentials",
+        "async-graphql",
+        "backend",
+        "api",
+        "project"
+      ],
+      "date": "2024-01-18"
     }
   ]
 }

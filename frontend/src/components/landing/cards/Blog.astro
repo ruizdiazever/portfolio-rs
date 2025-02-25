@@ -20,20 +20,17 @@ let { title, url, description, readTime, views, tags, date }: Props =
 ---
 
 <div
-    class="relative flex flex-wrap flex-row items-center h-auto md:h-36 lg:h-32 p-4 border border-gray-300 dark:border-gray-700
-    hover:border-gray-400 dark:hover:border-gray-600 duration-200 hover:ease-in
+    class="relative flex flex-wrap flex-row items-center h-auto md:h-36 lg:h-32 p-4 border duration-200 hover:ease-in
     rounded-md bg-white dark:bg-black shadow-sm hover:shadow-md
     transition-shadow"
 >
     <div class="flex-1 flex flex-col gap-2">
         <div class="flex justify-between items-center">
             <LinkTitle title={title} url={url} />
-            <div
-                class="flex items-center gap-2 text-gray-600 dark:text-gray-400"
-            >
+            <div class="flex items-center gap-2 text-muted-foreground">
                 <Icon name="timer" title="LinkedIn" size="1rem" />
                 <span
-                    class="flex md:gap-1 text-sm font-medium text-muted-foreground dark:text-gray-400"
+                    class="flex md:gap-1 text-sm font-medium text-muted-foreground"
                     >{readTime} {m.readTime()}</span
                 >
             </div>
@@ -42,7 +39,7 @@ let { title, url, description, readTime, views, tags, date }: Props =
             {description}
         </p>
         <div
-            class="flex justify-left items-center mt-2 text-sm text-gray-600 dark:text-gray-400 space-x-4"
+            class="flex justify-left items-center mt-2 text-sm text-muted-foreground space-x-4"
         >
             <section
                 class="flex items-center justify-center gap-1 flex-wrap font-medium"

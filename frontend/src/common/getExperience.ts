@@ -5,10 +5,16 @@ import fs from "fs/promises";
 const entrySchema = z.object({
   startDate: z.coerce.date(),
   endDate: z.coerce.date().nullable(),
-  position: z.string(),
+  position: z.object({
+    en: z.string(),
+    zh: z.string(),
+  }),
   company: z.string(),
   url: z.string().url(),
-  description: z.string(),
+  description: z.object({
+    en: z.string(),
+    zh: z.string(),
+  }),
   current: z.boolean(),
 });
 
@@ -18,13 +24,12 @@ const entriesDataSchema = z.object({
 
 type Entry = z.infer<typeof entrySchema>;
 
-export async function getEntriesFromJson(language: string): Promise<Entry[]> {
+export async function getEntriesFromJson(): Promise<Entry[]> {
   const filePath = path.join(
     process.cwd(),
     "src",
     "assets",
-    "experience",
-    `${language}.json`,
+    "experiences.json",
   );
   const rawData = await fs.readFile(filePath, "utf-8");
   const parsedData = JSON.parse(rawData);

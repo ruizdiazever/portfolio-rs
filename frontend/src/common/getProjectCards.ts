@@ -10,9 +10,12 @@ const projectSchema = z.object({
   url: z.string().startsWith("/"),
   title: z.string(),
   repository: z.string(),
-  description: z.string(),
+  description: z.object({
+    en: z.string(),
+    zh: z.string(),
+  }),
   readtime: z.number().int().min(0),
-  icons: z.array(z.string()),
+  tech: z.array(z.string()),
   tags: z.array(z.string()),
   date: z.coerce.date(),
 });
@@ -23,16 +26,8 @@ const projectDataSchema = z.object({
 
 type Project = z.infer<typeof projectSchema>;
 
-export async function getProjectsFromJson(
-  language: string,
-): Promise<Project[]> {
-  const filePath = path.join(
-    process.cwd(),
-    "src",
-    "assets",
-    "project",
-    `${language}.json`,
-  );
+export async function getProjectsFromJson(): Promise<Project[]> {
+  const filePath = path.join(process.cwd(), "src", "assets", "projects.json");
   const rawData = await fs.readFile(filePath, "utf-8");
   const parsedData = JSON.parse(rawData);
 

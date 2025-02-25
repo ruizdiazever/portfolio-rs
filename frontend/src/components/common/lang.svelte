@@ -3,7 +3,6 @@
     import * as m from "@paraglide/messages.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
     import Languages from "lucide-svelte/icons/languages";
-    import ChevronDown from "lucide-svelte/icons/chevron-down";
     import { setLang } from "$lib/common/cookies";
 
     let position = $state("bottom");
@@ -12,14 +11,15 @@
 <DropdownMenu.Root>
     <DropdownMenu.Trigger
         role="button"
-        aria-label="Language"
+        aria-label={m.language()}
+        title={m.language()}
         class={buttonVariants({ variant: "ghost", size: "icon" })}
     >
         <div class="flex items-center">
             <Languages class="h-4 w-4" />
         </div>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content>
+    <DropdownMenu.Content class="w-fit">
         <DropdownMenu.RadioGroup bind:value={position}>
             <DropdownMenu.Item
                 class="cursor-pointer ease-in duration-150"

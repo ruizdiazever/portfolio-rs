@@ -1,0 +1,49 @@
+{
+  "entries": [
+    {
+      "startDate": "2023-01-01",
+      "endDate": null,
+      "position": {
+        "en": "Tech Lead",
+        "zh": "技术主管"
+      },
+      "company": "Anritsu",
+      "url": "https://www.anritsu.com/en-gb/",
+      "description": {
+        "en": "Python lead developer in M4 Platform Team at Anritsu. My work consists in Python code quality control and modern interface development using RestAPI or GraphQL in VMs and Cloud infrastructures.",
+        "zh": "在安立公司的M4平台团队担任Python技术主管。我的工作包括Python代码质量控制和使用RestAPI或GraphQL在虚拟机和云基础设施上开发现代界面。"
+      },
+      "current": true
+    },
+    {
+      "startDate": "2022-07-01",
+      "endDate": "2022-12-31",
+      "position": {
+        "en": "Senior Software Engineer",
+        "zh": "高级软件工程师"
+      },
+      "company": "Aeronautica Militare (Italian Air Force)",
+      "url": "https://www.aeronautica.difesa.it/",
+      "description": {
+        "en": "I successfully developed a key microservice for the military aviation weather system, greatly improving my team's DX and service performance along the way by migrating the API from Flask to FastAPI.",
+        "zh": "我成功开发了军用航空气象系统的关键微服务，通过将API从Flask迁移到FastAPI，大大改善了团队的开发体验和服务性能。"
+      },
+      "current": false
+    },
+    {
+      "startDate": "2021-10-01",
+      "endDate": "2022-06-31",
+      "position": {
+        "en": "Software Developer",
+        "zh": "软件开发工程师"
+      },
+      "company": "Qi4M",
+      "url": "https://www.qi4m.com/",
+      "description": {
+        "en": "My main work consists of integrations of components made by the Data Science area in the workflow of applications with Python Standalone (pure Python 3 without frameworks). On the other hand, I have been responsible for developing the frontendDate and most of the backendDate of a very important project with Vue.js on the client side and a backendDate with a REST API with Flask.",
+        "zh": "我的主要工作是将数据科学领域制作的组件集成到使用Python独立应用程序（纯Python 3，不使用框架）的工作流程中。另一方面，我负责开发一个重要项目的前端和大部分后端，该项目使用Vue.js作为客户端，并使用Flask构建REST API后端。"
+      },
+      "current": false
+    }
+  ]
+}

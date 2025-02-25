@@ -9,9 +9,9 @@ import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
 import { languageTag } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 
-const posts = await getPostsFromJson(languageTag());
-const entries = await getEntriesFromJson(languageTag());
-const projects = await getProjectsFromJson(languageTag());
+const posts = await getPostsFromJson();
+const entries = await getEntriesFromJson();
+const projects = await getProjectsFromJson();
 ---
 
 <Hero />
@@ -20,9 +20,9 @@ const projects = await getProjectsFromJson(languageTag());
 {
     posts.map((post) => (
         <Blog
-            title={post.title}
+            title={post.title[languageTag()]}
             url={post.url}
-            description={post.description}
+            description={post.description[languageTag()]}
             readTime={10}
             views={10}
             tags={post.tags}
@@ -39,8 +39,8 @@ const projects = await getProjectsFromJson(languageTag());
                 url={entry.url}
                 title={entry.title}
                 repository={entry.repository}
-                description={entry.description}
-                icons={entry.icons}
+                description={entry.description[languageTag()]}
+                tech={entry.tech}
             />
         ))
     }
@@ -57,10 +57,10 @@ const projects = await getProjectsFromJson(languageTag());
                     startDate={entry.startDate}
                     endDate={entry.endDate}
                     current={entry.current}
-                    position={entry.position}
+                    position={entry.position[languageTag()]}
                     company={entry.company}
                     url={entry.url}
-                    description={entry.description}
+                    description={entry.description[languageTag()]}
                 />
             ))
         }

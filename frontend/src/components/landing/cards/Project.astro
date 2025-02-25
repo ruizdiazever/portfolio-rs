@@ -1,23 +1,28 @@
 ---
 import { Icon } from "astro-icon/components";
 import LinkTitle from "$lib/components/common/LinkTitle.astro";
+import Tech from "./tech.svelte";
+import { getTechnologiesFromJson } from "$lib/common/getTechData.js";
+import { languageTag } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
+import LinkExternal from "$lib/components/common/LinkExternal.astro";
 
 interface Props {
     url: string;
     title: string;
     repository: string;
     description: string;
-    icons: string[];
+    tech: string[];
 }
 
-let { url, title, repository, description, icons }: Props = Astro.props;
+const technologies = await getTechnologiesFromJson();
+let { url, title, repository, description, tech }: Props = Astro.props;
 ---
 
 <div class="group relative block h-32 w-full">
     <div
         class="relative p-2 flex h-full
-        border border-gray-300 dark:border-gray-700
-        hover:border-gray-400 dark:hover:border-gray-600 duration-200 hover:ease-in
+        border duration-200 hover:ease-in
         rounded-md bg-white dark:bg-black shadow-sm hover:shadow-md
         transition-shadow"
     >
@@ -44,18 +49,37 @@ let { url, title, repository, description, icons }: Props = Astro.props;
                     )
                 }
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-400 truncate ...">
+            <p class="text-sm text-muted-foreground truncate ...">
                 {description}
             </p>
-            <div class="flex gap-4 mt-1">
+            <div class="flex gap-4">
                 {
-                    icons.map((icon) => (
-                        <Icon
-                            name={icon}
-                            size="1.3rem"
-                            class="duration-200 group-hover:translate-x-[1.5px] grayscale hover:grayscale-0"
-                        />
-                    ))
+                    tech.map((n) => {
+                        if (!technologies[n]) return null;
+
+                        return (
+                            <Tech
+                                client:idle
+                                name={technologies[n].name}
+                                description={
+                                    technologies[n].description[languageTag()]
+                                }
+                            >
+                                <Icon
+                                    name={n}
+                                    width="1.2em"
+                                    height="1.2em"
+                                    slot="icon"
+                                />
+                                <span slot="link" class="text-xs">
+                                    <LinkExternal
+                                        title={m.moreInformation()}
+                                        url={technologies[n].url}
+                                    />
+                                </span>
+                            </Tech>
+                        );
+                    })
                 }
             </div>
         </div>

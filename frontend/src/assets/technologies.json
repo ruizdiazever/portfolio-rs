@@ -1,0 +1,61 @@
+{
+  "technologies": {
+    "redis": {
+      "name": "Redis",
+      "description": {
+        "en": "Redis is an open source, in-memory data structure store used as a database, cache, message broker, and queue.",
+        "zh": "Redis是一个开源的内存数据结构存储，用作数据库、缓存、消息代理和队列。"
+      },
+      "url": "https://redis.io"
+    },
+    "postgresql": {
+      "aliases": ["postgres", "pgsql", "psql"],
+      "name": "PostgreSQL",
+      "description": {
+        "en": "PostgreSQL is a powerful, open source object-relational database system.",
+        "zh": "PostgreSQL是一个功能强大的开源对象关系数据库系统。"
+      },
+      "url": "https://www.postgresql.org"
+    },
+    "meilisearch": {
+      "name": "Meilisearch",
+      "description": {
+        "en": "Meilisearch is a lightning-fast search engine that fits effortlessly into your apps, websites, and workflows.",
+        "zh": "Meilisearch是一个闪电般快速的搜索引擎，可以轻松地集成到您的应用程序、网站和工作流程中。"
+      },
+      "url": "https://www.meilisearch.com"
+    },
+    "docker": {
+      "name": "Docker",
+      "description": {
+        "en": "Docker is a platform for developing, shipping, and running applications in containers.",
+        "zh": "Docker是一个用于在容器中开发、传输和运行应用程序的平台。"
+      },
+      "url": "https://www.docker.com"
+    },
+    "proxmox": {
+      "name": "Proxmox",
+      "description": {
+        "en": "Proxmox is an open-source virtualization management platform for enterprise virtualization.",
+        "zh": "Proxmox是一个开源的企业虚拟化管理平台。"
+      },
+      "url": "https://www.proxmox.com"
+    },
+    "caddy": {
+      "name": "Caddy",
+      "description": {
+        "en": "Caddy is a powerful, enterprise-ready, open source web server with automatic HTTPS.",
+        "zh": "Caddy是一个功能强大、企业级就绪的开源Web服务器，具有自动HTTPS功能。"
+      },
+      "url": "https://caddyserver.com"
+    },
+    "graphql": {
+      "name": "GraphQL",
+      "description": {
+        "en": "GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.",
+        "zh": "GraphQL是一种用于API的查询语言，以及一个用现有数据完成这些查询的运行时。"
+      },
+      "url": "https://graphql.org"
+    }
+  }
+}

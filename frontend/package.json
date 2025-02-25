@@ -24,7 +24,6 @@
     "astro-icon": "^1.1.5",
     "dayjs": "^1.11.13",
     "js-cookie": "^3.0.5",
-    "lucide-svelte": "^0.475.0",
     "mode-watcher": "^0.5.1",
     "svelte": "^5.20.2",
     "svelte-sonner": "^0.3.28",

@@ -11,5 +11,8 @@
   "readTime": "min read",
   "chinese": "Chinese",
   "english": "English",
-  "views": "views"
+  "views": "views",
+  "language": "Language",
+  "theme": "Theme",
+  "moreInformation": "More information"
 }

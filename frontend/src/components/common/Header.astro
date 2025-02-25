@@ -12,10 +12,8 @@ mt-6 sticky top-0 backdrop-blur-lg z-50 antialiased
 px-6 sm:px-6 lg:px-8 bg-transparent"
 >
     <a href="/" rel="external" class="flex flex-col items-start gap-1">
-        <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-            Ever Ruiz Diaz
-        </div>
-        <div class="text-gray-600 dark:text-gray-400">{m.rustDev()}</div>
+        <div class="text-2xl font-semibold text-foreground">Ever Ruiz Diaz</div>
+        <div class="text-muted-foreground">{m.rustDev()}</div>
     </a>
     <div class="flex items-center">
         <Lang client:idle />
@@ -27,6 +25,8 @@ px-6 sm:px-6 lg:px-8 bg-transparent"
             rel="noopener"
             target="_blank"
             size="icon"
+            aria-label="LinkedIn"
+            title="LinkedIn"
         >
             <Icon
                 name="linkedin"
@@ -40,6 +40,8 @@ px-6 sm:px-6 lg:px-8 bg-transparent"
             rel="noopener"
             target="_blank"
             size="icon"
+            aria-label="GitHub"
+            title="GitHub"
         >
             <Icon name="github" title="GitHub" class="h-[1.2rem] w-[1.2rem]" />
         </Button>
