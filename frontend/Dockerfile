@@ -5,7 +5,7 @@ COPY . .
 
 RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN npm install -g pnpm
-RUN pnpm i
+RUN pnpm i --force
 RUN pnpm run build
 
 ENV HOST=0.0.0.0

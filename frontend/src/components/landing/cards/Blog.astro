@@ -3,19 +3,19 @@ import { Icon } from "astro-icon/components";
 import dayjs from "dayjs";
 import * as m from "@paraglide/messages.js";
 import { languageTag } from "@paraglide/runtime";
+import LinkTitle from "$lib/components/common/LinkTitle.astro";
 
 interface Props {
-    link: string;
-    target: string;
     title: string;
+    url: string;
     description: string;
-    tags: string[];
-    views: number;
-    date: Date;
     readTime: number;
+    views: number;
+    tags: string[];
+    date: Date;
 }
 
-let { target, link, title, description, tags, views, date, readTime }: Props =
+let { title, url, description, readTime, views, tags, date }: Props =
     Astro.props;
 ---
 
@@ -27,19 +27,7 @@ let { target, link, title, description, tags, views, date, readTime }: Props =
 >
     <div class="flex-1 flex flex-col gap-2">
         <div class="flex justify-between items-center">
-            <a
-                href={link}
-                rel="noopener"
-                target={target}
-                class="text-gray-800 dark:text-gray-200 duration-200 hover:text-[#68b5fc] group flex items-center gap-1
-                cursor-pointer
-                hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-[#68b5fc]"
-            >
-                <p class="text-md md:text-lg lg:text-xl font-medium">
-                    {title}
-                </p>
-                <Icon name="arrow-right" title="" size="1rem" />
-            </a>
+            <LinkTitle title={title} url={url} />
             <div
                 class="flex items-center gap-2 text-gray-600 dark:text-gray-400"
             >

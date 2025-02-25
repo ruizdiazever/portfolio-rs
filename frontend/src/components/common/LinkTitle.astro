@@ -2,19 +2,18 @@
 import { Icon } from "astro-icon/components";
 
 interface Props {
-    link: string;
-    linked: string;
+    url: string;
     title: string;
 }
 
-let { title, link, linked = "_self" }: Props = Astro.props;
+let { title, url = "_self" }: Props = Astro.props;
 ---
 
 <a
-    href={link}
+    href={url}
     rel="noopener"
-    target={linked}
-    class="text-gray-800 duration-200 hover:text-[#68b5fc] group flex items-center gap-1
+    target="_self"
+    class="text-gray-800 duration-200 cursor-pointer hover:text-[#68b5fc] group flex items-center gap-1
         hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-[#68b5fc]"
 >
     <p class="text-md md:text-lg lg:text-xl font-medium">{title}</p>

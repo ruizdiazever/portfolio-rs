@@ -5,6 +5,7 @@
     "target": "ESNext",
     "moduleResolution": "NodeNext",
     "baseUrl": ".",
+    "allowJs": true,
     "paths": {
       "$lib/*": ["./src/*"],
       "@paraglide/*": ["./src/paraglide/*"]

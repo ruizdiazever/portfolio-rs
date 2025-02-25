@@ -4,16 +4,17 @@ import path from "path";
 
 const projectSchema = z.object({
   id: z.string().uuid(),
-  humanId: z.string(),
+  slug: z.string().min(1),
   author: z.array(z.string()),
   home: z.boolean(),
   url: z.string().startsWith("/"),
   title: z.string(),
+  repository: z.string(),
   description: z.string(),
   readtime: z.number().int().min(0),
-  tags: z.array(z.string()),
   icons: z.array(z.string()),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  tags: z.array(z.string()),
+  date: z.coerce.date(),
 });
 
 const projectDataSchema = z.object({

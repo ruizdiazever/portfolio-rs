@@ -20,12 +20,13 @@ const projects = await getProjectsFromJson(languageTag());
 {
     posts.map((post) => (
         <Blog
-            link={post.url}
             title={post.title}
+            url={post.url}
             description={post.description}
+            readTime={10}
+            views={10}
             tags={post.tags}
             date={post.date}
-            readTime={10}
         />
     ))
 }
@@ -37,11 +38,8 @@ const projects = await getProjectsFromJson(languageTag());
             <Project
                 url={entry.url}
                 title={entry.title}
-                description={entry.description}
-                url={entry.url}
-                github={entry.github}
                 repository={entry.repository}
-                tags={entry.tags}
+                description={entry.description}
                 icons={entry.icons}
             />
         ))
@@ -56,12 +54,13 @@ const projects = await getProjectsFromJson(languageTag());
         {
             entries.map((entry) => (
                 <Experience
-                    company={entry.company}
-                    position={entry.position}
-                    description={entry.description}
                     startDate={entry.startDate}
                     endDate={entry.endDate}
                     current={entry.current}
+                    position={entry.position}
+                    company={entry.company}
+                    url={entry.url}
+                    description={entry.description}
                 />
             ))
         }

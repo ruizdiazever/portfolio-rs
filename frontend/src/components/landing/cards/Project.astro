@@ -5,24 +5,12 @@ import LinkTitle from "$lib/components/common/LinkTitle.astro";
 interface Props {
     url: string;
     title: string;
-    description: string;
-    linked: string;
-    github: boolean;
-    tags: string[];
-    icons: string[];
     repository: string;
+    description: string;
+    icons: string[];
 }
 
-let {
-    url,
-    title,
-    linked,
-    description,
-    repository,
-    github = false,
-    tags,
-    icons,
-}: Props = Astro.props;
+let { url, title, repository, description, icons }: Props = Astro.props;
 ---
 
 <div class="group relative block h-32 w-full">
@@ -35,9 +23,9 @@ let {
     >
         <div class="flex flex-col px-2 my-2 gap-2 !pt-0">
             <div class="flex justify-between">
-                <LinkTitle title={title} link={url} linked={linked} />
+                <LinkTitle title={title} url={url} />
                 {
-                    github && (
+                    repository !== "" && (
                         <span>
                             <a
                                 href={repository}
