@@ -8,6 +8,22 @@ export const onRequest = defineMiddleware(
       url.pathname.startsWith(prefix),
     );
 
+    // Prefix language
+    if (
+      !isPrefixedPath &&
+      !url.pathname.includes("_image") &&
+      !url.pathname.includes("_actions") &&
+      !url.pathname.includes("api")
+    ) {
+      const preferredLang = cookies.get("preferredLang")?.value || "en";
+      const newUrl = `/${preferredLang}${url.pathname}`;
+      cookies.set("preferredLang", preferredLang, {
+        path: "/",
+        sameSite: "lax",
+      });
+      return redirect(newUrl);
+    }
+
     if (isPrefixedPath) {
       const preferredLang = cookies.get("preferredLang")?.value || "en";
       const currentLang = url.pathname.split("/")[1];

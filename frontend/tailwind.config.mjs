@@ -15,6 +15,13 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        xs: "0.8rem",
+        sm: "1.0rem",
+        md: "1.3rem",
+        lg: "1.5rem",
+        xl: "2rem",
+      },
       colors: {
         border: "hsl(var(--border) / <alpha-value>)",
         input: "hsl(var(--input) / <alpha-value>)",
@@ -67,7 +74,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: [...fontFamily.sans],
+        sans: ["EB Garamond Variable", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

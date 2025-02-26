@@ -12,12 +12,12 @@ mt-6 sticky top-0 backdrop-blur-lg z-50 antialiased
 px-6 sm:px-6 lg:px-8 bg-transparent"
 >
     <a href="/" rel="external" class="flex flex-col items-start gap-1">
-        <div class="text-2xl font-semibold text-foreground">Ever Ruiz Diaz</div>
-        <div class="text-muted-foreground">{m.rustDev()}</div>
+        <div class="text-xl font-semibold text-foreground">Ever Ruiz Diaz</div>
+        <div class="text-secondary-foreground text-md">{m.rustDev()}</div>
     </a>
     <div class="flex items-center">
-        <Lang client:idle />
         <Toggle client:idle />
+        <Lang client:idle />
 
         <Button
             href="https://www.linkedin.com/in/everdev/"

@@ -1,8 +1,9 @@
 ---
 import { seoConfig } from "$lib/common/seoConfig";
-import inter from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2";
-import "@fontsource-variable/inter";
+import "@fontsource-variable/eb-garamond/wght.css";
+import "@fontsource-variable/eb-garamond";
 import "$lib/styles/app.css";
+import garamond from "@fontsource-variable/eb-garamond/files/eb-garamond-latin-ext-wght-normal.woff2";
 
 interface Props {
     title: string;
@@ -29,7 +30,7 @@ const canonicalURL = canonical
 <meta charset="UTF-8" />
 <meta name="description" content={description} />
 <link type="text/plain" rel="author" href="/humans.txt" />
-<link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={garamond} as="font" type="font/woff2" crossorigin />
 {
     preloadImgLCP && (
         <link
@@ -114,14 +115,14 @@ const canonicalURL = canonical
 <meta
     name="twitter:image"
     content={new URL(image, Astro.site)}
-    onerror="/BERLi.webp"
+    onerror="/ever.avif"
 />
 
 <!-- Open Graph / Facebook -->
 <meta
     property="og:image"
     content={new URL(image, Astro.site)}
-    onerror="/BERLi.webp"
+    onerror="/ever.avif"
 />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />

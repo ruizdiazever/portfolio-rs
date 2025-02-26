@@ -50,10 +50,11 @@ if (!post) throw new Error("Post not found");
     tags={post.tags}
     date={post.date}
 >
-    <h1 id="freedom" class="text-2xl font-medium text-card-foreground">
+    <h1 id="freedom" class="text-xl font-semibold text-secondary-foreground">
         <a href="#freedom">Freedom</a>
     </h1>
-    <p class="text-card-foreground">
+    <Image src={MsImg} alt="MS-01" class="w-full rounded-lg grayscale" />
+    <p class="text-md text-secondary-foreground">
         Fed up with the costs and limitations of renting a virtual server, I
         decided to set up my own dedicated server. To my pleasant surprise, it
         wasnt as complicated as I expected! thats how I got my first dedicated
@@ -64,10 +65,13 @@ if (!post) throw new Error("Post not found");
         website.
     </p>
 
-    <h1 id="prerequisites" class="text-2xl font-medium text-card-foreground">
+    <h2
+        id="prerequisites"
+        class="text-xl font-semibold text-secondary-foreground"
+    >
         <a href="#prerequisites">Prerequisites</a>
-    </h1>
-    <p class="text-card-foreground flex items-center gap-2">
+    </h2>
+    <p class="text-secondary-foreground text-md flex items-center gap-2">
         A pendrive and internet
         <Icon
             width="1em"
@@ -77,10 +81,12 @@ if (!post) throw new Error("Post not found");
         />
     </p>
 
-    <h1 id="downloads" class="text-2xl font-medium text-card-foreground">
+    <h2 id="downloads" class="text-xl font-semibold text-secondary-foreground">
         <a href="#downloads">Downloads</a>
-    </h1>
-    <p class="text-card-foreground">A list of files that you need download</p>
+    </h2>
+    <p class="text-md text-secondary-foreground">
+        A list of files that you need download
+    </p>
     <div class="overflow-x-auto rounded-lg border border-border">
         <table
             class="min-w-full divide-y-2 divide-border bg-background text-sm"
@@ -88,15 +94,15 @@ if (!post) throw new Error("Post not found");
             <thead class="text-left">
                 <tr>
                     <th
-                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                         >#</th
                     >
                     <th
-                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                         >Description</th
                     >
                     <th
-                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                         >Link</th
                     >
                 </tr>
@@ -106,13 +112,13 @@ if (!post) throw new Error("Post not found");
                 {
                     downloadsTableData.map((item) => (
                         <tr>
-                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 {item.name}
                             </td>
-                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 {item.description}
                             </td>
-                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 <LinkPost
                                     title={item.linkText}
                                     url={item.link}
@@ -125,10 +131,10 @@ if (!post) throw new Error("Post not found");
         </table>
     </div>
 
-    <h1 id="boot" class="text-2xl font-medium text-card-foreground">
+    <h2 id="boot" class="text-xl font-semibold text-secondary-foreground">
         <a href="#boot">Booteable</a>
-    </h1>
-    <p class="text-card-foreground">
+    </h2>
+    <p class="text-secondary-foreground text-md">
         Now you need to use the UEFI Shell ISO and boot it to the pendrive. You
         need create the booteable pendrive in this scheme:
     </p>
@@ -139,17 +145,17 @@ if (!post) throw new Error("Post not found");
             <thead class="text-left">
                 <tr>
                     <th
-                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                     >
                         Boot selection
                     </th>
                     <th
-                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                     >
                         Partition scheme
                     </th>
                     <th
-                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-card-foreground"
+                        class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                     >
                         Filesystem
                     </th>
@@ -160,13 +166,13 @@ if (!post) throw new Error("Post not found");
                 {
                     bootTableData.map((item) => (
                         <tr>
-                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 {item.bootSelection}
                             </td>
-                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 {item.partitionScheme}
                             </td>
-                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-card-foreground">
+                            <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 {item.filesystem}
                             </td>
                         </tr>
@@ -175,16 +181,16 @@ if (!post) throw new Error("Post not found");
             </tbody>
         </table>
     </div>
-    <p class="text-card-foreground">
+    <p class="text-md text-secondary-foreground">
         Then extract the bios in the .zip and copy it to the pendrive that you
         boot with the UEFI Shell.
     </p>
 
-    <h1 id="update" class="text-2xl font-medium text-card-foreground">
+    <h2 id="update" class="text-xl font-semibold text-secondary-foreground">
         <a href="#update">Update</a>
-    </h1>
+    </h2>
 
-    <p class="text-card-foreground">
+    <p class="text-md text-secondary-foreground">
         Insert the pendrive in the <LinkPost
             title={Ms01Link.title}
             url={Ms01Link.url}
@@ -192,7 +198,7 @@ if (!post) throw new Error("Post not found");
         or boot from the pendrive.. type and enter
         <code>FS0:</code> and select <code>AfuEfiFlash.nsh</code>
     </p>
-    <p class="text-card-foreground flex items-center gap-2">
+    <p class="text-secondary-foreground flex items-center gap-2 text-md">
         The update will start automatically..
         <Icon
             width="1em"
@@ -202,17 +208,12 @@ if (!post) throw new Error("Post not found");
         />
     </p>
 
-    <h1 id="computers" class="text-2xl font-medium text-card-foreground">
+    <h2 id="computers" class="text-xl font-semibold text-secondary-foreground">
         <a href="#computers">Computers never sleep</a>
-    </h1>
-    <p class="text-card-foreground">
+    </h2>
+    <p class="text-md text-secondary-foreground">
         You can find all detailed technical specifications and pricing
         information in MS-01. Thats all, if you have any questions you can write
         to me.
     </p>
-    <Image
-        src={MsImg}
-        alt="A description of my image."
-        class="w-full rounded-lg grayscale"
-    />
 </Post>

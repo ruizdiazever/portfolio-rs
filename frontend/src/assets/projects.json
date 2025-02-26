@@ -9,7 +9,7 @@
       "title": "BERLi Platform",
       "repository": "",
       "description": {
-        "en": "Async Enterprise Software Management",
+        "en": "Async Enterprise Platform",
         "zh": "异步企业软件管理"
       },
       "readtime": 0,
@@ -80,7 +80,7 @@
       "title": "Picu IoT",
       "repository": "",
       "description": {
-        "en": "Top-notch IoT Project powered by Rust",
+        "en": "IoT solution powered by Rust",
         "zh": "由Rust驱动的顶级IoT项目"
       },
       "readtime": 2,

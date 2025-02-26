@@ -16,7 +16,7 @@ const projects = await getProjectsFromJson();
 
 <Hero />
 
-<h1 class="text-2xl font-medium mt-6">{m.blog()}</h1>
+<h1 class="text-xl font-semibold mt-6">{m.blog()}</h1>
 {
     posts.map((post) => (
         <Blog
@@ -31,7 +31,7 @@ const projects = await getProjectsFromJson();
     ))
 }
 
-<h1 class="text-2xl font-medium mt-6">{m.projects()}</h1>
+<h1 class="text-xl font-semibold mt-6">{m.projects()}</h1>
 <div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
     {
         projects.map((entry) => (
@@ -46,7 +46,7 @@ const projects = await getProjectsFromJson();
     }
 </div>
 
-<h1 class="text-2xl font-medium mt-6">{m.experience()}</h1>
+<h1 class="text-xl font-semibold mt-6">{m.experience()}</h1>
 <div class="relative flex flex-col gap-4">
     <div
         class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
