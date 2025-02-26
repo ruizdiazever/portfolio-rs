@@ -1,34 +1,37 @@
 export const seoConfig = {
-  baseURL: "https://www.berli.app",
-  description: "Top-notch async software for leading companies",
+  baseURL: "https://www.everdev.it",
+  description:
+    "Software Engineer focused on cutting-edge Technology, Design and Science.",
   type: "website",
   image: {
-    url: "https://opengraph.b-cdn.net/production/images/f180fae9-2e00-4ff5-b3d6-d44a79b7ec8f.png?token=9A-cOf0qM5hcVDXgHl9GqA8rWKq_hqhpQTAP26_YAbM&height=675&width=1200&expires=33266370297",
-    alt: "BERLi System",
+    url: "https://opengraph.b-cdn.net/production/images/654e0f60-67cf-44c3-b978-e83997af2fbb.png?token=OdvshL2LhMCXaexQ0dA3bKwYrPiMXPLqf3UCtPMueJQ&height=675&width=1200&expires=33276586034",
+    alt: "Ever Ruiz Diaz",
     width: 1200,
     height: 630,
   },
-  siteName: "BERLi System",
+  siteName: "Ever Ruiz Diaz",
   twitter: {
     card: "summary_large_image",
-    creator: "@berliapp",
-    site: "@berliapp",
-    title: "BERLi System",
-    description: "Top-notch async software for leading companies",
+    creator: "@EverToujours",
+    site: "@EverToujours",
+    title: "Ever Ruiz Diaz",
+    description:
+      "Software Engineer focused on cutting-edge Technology, Design and Science.",
     image:
-      "https://opengraph.b-cdn.net/production/images/f180fae9-2e00-4ff5-b3d6-d44a79b7ec8f.png?token=9A-cOf0qM5hcVDXgHl9GqA8rWKq_hqhpQTAP26_YAbM&height=675&width=1200&expires=33266370297",
+      "https://opengraph.b-cdn.net/production/images/654e0f60-67cf-44c3-b978-e83997af2fbb.png?token=OdvshL2LhMCXaexQ0dA3bKwYrPiMXPLqf3UCtPMueJQ&height=675&width=1200&expires=33276586034",
   },
   facebook: {
     appId: "123456789",
-    title: "BERLi System",
-    description: "Top-notch async software for leading companies",
+    title: "Ever Ruiz Diaz",
+    description:
+      "Software Engineer focused on cutting-edge Technology, Design and Science.",
     image:
-      "https://opengraph.b-cdn.net/production/images/f180fae9-2e00-4ff5-b3d6-d44a79b7ec8f.png?token=9A-cOf0qM5hcVDXgHl9GqA8rWKq_hqhpQTAP26_YAbM&height=675&width=1200&expires=33266370297",
-    url: "https://www.berli.app",
+      "https://opengraph.b-cdn.net/production/images/654e0f60-67cf-44c3-b978-e83997af2fbb.png?token=OdvshL2LhMCXaexQ0dA3bKwYrPiMXPLqf3UCtPMueJQ&height=675&width=1200&expires=33276586034",
+    url: "https://www.everdev.it",
     type: "website",
   },
   locale: "en_US",
   themeColor: "#000000",
-  keywords: ["software management", "async", "productivity"],
+  keywords: ["astro", "rust", "portfolio", "developer"],
   robots: "index,follow",
 };
