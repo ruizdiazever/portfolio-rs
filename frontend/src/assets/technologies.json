@@ -56,6 +56,38 @@
         "zh": "GraphQL是一种用于API的查询语言，以及一个用现有数据完成这些查询的运行时。"
       },
       "url": "https://graphql.org"
+    },
+    "rust": {
+      "name": "Rust",
+      "description": {
+        "en": "Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.",
+        "zh": "Rust是一种系统编程语言，运行速度极快，防止段错误，并保证线程安全。"
+      },
+      "url": "https://www.rust-lang.org"
+    },
+    "astro": {
+      "name": "Astro",
+      "description": {
+        "en": "Astro is a modern web framework for building fast, SEO-friendly websites.",
+        "zh": "Astro是一个现代的Web框架，用于构建快速、SEO友好的网站。"
+      },
+      "url": "https://astro.build"
+    },
+    "svelte": {
+      "name": "Svelte",
+      "description": {
+        "en": "Svelte is a modern JavaScript framework for building user interfaces.",
+        "zh": "Svelte是一个现代的JavaScript框架，用于构建用户界面。"
+      },
+      "url": "https://svelte.dev"
+    },
+    "fedora": {
+      "name": "Fedora",
+      "description": {
+        "en": "Fedora is a free and open-source Linux distribution developed by the Fedora Project.",
+        "zh": "Fedora是一个由Fedora项目开发的自由和开源Linux发行版。"
+      },
+      "url": "https://getfedora.org"
     }
   }
 }

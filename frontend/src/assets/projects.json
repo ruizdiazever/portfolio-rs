@@ -15,10 +15,12 @@
       "readtime": 0,
       "tech": [
         "rust",
-        "docker",
         "postgres",
         "redis",
         "meilisearch",
+        "astro",
+        "svelte",
+        "docker",
         "proxmox",
         "caddy"
       ],
@@ -54,7 +56,17 @@
         "zh": "工程设计公司"
       },
       "readtime": 0,
-      "tech": ["docker", "rust", "graphql"],
+      "tech": [
+        "rust",
+        "postgres",
+        "redis",
+        "meilisearch",
+        "astro",
+        "svelte",
+        "docker",
+        "proxmox",
+        "caddy"
+      ],
       "tags": [
         "GraphQL",
         "Rust",
@@ -84,7 +96,16 @@
         "zh": "由Rust驱动的顶级IoT项目"
       },
       "readtime": 2,
-      "tech": ["rust", "docker", "graphql", "postgres", "redis"],
+      "tech": [
+        "rust",
+        "docker",
+        "postgres",
+        "redis",
+        "graphql",
+        "astro",
+        "svelte",
+        "fedora"
+      ],
       "tags": [
         "GraphQL",
         "Rust",

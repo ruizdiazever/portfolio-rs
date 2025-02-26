@@ -10,7 +10,7 @@
         "zh": "更新 MS-01 BIOS"
       },
       "description": {
-        "en": "Minisforum MS-01: a compact and powerful server with a lot of features",
+        "en": "Minisforum MS-01: a compact and powerful server with a lot of features.",
         "zh": "Minisforum MS-01：一个紧凑而强大的服务器，具有许多功能"
       },
       "readTime": 3,
@@ -28,7 +28,7 @@
         "zh": "使用 Rust 的组织"
       },
       "description": {
-        "en": "Forging the future, companies building with Rust",
+        "en": "Forging the future, companies building with Rust.",
         "zh": "打造未来，使用 Rust 构建的公司"
       },
       "readTime": 3,
@@ -46,7 +46,7 @@
         "zh": "作品集 WASM"
       },
       "description": {
-        "en": "New portfolio WASM, a history of performance and love powered by Rust with Leptos",
+        "en": "New portfolio WASM, a history of performance and love powered by Rust with Leptos.",
         "zh": "新的 WASM 作品集，由 Rust 和 Leptos 驱动的性能与热爱的历史"
       },
       "readTime": 2,
@@ -74,7 +74,7 @@
         "zh": "使用 Rust 的安全认证"
       },
       "description": {
-        "en": "Refresh/access token with Axum and async-graphql",
+        "en": "Refresh/access token with Axum and async-graphql.",
         "zh": "使用 Axum 和 async-graphql 的刷新/访问令牌"
       },
       "readTime": 1,

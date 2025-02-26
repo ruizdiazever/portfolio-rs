@@ -22,7 +22,7 @@
         "en": "Senior Software Engineer",
         "zh": "高级软件工程师"
       },
-      "company": "Aeronautica Militare (Italian Air Force)",
+      "company": "Italian Air Force",
       "url": "https://www.aeronautica.difesa.it/",
       "description": {
         "en": "I successfully developed a key microservice for the military aviation weather system, greatly improving my team's DX and service performance along the way by migrating the API from Flask to FastAPI.",
