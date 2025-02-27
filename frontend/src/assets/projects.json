@@ -7,7 +7,7 @@
       "home": true,
       "url": "/projects/berli-system",
       "title": "BERLi Platform",
-      "repository": "",
+      "repository": "https://github.com/berli-app",
       "description": {
         "en": "Async Enterprise Platform",
         "zh": "异步企业软件管理"

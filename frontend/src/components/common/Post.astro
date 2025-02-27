@@ -20,7 +20,7 @@ let { title, description, readTime, tags, date, author }: Props = Astro.props;
 let views = 0;
 ---
 
-<div class="relative">
+<div class="relative mx-auto">
     <div
         class="fixed bottom-4 left-1/2 -translate-x-1/2
         lg:top-8 lg:left-8 lg:ml-10"
@@ -131,13 +131,6 @@ let views = 0;
             </p>
         </div>
         <hr class="my-8 h-px border-0 bg-gray-300" />
-        <div class="mt-6 space-y-4 content"><slot /></div>
+        <div class="mt-6 space-y-4"><slot /></div>
     </article>
 </div>
-
-<style>
-    .content {
-        max-width: 80ch;
-        word-spacing: 0.16em;
-    }
-</style>

@@ -70,7 +70,7 @@ const {
         <link rel="icon" type="image/svg+xml" href="/crab.svg" />
         <ClientRouter />
     </head>
-    <body class="bg-[#fafafa] dark:bg-[#0a0a0a]">
+    <body class="bg-[#fafafa] dark:bg-[#0a0a0a] blog mx-auto">
         <ModeWatcher client:load />
         {showHeader && <Header />}
         <main
@@ -88,5 +88,10 @@ const {
         margin: 0;
         width: 100%;
         height: 100%;
+    }
+
+    .blog {
+        max-width: 75ch;
+        word-spacing: 0.16em;
     }
 </style>

@@ -4,7 +4,7 @@ export const seoConfig = {
     "Software Engineer focused on cutting-edge Technology, Design and Science.",
   type: "website",
   image: {
-    url: "https://opengraph.b-cdn.net/production/images/654e0f60-67cf-44c3-b978-e83997af2fbb.png?token=OdvshL2LhMCXaexQ0dA3bKwYrPiMXPLqf3UCtPMueJQ&height=675&width=1200&expires=33276586034",
+    url: "https://opengraph.b-cdn.net/production/images/510a9b2d-7b72-4767-b1b7-319eee9abbcb.png?token=2YUwUjHpQp65kkGQrRCmAquoN4GY23KpPctXjb46HyE&height=675&width=1200&expires=33276646098",
     alt: "Ever Ruiz Diaz",
     width: 1200,
     height: 630,
@@ -18,7 +18,7 @@ export const seoConfig = {
     description:
       "Software Engineer focused on cutting-edge Technology, Design and Science.",
     image:
-      "https://opengraph.b-cdn.net/production/images/654e0f60-67cf-44c3-b978-e83997af2fbb.png?token=OdvshL2LhMCXaexQ0dA3bKwYrPiMXPLqf3UCtPMueJQ&height=675&width=1200&expires=33276586034",
+      "https://opengraph.b-cdn.net/production/images/510a9b2d-7b72-4767-b1b7-319eee9abbcb.png?token=2YUwUjHpQp65kkGQrRCmAquoN4GY23KpPctXjb46HyE&height=675&width=1200&expires=33276646098",
   },
   facebook: {
     appId: "123456789",
@@ -26,7 +26,7 @@ export const seoConfig = {
     description:
       "Software Engineer focused on cutting-edge Technology, Design and Science.",
     image:
-      "https://opengraph.b-cdn.net/production/images/654e0f60-67cf-44c3-b978-e83997af2fbb.png?token=OdvshL2LhMCXaexQ0dA3bKwYrPiMXPLqf3UCtPMueJQ&height=675&width=1200&expires=33276586034",
+      "https://opengraph.b-cdn.net/production/images/510a9b2d-7b72-4767-b1b7-319eee9abbcb.png?token=2YUwUjHpQp65kkGQrRCmAquoN4GY23KpPctXjb46HyE&height=675&width=1200&expires=33276646098",
     url: "https://www.everdev.it",
     type: "website",
   },

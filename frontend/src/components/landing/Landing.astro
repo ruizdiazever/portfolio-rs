@@ -32,7 +32,7 @@ const projects = await getProjectsFromJson();
 }
 
 <h1 class="text-xl font-semibold mt-6">{m.projects()}</h1>
-<div class="grid gap-4 grid-cols-1 md:grid-cols-2 place-items-center">
+<div class="space-y-3">
     {
         projects.map((entry) => (
             <Project

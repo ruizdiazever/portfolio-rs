@@ -21,35 +21,29 @@ let { url, title, repository, description, tech }: Props = Astro.props;
 
 <div class="group relative block w-full">
     <div
-        class="relative p-2 flex h-full
+        class="relative p-2 flex
         border duration-200 hover:ease-in
         rounded-md bg-white dark:bg-black shadow-sm hover:shadow-md
         transition-shadow"
     >
         <div class="flex flex-col px-2 my-2 gap-2 !pt-0">
-            <div class="flex justify-between">
-                <LinkTitle title={title} url={url} />
-                {
-                    repository !== "" && (
-                        <span>
-                            <a
-                                href={repository}
-                                rel="noopener"
-                                target="_blank"
-                                aria-label="GitHub"
-                                class="absolute top-3 right-3 text-gray-700 dark:text-gray-300 hover:text-[#68b5fc] dark:hover:text-[#68b5fc]"
-                            >
-                                <Icon
-                                    name="github"
-                                    width="1.2em"
-                                    height="1.2em"
-                                />
-                            </a>
-                        </span>
-                    )
-                }
-            </div>
-            <p class="text-md text-card-foreground truncate ...">
+            <LinkTitle title={title} url={url} />
+            {
+                repository !== "" && (
+                    <span>
+                        <a
+                            href={repository}
+                            rel="noopener"
+                            target="_blank"
+                            aria-label="GitHub"
+                            class="absolute top-3 right-3 text-gray-700 dark:text-gray-300 hover:text-[#68b5fc] dark:hover:text-[#68b5fc]"
+                        >
+                            <Icon name="github" width="1.2em" height="1.2em" />
+                        </a>
+                    </span>
+                )
+            }
+            <p class="text-md text-card-foreground pb-1 truncate ...">
                 {description}
             </p>
             <div class="flex gap-4">
