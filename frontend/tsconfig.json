@@ -5,7 +5,8 @@
     "paths": {
       "$lib/*": ["./src/*"],
       "@paraglide/*": ["./src/paraglide/*"]
-    }
+    },
+    "strictNullChecks": true
   },
   "exclude": ["src/paraglide", "node_modules/", "dist"],
   "include": ["src", "astro.config.mjs", "**/*", ".astro/types.d.ts"],

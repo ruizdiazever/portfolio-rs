@@ -50,7 +50,8 @@ let views = 0;
         >
             <Icon name="timer" title="Read time" size="1rem" />
             <p class="flex md:gap-1 text-muted-foreground text-md">
-                {readTime} min read
+                {readTime}
+                {languageTag() === "zh" ? "分钟阅读" : "min read"}
             </p>
         </div>
         <div class="flex items-start justify-between mb-2 md:mb-3">
@@ -59,7 +60,8 @@ let views = 0;
                     class="flex visible md:invisible items-center gap-2 text-card-foreground"
                 >
                     <p class="flex md:gap-1 text-muted-foreground text-md">
-                        {readTime} min read
+                        {readTime}
+                        {languageTag() === "zh" ? "分钟阅读" : "min read"}
                     </p>
                     <Icon name="timer" title="Read time" size="0.8rem" />
                 </div>

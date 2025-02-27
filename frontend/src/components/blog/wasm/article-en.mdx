@@ -1,0 +1,71 @@
+---
+title: 'Portfolio WASM'
+author: ['Ever Ruiz Diaz']
+description: 'New portfolio WASM, a history of performance and love powered by Rust with Leptos'
+date: '2024-01-01'
+tags: ['rust', 'wasm', 'leptos', 'axum', 'redis', 'grafana', 'influxdb']
+id: '9a5f3584-5a8a-4c22-8460-2d775d54d89b'
+---
+
+# The journey to excellence
+
+Welcome to my WASM portfolio, a cutting-edge showcase of my work with [Rust](https://www.rust-lang.org/) and WebAssembly, powered by the [Leptos](https://leptos.dev/) framework.
+
+This portfolio is more than just a collection of projects; it reflects my commitment to excellence and innovation in the tech industry.
+
+# Stack
+
+In addition to Leptos I have used [Axum](https://github.com/tokio-rs/axum) to create a microservice which uses [RedisDB](https://redis.io/) for persistence. I use the API for some web features like visits or feedback.
+
+# Design
+
+Inspired by the achievements of [Vercel](https://vercel.com/), [Nio](https://www.nio.com/), [SpaceX](https://www.spacex.com/), [Apple](https://www.apple.com/), and [Nothing](https://nothing.tech/), with [Guille](https://twitter.com/gzmoreira/) as a role model for Latin Americans in software development, I strive for top-tier standards.
+
+Explore sections currently under development, exemplifying quality and precision. Every element is thoughtfully curated to create a functional and aesthetically pleasing digital space. Though some parts are still in progress, I am excited to share this journey with you.
+
+# Features
+
+### Enhanced Performance with SSR & Hydration
+  - Lightning-fast initial page loads through server-side rendering.
+  - Seamless transition to interactive content with client-side hydration.
+  - Optimized for both speed and user interaction.
+
+### Interactive Feedback System
+  - Clean, intuitive feedback interface.
+  - Real-time email notifications via RedisDB and SMTP.
+  - Streamlined user engagement process.
+
+### Advanced Analytics & Insights
+  - Individual post view tracking.
+  - Centralized visitor analytics in RedisDB.
+  - Visual engagement metrics dashboard.
+
+# Architecture
+
+![Portfolio Architecture](/assets/images/articles/portfolio_arch.svg)
+
+
+# Monitoring
+
+As I show in the graph above, I have used [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/) (another wonderful project powered by Rust) for monitoring. For those who do not know these technologies, InfluxDB is a timeseries database that has its own system for data collection and Grafana serves as a client for this data. In addition, InfluxDB has an alert system that I have connected to a Telegram bot to keep up to date with any incidents.
+
+![Grafana Dashboard](/assets/images/articles/grafana.webp)
+
+# Deployment
+
+I have deployed the entire portfolio and the various technologies around it on my own beloved mini server.
+
+The thrill of technological success is palpable. After working tirelessly, I have launched my portfolio and the entire technological environment surrounding it on my own server, a true palace of innovation:
+
+| Component | Name |
+|-----------|------|
+| **OS** | Fedora Server 40 |
+| **HTTPS Server** | Caddy |
+| **Domain** | SquareSpace |
+| **Administration** | Cockpit and SSH |
+| **Monitoring** | Grafana with InfluxDB |
+| **Alerts** | InfluxDB with Telegram |
+
+# See you soon
+
+Making this portfolio has been a beautiful adventure, to get to know the WASM world and to reinforce my knowledge in Rust, I dedicate it to my beautiful daughter Sofia, source of my strength and eternal inspiration!

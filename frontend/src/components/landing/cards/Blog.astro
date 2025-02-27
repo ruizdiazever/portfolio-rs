@@ -20,22 +20,11 @@ let { title, url, description, readTime, views, tags, date }: Props =
 ---
 
 <div
-    class="relative flex flex-wrap flex-row items-center h-auto p-4 border duration-200 hover:ease-in
-    rounded-md bg-white dark:bg-black shadow-sm hover:shadow-md
-    transition-shadow"
+    class="relative flex flex-wrap flex-row items-center h-auto duration-200 hover:ease-in pb-3 border-b"
 >
     <div class="flex-1 flex flex-col gap-2">
         <div class="flex justify-between items-center">
             <LinkTitle title={title} url={url} />
-            <div
-                class="hidden md:flex items-center gap-2 text-muted-foreground"
-            >
-                <Icon name="timer" title="LinkedIn" size="1rem" />
-                <span
-                    class="flex md:gap-1 text-sm font-medium text-muted-foreground"
-                    >{readTime} {m.readTime()}</span
-                >
-            </div>
         </div>
         <p class="text-md font-light text-secondary-foreground">
             {description}

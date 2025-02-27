@@ -9,8 +9,33 @@ import mdx from "@astrojs/mdx";
 import paraglide from "@inlang/paraglide-astro";
 import icon from "astro-icon";
 import playformCompress from "@playform/compress";
+import rehypeClassNames from "rehype-class-names";
+import { remarkReadingTime } from "./remark-reading-time.mjs";
 
 export default defineConfig({
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
+    rehypePlugins: [
+      [
+        rehypeClassNames,
+        {
+          h1: "blog-content-title",
+          h2: "blog-content-subtitle",
+          h3: "blog-content-features-title",
+          p: "blog-content-paragraph",
+          table: "blog-content-table",
+          thead: "blog-content-table-head",
+          tbody: "blog-content-table-body",
+          tr: "blog-content-table-row",
+          th: "blog-content-table-header",
+          td: "blog-content-table-cell",
+          ul: "blog-content-features-list",
+          li: "blog-content-features-item",
+          strong: "blog-content-features-strong",
+        },
+      ],
+    ],
+  },
   prefetch: {
     defaultStrategy: "hover",
     prefetchAll: true,

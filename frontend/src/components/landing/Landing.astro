@@ -3,6 +3,7 @@ import Hero from "./Hero.astro";
 import Blog from "./cards/Blog.astro";
 import Experience from "./cards/Experience.astro";
 import Project from "./cards/Project.astro";
+import { Icon } from "astro-icon/components";
 import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
 import { getEntriesFromJson } from "$lib/common/getExperience.ts";
 import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
@@ -16,7 +17,16 @@ const projects = await getProjectsFromJson();
 
 <Hero />
 
-<h1 class="text-xl font-semibold mt-6">{m.blog()}</h1>
+<div class="flex justify-between items-center mt-6 mb-2">
+    <h1 class="text-5xl font-bold">{m.blog()}</h1>
+    <a
+        href={`${languageTag()}/blog/articles`}
+        class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
+    >
+        More
+        <Icon name="arrow-right" title="LinkedIn" size="0.8rem" />
+    </a>
+</div>
 {
     posts.map((post) => (
         <Blog
@@ -31,12 +41,12 @@ const projects = await getProjectsFromJson();
     ))
 }
 
-<h1 class="text-xl font-semibold mt-6">{m.projects()}</h1>
+<h1 class="text-5xl font-bold mt-6">{m.projects()}</h1>
 <div class="space-y-3">
     {
         projects.map((entry) => (
             <Project
-                url={entry.url}
+                url={`/${languageTag()}${entry.url}`}
                 title={entry.title}
                 repository={entry.repository}
                 description={entry.description[languageTag()]}
@@ -46,7 +56,7 @@ const projects = await getProjectsFromJson();
     }
 </div>
 
-<h1 class="text-xl font-semibold mt-6">{m.experience()}</h1>
+<h1 class="text-5xl font-bold mt-6">{m.experience()}</h1>
 <div class="relative flex flex-col gap-4">
     <div
         class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"

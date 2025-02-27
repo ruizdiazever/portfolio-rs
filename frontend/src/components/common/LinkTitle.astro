@@ -13,10 +13,11 @@ let { title, url = "_self" }: Props = Astro.props;
     href={url}
     rel="noopener"
     target="_self"
-    class="text-foreground duration-200 cursor-pointer hover:text-[#68b5fc] group flex items-center gap-1
-        hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-[#68b5fc]"
+    class="flex group items-center gap-1 text-lg md:text-xl font-semibold md:font-normal
+    text-foreground duration-200 cursor-pointer hover:text-[#68b5fc]
+    hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-[#68b5fc]"
 >
-    <p class="text-lg md:text-xl font-semibold md:font-normal">{title}</p>
+    {title}
     <Icon
         name="arrow-right"
         title="Link"

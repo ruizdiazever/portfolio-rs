@@ -1,0 +1,34 @@
+---
+import * as PostEn from "$lib/components/blog/wasm/article-en.mdx";
+import * as PostZh from "$lib/components/blog/wasm/article-zh.md";
+import PostAstro from "$lib/components/common/Post.astro";
+import { languageTag } from "@paraglide/runtime";
+---
+
+{
+    languageTag() === "en" ? (
+        <PostAstro
+            title={PostEn.frontmatter.title}
+            url={PostEn.frontmatter.url}
+            description={PostEn.frontmatter.description}
+            readTime={PostEn.frontmatter.minutesRead.en}
+            author={PostEn.frontmatter.author}
+            tags={PostEn.frontmatter.tags}
+            date={PostEn.frontmatter.date}
+        >
+            <PostEn.Content />
+        </PostAstro>
+    ) : (
+        <PostAstro
+            title={PostZh.frontmatter.title}
+            url={PostZh.frontmatter.url}
+            description={PostZh.frontmatter.description}
+            readTime={PostZh.frontmatter.minutesRead.zh}
+            author={PostZh.frontmatter.author}
+            tags={PostZh.frontmatter.tags}
+            date={PostZh.frontmatter.date}
+        >
+            <PostZh.Content />
+        </PostAstro>
+    )
+}

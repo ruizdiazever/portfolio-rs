@@ -1,0 +1,29 @@
+---
+import Layout from "$lib/layouts/Layout.astro";
+import Blog from "$lib/components/landing/cards/Blog.astro";
+import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
+import { languageTag } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
+
+const posts = await getPostsFromJson();
+---
+
+<Layout title="Ever Ruiz Diaz">
+    <div class="h-[calc(100svh-20rem)] mt-20">
+        <h1 class="text-5xl font-bold">Articles</h1>
+        <p class="blog-content-paragraph mb-10">All articles of the blog.</p>
+        {
+            posts.map((post) => (
+                <Blog
+                    title={post.title[languageTag()]}
+                    url={`/${languageTag()}${post.url}`}
+                    description={post.description[languageTag()]}
+                    readTime={10}
+                    views={1000}
+                    tags={post.tags}
+                    date={post.date}
+                />
+            ))
+        }
+    </div>
+</Layout>
