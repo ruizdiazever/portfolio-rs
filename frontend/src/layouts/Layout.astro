@@ -67,11 +67,11 @@ const {
         />
         <ClientRouter />
     </head>
-    <body class="bg-[#fafafa] dark:bg-[#0a0a0a] blog mx-auto">
+    <body class="bg-[#fafafa] dark:bg-[#0a0a0a] mx-auto">
         <ModeWatcher client:load />
         {showHeader && <Header />}
         <main
-            class="flex flex-col overflow-x-clip flex-1 justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased"
+            class="flex flex-col blog overflow-x-clip flex-1 justify-center mx-auto gap-4 max-w-screen-md px-6 sm:px-6 lg:px-8 antialiased"
         >
             <slot />
         </main>
@@ -85,10 +85,5 @@ const {
         margin: 0;
         width: 100%;
         height: 100%;
-    }
-
-    .blog {
-        max-width: 75ch;
-        word-spacing: 0.16em;
     }
 </style>

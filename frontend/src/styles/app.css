@@ -69,7 +69,96 @@
     * {
         @apply border-border;
     }
+
+    html {
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+    }
+
     body {
         @apply bg-background text-foreground;
     }
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-gray-800 dark:text-gray-200;
+    }
+
+    a {
+        @apply transition hover:opacity-75;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+@media (prefer-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+video,
+svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+:root {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+code {
+    font-family:
+        Menlo,
+        Monaco,
+        Lucida Console,
+        Liberation Mono,
+        DejaVu Sans Mono,
+        Bitstream Vera Sans Mono,
+        Courier New,
+        monospace;
+}
+
+pre {
+    font-size: 16px;
+    font-family: var(--font-mono);
+    border-radius: 3px;
+    text-align: center;
+    padding: 0.5em;
+    overflow-x: auto;
+    color: grey;
+}
+
+.blog {
+    max-width: 80ch;
+    word-spacing: 0.16em;
 }
