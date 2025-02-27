@@ -1,6 +1,6 @@
 # Portfolio powered by Rust 🦀
 
-<img src="./frontend/public/images/mascot.png" alt="Ferris, mascot of Rust" width="100"/>
+<img src="./frontend/public/assets/images/mascot.png" alt="Ferris, mascot of Rust" width="100"/>
 
 Portfolio SSR powered by Rust with Astro and Svelte
 
