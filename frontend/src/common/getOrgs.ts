@@ -25,7 +25,6 @@ const rootSchema = z.object({
   organizations: z.array(organizationSchema),
 });
 
-type Organization = z.infer<typeof organizationSchema>;
 export type RootData = z.infer<typeof rootSchema>;
 
 export async function getOrganizations(): Promise<RootData> {
