@@ -9,9 +9,14 @@ export const onRequest = defineMiddleware(
     );
 
     // Prefix language
+    const urlsToHandle = [
+      "/blog/hardware/minisforum-ms-01",
+      "/blog/organizations-using-rust",
+    ];
+
     if (
       !isPrefixedPath &&
-      url.pathname.startsWith("/blog/hardware/minisforum-ms-01")
+      urlsToHandle.some((path) => url.pathname.startsWith(path))
     ) {
       const preferredLang = cookies.get("preferredLang")?.value || "en";
       const newUrl = `/${preferredLang}${url.pathname}`;

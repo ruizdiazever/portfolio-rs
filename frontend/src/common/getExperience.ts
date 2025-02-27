@@ -1,6 +1,5 @@
 import { z } from "zod";
-import path from "path";
-import fs from "fs/promises";
+import experiencesData from "$lib/assets/experiences.json";
 
 const entrySchema = z.object({
   startDate: z.coerce.date(),
@@ -25,15 +24,7 @@ const entriesDataSchema = z.object({
 type Entry = z.infer<typeof entrySchema>;
 
 export async function getEntriesFromJson(): Promise<Entry[]> {
-  const filePath = path.join(
-    process.cwd(),
-    "src",
-    "assets",
-    "experiences.json",
-  );
-  const rawData = await fs.readFile(filePath, "utf-8");
-  const parsedData = JSON.parse(rawData);
-  const result = entriesDataSchema.safeParse(parsedData);
+  const result = entriesDataSchema.safeParse(experiencesData);
   if (!result.success) {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }

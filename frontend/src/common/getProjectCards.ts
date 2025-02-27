@@ -1,6 +1,5 @@
 import { z } from "zod";
-import fs from "fs/promises";
-import path from "path";
+import projectsData from "$lib/assets/projects.json";
 
 const projectSchema = z.object({
   id: z.string().uuid(),
@@ -27,12 +26,7 @@ const projectDataSchema = z.object({
 type Project = z.infer<typeof projectSchema>;
 
 export async function getProjectsFromJson(): Promise<Project[]> {
-  const filePath = path.join(process.cwd(), "src", "assets", "projects.json");
-  const rawData = await fs.readFile(filePath, "utf-8");
-  const parsedData = JSON.parse(rawData);
-
-  const result = projectDataSchema.safeParse(parsedData);
-
+  const result = projectDataSchema.safeParse(projectsData);
   if (!result.success) {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }

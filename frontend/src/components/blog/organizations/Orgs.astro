@@ -1,0 +1,47 @@
+---
+import Post from "$lib/components/common/Post.astro";
+import Table from "$lib/components/blog/organizations/table.svelte";
+import TableDescription from "$lib/components/blog/organizations/tableDescription.svelte";
+import { getPost } from "$lib/common/getPost";
+import { languageTag } from "@paraglide/runtime";
+import LinkPost from "$lib/components/common/LinkPost.astro";
+
+const post = await getPost("511bc558-3f6e-4375-8e57-37e19519f1db");
+if (!post) throw new Error("Post not found");
+---
+
+<Post
+    title={post.title[languageTag()]}
+    url={post.url}
+    description={post.description[languageTag()]}
+    readTime={post.readTime}
+    author={post.author}
+    tags={post.tags}
+    date={post.date}
+>
+    <div class="w-full">
+        <h1 id="tomorrow" class="blog-content-title">
+            <a href="#tomorrow">Building Tomorrow</a>
+        </h1>
+        <p class="blog-content-text">
+            Discover the companies and organizations embracing <LinkPost
+                url="https://www.rust-lang.org/"
+                title="Rust"
+            />, opening doors for developers skilled in this game-changing
+            language. Learn how Rust's exceptional ergonomics are
+            revolutionizing engineering by providing safety, speed, and ease of
+            use—reshaping the future of software development.
+            <TableDescription />
+            <Table client:idle />
+            <h1 id="community" class="blog-content-title pt-6">
+                <a href="#community">Note to community</a>
+            </h1>
+            <p class="blog-content-text">
+                Contribute to expanding the list submit a pull request at <LinkPost
+                    url="https://github.com/ruizdiazever/portfolio-rs/blob/main/frontend/src/assets/organizations.json"
+                    title="GitHub Repository"
+                />.
+            </p>
+        </p>
+    </div>
+</Post>

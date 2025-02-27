@@ -1,6 +1,5 @@
-import fs from "fs/promises";
-import path from "path";
 import { z } from "zod";
+import postsData from "$lib/assets/posts.json";
 
 const postSchema = z.object({
   id: z.string().uuid(),
@@ -28,10 +27,7 @@ const blogDataSchema = z.object({
 type Post = z.infer<typeof postSchema>;
 
 export async function getPost(id: string): Promise<Post | undefined> {
-  const filePath = path.join(process.cwd(), "src", "assets", "posts.json");
-  const rawData = await fs.readFile(filePath, "utf-8");
-  const parsedData = JSON.parse(rawData);
-  const result = blogDataSchema.safeParse(parsedData);
+  const result = blogDataSchema.safeParse(postsData);
   if (!result.success) {
     throw new Error(
       `Invalid JSON structure for posts.json: ${result.error.message}`,

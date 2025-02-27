@@ -162,3 +162,11 @@ pre {
     max-width: 80ch;
     word-spacing: 0.16em;
 }
+
+.blog-content-title {
+    @apply text-xl font-semibold text-secondary-foreground;
+}
+
+.blog-content-text {
+    @apply text-secondary-foreground text-md;
+}
