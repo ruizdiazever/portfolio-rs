@@ -4,7 +4,7 @@ export const RaauLink = {
 };
 
 export const BerliLink = {
-  title: "Berli",
+  title: "BERLi",
   url: "https://www.berli.app/en/",
 };
 

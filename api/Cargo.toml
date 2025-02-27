@@ -4,35 +4,25 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = { version = "0.7.9", features = ["macros", "tower-log"] }
-tokio = { version = "1.42.0", features = ["full"] }
-redis = { version = "0.27.6", features = ["tokio-comp"] }
-
-# Axum builds on the types in Tower
+axum = { version = "0.8.1", features = ["macros", "tower-log"] }
+tokio = { version = "1.43.0", features = ["full"] }
+redis = { version = "0.29.0", features = ["tokio-comp"] }
 tower = { version = "0.5.2", features = ["timeout"] }
 tower-http = { version = "0.6.2", features = ["trace", "cors"] }
-
-# Utilities
-reqwest = { version = "0.12.9", features = ["json"] }
-serde = { version = "1.0.216", features = ["derive"] }
-serde_json = "1.0.133"
-uuid = { version = "1.11.0", features = ["v4", "serde"] }
-config = { version = "0.14.1", default-features = false }
-
-# Secure delivery with SMTP using encryption and authentication
-lettre = "0.11.11"
-
-# Handlebars is a modern and extensible templating solution originally created in the JavaScript world.
-handlebars = "6.2.0"
-
-# Logger
+reqwest = { version = "0.12.12", features = ["json"] }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.138"
+uuid = { version = "1.13.2", features = ["v4", "serde"] }
+config = { version = "0.15.8", default-features = false }
+lettre = "0.11.13"
+handlebars = "6.3.1"
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter", "std"] }
-
-# Handler error
-thiserror = "2.0.7"
-anyhow = "1.0.94"
+thiserror = "2.0.11"
+anyhow = "1.0.95"
 chrono = "0.4.39"
+dotenvy = "0.15.7"
+sha2 = "0.10.8"
 
 
 [lib]

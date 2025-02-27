@@ -5,8 +5,11 @@ import { languageTag } from "@paraglide/runtime";
 import { Image } from "astro:assets";
 import EverAvatar from "$lib/assets/images/daft.webp";
 import MaxiAvatar from "$lib/assets/images/punk.avif";
+import { postVisitRequest } from "$lib/common/postView.ts";
+import { getVisitRequest } from "$lib/common/getViews.ts";
 
 interface Props {
+    id: string;
     title: string;
     url: string;
     description: string;
@@ -16,8 +19,11 @@ interface Props {
     date: Date;
 }
 
-let { title, description, readTime, tags, date, author }: Props = Astro.props;
-let views = 0;
+let { id, title, description, readTime, tags, date, author }: Props =
+    Astro.props;
+
+await postVisitRequest(id);
+let views = await getVisitRequest(id);
 ---
 
 <div class="relative mx-auto">

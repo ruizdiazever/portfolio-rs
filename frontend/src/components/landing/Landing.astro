@@ -7,12 +7,17 @@ import { Icon } from "astro-icon/components";
 import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
 import { getEntriesFromJson } from "$lib/common/getExperience.ts";
 import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
+import { getVisitRequest } from "$lib/common/getViews.ts";
 import { languageTag } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 
 const posts = await getPostsFromJson();
 const entries = await getEntriesFromJson();
 const projects = await getProjectsFromJson();
+
+const postViews = await Promise.all(
+    posts.map((post) => getVisitRequest(post.id)),
+);
 ---
 
 <Hero />
@@ -28,13 +33,13 @@ const projects = await getProjectsFromJson();
     </a>
 </div>
 {
-    posts.map((post) => (
+    posts.map((post, index) => (
         <Blog
             title={post.title[languageTag()]}
             url={`/${languageTag()}${post.url}`}
             description={post.description[languageTag()]}
             readTime={10}
-            views={1000}
+            views={postViews[index]}
             tags={post.tags}
             date={post.date}
         />

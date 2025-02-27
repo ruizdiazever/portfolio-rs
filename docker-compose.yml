@@ -41,14 +41,6 @@ services:
     env_file:
       - path: ./.env
         required: true
-    environment:
-      - PRODUCTION=false
-      - API_VERSION=0.0.1
-      - API_SERVER_URL=0.0.0.0:3002
-      - RUST_LOG=api=debug,tower_http=info
-      - EMAIL=ruizdiaz.oe@gmail.com
-      - SMTP_USERNAME=ruizdiaz.oe@gmail.com
-      - RUST_LOG=api=info,tower_http=info
     ports:
       - "3002:3002"
     depends_on:
@@ -68,9 +60,13 @@ services:
         "redis-server",
         "--requirepass",
         "${REDIS_PASSWORD}",
+        "--port",
+        "6379",
         "--appendonly",
         "yes",
       ]
+    ports:
+      - "6379:6379"
     security_opt:
       - no-new-privileges
     deploy:

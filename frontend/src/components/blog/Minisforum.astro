@@ -3,7 +3,7 @@ import Post from "$lib/components/common/Post.astro";
 import { getPost } from "$lib/common/getPost";
 import { Icon } from "astro-icon/components";
 import { languageTag } from "@paraglide/runtime";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import MsImg from "$lib/assets/images/mf.avif";
 import LinkPost from "$lib/components/common/LinkPost.astro";
 import { BerliLink, RaauLink, Ms01Link } from "$lib/common/consts";
@@ -37,11 +37,13 @@ const bootTableData = [
     },
 ];
 
-const post = await getPost("aa614ca5-0940-41a1-bf80-710096df26ac");
+const ID = "aa614ca5-0940-41a1-bf80-710096df26ac";
+const post = await getPost(ID);
 if (!post) throw new Error("Post not found");
 ---
 
 <Post
+    id={ID}
     title={post.title[languageTag()]}
     url={post.url}
     description={post.description[languageTag()]}
@@ -53,7 +55,14 @@ if (!post) throw new Error("Post not found");
     <h1 id="freedom" class="blog-content-title">
         <a href="#freedom">Freedom</a>
     </h1>
-    <Image src={MsImg} alt="MS-01" class="w-full rounded-lg grayscale" />
+    <Picture
+        src={MsImg}
+        alt="MS-01"
+        class="w-full rounded-lg grayscale"
+        formats={["avif", "webp"]}
+        width={800}
+        height={600}
+    />
     <p class="blog-content-paragraph">
         Fed up with the costs and limitations of renting a virtual server, I
         decided to set up my own dedicated server. To my pleasant surprise, it

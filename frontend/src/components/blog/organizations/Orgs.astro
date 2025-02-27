@@ -6,11 +6,13 @@ import { getPost } from "$lib/common/getPost";
 import { languageTag } from "@paraglide/runtime";
 import LinkPost from "$lib/components/common/LinkPost.astro";
 
-const post = await getPost("511bc558-3f6e-4375-8e57-37e19519f1db");
+const ID = "511bc558-3f6e-4375-8e57-37e19519f1db";
+const post = await getPost(ID);
 if (!post) throw new Error("Post not found");
 ---
 
 <Post
+    id={ID}
     title={post.title[languageTag()]}
     url={post.url}
     description={post.description[languageTag()]}

@@ -8,6 +8,7 @@ import { languageTag } from "@paraglide/runtime";
 {
     languageTag() === "en" ? (
         <PostAstro
+            id={PostEn.frontmatter.id}
             title={PostEn.frontmatter.title}
             url={PostEn.frontmatter.url}
             description={PostEn.frontmatter.description}
@@ -20,6 +21,7 @@ import { languageTag } from "@paraglide/runtime";
         </PostAstro>
     ) : (
         <PostAstro
+            id={PostEn.frontmatter.id}
             title={PostZh.frontmatter.title}
             url={PostZh.frontmatter.url}
             description={PostZh.frontmatter.description}

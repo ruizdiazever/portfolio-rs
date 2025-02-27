@@ -14,8 +14,8 @@ pub fn cors_config() -> Result<CorsLayer, Error> {
         vec![HeaderValue::from_str("https://www.everdev.it")?]
     } else {
         vec![
-            HeaderValue::from_str("http://localhost:3003")?,
-            HeaderValue::from_str("http://127.0.0.1:3002")?,
+            HeaderValue::from_str("http://localhost:4321")?,
+            HeaderValue::from_str("http://localhost:4322")?,
         ]
     };
 

@@ -28,10 +28,14 @@ pub async fn send_feedback(ctx: &ApiContext, feedback: Feedback) -> Result<Outpu
         _ => return Err(Error::Forbidden),
     };
 
-    let mut redis_client = ctx.redis_client.get_async_connection().await.map_err(|e| {
-        error!("RedisDB error: {:?}", e);
-        Error::Anyhow(anyhow::anyhow!("RedisDB error"))
-    })?;
+    let mut redis_client = ctx
+        .redis_client
+        .get_multiplexed_async_connection()
+        .await
+        .map_err(|e| {
+            error!("RedisDB error: {:?}", e);
+            Error::Anyhow(anyhow::anyhow!("RedisDB error"))
+        })?;
 
     let feedback_key = format!("feedback:{}", feedback.id);
     let feedback_id = Uuid::new_v4().to_string();

@@ -1,6 +1,8 @@
+use crate::common::ip::{get_client_ip, MetadataSession};
 use crate::redis::visualizations::{get_visit, sum_visit};
 use crate::routes::{ApiContext, Result};
 use crate::security::error::Error;
+use axum::http::HeaderMap;
 use axum::{
     extract::{Path, State},
     routing::{get, post},
@@ -28,9 +30,23 @@ struct SuccessResponse {
 
 async fn post_visit(
     State(ctx): State<ApiContext>,
+    headers: HeaderMap,
     Json(payload): Json<ProjectId>,
 ) -> Result<Json<SuccessResponse>, Error> {
-    let result = sum_visit(&ctx, payload.project_id).await?;
+    // METADATA
+    let user_agent = headers
+        .get("User-Agent")
+        .or_else(|| headers.get("user-agent"))
+        .and_then(|value| value.to_str().ok())
+        .unwrap_or("Unknown Agent")
+        .to_string();
+    let ip_address = get_client_ip(&headers).await;
+    let meta = &MetadataSession {
+        user_agent: user_agent.clone(),
+        ip_address: ip_address.clone(),
+    };
+
+    let result = sum_visit(&ctx, payload.project_id, &meta).await?;
     Ok(Json(SuccessResponse {
         success: true,
         visits: result,
@@ -48,5 +64,5 @@ async fn get_visit_count(
 pub fn visit_routes() -> Router<ApiContext> {
     Router::new()
         .route("/visit", post(post_visit))
-        .route("/visit/:project_id", get(get_visit_count))
+        .route("/visit/{project_id}", get(get_visit_count))
 }
