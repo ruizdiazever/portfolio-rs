@@ -12,3 +12,8 @@ export const Ms01Link = {
   title: "MS-01",
   url: "https://minisforumpc.eu/en/products/ms-01",
 };
+
+export const LOCALE = {
+  en: "en-US",
+  zh: "zh-CN",
+} as const;

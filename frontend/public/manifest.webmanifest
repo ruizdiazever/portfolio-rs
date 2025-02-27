@@ -1,0 +1,22 @@
+{
+  "name": "Ever Ruiz Diaz",
+  "short_name": "Portfolio",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-mask.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#96513c",
+  "background_color": "#96513c",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/?source=pwa"
+}

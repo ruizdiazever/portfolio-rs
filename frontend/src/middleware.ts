@@ -11,9 +11,7 @@ export const onRequest = defineMiddleware(
     // Prefix language
     if (
       !isPrefixedPath &&
-      !url.pathname.includes("_image") &&
-      !url.pathname.includes("_actions") &&
-      !url.pathname.includes("api")
+      url.pathname.startsWith("/blog/hardware/minisforum-ms-01")
     ) {
       const preferredLang = cookies.get("preferredLang")?.value || "en";
       const newUrl = `/${preferredLang}${url.pathname}`;
@@ -24,6 +22,7 @@ export const onRequest = defineMiddleware(
       return redirect(newUrl);
     }
 
+    // Language detection
     if (isPrefixedPath) {
       const preferredLang = cookies.get("preferredLang")?.value || "en";
       const currentLang = url.pathname.split("/")[1];

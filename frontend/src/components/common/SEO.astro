@@ -1,4 +1,6 @@
 ---
+import { languageTag } from "@paraglide/runtime";
+import { LOCALE } from "$lib/common/consts";
 import { seoConfig } from "$lib/common/seoConfig";
 import "@fontsource-variable/eb-garamond/wght.css";
 import "@fontsource-variable/eb-garamond";
@@ -13,9 +15,12 @@ interface Props {
     image?: string;
 }
 
+const DESCRIPTION =
+    "Software Engineer focused on cutting-edge Technology, Design and Science.";
+
 const {
     title,
-    description = seoConfig.description,
+    description = DESCRIPTION,
     preloadImgLCP,
     canonical,
     image = seoConfig.image.url,
@@ -44,97 +49,52 @@ const canonicalURL = canonical
 }
 <!-- Manifest -->
 <link rel="manifest" href="/manifest.webmanifest" />
-<!-- Favicons -->
-<link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png" />
-<link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png" />
-<link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png" />
-<link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png" />
-<link
-    rel="apple-touch-icon"
-    sizes="114x114"
-    href="/icons/apple-icon-114x114.png"
-/>
-<link
-    rel="apple-touch-icon"
-    sizes="120x120"
-    href="/icons/apple-icon-120x120.png"
-/>
-<link
-    rel="apple-touch-icon"
-    sizes="144x144"
-    href="/icons/apple-icon-144x144.png"
-/>
-<link
-    rel="apple-touch-icon"
-    sizes="152x152"
-    href="/icons/apple-icon-152x152.png"
-/>
-<link
-    rel="apple-touch-icon"
-    sizes="180x180"
-    href="/icons/apple-icon-180x180.png"
-/>
-<link
-    rel="icon"
-    type="image/png"
-    sizes="192x192"
-    href="/icons/android-icon-192x192.png"
-/>
-<link
-    rel="icon"
-    type="image/png"
-    sizes="32x32"
-    href="/icons/favicon-32x32.png"
-/>
-<link
-    rel="icon"
-    type="image/png"
-    sizes="96x96"
-    href="/icons/favicon-96x96.png"
-/>
-<link
-    rel="icon"
-    type="image/png"
-    sizes="16x16"
-    href="/icons/favicon-16x16.png"
-/>
 
-<link rel="canonical" href={canonicalURL} />
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="32x32" />
+<link rel="canonical" href={`${canonicalURL}${languageTag()}`} />
+
+<!-- Meta -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="msapplication-TileColor" content="#ffffff" />
-<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-<meta name="theme-color" content={seoConfig.themeColor} />
-<meta name="keywords" content={seoConfig.keywords.join(", ")} />
+<meta
+    name="msapplication-TileImage"
+    content="/assets/icons/ms-icon-144x144.png"
+/>
+<meta name="theme-color" content="hsl(0 0% 5%)" />
+<meta name="keywords" content="rust, developer, portfolio" />
 
 <!-- Twitter -->
-<meta name="twitter:card" content={seoConfig.twitter.card} />
-<meta name="twitter:site" content={seoConfig.twitter.site} />
-<meta name="twitter:creator" content={seoConfig.twitter.creator} />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@EverToujours" />
+<meta name="twitter:creator" content="@EverToujours" />
+<meta name="twitter:title" content="Ever Ruiz Diaz" />
+<meta name="twitter:description" content={DESCRIPTION} />
 <meta
     name="twitter:image"
     content={new URL(image, Astro.site)}
-    onerror="/ever.avif"
+    onerror="/og.png"
 />
 
-<!-- Open Graph / Facebook -->
+<!-- Open Graph -->
 <meta
     property="og:image"
     content={new URL(image, Astro.site)}
-    onerror="/ever.avif"
+    onerror="/og.png"
 />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={seoConfig.facebook.url} />
-<meta property="og:site_name" content={seoConfig.siteName} />
-<meta property="og:type" content={seoConfig.facebook.type} />
-<meta property="og:locale" content={seoConfig.locale} />
-<meta property="fb:app_id" content={seoConfig.facebook.appId} />
+<meta property="og:title" content="Ever Ruiz Diaz" />
+<meta property="og:description" content={DESCRIPTION} />
+<meta property="og:url" content="https://www.everdev.it" />
+<meta property="og:site_name" content="Ever" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={LOCALE[languageTag()]} />
+<meta property="fb:app_id" content="123456789" />
 
 <!-- Robots -->
-<meta name="robots" content={seoConfig.robots} />
-<meta name="googlebot" content={seoConfig.robots} />
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
 
 <!-- Additional Meta Tags -->
 <meta name="msapplication-config" content="/browserconfig.xml" />
