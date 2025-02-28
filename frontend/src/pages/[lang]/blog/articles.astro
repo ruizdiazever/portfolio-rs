@@ -24,7 +24,6 @@ const postViews = await Promise.all(
                         title={post.title[languageTag()]}
                         url={`/${languageTag()}${post.url}`}
                         description={post.description[languageTag()]}
-                        readTime={10}
                         views={postViews[index]}
                         tags={post.tags}
                         date={post.date}

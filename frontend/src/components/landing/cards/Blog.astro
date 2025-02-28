@@ -9,14 +9,12 @@ interface Props {
     title: string;
     url: string;
     description: string;
-    readTime: number;
     views: number;
     tags: string[];
     date: Date;
 }
 
-let { title, url, description, readTime, views, tags, date }: Props =
-    Astro.props;
+let { title, url, description, views, tags, date }: Props = Astro.props;
 ---
 
 <div
