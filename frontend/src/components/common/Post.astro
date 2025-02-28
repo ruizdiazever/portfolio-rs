@@ -145,8 +145,12 @@ let views = await getVisitRequest(id);
                 window.scrollY || document.documentElement.scrollTop;
             const scrollPercentage =
                 (scrollTop + windowHeight) / documentHeight;
+            const isMobile = window.innerWidth <= 1024;
 
-            if (window.scrollY > 100 && scrollPercentage < 0.9) {
+            if (
+                window.scrollY > 100 &&
+                ((isMobile && scrollPercentage < 0.9) || !isMobile)
+            ) {
                 backButton.style.opacity = "1";
                 backButton.style.transform = "translateX(-50%) translateY(0)";
             } else {
