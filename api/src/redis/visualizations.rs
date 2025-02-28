@@ -48,6 +48,21 @@ pub async fn sum_visit(
     let field = format!("{}:{}", VISITS_FIELD_PREFIX, project_id);
 
     let script = redis::Script::new(VISITOR_SCRIPT);
+    let existing_visit: Option<i64> = redis_client.get(&visitor_key).await.map_err(|e| {
+        tracing::error!("RedisDB error checking existing visit: {:?}", e);
+        Error::Anyhow(anyhow::anyhow!("RedisDB error"))
+    })?;
+
+    tracing::info!(
+        "Visitor from IP {}: {}",
+        meta.ip_address,
+        if existing_visit.is_none() {
+            "new"
+        } else {
+            "returning"
+        }
+    );
+
     let count: i64 = script
         .key(visitor_key)
         .key(VISITS_HASH)
