@@ -1,17 +1,13 @@
 import { API_URL } from "astro:env/client";
 
 export async function getVisitRequest(projectId: string): Promise<number> {
-  const apiUrl = API_URL;
-  const url =
-    !apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")
-      ? `http://${apiUrl}/visit/${projectId}`
-      : `${apiUrl}/visit/${projectId}`;
+  let endpoint = `${API_URL}/visit/${projectId}`;
 
   console.log("Fetching getVisitRequest for project:", projectId);
-  console.log("API URL:", url);
+  console.log("API URL:", endpoint);
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(endpoint);
     if (response.ok) {
       try {
         const data = await response.json();
