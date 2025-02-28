@@ -2,10 +2,6 @@ import { API_URL } from "astro:env/client";
 
 export async function postVisitRequest(projectId: string): Promise<number> {
   let endpoint = `${API_URL}/visit`;
-
-  console.log("Fetching postVisitRequest for project:", projectId);
-  console.log("API URL:", endpoint);
-
   const body = {
     project_id: projectId,
   };

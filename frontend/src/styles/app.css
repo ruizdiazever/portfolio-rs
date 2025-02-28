@@ -164,7 +164,7 @@ pre {
 }
 
 .blog-content-title {
-    @apply text-xl font-semibold text-secondary-foreground;
+    @apply text-lg font-bold text-secondary-foreground;
 }
 
 .blog-content-paragraph {

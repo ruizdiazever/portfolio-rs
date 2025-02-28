@@ -14,8 +14,8 @@
   let { table }: { table: Table<TData> } = $props();
 </script>
 
-<div class="flex px-1">
-  <div class="flex space-x-6 lg:space-x-8 items-center justify-between mx-auto text-sm w-full">
+
+  <div class="flex space-x-6 lg:space-x-8 items-center justify-between mx-auto text-sm w-full px-3">
     <div class="md:flex items-center space-x-2 hidden">
       <p>Rows per page</p>
       <Select.Root
@@ -38,7 +38,7 @@
         </Select.Content>
       </Select.Root>
     </div>
-    <div class="flex w-[100px] items-center justify-center">
+    <div class="flex w-fit items-center justify-center" style="margin-left: 0px;">
       Page {table.getState().pagination.pageIndex + 1} of
       {table.getPageCount()}
     </div>
@@ -81,4 +81,3 @@
       </Button>
     </div>
   </div>
-</div>

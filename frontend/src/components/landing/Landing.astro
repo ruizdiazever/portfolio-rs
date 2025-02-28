@@ -10,6 +10,7 @@ import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 import { languageTag } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
+import Divider from "$lib/components/common/Divider.astro";
 
 const posts = await getPostsFromJson();
 const entries = await getEntriesFromJson();
@@ -22,62 +23,73 @@ const postViews = await Promise.all(
 
 <Hero />
 
-<div class="flex justify-between items-center mt-6 mb-2">
-    <h1 class="text-5xl font-bold">{m.blog()}</h1>
-    <a
-        href={`${languageTag()}/blog/articles`}
-        class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
-    >
-        More
-        <Icon name="arrow-right" title="LinkedIn" size="0.8rem" />
-    </a>
-</div>
-{
-    posts.map((post, index) => (
-        <Blog
-            title={post.title[languageTag()]}
-            url={`/${languageTag()}${post.url}`}
-            description={post.description[languageTag()]}
-            readTime={10}
-            views={postViews[index]}
-            tags={post.tags}
-            date={post.date}
-        />
-    ))
-}
+<main class="space-y-16 mt-16">
+    <section>
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-5xl font-bold">{m.blog()}</h1>
+            <a
+                href={`${languageTag()}/blog/articles`}
+                class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
+            >
+                More
+                <Icon name="arrow-right" title="LinkedIn" size="0.8rem" />
+            </a>
+        </div>
+        <div class="space-y-6">
+            {
+                posts.map((post, index) => (
+                    <>
+                        <Blog
+                            title={post.title[languageTag()]}
+                            url={`/${languageTag()}${post.url}`}
+                            description={post.description[languageTag()]}
+                            readTime={10}
+                            views={postViews[index]}
+                            tags={post.tags}
+                            date={post.date}
+                        />
+                        {index < posts.length - 1 && <Divider />}
+                    </>
+                ))
+            }
+        </div>
+    </section>
 
-<h1 class="text-5xl font-bold mt-6">{m.projects()}</h1>
-<div class="space-y-3">
-    {
-        projects.map((entry) => (
-            <Project
-                url={`/${languageTag()}${entry.url}`}
-                title={entry.title}
-                repository={entry.repository}
-                description={entry.description[languageTag()]}
-                tech={entry.tech}
-            />
-        ))
-    }
-</div>
+    <section>
+        <h1 class="text-5xl font-bold mb-6">{m.projects()}</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {
+                projects.map((entry) => (
+                    <Project
+                        url={`/${languageTag()}${entry.url}`}
+                        title={entry.title}
+                        repository={entry.repository}
+                        description={entry.description[languageTag()]}
+                        tech={entry.tech}
+                    />
+                ))
+            }
+        </div>
+    </section>
 
-<h1 class="text-5xl font-bold mt-6">{m.experience()}</h1>
-<div class="relative flex flex-col gap-4">
-    <div
-        class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
-    >
-        {
-            entries.map((entry) => (
-                <Experience
-                    startDate={entry.startDate}
-                    endDate={entry.endDate}
-                    current={entry.current}
-                    position={entry.position[languageTag()]}
-                    company={entry.company}
-                    url={entry.url}
-                    description={entry.description[languageTag()]}
-                />
-            ))
-        }
-    </div>
-</div>
+    <section>
+        <h1 class="text-5xl font-bold mb-6">{m.experience()}</h1>
+        <div
+            class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
+        >
+            {
+                entries.map((entry) => (
+                    <Experience
+                        startDate={entry.startDate}
+                        endDate={entry.endDate}
+                        current={entry.current}
+                        position={entry.position[languageTag()]}
+                        company={entry.company}
+                        url={entry.url}
+                        description={entry.description[languageTag()]}
+                    />
+                ))
+            }
+        </div>
+    </section>
+</main>

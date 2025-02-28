@@ -3,26 +3,34 @@ import Layout from "$lib/layouts/Layout.astro";
 import Blog from "$lib/components/landing/cards/Blog.astro";
 import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
 import { languageTag } from "@paraglide/runtime";
-import * as m from "@paraglide/messages.js";
+import Divider from "$lib/components/common/Divider.astro";
+import { getVisitRequest } from "$lib/common/getViews.ts";
 
 const posts = await getPostsFromJson();
+const postViews = await Promise.all(
+    posts.map((post) => getVisitRequest(post.id)),
+);
 ---
 
 <Layout title="Ever Ruiz Diaz">
-    <div class="h-[calc(100svh-20rem)] mt-20">
+    <div class="h-screen mt-20">
         <h1 class="text-5xl font-bold">Articles</h1>
         <p class="blog-content-paragraph mb-10">All articles of the blog.</p>
+        <Divider />
         {
-            posts.map((post) => (
-                <Blog
-                    title={post.title[languageTag()]}
-                    url={`/${languageTag()}${post.url}`}
-                    description={post.description[languageTag()]}
-                    readTime={10}
-                    views={1000}
-                    tags={post.tags}
-                    date={post.date}
-                />
+            posts.map((post, index) => (
+                <>
+                    <Blog
+                        title={post.title[languageTag()]}
+                        url={`/${languageTag()}${post.url}`}
+                        description={post.description[languageTag()]}
+                        readTime={10}
+                        views={postViews[index]}
+                        tags={post.tags}
+                        date={post.date}
+                    />
+                    {index < posts.length - 1 && <Divider />}
+                </>
             ))
         }
     </div>

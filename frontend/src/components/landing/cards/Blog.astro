@@ -20,42 +20,46 @@ let { title, url, description, readTime, views, tags, date }: Props =
 ---
 
 <div
-    class="relative flex flex-wrap flex-row items-center h-auto duration-200 hover:ease-in pb-3 border-b"
+    class="relative flex flex-wrap flex-row items-center h-auto duration-200 hover:ease-in"
 >
-    <div class="flex-1 flex flex-col gap-2">
-        <div class="flex justify-between items-center">
+    <div class="flex-1 flex flex-col gap-2 w-full">
+        <div class="flex justify-between items-center w-full">
             <LinkTitle title={title} url={url} />
         </div>
-        <p class="text-md font-light text-secondary-foreground">
+        <p class="text-md font-light text-secondary-foreground break-words">
             {description}
         </p>
         <div
-            class="flex justify-left items-center mt-2 md:text-md text-sm text-muted-foreground space-x-4"
+            class="flex flex-wrap justify-left items-center mt-2 md:text-md text-sm text-muted-foreground gap-4"
         >
             <section
-                class="flex items-center justify-center gap-1 flex-wrap font-medium"
+                class="inline-flex items-center justify-center gap-1 font-medium"
             >
-                <Icon name="eye" title="LinkedIn" size="1rem" />
-                {views ? views : 0}
-                {m.views()}
+                <Icon name="eye" title="Views" class="w-4 h-4 flex-shrink-0" />
+                <span class="whitespace-nowrap"
+                    >{views ? views : 0} {m.views()}</span
+                >
             </section>
             <section
-                class="flex items-center justify-center gap-1 flex-wrap font-medium"
+                class="inline-flex items-center justify-center gap-1 font-medium"
                 title=""
             >
-                <Icon name="tag" title="LinkedIn" size="1rem" />
-                {tags?.length ? tags.length : 0}
-                {m.tags()}
+                <Icon name="tag" title="Tags" class="w-4 h-4 flex-shrink-0" />
+                <span class="whitespace-nowrap"
+                    >{tags?.length ? tags.length : 0} {m.tags()}</span
+                >
             </section>
             <section
-                class="flex items-center justify-center gap-1 flex-wrap font-medium"
+                class="inline-flex items-center justify-center gap-1 font-medium"
             >
-                <Icon name="date" title="LinkedIn" size="1rem" />
-                {
-                    languageTag() === "zh"
-                        ? `${dayjs(date).format("YYYY年MM月")}`
-                        : `${dayjs(date).format("MMM YYYY")}`
-                }
+                <Icon name="date" title="Date" class="w-4 h-4 flex-shrink-0" />
+                <span class="whitespace-nowrap">
+                    {
+                        languageTag() === "zh"
+                            ? `${dayjs(date).format("YYYY年MM月")}`
+                            : `${dayjs(date).format("MMM YYYY")}`
+                    }
+                </span>
             </section>
         </div>
     </div>
