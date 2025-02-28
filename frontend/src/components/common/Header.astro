@@ -1,51 +1,103 @@
 ---
 import { Icon } from "astro-icon/components";
-import * as m from "@paraglide/messages.js";
 import Lang from "./lang.svelte";
 import Toggle from "$lib/components/darkmode/toggle.svelte";
 import { Button } from "$lib/components/ui/button/index.js";
+import { Separator } from "$lib/components/ui/separator";
+import WordAnimation from "$lib/components/landing/wordAnimation.svelte";
+import { languageTag } from "@paraglide/runtime";
+
+let showSeparator = false;
+
+function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
+    showSeparator = event.detail.show;
+}
 ---
 
-<header
-    class="flex items-center justify-between max-w-screen-lg mx-auto
-mt-6 sticky top-0 backdrop-blur-lg z-50 antialiased
-px-6 sm:px-6 lg:px-8 bg-transparent"
+<nav
+    id="navbar"
+    class="sticky top-0 w-full overflow-hidden backdrop-blur-lg z-50 antialiased transition-all duration-300"
+    on:separator-change={handleSeparatorChange}
 >
-    <a href="/" rel="external" class="flex flex-col items-start gap-1">
-        <div class="text-lg md:text-xl font-semibold text-foreground">
-            Ever Ruiz Diaz
+    <div class="w-full">
+        <div
+            class="flex items-center justify-between max-w-screen-md mx-auto p-2"
+        >
+            <a href="/" rel="external" class="flex flex-col items-start">
+                <p class="text-lg md:text-xl font-semibold text-foreground">
+                    Ever Ruiz Diaz
+                </p>
+                <p class="text-secondary-foreground text-md h-[32px]">
+                    <WordAnimation client:load />
+                </p>
+            </a>
+            <div class="flex items-center">
+                <Toggle client:idle />
+                <Lang client:idle />
+                <Separator orientation="vertical" class="mx-2 h-6" />
+                <Button
+                    href="https://www.linkedin.com/in/everdev/"
+                    variant="ghost"
+                    rel="noopener"
+                    target="_blank"
+                    size="icon"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                >
+                    <Icon
+                        name="linkedin"
+                        title="LinkedIn"
+                        class="h-[1.2rem] w-[1.2rem]"
+                    />
+                </Button>
+                <Button
+                    href="https://www.linkedin.com/in/everdev/"
+                    variant="ghost"
+                    rel="noopener"
+                    target="_blank"
+                    size="icon"
+                    aria-label="GitHub"
+                    title="GitHub"
+                >
+                    <Icon
+                        name="github"
+                        title="GitHub"
+                        class="h-[1.2rem] w-[1.2rem]"
+                    />
+                </Button>
+                <Button
+                    href="https://x.com/EverToujours"
+                    variant="ghost"
+                    rel="noopener"
+                    target="_blank"
+                    size="icon"
+                    aria-label="GitHub"
+                    title="GitHub"
+                >
+                    <Icon
+                        name="x"
+                        title="X (Twitter)"
+                        class="h-[1.1rem] w-[1.1rem]"
+                    />
+                </Button>
+            </div>
         </div>
-        <div class="text-secondary-foreground text-md">{m.rustDev()}</div>
-    </a>
-    <div class="flex items-center">
-        <Toggle client:idle />
-        <Lang client:idle />
-
-        <Button
-            href="https://www.linkedin.com/in/everdev/"
-            variant="ghost"
-            rel="noopener"
-            target="_blank"
-            size="icon"
-            aria-label="LinkedIn"
-            title="LinkedIn"
-        >
-            <Icon
-                name="linkedin"
-                title="LinkedIn"
-                class="h-[1.2rem] w-[1.2rem]"
-            />
-        </Button>
-        <Button
-            href="https://www.linkedin.com/in/everdev/"
-            variant="ghost"
-            rel="noopener"
-            target="_blank"
-            size="icon"
-            aria-label="GitHub"
-            title="GitHub"
-        >
-            <Icon name="github" title="GitHub" class="h-[1.2rem] w-[1.2rem]" />
-        </Button>
     </div>
-</header>
+    {showSeparator && <Separator />}
+</nav>
+
+<script>
+    const navbar = document.getElementById("navbar");
+    if (navbar) {
+        window.addEventListener("scroll", () => {
+            const show = window.scrollY > 0;
+            navbar.querySelector("div")?.classList.toggle("border-b", show);
+
+            navbar.dispatchEvent(
+                new CustomEvent("separator-change", {
+                    detail: { show },
+                }),
+            );
+        });
+    }
+</script>

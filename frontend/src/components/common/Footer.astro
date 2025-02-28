@@ -1,17 +1,24 @@
 ---
-import { Icon } from "astro-icon/components";
 import * as m from "@paraglide/messages.js";
+import { Picture } from "astro:assets";
+import Img from "$lib/assets/images/mascot.png";
 ---
 
 <footer>
     <div
-        class="mx-auto max-w-screen-lg px-4 py-8 sm:px-6 lg:px-8 mt-10 antialiased bg-transparent border-t"
+        class="mx-auto max-w-screen-md py-8 mt-10 antialiased bg-transparent border-t"
     >
         <div class="flex flex-col md:flex-row items-center justify-between">
             <div
-                class="flex justify-center text-gray-600 dark:text-gray-400 sm:justify-start text-sm gap-2 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                class="flex justify-center items-center text-gray-600 dark:text-gray-400 sm:justify-start text-sm gap-2 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
             >
-                <Icon name="heart" title="Rust" size="1.3em" />
+                <Picture
+                    src={Img}
+                    alt="Crab"
+                    formats={["avif", "webp"]}
+                    width={32}
+                    height={32}
+                />
                 {m.rustLover()}
             </div>
 
