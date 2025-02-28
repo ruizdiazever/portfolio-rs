@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import Lang from "./lang.svelte";
 import Toggle from "$lib/components/darkmode/toggle.svelte";
-import { Button } from "$lib/components/ui/button/index.js";
+import Social from "$lib/components/common/Social.astro";
 import { Separator } from "$lib/components/ui/separator";
 import WordAnimation from "$lib/components/landing/wordAnimation.svelte";
 
@@ -15,12 +15,12 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
 
 <nav
     id="navbar"
-    class="sticky top-0 w-full overflow-hidden backdrop-blur-lg z-50 antialiased transition-all duration-300"
+    class="sticky top-0 w-full overflow-hidden backdrop-blur-lg z-50 antialiased transition-all duration-300 py-2"
     on:separator-change={handleSeparatorChange}
 >
     <div class="w-full">
         <div
-            class="flex items-center justify-between max-w-screen-md mx-auto p-2"
+            class="flex items-center justify-between max-w-screen-md mx-auto px-6 sm:px-6 lg:px-8"
         >
             <a href="/" rel="external" class="flex flex-col items-start">
                 <p class="text-lg md:text-xl font-semibold text-foreground">
@@ -33,52 +33,10 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
             <div class="flex items-center">
                 <Toggle client:idle />
                 <Lang client:idle />
-                <Separator orientation="vertical" class="mx-2 h-6" />
-                <Button
-                    href="https://www.linkedin.com/in/everdev/"
-                    variant="ghost"
-                    rel="noopener"
-                    target="_blank"
-                    size="icon"
-                    aria-label="LinkedIn"
-                    title="LinkedIn"
-                >
-                    <Icon
-                        name="linkedin"
-                        title="LinkedIn"
-                        class="h-[1.2rem] w-[1.2rem]"
-                    />
-                </Button>
-                <Button
-                    href="https://www.linkedin.com/in/everdev/"
-                    variant="ghost"
-                    rel="noopener"
-                    target="_blank"
-                    size="icon"
-                    aria-label="GitHub"
-                    title="GitHub"
-                >
-                    <Icon
-                        name="github"
-                        title="GitHub"
-                        class="h-[1.2rem] w-[1.2rem]"
-                    />
-                </Button>
-                <Button
-                    href="https://x.com/EverToujours"
-                    variant="ghost"
-                    rel="noopener"
-                    target="_blank"
-                    size="icon"
-                    aria-label="GitHub"
-                    title="GitHub"
-                >
-                    <Icon
-                        name="x"
-                        title="X (Twitter)"
-                        class="h-[1.1rem] w-[1.1rem]"
-                    />
-                </Button>
+                <div class="hidden md:flex items-center">
+                    <Separator orientation="vertical" class="mx-2 h-6" />
+                    <Social />
+                </div>
             </div>
         </div>
     </div>
@@ -86,17 +44,27 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
 </nav>
 
 <script>
-    const navbar = document.getElementById("navbar");
-    if (navbar) {
-        window.addEventListener("scroll", () => {
-            const show = window.scrollY > 0;
-            navbar.querySelector("div")?.classList.toggle("border-b", show);
+    function initializeNavbar() {
+        const navbar = document.getElementById("navbar");
+        if (navbar) {
+            const handleScroll = () => {
+                const show = window.scrollY > 0;
+                navbar.querySelector("div")?.classList.toggle("border-b", show);
 
-            navbar.dispatchEvent(
-                new CustomEvent("separator-change", {
-                    detail: { show },
-                }),
-            );
-        });
+                navbar.dispatchEvent(
+                    new CustomEvent("separator-change", {
+                        detail: { show },
+                    }),
+                );
+            };
+
+            window.addEventListener("scroll", handleScroll);
+            handleScroll(); // Initialize state on page load
+        }
     }
+
+    // Run on initial load
+    initializeNavbar();
+    // Run when navigating between pages
+    document.addEventListener("astro:page-load", initializeNavbar);
 </script>

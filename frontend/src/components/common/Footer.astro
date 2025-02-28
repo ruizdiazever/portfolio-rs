@@ -2,13 +2,19 @@
 import * as m from "@paraglide/messages.js";
 import { Picture } from "astro:assets";
 import Img from "$lib/assets/images/mascot.png";
+import Social from "$lib/components/common/Social.astro";
 ---
 
 <footer>
     <div
-        class="mx-auto max-w-screen-md py-8 mt-10 antialiased bg-transparent border-t"
+        class="mx-auto max-w-screen-md py-8 mt-10 antialiased bg-transparent border-t px-6 sm:px-6 lg:px-8"
     >
-        <div class="flex flex-col md:flex-row items-center justify-between">
+        <div
+            class="flex flex-col md:flex-row items-center justify-between space-y-2"
+        >
+            <div class="md:hidden">
+                <Social />
+            </div>
             <div
                 class="flex justify-center items-center text-gray-600 dark:text-gray-400 sm:justify-start text-sm gap-2 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
             >
