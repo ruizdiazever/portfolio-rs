@@ -53,7 +53,6 @@
             {value}
             <ArrowUpRight
                 name="arrow-up-right"
-                title="Link"
                 size="1rem"
                 class="duration-200 group-hover:translate-x-[1.5px]"
             />

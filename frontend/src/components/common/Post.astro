@@ -30,7 +30,7 @@ let views = await getVisitRequest(id);
     <div
         id="back-button"
         class="fixed bottom-4 left-1/2 -translate-x-1/2 opacity-0 transition-all duration-300 transform translate-y-10
-        lg:top-28 lg:left-8 lg:ml-10"
+        lg:top-36 lg:left-8 lg:ml-10"
     >
         <a
             href="/"
@@ -139,7 +139,14 @@ let views = await getVisitRequest(id);
     window.addEventListener("scroll", () => {
         const backButton = document.getElementById("back-button");
         if (backButton) {
-            if (window.scrollY > 100) {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop =
+                window.scrollY || document.documentElement.scrollTop;
+            const scrollPercentage =
+                (scrollTop + windowHeight) / documentHeight;
+
+            if (window.scrollY > 100 && scrollPercentage < 0.9) {
                 backButton.style.opacity = "1";
                 backButton.style.transform = "translateX(-50%) translateY(0)";
             } else {

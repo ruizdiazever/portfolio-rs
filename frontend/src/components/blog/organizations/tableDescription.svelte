@@ -7,7 +7,9 @@
     <a href="#icon">Meaning of icons</a>
 </h1>
 
-<Table.Root class="border rounded w-full text-md bg-white dark:bg-black">
+<Table.Root
+    class="border rounded w-full text-sm md:text-md bg-white dark:bg-black"
+>
     <Table.Header>
         <Table.Row class="h-8 py-2">
             <Table.Head class="py-2">Icon</Table.Head>

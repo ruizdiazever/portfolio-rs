@@ -30,7 +30,7 @@
   }: { columns: ColumnDef<TData, TValue>[]; data: TData[] } = $props();
 
   let rowSelection = $state<RowSelectionState>({});
-  let columnVisibility = $state<VisibilityState>({ country: true });
+  let columnVisibility = $state<VisibilityState>({ country: true, founded: true });
   let columnFilters = $state<ColumnFiltersState>([]);
   let sorting = $state<SortingState>([]);
   let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 20 });
@@ -104,13 +104,13 @@
 
 <div class="space-y-4 text-xs">
   <DataTableToolbar {table} />
-  <div class="rounded-md border bg-white dark:bg-black">
+  <div class="bg-white dark:bg-black rounded-md border">
     <Table.Root>
       <Table.Header>
         {#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
           <Table.Row>
             {#each headerGroup.headers as header (header.id)}
-              <Table.Head colspan={header.colSpan} class={header.column.id === 'country' ? 'hidden md:table-cell' : ''}>
+                <Table.Head colspan={header.colSpan} class={header.column.id === 'country' || header.column.id === 'founded' ? 'hidden md:table-cell' : ''}>
                 {#if !header.isPlaceholder}
                   <FlexRender
                     content={header.column.columnDef.header}
@@ -126,7 +126,7 @@
         {#each table.getRowModel().rows as row (row.id)}
           <Table.Row data-state={row.getIsSelected() && "selected"}>
             {#each row.getVisibleCells() as cell (cell.id)}
-              <Table.Cell class={cell.column.id === 'country' ? 'hidden md:table-cell' : ''}>
+              <Table.Cell class={cell.column.id === 'country' || cell.column.id === 'founded' ? 'hidden md:table-cell' : ''}>
                 <FlexRender
                   content={cell.column.columnDef.cell}
                   context={cell.getContext()}
