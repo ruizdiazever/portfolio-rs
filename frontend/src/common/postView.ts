@@ -8,6 +8,9 @@ export async function postVisitRequest(projectId: string): Promise<number> {
       ? `http://${apiUrl}/visit`
       : `${apiUrl}/visit`;
 
+  console.log("Fetching postVisitRequest for project:", projectId);
+  console.log("API URL:", url);
+
   const body = {
     project_id: projectId,
   };

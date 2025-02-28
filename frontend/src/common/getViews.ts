@@ -7,6 +7,9 @@ export async function getVisitRequest(projectId: string): Promise<number> {
       ? `http://${apiUrl}/visit/${projectId}`
       : `${apiUrl}/visit/${projectId}`;
 
+  console.log("Fetching getVisitRequest for project:", projectId);
+  console.log("API URL:", url);
+
   try {
     const response = await fetch(url);
     if (response.ok) {
