@@ -15,12 +15,12 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
 
 <nav
     id="navbar"
-    class="sticky top-0 w-full overflow-hidden backdrop-blur-lg z-50 antialiased transition-all duration-300 py-2"
+    class="sticky top-0 w-full overflow-hidden backdrop-blur-lg z-50 antialiased transition-all duration-300"
     on:separator-change={handleSeparatorChange}
 >
     <div class="w-full">
         <div
-            class="flex items-center justify-between max-w-screen-md mx-auto px-6 sm:px-6 lg:px-8"
+            class="flex items-center justify-between max-w-screen-md mx-auto px-6 sm:px-6 lg:px-8 py-3"
         >
             <a href="/" rel="external" class="flex flex-col items-start">
                 <p class="text-lg md:text-xl font-semibold text-foreground">
