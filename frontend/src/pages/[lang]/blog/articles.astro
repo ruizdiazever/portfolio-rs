@@ -1,12 +1,12 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
 import Blog from "$lib/components/landing/cards/Blog.astro";
-import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
+import { getPosts } from "$lib/common/getPosts.ts";
 import { languageTag } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 
-const posts = await getPostsFromJson();
+const posts = await getPosts();
 const postViews = await Promise.all(
     posts.map((post) => getVisitRequest(post.id)),
 );
@@ -18,19 +18,23 @@ const postViews = await Promise.all(
         <p class="blog-content-paragraph mb-10">All articles of the blog.</p>
         <Divider />
         {
-            posts.map((post, index) => (
-                <>
-                    <Blog
-                        title={post.title[languageTag()]}
-                        url={`/${languageTag()}${post.url}`}
-                        description={post.description[languageTag()]}
-                        views={postViews[index]}
-                        tags={post.tags}
-                        date={post.date}
-                    />
-                    {index < posts.length - 1 && <Divider />}
-                </>
-            ))
+            posts
+                .filter((post) => post.active)
+                .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0))
+                .map((post, index, filteredPosts) => (
+                    <>
+                        <Blog
+                            title={post.title[languageTag()]}
+                            pinned={post.pinned}
+                            url={`/${languageTag()}${post.url}`}
+                            description={post.description[languageTag()]}
+                            views={postViews[index]}
+                            tags={post.tags}
+                            date={post.date}
+                        />
+                        {index < filteredPosts.length - 1 && <Divider />}
+                    </>
+                ))
         }
     </div>
 </Layout>

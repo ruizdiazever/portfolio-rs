@@ -1,24 +1,6 @@
 import { z } from "zod";
 import postsData from "$lib/assets/posts.json";
-
-const postSchema = z.object({
-  id: z.string().uuid(),
-  author: z.array(z.string()),
-  home: z.boolean(),
-  url: z.string().startsWith("/"),
-  title: z.object({
-    en: z.string(),
-    zh: z.string(),
-  }),
-  description: z.object({
-    en: z.string(),
-    zh: z.string(),
-  }),
-  readTime: z.number().int().min(1),
-  tags: z.array(z.string()),
-  date: z.coerce.date(),
-  active: z.boolean(),
-});
+import { postSchema } from "./getPostById";
 
 const blogDataSchema = z.object({
   posts: z.array(postSchema),
@@ -26,7 +8,7 @@ const blogDataSchema = z.object({
 
 type Post = z.infer<typeof postSchema>;
 
-export async function getPostsFromJson(): Promise<Post[]> {
+export async function getPosts(): Promise<Post[]> {
   const result = blogDataSchema.safeParse(postsData);
   if (!result.success) {
     throw new Error(

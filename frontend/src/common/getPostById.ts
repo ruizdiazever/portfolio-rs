@@ -1,10 +1,11 @@
 import { z } from "zod";
 import postsData from "$lib/assets/posts.json";
 
-const postSchema = z.object({
+export const postSchema = z.object({
   id: z.string().uuid(),
   author: z.array(z.string()),
-  home: z.boolean(),
+  pinned: z.boolean(),
+  active: z.boolean(),
   url: z.string().startsWith("/"),
   title: z.object({
     en: z.string(),
@@ -17,7 +18,6 @@ const postSchema = z.object({
   readTime: z.number().int().min(1),
   tags: z.array(z.string()),
   date: z.coerce.date(),
-  active: z.boolean(),
 });
 
 const blogDataSchema = z.object({

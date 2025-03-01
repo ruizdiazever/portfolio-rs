@@ -4,7 +4,7 @@ import Blog from "./cards/Blog.astro";
 import Experience from "./cards/Experience.astro";
 import Project from "./cards/Project.astro";
 import { Icon } from "astro-icon/components";
-import { getPostsFromJson } from "$lib/common/getBlogCards.ts";
+import { getPosts } from "$lib/common/getPosts";
 import { getEntriesFromJson } from "$lib/common/getExperience.ts";
 import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
@@ -12,7 +12,7 @@ import { languageTag } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import Divider from "$lib/components/common/Divider.astro";
 
-const posts = await getPostsFromJson();
+const posts = await getPosts();
 const entries = await getEntriesFromJson();
 const projects = await getProjectsFromJson();
 
@@ -37,19 +37,23 @@ const postViews = await Promise.all(
         </div>
         <div class="space-y-6">
             {
-                posts.map((post, index) => (
-                    <>
-                        <Blog
-                            title={post.title[languageTag()]}
-                            url={`/${languageTag()}${post.url}`}
-                            description={post.description[languageTag()]}
-                            views={postViews[index]}
-                            tags={post.tags}
-                            date={post.date}
-                        />
-                        {index < posts.length - 1 && <Divider />}
-                    </>
-                ))
+                posts
+                    .filter((post) => post.active)
+                    .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0))
+                    .map((post, index, filteredPosts) => (
+                        <>
+                            <Blog
+                                title={post.title[languageTag()]}
+                                pinned={post.pinned}
+                                url={`/${languageTag()}${post.url}`}
+                                description={post.description[languageTag()]}
+                                views={postViews[index]}
+                                tags={post.tags}
+                                date={post.date}
+                            />
+                            {index < filteredPosts.length - 1 && <Divider />}
+                        </>
+                    ))
             }
         </div>
     </section>

@@ -2,49 +2,49 @@
   "posts": [
     {
       "id": "aa614ca5-0940-41a1-bf80-710096df26ac",
-      "author": ["Ever Ruiz Diaz"],
-      "home": true,
-      "url": "/blog/hardware/minisforum-ms-01",
       "title": {
         "en": "Updating MS-01 bios",
         "zh": "更新 MS-01 BIOS"
       },
+      "author": ["Ever Ruiz Diaz"],
+      "pinned": false,
+      "active": true,
+      "url": "/blog/hardware/minisforum-ms-01",
       "description": {
         "en": "Minisforum MS-01: a compact and powerful server with a lot of features.",
         "zh": "Minisforum MS-01：一个紧凑而强大的服务器，具有许多功能"
       },
       "readTime": 3,
       "tags": ["Hardware", "Server", "Workstation", "Bios", "Minisforum"],
-      "date": "2024-11-15",
-      "active": true
+      "date": "2024-11-15"
     },
     {
       "id": "511bc558-3f6e-4375-8e57-37e19519f1db",
-      "author": ["Ever Ruiz Diaz", "Community"],
-      "home": true,
-      "url": "/blog/organizations-using-rust",
       "title": {
         "en": "Organizations using Rust",
         "zh": "使用 Rust 的组织"
       },
+      "author": ["Ever Ruiz Diaz", "Community"],
+      "pinned": true,
+      "active": true,
+      "url": "/blog/organizations-using-rust",
       "description": {
         "en": "Forging the future, companies building with Rust.",
         "zh": "打造未来，使用 Rust 构建的公司"
       },
       "readTime": 3,
       "tags": ["Rust", "Industry", "State", "Companies"],
-      "date": "2024-09-30",
-      "active": true
+      "date": "2024-09-30"
     },
     {
       "id": "9a5f3584-5a8a-4c22-8460-2d775d54d89b",
-      "author": ["Ever Ruiz Diaz"],
-      "home": true,
-      "url": "/blog/portfolio-wasm",
       "title": {
         "en": "Portfolio WASM",
         "zh": "作品集 WASM"
       },
+      "author": ["Ever Ruiz Diaz"],
+      "pinned": false,
+      "url": "/blog/portfolio-wasm",
       "description": {
         "en": "New portfolio WASM, a history of performance and love powered by Rust with Leptos.",
         "zh": "新的 WASM 作品集，由 Rust 和 Leptos 驱动的性能与热爱的历史"
@@ -66,13 +66,14 @@
     },
     {
       "id": "f7583be4-ebf7-48a9-928d-5a058f0aabd9",
-      "author": ["Ever Ruiz Diaz"],
-      "home": true,
-      "url": "/blog/auth-refresh-acess-token",
       "title": {
         "en": "Secure Auth with Rust",
         "zh": "使用 Rust 的安全认证"
       },
+      "author": ["Ever Ruiz Diaz"],
+      "pinned": true,
+      "active": false,
+      "url": "/blog/auth-refresh-acess-token",
       "description": {
         "en": "Refresh/access token with Axum and async-graphql.",
         "zh": "使用 Axum 和 async-graphql 的刷新/访问令牌"
@@ -91,8 +92,7 @@
         "backend",
         "api"
       ],
-      "date": "2024-06-20",
-      "active": false
+      "date": "2024-06-20"
     }
   ]
 }

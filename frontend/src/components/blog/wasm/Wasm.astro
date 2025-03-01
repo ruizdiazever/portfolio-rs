@@ -3,32 +3,37 @@ import * as PostEn from "$lib/components/blog/wasm/article-en.mdx";
 import * as PostZh from "$lib/components/blog/wasm/article-zh.md";
 import PostAstro from "$lib/components/common/Post.astro";
 import { languageTag } from "@paraglide/runtime";
+import { getPost } from "$lib/common/getPostById";
+
+const ID = "9a5f3584-5a8a-4c22-8460-2d775d54d89b";
+const post = await getPost(ID);
+if (!post) throw new Error("Post not found");
 ---
 
 {
     languageTag() === "en" ? (
         <PostAstro
-            id={PostEn.frontmatter.id}
-            title={PostEn.frontmatter.title}
-            url={PostEn.frontmatter.url}
-            description={PostEn.frontmatter.description}
-            readTime={PostEn.frontmatter.minutesRead.en}
-            author={PostEn.frontmatter.author}
-            tags={PostEn.frontmatter.tags}
-            date={PostEn.frontmatter.date}
+            id={ID}
+            title={post.title[languageTag()]}
+            url={post.url}
+            description={post.description.en}
+            readTime={post.readTime}
+            author={post.author}
+            tags={post.tags}
+            date={post.date}
         >
             <PostEn.Content />
         </PostAstro>
     ) : (
         <PostAstro
-            id={PostEn.frontmatter.id}
-            title={PostZh.frontmatter.title}
-            url={PostZh.frontmatter.url}
-            description={PostZh.frontmatter.description}
-            readTime={PostZh.frontmatter.minutesRead.zh}
-            author={PostZh.frontmatter.author}
-            tags={PostZh.frontmatter.tags}
-            date={PostZh.frontmatter.date}
+            id={ID}
+            title={post.title[languageTag()]}
+            url={post.url}
+            description={post.description.zh}
+            readTime={post.readTime}
+            author={post.author}
+            tags={post.tags}
+            date={post.date}
         >
             <PostZh.Content />
         </PostAstro>

@@ -14,5 +14,6 @@
   "views": "views",
   "language": "Language",
   "theme": "Theme",
-  "moreInformation": "More information"
+  "moreInformation": "More information",
+  "pinned": "Pinned"
 }

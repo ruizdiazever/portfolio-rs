@@ -1,12 +1,3 @@
----
-title: 'WASM作品集'
-author: ['Ever Ruiz Diaz']
-description: '新的WASM作品集，一个由Rust和Leptos驱动的性能和热爱的故事'
-date: '2024-01-01'
-tags: ['rust', 'wasm', 'leptos', 'axum', 'redis', 'grafana', 'influxdb']
-id: '9a5f3584-5a8a-4c22-8460-2d775d54d89b'
----
-
 # 追求卓越之旅
 
 欢迎来到我的WASM作品集，这是一个展示我使用[Rust](https://www.rust-lang.org/)和WebAssembly工作的前沿showcase，由[Leptos](https://leptos.dev/)框架驱动。
