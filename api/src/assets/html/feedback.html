@@ -61,6 +61,10 @@
                 color: #111827;
                 line-height: 1.6;
             }
+            .feedback-title {
+                font-weight: 600;
+                margin-bottom: 12px;
+            }
             .meta {
                 border: 1px solid #e8e5ef;
                 margin: 32px 0;
@@ -74,14 +78,11 @@
                 margin: 0;
                 padding: 0;
             }
-            .meta table tr {
+            .meta table tr:not(:last-child) {
                 border-bottom: 1px solid #e5e7eb;
             }
-            .meta table tr:last-child {
-                border-bottom: none;
-            }
             .meta table td {
-                padding: 12px 8px;
+                padding: 8px;
                 vertical-align: top;
                 color: #6b7280;
                 font-size: 14px;
@@ -142,7 +143,10 @@
                 </div>
 
                 <!-- Feedback -->
-                <div class="feedback-box">{{msg}}</div>
+                <div class="feedback-box">
+                    <div class="feedback-title">Message</div>
+                    {{msg}}
+                </div>
 
                 <!-- Metadata -->
                 <div class="meta">
