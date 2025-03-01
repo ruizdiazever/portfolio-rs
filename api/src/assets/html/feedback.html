@@ -100,6 +100,12 @@
                 height: 48px;
                 width: auto;
             }
+            .reaction {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                line-height: 24px;
+            }
             .footer {
                 border-top: 1px solid #e8e5ef;
                 font-size: 13px;
@@ -127,9 +133,7 @@
                 <!-- Header -->
                 <h1>New blog feedback</h1>
                 <p><strong>{{title}}</strong></p>
-                <div
-                    style="display: inline-flex; align-items: center; gap: 8px"
-                >
+                <div class="reaction">
                     Feedback reaction
                     <img
                         src="{{reaction_path}}"
