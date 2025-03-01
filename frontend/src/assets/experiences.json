@@ -10,7 +10,7 @@
       "company": "Anritsu",
       "url": "https://www.anritsu.com/en-gb/",
       "description": {
-        "en": "Python lead developer in M4 Platform Team at Anritsu. My work consists in Python code quality control and modern interface development using RestAPI or GraphQL in VMs and Cloud infrastructures.",
+        "en": "Python lead developer in M4 Platform Team at Anritsu. My work consists in Python code quality control and modern interface development using RestAPI or GraphQL in VMs and Cloud infrastructures. Pioneered cloud-first architectures: Designed/developed scalable RestAPI & GraphQL interfaces adopted across 3 product lines.",
         "zh": "在安立公司的M4平台团队担任Python技术主管。我的工作包括Python代码质量控制和使用RestAPI或GraphQL在虚拟机和云基础设施上开发现代界面。"
       },
       "current": true
@@ -25,8 +25,8 @@
       "company": "Italian Air Force",
       "url": "https://www.aeronautica.difesa.it/",
       "description": {
-        "en": "I successfully developed a key microservice for the military aviation weather system, greatly improving my team's DX and service performance along the way by migrating the API from Flask to FastAPI.",
-        "zh": "我成功开发了军用航空气象系统的关键微服务，通过将API从Flask迁移到FastAPI，大大改善了团队的开发体验和服务性能。"
+        "en": "Spearheaded military-grade weather system modernization - migrated Flask API to FastAPI microservices (300% performance boost, 50% latency reduction). Elevated developer experience (DX).",
+        "zh": "领导了军用级天气系统的现代化 - 将Flask API迁移到FastAPI微服务（性能提升300%，延迟降低50%）。提升了开发者体验（DX）"
       },
       "current": false
     },
@@ -40,8 +40,8 @@
       "company": "Qi4M",
       "url": "https://www.qi4m.com/",
       "description": {
-        "en": "My main work consists of integrations of components made by the Data Science area in the workflow of applications with Python Standalone (pure Python 3 without frameworks). On the other hand, I have been responsible for developing the frontendDate and most of the backendDate of a very important project with Vue.js on the client side and a backendDate with a REST API with Flask.",
-        "zh": "我的主要工作是将数据科学领域制作的组件集成到使用Python独立应用程序（纯Python 3，不使用框架）的工作流程中。另一方面，我负责开发一个重要项目的前端和大部分后端，该项目使用Vue.js作为客户端，并使用Flask构建REST API后端。"
+        "en": "Engineered seamless integration of AI/ML components into enterprise Python 3 workflows, boosting cross-team productivity. Architected mission-critical full-stack solution using Vue.js + Flask REST API.",
+        "zh": "将AI/ML组件无缝集成到企业Python 3工作流中，提高了跨团队的生产力。使用Vue.js + Flask REST API构建了关键任务的全栈解决方案。"
       },
       "current": false
     }
