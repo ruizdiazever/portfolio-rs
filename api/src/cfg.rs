@@ -12,6 +12,7 @@ pub struct ConfigPortfolio {
     pub smtp_username: String,
     pub smtp_password: String,
     pub ipinfo_token: String,
+    pub logo: String,
 }
 
 impl ConfigPortfolio {

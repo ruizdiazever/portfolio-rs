@@ -1,8 +1,8 @@
 use axum::http::header::{InvalidHeaderValue, WWW_AUTHENTICATE};
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
-use lettre::address::AddressError;
 use axum::Json;
+use lettre::address::AddressError;
 use serde_json::json;
 use std::{borrow::Cow, collections::HashMap};
 use tracing::error;
@@ -37,6 +37,8 @@ pub enum Error {
     LettreTransError(#[from] lettre::transport::smtp::Error),
     #[error("Handlebar template error")]
     HandlebarTemplateError(#[from] handlebars::TemplateError),
+    #[error("USER_AGENT_PARSER_ERROR")]
+    UserAgentParserError(#[from] user_agent_parser::UserAgentParserError),
 }
 
 // REST (does not apply to graphql)
@@ -64,6 +66,7 @@ impl Error {
             Self::Forbidden => StatusCode::FORBIDDEN,
             Self::NotFound => StatusCode::NOT_FOUND,
             Self::Anyhow(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            Self::UserAgentParserError(_) => StatusCode::BAD_REQUEST,
             _ => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }

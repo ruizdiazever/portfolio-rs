@@ -1,26 +1,39 @@
-use crate::redis::feedback::{send_feedback, Feedback, Output};
-use crate::common::send_feedback::send_feedback_email;
+use crate::common::extra_data::get_extra_data;
+use crate::common::ip::{get_client_ip, MetadataSession};
+use crate::common::send_feedback::send_feedback;
+use crate::redis::feedback::{save_feedback_to_redis, Output};
+use crate::redis::models::Payload;
 use crate::routes::{ApiContext, Result};
 use crate::security::error::Error;
+use axum::http::HeaderMap;
 use axum::{extract::State, routing::post, Json, Router};
 
 async fn post_feedback(
     State(ctx): State<ApiContext>,
-    Json(payload): Json<Feedback>,
+    headers: HeaderMap,
+    Json(payload): Json<Payload>,
 ) -> Result<Json<Output>, Error> {
-    let data = Feedback {
-        id: payload.id,
-        title: payload.title,
-        msg: payload.msg,
-        reaction: payload.reaction,
+    // METADATA
+    let user_agent = headers
+        .get("User-Agent")
+        .or_else(|| headers.get("user-agent"))
+        .and_then(|value| value.to_str().ok())
+        .unwrap_or("Unknown Agent")
+        .to_string();
+    let ip_address = get_client_ip(&headers).await;
+
+    let meta = &MetadataSession {
+        user_agent: user_agent.clone(),
+        ip_address: ip_address.clone(),
     };
 
-    let result = send_feedback(&ctx, data.clone()).await?;
-    let result_email_sender = send_feedback_email(&data.title, &data.reaction.to_string(), &data.msg).await?;
+    let extra_data = get_extra_data(meta).await?;
+    let result_redis = save_feedback_to_redis(&ctx, payload.clone(), extra_data.clone()).await?;
+    let result_sender = send_feedback(&payload, &extra_data).await?;
 
     Ok(Json(Output {
-        success: result.success && result_email_sender.status,
-        id: result.id,
+        success: result_redis.success && result_sender.status,
+        id: payload.id,
     }))
 }
 

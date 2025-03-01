@@ -3,6 +3,7 @@ import { languageTag } from "@paraglide/runtime";
 import { ClientRouter } from "astro:transitions";
 import Footer from "$lib/components/common/Footer.astro";
 import Header from "$lib/components/common/Header.astro";
+import Toast from "$lib/components/common/toast.svelte";
 import { ModeWatcher } from "mode-watcher";
 import SEO from "$lib/components/common/SEO.astro";
 import "$lib/styles/app.css";
@@ -69,6 +70,7 @@ const {
     </head>
     <body class="bg-[#fafafa] dark:bg-[#0a0a0a] mx-auto">
         <ModeWatcher client:load />
+        <Toast client:idle />
         {showHeader && <Header />}
         <main
             class="flex flex-col px-4 sm:px-6 lg:px-8 overflow-x-clip flex-1 justify-center mx-auto gap-4 max-w-screen-md antialiased"

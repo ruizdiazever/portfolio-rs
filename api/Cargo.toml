@@ -23,6 +23,7 @@ anyhow = "1.0.95"
 chrono = "0.4.39"
 dotenvy = "0.15.7"
 sha2 = "0.10.8"
+user-agent-parser = "0.3.6"
 
 
 [lib]

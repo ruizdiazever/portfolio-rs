@@ -1,5 +1,6 @@
-use reqwest::Error;
+use crate::security::error::Error;
 use serde::Deserialize;
+use std::net::{Ipv4Addr, Ipv6Addr};
 
 #[derive(Debug, Deserialize)]
 pub struct IpInfo {
@@ -15,6 +16,11 @@ pub struct IpInfo {
 }
 
 pub async fn get_ip_info(ip: &str) -> Result<IpInfo, Error> {
+    if !is_valid_ip(ip) {
+        tracing::error!("Invalid IP address format: {}", ip);
+        return Err(Error::NotFound);
+    }
+
     let token = std::env::var("IPINFO_TOKEN").expect("Define IPINFO_TOKEN in your .env");
     let url = format!("https://ipinfo.io/{}/json?token={}", ip, token);
     tracing::info!("Fetching IP info from {}", url);
@@ -26,6 +32,10 @@ pub async fn get_ip_info(ip: &str) -> Result<IpInfo, Error> {
         Ok(ip_info)
     } else {
         tracing::error!("Error getting IP info: {}", response.status());
-        Err(response.error_for_status().unwrap_err())
+        Err(Error::NotFound)
     }
+}
+
+fn is_valid_ip(ip: &str) -> bool {
+    ip.parse::<Ipv4Addr>().is_ok() || ip.parse::<Ipv6Addr>().is_ok()
 }

@@ -5,6 +5,7 @@ import { languageTag } from "@paraglide/runtime";
 import { Image } from "astro:assets";
 import EverAvatar from "$lib/assets/images/daft.webp";
 import MaxiAvatar from "$lib/assets/images/punk.avif";
+import Feedback from "$lib/components/common/feedback.svelte";
 import { postVisitRequest } from "$lib/common/postView.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 
@@ -132,6 +133,7 @@ let views = await getVisitRequest(id);
         </div>
         <hr class="my-8 h-px border-0 bg-gray-300" />
         <div class="mt-6 space-y-4"><slot /></div>
+        <Feedback client:idle title={title} {id} language={languageTag()} />
     </article>
 </div>
 

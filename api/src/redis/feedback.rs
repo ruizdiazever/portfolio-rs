@@ -1,3 +1,4 @@
+use crate::redis::models::{ExtraData, Payload};
 use crate::routes::{ApiContext, Result};
 use crate::security::error::Error;
 use redis::AsyncCommands;
@@ -5,21 +6,17 @@ use serde::{Deserialize, Serialize};
 use tracing::{error, info};
 use uuid::Uuid;
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Feedback {
-    pub id: String,
-    pub title: String,
-    pub msg: String,
-    pub reaction: u8,
-}
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Output {
     pub success: bool,
     pub id: String,
 }
 
-pub async fn send_feedback(ctx: &ApiContext, feedback: Feedback) -> Result<Output, Error> {
+pub async fn save_feedback_to_redis(
+    ctx: &ApiContext,
+    feedback: Payload,
+    extra_data: ExtraData,
+) -> Result<Output, Error> {
     let reaction_type: &'static str = match feedback.reaction {
         4 => "love",
         3 => "happy",
@@ -41,12 +38,15 @@ pub async fn send_feedback(ctx: &ApiContext, feedback: Feedback) -> Result<Outpu
     let feedback_id = Uuid::new_v4().to_string();
     let feedback_data = serde_json::json!({
         "id": feedback_id,
-        "feedback": feedback.msg,
+        "title": feedback.title,
         "reaction": reaction_type,
+        "message": feedback.msg,
+        "language": feedback.language,
         "timestamp": chrono::Utc::now().to_rfc3339(),
+        "extra_data": extra_data,
     });
 
-    // Usar HSET para guardar el nuevo feedback como un campo dentro del hash del post
+    // Use HSET to save the new feedback as a field within the post's hash
     let _: () = redis_client
         .hset(&feedback_key, &feedback_id, feedback_data.to_string())
         .await
@@ -55,7 +55,7 @@ pub async fn send_feedback(ctx: &ApiContext, feedback: Feedback) -> Result<Outpu
             Error::Anyhow(anyhow::anyhow!("Error saving feedback"))
         })?;
 
-    // Opcionalmente, mantener una lista de IDs de feedback para este post
+    // Optionally, maintain a list of feedback IDs for this post
     let _: () = redis_client
         .rpush(format!("{}:ids", feedback_key), &feedback_id)
         .await

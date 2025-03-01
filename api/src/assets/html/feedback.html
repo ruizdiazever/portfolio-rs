@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ever Ruiz Diaz</title>
+        <style>
+            @media only screen and (max-width: 600px) {
+                .container {
+                    width: 100% !important;
+                }
+            }
+            body {
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Helvetica, Arial, sans-serif;
+            }
+            .container {
+                border-collapse: collapse;
+                width: 456px;
+                margin: 20px auto;
+                background-color: #ffffff;
+                border-radius: 5px;
+                border: 1px solid #e8e5ef;
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+            .content {
+                padding: 40px;
+                text-align: left;
+            }
+            h1 {
+                box-sizing: border-box;
+                line-height: 24px;
+                margin-bottom: 20px;
+                letter-spacing: -0.025px;
+                font-size: 24px;
+                margin-top: 0;
+                font-weight: bold;
+                text-align: left;
+                color: #1f2937;
+            }
+            p {
+                font-size: 14px;
+                line-height: 2;
+                color: #000;
+                margin-bottom: 16px;
+            }
+            .meta {
+                margin-bottom: 24px;
+            }
+            .meta table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 0;
+                padding: 0;
+            }
+            .meta table tr {
+                border-bottom: 1px solid #e8e5ef;
+            }
+            .meta table tr:last-child {
+                border-bottom: none;
+            }
+            .meta table td {
+                padding: 8px 0;
+                vertical-align: top;
+            }
+            .meta table td:first-child {
+                font-weight: bold;
+                width: 120px;
+            }
+            .meta table td:last-child {
+                padding-left: 10px;
+            }
+            .logo {
+                text-align: center;
+                margin-top: 30px;
+            }
+            .footer {
+                padding-top: 16px;
+                border-top: 1px solid #e8e5ef;
+                font-size: 14px;
+                color: #6b7280;
+                text-align: center;
+                margin-top: 16px;
+            }
+            a {
+                color: #0b7df7;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">
+                <img src="{{logo_url}}" alt="Portfolio Logo" height="60" />
+            </div>
+            <div class="content">
+                <!-- Header -->
+                <h1>Portfolio 🦀</h1>
+                <p><strong>{{title}}</strong></p>
+                <p>
+                    New feedback with reaction
+                    <img
+                        src="{{reaction_path}}"
+                        alt="Reaction icon"
+                        height="60"
+                        title="{{reaction}}"
+                    />
+                </p>
+
+                <!-- Feedback -->
+                <hr />
+                <p>{{msg}}</p>
+                <hr />
+
+                <!-- Metadata -->
+                <div class="meta">
+                    <table>
+                        <tr>
+                            <td><strong>Location: </strong></td>
+                            <td>{{location}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Browser: </strong></td>
+                            <td>{{browser}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Device: </strong></td>
+                            <td>{{device}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OS: </strong></td>
+                            <td>{{os}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Language: </strong></td>
+                            <td>{{language}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>Ever Ruiz Diaz © 2024</p>
+            </div>
+        </div>
+    </body>
+</html>
