@@ -33,6 +33,13 @@ const canonicalURL = canonical
 <meta charset="UTF-8" />
 <meta name="description" content={description} />
 <link type="text/plain" rel="author" href="/humans.txt" />
+<link
+    rel="preload"
+    href="@fontsource-variable/eb-garamond/files/eb-garamond-latin-wght-normal.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+/>
 {
     preloadImgLCP && (
         <link
