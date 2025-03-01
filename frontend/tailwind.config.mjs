@@ -74,7 +74,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["EB Garamond Variable", ...fontFamily.sans],
+        sans: ["EB Garamond Variable", "serif", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

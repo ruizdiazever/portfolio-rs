@@ -5,8 +5,7 @@ COPY . .
 
 RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN npm install -g pnpm
-RUN pnpm i --force
-RUN pnpm run build
+RUN pnpm install --force && pnpm build
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
