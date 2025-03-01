@@ -8,6 +8,7 @@
     import Frown from "lucide-svelte/icons/frown";
     import Loader from "lucide-svelte/icons/loader";
     import Send from "lucide-svelte/icons/send";
+    import * as m from "@paraglide/messages.js";
     import { postFeedback } from "$lib/common/postFeedback";
     import { toast } from "svelte-sonner";
 
@@ -32,11 +33,11 @@
 
     const validate = () => {
         if (message.length < 1) {
-            error = "Please enter your feedback";
+            error = m.feedbackEnterError();
             return false;
         }
         if (message.length > maxLength) {
-            error = `Feedback must be ${maxLength} characters or less`;
+            error = m.feedbackLengthError();
             return false;
         }
         error = "";
@@ -56,11 +57,11 @@
         );
 
         if (success) {
-            toast.success("Feedback submitted successfully");
+            toast.success(m.feedbackSubmitted());
             showFeedback = false;
             message = "";
         } else {
-            toast.error("Failed to submit feedback");
+            toast.error(m.feedbackError());
         }
         loading = false;
     };
@@ -69,7 +70,7 @@
 <div
     class="flex items-center mx-auto justify-center px-6 py-1 w-fit text-sm mt-10 gap-x-4 bg-background shadow-sm rounded-full border border-border"
 >
-    <p class="text-muted-foreground">Was this helpful?</p>
+    <p class="text-muted-foreground">{m.feedbackLegend()}</p>
     <div class="flex items-center">
         <Button
             variant="ghost"
@@ -112,14 +113,16 @@
 <Dialog.Root bind:open={showFeedback}>
     <Dialog.Content>
         <Dialog.Header>
-            <Dialog.Title class="text-xl font-normal">Feedback</Dialog.Title>
+            <Dialog.Title class="text-xl font-normal"
+                >{m.feedback()}</Dialog.Title
+            >
         </Dialog.Header>
 
         <div class="space-y-4 mb-4">
             <div class="relative">
                 <Textarea
                     bind:value={message}
-                    placeholder="Enter your feedback"
+                    placeholder={m.feedbackPlaceholder()}
                     class="min-h-[100px] resize-none"
                     maxlength={maxLength}
                     oninput={validate}
@@ -130,9 +133,11 @@
                     {message.length}/{maxLength}
                 </span>
             </div>
-            {#if error}
-                <p class="text-sm text-red-500">{error}</p>
-            {/if}
+            <div class="h-6">
+                {#if error}
+                    <p class="text-sm text-red-500">{error}</p>
+                {/if}
+            </div>
         </div>
 
         <Dialog.Footer>
@@ -142,7 +147,7 @@
                 {:else}
                     <Send class="h-4 w-4 mr-1" />
                 {/if}
-                Submit
+                {m.submit()}
             </Button>
         </Dialog.Footer>
     </Dialog.Content>

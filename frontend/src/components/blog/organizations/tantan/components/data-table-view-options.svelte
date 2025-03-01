@@ -7,6 +7,7 @@
   import type { Table } from "@tanstack/table-core";
   import { buttonVariants } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+  import * as m from "@paraglide/messages.js";
 
   let { table }: { table: Table<TData> } = $props();
 </script>
@@ -20,11 +21,11 @@
     })}
   >
     <Settings2 />
-    View
+    {m.view()}
   </DropdownMenu.Trigger>
   <DropdownMenu.Content>
     <DropdownMenu.Group>
-      <DropdownMenu.GroupHeading>Columns</DropdownMenu.GroupHeading>
+      <DropdownMenu.GroupHeading>{m.columns()}</DropdownMenu.GroupHeading>
       <DropdownMenu.Separator />
       {#each table
         .getAllColumns()
@@ -33,9 +34,18 @@
           bind:checked={
             () => column.getIsVisible(), (v) => column.toggleVisibility(!!v)
           }
-          class="capitalize"
         >
-          {column.id}
+          {#if column.id === "name"}
+            {m.name()}
+          {:else if column.id === "founded"}
+            {m.founded()}
+          {:else if column.id === "industry"}
+            {m.industry()}
+          {:else if column.id === "country"}
+            {m.country()}
+          {:else}
+            {column.id}
+          {/if}
         </DropdownMenu.CheckboxItem>
       {/each}
     </DropdownMenu.Group>

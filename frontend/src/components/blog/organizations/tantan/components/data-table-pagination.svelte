@@ -10,14 +10,17 @@
   import type { Table } from "@tanstack/table-core";
   import * as Select from "$lib/components/ui/select/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
+  import * as m from "@paraglide/messages.js";
 
   let { table }: { table: Table<TData> } = $props();
+  let currentPage = $derived(table.getState().pagination.pageIndex + 1);
+  let totalPages = $derived(table.getPageCount());
 </script>
 
 
   <div class="flex space-x-6 lg:space-x-8 items-center justify-between mx-auto text-sm w-full px-3">
     <div class="md:flex items-center space-x-2 hidden">
-      <p>Rows per page</p>
+      <p>{m.rowsPerPage()}</p>
       <Select.Root
         allowDeselect={false}
         type="single"
@@ -39,8 +42,7 @@
       </Select.Root>
     </div>
     <div class="flex w-fit items-center justify-center" style="margin-left: 0px;">
-      Page {table.getState().pagination.pageIndex + 1} of
-      {table.getPageCount()}
+      {m.pageIndicator({ currentPage, totalPages })}
     </div>
     <div class="flex items-center space-x-2">
       <Button

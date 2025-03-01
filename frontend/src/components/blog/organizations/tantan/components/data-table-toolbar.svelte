@@ -8,6 +8,7 @@
   import { DataTableFacetedFilter, DataTableViewOptions } from "./index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
+    import * as m from "@paraglide/messages.js";
 
   let { table }: { table: Table<TData> } = $props();
 
@@ -17,7 +18,7 @@
 <div class="flex items-center justify-between">
   <div class="flex flex-1 items-center space-x-2">
     <Input
-      placeholder="Filter by name..."
+      placeholder={m.filterByName()}
       value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
       oninput={(e) => {
         table.getColumn("name")?.setFilterValue(e.currentTarget.value);

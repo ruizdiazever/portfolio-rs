@@ -8,30 +8,110 @@ import MsImg from "$lib/assets/images/mf.avif";
 import LinkPost from "$lib/components/common/LinkPost.astro";
 import { BerliLink, RaauLink, Ms01Link } from "$lib/common/consts";
 
+const translations = {
+    en: {
+        freedom: "Freedom",
+        freedomText:
+            "Fed up with the costs and limitations of renting a virtual server, I decided to set up my own dedicated server. To my pleasant surprise, it wasnt as complicated as I expected! thats how I got my first dedicated machine, which now hosts",
+        prerequisites: "Prerequisites",
+        prerequisitesText: "A pendrive and internet",
+        downloads: "Downloads",
+        downloadsList: "A list of files that you need download",
+        description: "Description",
+        link: "Link",
+        boot: "Booteable",
+        bootText:
+            "Now you need to use the UEFI Shell ISO and boot it to the pendrive. You need create the booteable pendrive in this scheme:",
+        bootSelection: "Boot selection",
+        partitionScheme: "Partition scheme",
+        filesystem: "Filesystem",
+        bootInstructions:
+            "Then extract the bios in the .zip and copy it to the pendrive that you boot with the UEFI Shell.",
+        update: "Update",
+        updateText: "Insert the pendrive in the",
+        updateTextEnd: "and reboot, hit",
+        updateTextEnd2:
+            "to enter the BIOS menu, select UEFI Shell or boot from the pendrive.. type and enter",
+        updateTextEnd3: "and select",
+        autoUpdate: "The update will start automatically..",
+        computers: "Computers never sleep",
+        computersText:
+            "You can find all detailed technical specifications and pricing information in MS-01. Thats all, if you have any questions you can write to me.",
+        andThisWebsite: "and this website",
+    },
+    zh: {
+        freedom: "自由",
+        freedomText:
+            "厌倦了租用虚拟服务器的成本和限制，我决定建立自己的专用服务器。让我惊喜的是，这并不像我预期的那么复杂！这就是我如何得到我的第一台专用机器，现在它托管着",
+        prerequisites: "先决条件",
+        prerequisitesText: "U盘和网络",
+        downloads: "下载",
+        downloadsList: "您需要下载的文件列表",
+        description: "描述",
+        link: "链接",
+        boot: "可启动",
+        bootText:
+            "现在您需要使用UEFI Shell ISO并将其引导到U盘。您需要按照以下方案创建可启动U盘：",
+        bootSelection: "引导选择",
+        partitionScheme: "分区方案",
+        filesystem: "文件系统",
+        bootInstructions:
+            "然后将BIOS解压缩到.zip中，并将其复制到使用UEFI Shell引导的U盘中。",
+        update: "更新",
+        updateText: "将U盘插入",
+        updateTextEnd: "并重启，按",
+        updateTextEnd2: "进入BIOS菜单，选择UEFI Shell或从U盘启动..输入并回车",
+        updateTextEnd3: "并选择",
+        autoUpdate: "更新将自动开始..",
+        computers: "计算机永不休眠",
+        computersText:
+            "您可以在MS-01中找到所有详细的技术规格和价格信息。就这样，如果您有任何问题可以写信给我。",
+        andThisWebsite: "和这个网站",
+    },
+};
+
 const downloadsTableData = [
     {
-        name: "Bios",
-        description: "Official BIOS",
+        name: "BIOS",
+        description: {
+            en: "Official BIOS",
+            zh: "官方BIOS",
+        },
         link: "https://www.minisforum.com/new/support?lang=en#/support/page/download/108",
-        linkText: "Web",
+        linkText: {
+            en: "Web",
+            zh: "网页",
+        },
     },
     {
         name: "UEFI Shell",
-        description: "ISO of UEFI Shell",
+        description: {
+            en: "ISO of UEFI Shell",
+            zh: "UEFI Shell的ISO",
+        },
         link: "https://github.com/pbatard/UEFI-Shell/releases",
         linkText: "GitHub",
     },
     {
         name: "Rufus",
-        description: "Bootable USB tool",
+        description: {
+            en: "Bootable USB tool",
+            zh: "可启动USB工具",
+        },
         link: "https://rufus.ie/en/",
-        linkText: "Web",
+        linkText: {
+            en: "Web",
+            zh: "网页",
+        },
     },
 ];
 
 const bootTableData = [
     {
-        bootSelection: "UEFI-Shell latest ISO",
+        bootSelection: {
+            en: "UEFI-Shell latest ISO",
+            zh: "UEFI-Shell最新ISO",
+        },
         partitionScheme: "GPT",
         filesystem: "FAT32",
     },
@@ -40,20 +120,23 @@ const bootTableData = [
 const ID = "aa614ca5-0940-41a1-bf80-710096df26ac";
 const post = await getPost(ID);
 if (!post) throw new Error("Post not found");
+
+const lang = languageTag();
+const t = translations[lang];
 ---
 
 <Post
     id={ID}
-    title={post.title[languageTag()]}
+    title={post.title[lang]}
     url={post.url}
-    description={post.description[languageTag()]}
+    description={post.description[lang]}
     readTime={post.readTime}
     author={post.author}
     tags={post.tags}
     date={post.date}
 >
     <h1 id="freedom" class="blog-content-title">
-        <a href="#freedom">Freedom</a>
+        <a href="#freedom">{t.freedom}</a>
     </h1>
     <Picture
         src={MsImg}
@@ -64,21 +147,18 @@ if (!post) throw new Error("Post not found");
         height={600}
     />
     <p class="blog-content-paragraph">
-        Fed up with the costs and limitations of renting a virtual server, I
-        decided to set up my own dedicated server. To my pleasant surprise, it
-        wasnt as complicated as I expected! thats how I got my first dedicated
-        machine, which now hosts <LinkPost
-            title={RaauLink.title}
-            url={RaauLink.url}
-        />, <LinkPost title={BerliLink.title} url={BerliLink.url} />, and this
-        website.
+        {t.freedomText}
+        <LinkPost title={RaauLink.title} url={RaauLink.url} />, <LinkPost
+            title={BerliLink.title}
+            url={BerliLink.url}
+        />, {t.andThisWebsite}.
     </p>
 
     <h2 id="prerequisites" class="blog-content-title">
-        <a href="#prerequisites">Prerequisites</a>
+        <a href="#prerequisites">{t.prerequisites}</a>
     </h2>
     <p class="blog-content-paragraph flex gap-2">
-        A pendrive and internet
+        {t.prerequisitesText}
         <Icon
             width="1em"
             height="1em"
@@ -88,9 +168,9 @@ if (!post) throw new Error("Post not found");
     </p>
 
     <h2 id="downloads" class="blog-content-title">
-        <a href="#downloads">Downloads</a>
+        <a href="#downloads">{t.downloads}</a>
     </h2>
-    <p class="blog-content-paragraph">A list of files that you need download</p>
+    <p class="blog-content-paragraph">{t.downloadsList}</p>
     <div
         class="blog-content-paragraph overflow-x-auto rounded-lg border border-border"
     >
@@ -105,11 +185,11 @@ if (!post) throw new Error("Post not found");
                     >
                     <th
                         class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
-                        >Description</th
+                        >{t.description}</th
                     >
                     <th
                         class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
-                        >Link</th
+                        >{t.link}</th
                     >
                 </tr>
             </thead>
@@ -122,11 +202,15 @@ if (!post) throw new Error("Post not found");
                                 {item.name}
                             </td>
                             <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
-                                {item.description}
+                                {item.description[lang]}
                             </td>
                             <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 <LinkPost
-                                    title={item.linkText}
+                                    title={
+                                        typeof item.linkText === "string"
+                                            ? item.linkText
+                                            : item.linkText[lang]
+                                    }
                                     url={item.link}
                                 />
                             </td>
@@ -138,11 +222,10 @@ if (!post) throw new Error("Post not found");
     </div>
 
     <h2 id="boot" class="blog-content-title">
-        <a href="#boot">Booteable</a>
+        <a href="#boot">{t.boot}</a>
     </h2>
     <p class="blog-content-paragraph">
-        Now you need to use the UEFI Shell ISO and boot it to the pendrive. You
-        need create the booteable pendrive in this scheme:
+        {t.bootText}
     </p>
     <div class="overflow-x-auto rounded-lg border border-border">
         <table
@@ -153,17 +236,17 @@ if (!post) throw new Error("Post not found");
                     <th
                         class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                     >
-                        Boot selection
+                        {t.bootSelection}
                     </th>
                     <th
                         class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                     >
-                        Partition scheme
+                        {t.partitionScheme}
                     </th>
                     <th
                         class="whitespace-nowrap md:px-4 px-2 py-2 font-medium text-secondary-foreground"
                     >
-                        Filesystem
+                        {t.filesystem}
                     </th>
                 </tr>
             </thead>
@@ -173,7 +256,7 @@ if (!post) throw new Error("Post not found");
                     bootTableData.map((item) => (
                         <tr>
                             <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
-                                {item.bootSelection}
+                                {item.bootSelection[lang]}
                             </td>
                             <td class="whitespace-nowrap md:px-4 px-2 py-2 text-secondary-foreground">
                                 {item.partitionScheme}
@@ -188,24 +271,25 @@ if (!post) throw new Error("Post not found");
         </table>
     </div>
     <p class="blog-content-paragraph">
-        Then extract the bios in the .zip and copy it to the pendrive that you
-        boot with the UEFI Shell.
+        {t.bootInstructions}
     </p>
 
     <h2 id="update" class="blog-content-title">
-        <a href="#update">Update</a>
+        <a href="#update">{t.update}</a>
     </h2>
 
     <p class="blog-content-paragraph">
-        Insert the pendrive in the <LinkPost
-            title={Ms01Link.title}
-            url={Ms01Link.url}
-        /> and reboot, hit <code>DEL</code> to enter the BIOS menu, select UEFI Shell
-        or boot from the pendrive.. type and enter
-        <code>FS0:</code> and select <code>AfuEfiFlash.nsh</code>
+        {t.updateText}
+        <LinkPost title={Ms01Link.title} url={Ms01Link.url} />
+        {t.updateTextEnd}
+        <code>DEL</code>
+        {t.updateTextEnd2}
+        <code>FS0:</code>
+        {t.updateTextEnd3}
+        <code>AfuEfiFlash.nsh</code>
     </p>
     <p class="blog-content-paragraph flex gap-2">
-        The update will start automatically..
+        {t.autoUpdate}
         <Icon
             width="1em"
             height="1em"
@@ -215,11 +299,9 @@ if (!post) throw new Error("Post not found");
     </p>
 
     <h2 id="computers" class="blog-content-title">
-        <a href="#computers">Computers never sleep</a>
+        <a href="#computers">{t.computers}</a>
     </h2>
     <p class="blog-content-paragraph">
-        You can find all detailed technical specifications and pricing
-        information in MS-01. Thats all, if you have any questions you can write
-        to me.
+        {t.computersText}
     </p>
 </Post>

@@ -8,6 +8,7 @@ import MaxiAvatar from "$lib/assets/images/punk.avif";
 import Feedback from "$lib/components/common/feedback.svelte";
 import { postVisitRequest } from "$lib/common/postView.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
+import * as m from "@paraglide/messages.js";
 
 interface Props {
     id: string;
@@ -49,7 +50,9 @@ let views = await getVisitRequest(id);
                 title="Back"
                 size="1rem"
             />
-            <p class="text-sm text-foreground dark:text-foreground">Back</p>
+            <p class="text-sm text-foreground dark:text-foreground">
+                {m.back()}
+            </p>
         </a>
     </div>
     <article class="text-card-foreground">
@@ -89,7 +92,7 @@ let views = await getVisitRequest(id);
                     title={tags.join(", ")}
                 >
                     <Icon name="tag" title="Tags" size="0.8rem" />
-                    <code>{tags.length} Tags</code>
+                    <code>{tags.length} {m.tags()}</code>
                 </section>
                 <section class="flex items-center justify-center">
                     <code
@@ -102,7 +105,7 @@ let views = await getVisitRequest(id);
                         >
                             {views}
                         </span>
-                        views
+                        {m.views()}
                     </code>
                 </section>
             </div>

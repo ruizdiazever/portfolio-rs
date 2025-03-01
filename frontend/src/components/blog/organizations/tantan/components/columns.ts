@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/table-core";
 import type { Organization } from "../data/data.ts";
 import { DataTableColumnHeader, DataTableNameCell } from "./index.js";
 import { renderComponent } from "$lib/components/ui/data-table/index.js";
+import * as m from "@paraglide/messages.js";
 
 export const columns: ColumnDef<Organization>[] = [
   {
@@ -9,7 +10,7 @@ export const columns: ColumnDef<Organization>[] = [
     header: ({ column }) =>
       renderComponent(DataTableColumnHeader<Organization, unknown>, {
         column,
-        title: "Name",
+        title: m.name(),
       }),
     cell: ({ row }) => {
       let labelValue = row.original.sponsor;
@@ -27,7 +28,7 @@ export const columns: ColumnDef<Organization>[] = [
     header: ({ column }) =>
       renderComponent(DataTableColumnHeader<Organization, unknown>, {
         column,
-        title: "Founded",
+        title: m.founded(),
       }),
     cell: ({ row }) => {
       return renderComponent(DataTableNameCell, {
@@ -41,7 +42,7 @@ export const columns: ColumnDef<Organization>[] = [
     header: ({ column }) =>
       renderComponent(DataTableColumnHeader<Organization, unknown>, {
         column,
-        title: "Industry",
+        title: m.industry(),
       }),
     cell: ({ row }) => {
       return renderComponent(DataTableNameCell, {
@@ -55,7 +56,7 @@ export const columns: ColumnDef<Organization>[] = [
     header: ({ column }) =>
       renderComponent(DataTableColumnHeader<Organization, unknown>, {
         column,
-        title: "Country",
+        title: m.country(),
       }),
     cell: ({ row }) => {
       return renderComponent(DataTableNameCell, {

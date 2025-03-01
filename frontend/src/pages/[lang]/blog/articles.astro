@@ -5,6 +5,7 @@ import { getPosts } from "$lib/common/getPosts.ts";
 import { languageTag } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
 import { getVisitRequest } from "$lib/common/getViews.ts";
+import * as m from "@paraglide/messages.js";
 
 const posts = await getPosts();
 const postViews = await Promise.all(
@@ -14,8 +15,10 @@ const postViews = await Promise.all(
 
 <Layout title="Ever Ruiz Diaz">
     <div class="h-screen mt-20">
-        <h1 class="text-5xl font-bold">Articles</h1>
-        <p class="blog-content-paragraph mb-10">All articles of the blog.</p>
+        <h1 class="text-5xl font-bold">{m.articles()}</h1>
+        <p class="blog-content-paragraph mb-10 max-w-[400px]">
+            {m.articlesDescription()}
+        </p>
         <Divider />
         {
             posts
