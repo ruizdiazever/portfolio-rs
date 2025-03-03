@@ -109,7 +109,7 @@ export default defineConfig({
       }),
       GITHUB_TOKEN: envField.string({
         context: "server",
-        access: "public",
+        access: "secret",
         optional: false,
       }),
     },

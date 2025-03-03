@@ -17,7 +17,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/svelte": "^7.0.5",
     "@astrojs/tailwind": "^5.1.5",
-    "@fontsource-variable/eb-garamond": "^5.2.0",
+    "@fontsource-variable/eb-garamond": "^5.2.5",
     "@inlang/paraglide-astro": "^0.3.5",
     "@number-flow/svelte": "^0.3.3",
     "@tanstack/table-core": "^8.21.2",
@@ -29,7 +29,7 @@
     "reading-time": "^1.5.0",
     "rehype-class-names": "^2.0.0",
     "sharp": "^0.33.5",
-    "svelte": "^5.20.5",
+    "svelte": "^5.21.0",
     "typescript": "^5.8.2",
     "zod": "^3.24.2"
   },

@@ -35,10 +35,6 @@ try {
     });
 
     const { data } = await response.json();
-    console.log(
-        data.user.contributionsCollection.contributionCalendar
-            .totalContributions,
-    );
     weeks = data.user.contributionsCollection.contributionCalendar.weeks;
     totalContributions =
         data.user.contributionsCollection.contributionCalendar
