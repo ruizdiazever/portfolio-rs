@@ -3,6 +3,7 @@ import Hero from "./Hero.astro";
 import Blog from "./cards/Blog.astro";
 import Experience from "./cards/Experience.astro";
 import Project from "./cards/Project.astro";
+import Contributions from "./contributions/Main.astro";
 import { Icon } from "astro-icon/components";
 import { getPosts } from "$lib/common/getPosts";
 import { getEntriesFromJson } from "$lib/common/getExperience.ts";
@@ -22,6 +23,7 @@ const postViews = await Promise.all(
 ---
 
 <Hero />
+<Contributions />
 
 <main class="space-y-16 mt-16">
     <section>

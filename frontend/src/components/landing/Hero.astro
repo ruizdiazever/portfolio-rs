@@ -1,15 +1,23 @@
 ---
 import * as m from "@paraglide/messages.js";
+import { Picture } from "astro:assets";
+import AvatarImg from "$lib/assets/images/avatar.jpeg";
 ---
 
-<p class="hero text-secondary-foreground md:text-lg text-md text-left mt-8">
-    {m.meTitle()}
-    <br />
-    {m.meDescription()}
-</p>
-
-<style>
-    .hero {
-        max-width: 60ch;
-    }
-</style>
+<div class="flex justify-between items-center gap-5">
+    <div
+        class="relative flex size-24 shrink-0 overflow-hidden rounded-full border mt-6"
+    >
+        <Picture
+            src={AvatarImg}
+            alt="Avatar"
+            class="aspect-square size-full dark:bg-black"
+            formats={["avif", "webp"]}
+        />
+    </div>
+    <p class="hero text-secondary-foreground md:text-lg text-md text-left mt-8">
+        {m.meTitle()}
+        <br />
+        {m.meDescription()}
+    </p>
+</div>
