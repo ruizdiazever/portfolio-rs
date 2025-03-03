@@ -7,7 +7,7 @@ services:
     init: true
     restart: unless-stopped
     env_file:
-      - path: ./.env
+      - path: ./frontend/.env
         required: true
     depends_on:
       - api

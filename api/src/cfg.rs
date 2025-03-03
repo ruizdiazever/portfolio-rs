@@ -4,15 +4,16 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize, Clone)]
 pub struct ConfigPortfolio {
     pub production: bool,
+    pub rust_log: String,
     pub api_version: String,
     pub api_server_url: String,
-    pub rust_log: String,
-    pub redis_url: String,
     pub email: String,
+    pub logo: String,
+    pub redis_url: String,
+    pub redis_password: String,
     pub smtp_username: String,
     pub smtp_password: String,
     pub ipinfo_token: String,
-    pub logo: String,
 }
 
 impl ConfigPortfolio {
