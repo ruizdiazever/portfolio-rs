@@ -42,20 +42,29 @@ const postViews = await Promise.all(
                 posts
                     .filter((post) => post.active)
                     .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0))
-                    .map((post, index, filteredPosts) => (
-                        <>
-                            <Blog
-                                title={post.title[languageTag()]}
-                                pinned={post.pinned}
-                                url={`/${languageTag()}${post.url}`}
-                                description={post.description[languageTag()]}
-                                views={postViews[index]}
-                                tags={post.tags}
-                                date={post.date}
-                            />
-                            {index < filteredPosts.length - 1 && <Divider />}
-                        </>
-                    ))
+                    .map((post, index, filteredPosts) => {
+                        const postView = postViews.find(
+                            (view) => view.projectId === post.id,
+                        );
+                        return (
+                            <>
+                                <Blog
+                                    title={post.title[languageTag()]}
+                                    pinned={post.pinned}
+                                    url={`/${languageTag()}${post.url}`}
+                                    description={
+                                        post.description[languageTag()]
+                                    }
+                                    views={postView?.visits || 0}
+                                    tags={post.tags}
+                                    date={post.date}
+                                />
+                                {index < filteredPosts.length - 1 && (
+                                    <Divider />
+                                )}
+                            </>
+                        );
+                    })
             }
         </div>
     </section>
