@@ -17,6 +17,7 @@ interface Props {
     isHomePage?: boolean;
     showHeader?: boolean;
     showFooter?: boolean;
+    maxWithMd?: boolean;
 }
 const {
     title,
@@ -26,6 +27,7 @@ const {
     image,
     showHeader = true,
     showFooter = true,
+    maxWithMd = true,
 } = Astro.props;
 ---
 
@@ -73,7 +75,7 @@ const {
         <Toast client:idle />
         {showHeader && <Header />}
         <main
-            class="flex flex-col px-4 sm:px-6 lg:px-8 overflow-x-clip flex-1 justify-center mx-auto gap-4 max-w-screen-md antialiased"
+            class={`flex flex-col px-4 sm:px-6 lg:px-8 overflow-x-clip flex-1 justify-center mx-auto gap-4 antialiased ${maxWithMd ? "max-w-screen-md" : ""}`}
         >
             <slot />
         </main>

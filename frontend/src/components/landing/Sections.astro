@@ -1,0 +1,27 @@
+---
+import { Icon } from "astro-icon/components";
+import { urls } from "$lib/common/urls";
+---
+
+<div class="grid grid-cols-2 gap-3">
+    {
+        [
+            { href: urls.about, text: "About" },
+            { href: urls.cv, text: "CV" },
+            { href: urls.contact, text: "Contact" },
+            { href: urls.books, text: "Books" },
+        ].map((link) => (
+            <a
+                class="flex items-center justify-between px-3 py-2 text-md border rounded-lg shadow"
+                href={link.href}
+            >
+                {link.text}
+                <Icon
+                    name="arrow-right"
+                    title="Link"
+                    class="duration-200 group-hover:translate-x-[1.5px] w-4 h-4"
+                />
+            </a>
+        ))
+    }
+</div>

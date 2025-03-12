@@ -4,13 +4,15 @@ import Blog from "./cards/Blog.astro";
 import Experience from "./cards/Experience.astro";
 import Project from "./cards/Project.astro";
 import Contributions from "./contributions/Main.astro";
+import Sections from "./Sections.astro";
 import { Icon } from "astro-icon/components";
 import { getPosts } from "$lib/common/getPosts";
 import { getEntriesFromJson } from "$lib/common/getExperience.ts";
 import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
-import { languageTag } from "@paraglide/runtime";
+import { urls } from "$lib/common/urls";
 import * as m from "@paraglide/messages.js";
+import { languageTag } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
 
 const posts = await getPosts();
@@ -24,6 +26,7 @@ const postViews = await Promise.all(
 
 <Hero transition:name="hero" />
 <Contributions transition:name="contributions" />
+<Sections />
 
 <main class="space-y-16 mt-16" transition:name="main">
     <section transition:name="blog-section">
@@ -35,7 +38,7 @@ const postViews = await Promise.all(
                 {m.blog()}
             </h1>
             <a
-                href={`${languageTag()}/blog/articles`}
+                href={urls.articles}
                 class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
                 transition:name="blog-more-link"
             >
@@ -77,13 +80,13 @@ const postViews = await Promise.all(
         </div>
     </section>
 
-    <section transition:name="projects-section">
-        <h1 class="text-5xl font-bold mb-6" transition:name="projects-title">
-            {m.projects()}
+    <section transition:name="sof-section">
+        <h1 class="text-5xl font-bold mb-6" transition:name="sof-title">
+            {m.software()}
         </h1>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 gap-6"
-            transition:name="projects-grid"
+            transition:name="software-grid"
         >
             {
                 projects.map((entry) => (

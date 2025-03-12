@@ -1,0 +1,185 @@
+---
+import { books } from "./data";
+import { type Book } from "./data";
+import { Picture } from "astro:assets";
+---
+
+<div class="mx-auto px-4 py-8 space-y-6 max-w-screen-lg">
+    <h1
+        class="text-4xl text-center font-extrabold tracking-tight sm:text-5xl md:text-6xl"
+    >
+        <span class="block">Books</span>
+    </h1>
+
+    <div class="flex justify-center space-x-4 mb-8">
+        <button
+            class="px-4 py-2 rounded-lg text-sm"
+            data-filter="all"
+            aria-pressed="false">All</button
+        >
+        <button
+            class="px-4 py-2 rounded-lg text-sm"
+            data-filter="technical"
+            aria-pressed="true">Technical</button
+        >
+        <button
+            class="px-4 py-2 rounded-lg text-sm"
+            data-filter="paper"
+            aria-pressed="false">Papers</button
+        >
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg gap-6">
+        {
+            books.map((book: Book) => (
+                <div
+                    class="book-card group rounded-lg shadow-lg overflow-hidden transform transition-all
+                duration-300 ease-in-out hover:scale-[1.02] border cursor-pointer relative
+                min-h-[400px] hover:z-10 hover:shadow-xl"
+                    transition:name={`book-card-${book.id}`}
+                    role="button"
+                    tabindex="0"
+                    data-technical={book.technical}
+                    data-paper={book.paper}
+                >
+                    <div class="content group-hover:opacity-0 transition-opacity duration-300 h-full flex flex-col">
+                        <div class="relative aspect-[3/4] overflow-hidden">
+                            <Picture
+                                src={book.image}
+                                formats={["avif", "webp"]}
+                                alt={book.title}
+                                class="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-95 p-4"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent" />
+                        </div>
+
+                        <div class="p-4 flex-1 flex flex-col">
+                            <h2 class="text-md font-bold mb-2 line-clamp-2">
+                                {book.title}
+                            </h2>
+                            <p class="text-sm mb-4 text-gray-600 dark:text-gray-400 line-clamp-1">
+                                by {book.author}
+                            </p>
+                            <div class="mt-auto flex gap-2 flex-wrap">
+                                <span class="px-2 py-1 text-xs bg-secondary rounded-full">
+                                    {book.publishedYear}
+                                </span>
+                                <span class="px-2 py-1 text-xs bg-secondary rounded-full">
+                                    {book.technical
+                                        ? "Technical"
+                                        : "Non-technical"}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="details opacity-0 group-hover:opacity-100 absolute inset-0 transition-opacity duration-300
+                        overflow-y-auto pointer-events-none group-hover:pointer-events-auto flex flex-col"
+                    >
+                        <div class="p-6 flex-1">
+                            <h2 class="text-md font-bold mb-3">{book.title}</h2>
+                            <p class="text-sm mb-4">by {book.author}</p>
+                            <p class="text-sm mb-6">{book.description}</p>
+                        </div>
+
+                        <div class="mt-auto p-4 border-t">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-sm font-bold">Published</p>
+                                    <p class="text-sm">{book.publishedYear}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold">Type</p>
+                                    <p class="text-sm">
+                                        {book.technical
+                                            ? "Technical"
+                                            : "Non-technical"}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold">Format</p>
+                                    <p class="text-sm">
+                                        {book.paper ? "Paper" : "Digital"}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold">Genre</p>
+                                    <p class="text-sm">{book.genre}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+
+    <script>
+        type FilterType = "all" | "technical" | "paper";
+
+        const buttons =
+            document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+        const books = document.querySelectorAll<HTMLElement>(".book-card");
+
+        // Initialize with technical filter
+        books.forEach((book) => {
+            if (book instanceof HTMLElement) {
+                book.classList.toggle(
+                    "hidden",
+                    book.getAttribute("data-technical") !== "true",
+                );
+            }
+        });
+
+        buttons.forEach((button) => {
+            if (button.dataset.filter === "technical") {
+                button.setAttribute("aria-pressed", "true");
+                button.classList.add(
+                    "bg-primary",
+                    "dark:text-black",
+                    "text-white",
+                );
+            }
+
+            button.addEventListener("click", () => {
+                const filter = button.getAttribute("data-filter") as FilterType;
+
+                // Update button states
+                buttons.forEach((btn) => {
+                    btn.setAttribute("aria-pressed", "false");
+                    btn.classList.remove(
+                        "bg-primary",
+                        "dark:text-black",
+                        "text-white",
+                    );
+                });
+                button.setAttribute("aria-pressed", "true");
+                button.classList.add(
+                    "bg-primary",
+                    "dark:text-black",
+                    "text-white",
+                );
+
+                // Filter books
+                books.forEach((book) => {
+                    if (book instanceof HTMLElement) {
+                        if (filter === "all") {
+                            book.classList.remove("hidden");
+                        } else if (filter === "technical") {
+                            book.classList.toggle(
+                                "hidden",
+                                book.getAttribute("data-technical") !== "true",
+                            );
+                        } else if (filter === "paper") {
+                            book.classList.toggle(
+                                "hidden",
+                                book.getAttribute("data-paper") !== "true",
+                            );
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</div>

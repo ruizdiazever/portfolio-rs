@@ -1,0 +1,45 @@
+---
+import { Picture } from "astro:assets";
+import AboutImg from "$lib/assets/images/about.avif";
+---
+
+<div class="min-h-screen">
+    <div class="mx-auto py-16">
+        <div class="text-left space-y-6">
+            <h1
+                class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl transition-all"
+            >
+                <span class="block">About</span>
+            </h1>
+
+            <div
+                class="mt-3 text-base text-foreground text-lg transition-colors space-y-6"
+            >
+                <p>
+                    I’m a passionate digital creator who lives and breathes
+                    innovation. Every project is my playground where art meets
+                    technology—transforming bold ideas into dynamic digital
+                    experiences.
+                </p>
+                <p>
+                    I thrive on the thrill of solving challenges and pushing
+                    creative boundaries, continuously evolving my skills to turn
+                    visions into reality.
+                </p>
+                <p>
+                    With a flair for detail and a relentless drive for
+                    excellence, I embrace every opportunity to reinvent the
+                    digital landscape. Join me on this exhilarating journey as I
+                    craft engaging, cutting-edge experiences that inspire and
+                    captivate.
+                </p>
+            </div>
+            <Picture
+                class="rounded-xl mt-6"
+                src={AboutImg}
+                formats={["avif", "webp"]}
+                alt="A description of my image."
+            />
+        </div>
+    </div>
+</div>
