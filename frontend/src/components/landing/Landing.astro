@@ -12,6 +12,7 @@ import { getVisitRequest } from "$lib/common/getViews.ts";
 import { languageTag } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import Divider from "$lib/components/common/Divider.astro";
+import { fade } from "astro:transitions";
 
 const posts = await getPosts();
 const entries = await getEntriesFromJson();
@@ -28,16 +29,19 @@ const postViews = await Promise.all(
 <main class="space-y-16 mt-16">
     <section>
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-5xl font-bold">{m.blog()}</h1>
+            <h1 class="text-5xl font-bold" transition:name="blog-title">
+                {m.blog()}
+            </h1>
             <a
                 href={`${languageTag()}/blog/articles`}
                 class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
+                transition:animate="slide"
             >
                 {m.more()}
                 <Icon name="arrow-right" title="LinkedIn" size="0.8rem" />
             </a>
         </div>
-        <div class="space-y-6">
+        <div class="space-y-6" transition:animate={fade({ duration: "0.4s" })}>
             {
                 posts
                     .filter((post) => post.active)
@@ -70,8 +74,13 @@ const postViews = await Promise.all(
     </section>
 
     <section>
-        <h1 class="text-5xl font-bold mb-6">{m.projects()}</h1>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <h1 class="text-5xl font-bold mb-6" transition:name="projects-title">
+            {m.projects()}
+        </h1>
+        <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-6"
+            transition:animate={fade({ duration: "0.4s" })}
+        >
             {
                 projects.map((entry) => (
                     <Project
@@ -87,9 +96,12 @@ const postViews = await Promise.all(
     </section>
 
     <section>
-        <h1 class="text-5xl font-bold mb-6">{m.experience()}</h1>
+        <h1 class="text-5xl font-bold mb-6" transition:name="experience-title">
+            {m.experience()}
+        </h1>
         <div
             class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
+            transition:animate={fade({ duration: "0.4s" })}
         >
             {
                 entries.map((entry) => (

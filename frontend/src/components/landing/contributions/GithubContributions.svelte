@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import { fade, fly } from "svelte/transition";
     import type { Week } from "./types";
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
     import dayjs from "dayjs";
@@ -22,6 +23,7 @@
     dayjs.locale(languageTag() === "zh" ? "zh" : "en");
 
     let monthLabels: { month: string; offset: number }[] = $state([]);
+    let visible = $state(false);
 
     const formatDate = (dateString: string) => {
         return dayjs(dateString).format(languageTag() === "zh" ? "M月D日" : "MMM Do");
@@ -43,11 +45,12 @@
 
     onMount(() => {
         monthLabels = calculateMonths();
+        visible = true;
     });
 </script>
 
-<div class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 overflow-x-auto">
-    <div class="flex justify-between items-center mb-4">
+<div class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 overflow-x-auto h-[220px]" transition:fade={{duration: 300}}>
+    <div class="flex justify-between items-center mb-4" transition:fly={{y: 20, duration: 400}}>
         <div class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center sm:text-left">
             {totalContributions} {languageTag() === "zh" ? "个贡献在过去一年" : "contributions in the last year"}
         </div>
@@ -61,7 +64,8 @@
         </a>
     </div>
 
-    <div class="relative">
+    {#if visible}
+    <div class="relative" transition:fade={{duration: 500}}>
         <Tooltip.Provider>
             <div
                 class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
@@ -106,4 +110,5 @@
             {/each}
         </div>
     </div>
+    {/if}
 </div>

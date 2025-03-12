@@ -79,6 +79,68 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    a {
+        @apply transition hover:opacity-75;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+@media (prefer-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+video,
+svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+body {
+    margin: 0 !important;
+    min-height: 100dvh !important;
+    background-attachment: fixed;
+    background-size: 100vw 100vh;
+}
+
+:root {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+pre {
+    font-size: 16px;
+    font-family: var(--font-mono);
+    border-radius: 3px;
+    text-align: center;
+    padding: 0.5em;
+    overflow-x: auto;
+    color: grey;
 }
 
 .blog {
