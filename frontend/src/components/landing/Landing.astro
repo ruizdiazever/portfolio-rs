@@ -12,7 +12,6 @@ import { getVisitRequest } from "$lib/common/getViews.ts";
 import { languageTag } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import Divider from "$lib/components/common/Divider.astro";
-import { fade } from "astro:transitions";
 
 const posts = await getPosts();
 const entries = await getEntriesFromJson();
@@ -23,25 +22,28 @@ const postViews = await Promise.all(
 );
 ---
 
-<Hero />
-<Contributions />
+<Hero transition:name="hero" />
+<Contributions transition:name="contributions" />
 
-<main class="space-y-16 mt-16">
-    <section>
-        <div class="flex justify-between items-center mb-6">
+<main class="space-y-16 mt-16" transition:name="main">
+    <section transition:name="blog-section">
+        <div
+            class="flex justify-between items-center mb-6"
+            transition:name="blog-header"
+        >
             <h1 class="text-5xl font-bold" transition:name="blog-title">
                 {m.blog()}
             </h1>
             <a
                 href={`${languageTag()}/blog/articles`}
                 class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
-                transition:animate={fade({ duration: "0.4s" })}
+                transition:name="blog-more-link"
             >
                 {m.more()}
                 <Icon name="arrow-right" title="LinkedIn" size="0.8rem" />
             </a>
         </div>
-        <div class="space-y-6" transition:animate={fade({ duration: "0.4s" })}>
+        <div class="space-y-6" transition:name="blog-posts">
             {
                 posts
                     .filter((post) => post.active)
@@ -51,7 +53,7 @@ const postViews = await Promise.all(
                             (view) => view.projectId === post.id,
                         );
                         return (
-                            <>
+                            <div transition:name={`blog-post-${post.id}`}>
                                 <Blog
                                     title={post.title[languageTag()]}
                                     pinned={post.pinned}
@@ -64,56 +66,62 @@ const postViews = await Promise.all(
                                     date={post.date}
                                 />
                                 {index < filteredPosts.length - 1 && (
-                                    <Divider />
+                                    <Divider
+                                        transition:name={`blog-divider-${index}`}
+                                    />
                                 )}
-                            </>
+                            </div>
                         );
                     })
             }
         </div>
     </section>
 
-    <section>
+    <section transition:name="projects-section">
         <h1 class="text-5xl font-bold mb-6" transition:name="projects-title">
             {m.projects()}
         </h1>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 gap-6"
-            transition:animate={fade({ duration: "0.4s" })}
+            transition:name="projects-grid"
         >
             {
                 projects.map((entry) => (
-                    <Project
-                        url={`/${languageTag()}${entry.url}`}
-                        title={entry.title}
-                        repository={entry.repository}
-                        description={entry.description[languageTag()]}
-                        tech={entry.tech}
-                    />
+                    <div transition:name={`project-${entry.title}`}>
+                        <Project
+                            url={`/${languageTag()}${entry.url}`}
+                            title={entry.title}
+                            repository={entry.repository}
+                            description={entry.description[languageTag()]}
+                            tech={entry.tech}
+                        />
+                    </div>
                 ))
             }
         </div>
     </section>
 
-    <section>
+    <section transition:name="experience-section">
         <h1 class="text-5xl font-bold mb-6" transition:name="experience-title">
             {m.experience()}
         </h1>
         <div
             class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
-            transition:animate={fade({ duration: "0.4s" })}
+            transition:name="experience-grid"
         >
             {
                 entries.map((entry) => (
-                    <Experience
-                        startDate={entry.startDate}
-                        endDate={entry.endDate}
-                        current={entry.current}
-                        position={entry.position[languageTag()]}
-                        company={entry.company}
-                        url={entry.url}
-                        description={entry.description[languageTag()]}
-                    />
+                    <div transition:name={`experience-${entry.company}`}>
+                        <Experience
+                            startDate={entry.startDate}
+                            endDate={entry.endDate}
+                            current={entry.current}
+                            position={entry.position[languageTag()]}
+                            company={entry.company}
+                            url={entry.url}
+                            description={entry.description[languageTag()]}
+                        />
+                    </div>
                 ))
             }
         </div>

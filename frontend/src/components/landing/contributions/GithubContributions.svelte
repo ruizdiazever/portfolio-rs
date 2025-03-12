@@ -49,7 +49,7 @@
     });
 </script>
 
-<div class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 overflow-x-auto h-[220px]" transition:fade={{duration: 300}}>
+<div class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 overflow-x-auto h-[170px] md:h-[220px]" transition:fade={{duration: 300}}>
     <div class="flex justify-between items-center mb-4" transition:fly={{y: 20, duration: 400}}>
         <div class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center sm:text-left">
             {totalContributions} {languageTag() === "zh" ? "个贡献在过去一年" : "contributions in the last year"}
