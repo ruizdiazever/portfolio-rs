@@ -27,6 +27,11 @@ import { Picture } from "astro:assets";
             data-filter="paper"
             aria-pressed="false">Papers</button
         >
+        <button
+            class="px-4 py-2 rounded-lg text-sm"
+            data-filter="comic"
+            aria-pressed="false">Comics</button
+        >
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg gap-6">
@@ -35,22 +40,27 @@ import { Picture } from "astro:assets";
                 <div
                     class="book-card group rounded-lg shadow-lg overflow-hidden transform transition-all
                 duration-300 ease-in-out hover:scale-[1.02] border cursor-pointer relative
-                min-h-[400px] hover:z-10 hover:shadow-xl"
-                    transition:name={`book-card-${book.id}`}
+                min-h-[400px] hover:z-10 hover:shadow-xl w-full"
+                    transition:name={`book-card-${book.title}`}
                     role="button"
                     tabindex="0"
                     data-technical={book.technical}
                     data-paper={book.paper}
+                    data-comic={book.comic}
                 >
                     <div class="content group-hover:opacity-0 transition-opacity duration-300 h-full flex flex-col">
-                        <div class="relative aspect-[3/4] overflow-hidden">
+                        <div class="relative aspect-[3/4] overflow-hidden w-full">
                             <Picture
                                 src={book.image}
                                 formats={["avif", "webp"]}
                                 alt={book.title}
                                 class="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-95 p-4"
+                                width={300}
+                                height={400}
+                                loading="eager"
+                                decoding="sync"
                             />
-                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-600/20 to-transparent" />
                         </div>
 
                         <div class="p-4 flex-1 flex flex-col">
@@ -116,7 +126,7 @@ import { Picture } from "astro:assets";
     </div>
 
     <script>
-        type FilterType = "all" | "technical" | "paper";
+        type FilterType = "all" | "technical" | "paper" | "comic";
 
         const buttons =
             document.querySelectorAll<HTMLButtonElement>("[data-filter]");
@@ -175,6 +185,11 @@ import { Picture } from "astro:assets";
                             book.classList.toggle(
                                 "hidden",
                                 book.getAttribute("data-paper") !== "true",
+                            );
+                        } else if (filter === "comic") {
+                            book.classList.toggle(
+                                "hidden",
+                                book.getAttribute("data-comic") !== "true",
                             );
                         }
                     }
