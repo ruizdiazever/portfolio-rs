@@ -40,10 +40,6 @@ export default defineConfig({
     defaultStrategy: "hover",
     prefetchAll: true,
   },
-  experimental: {
-    svg: true,
-    clientPrerender: true,
-  },
   adapter: node({
     mode: "standalone",
   }),
