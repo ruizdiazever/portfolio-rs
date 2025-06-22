@@ -1,5 +1,5 @@
 ---
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import { ClientRouter } from "astro:transitions";
 import Footer from "$lib/components/common/Footer.astro";
 import Header from "$lib/components/common/Header.astro";
@@ -32,7 +32,7 @@ const {
 ---
 
 <!doctype html>
-<html lang={languageTag()} dir={Astro.locals.paraglide.dir}>
+<html lang={getLocale()}>
     <head>
         <script is:inline>
             function applyTheme() {

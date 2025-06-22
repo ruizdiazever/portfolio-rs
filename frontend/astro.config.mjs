@@ -3,10 +3,10 @@ import svelte from "@astrojs/svelte";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, envField } from "astro/config";
 import { seoConfig } from "./src/common/seoConfig";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
 import mdx from "@astrojs/mdx";
-import paraglide from "@inlang/paraglide-astro";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import icon from "astro-icon";
 import playformCompress from "@playform/compress";
 import rehypeClassNames from "rehype-class-names";
@@ -40,6 +40,28 @@ export default defineConfig({
     defaultStrategy: "hover",
     prefetchAll: true,
   },
+  vite: {
+    plugins: [
+      tailwindcss({
+        applyBaseStyles: false,
+      }),
+      paraglideVitePlugin({
+        project: "./project.inlang",
+        outdir: "./src/paraglide",
+        strategy: ["url", "cookie", "preferredLanguage", "baseLocale"],
+        urlPatterns: [
+          {
+            pattern: "/:path(.*)?",
+            localized: [
+              ["en", "/en/:path(.*)?"],
+              ["da", "/da/:path(.*)?"],
+              ["it", "/it/:path(.*)?"],
+            ],
+          },
+        ],
+      }),
+    ],
+  },
   adapter: node({
     mode: "standalone",
   }),
@@ -65,11 +87,6 @@ export default defineConfig({
       },
     }),
     mdx(),
-    tailwind({ applyBaseStyles: false }),
-    paraglide({
-      project: "./project.inlang",
-      outdir: "./src/paraglide",
-    }),
     icon(),
     playformCompress({
       CSS: true,

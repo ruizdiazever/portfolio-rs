@@ -2,7 +2,7 @@
 import Post from "$lib/components/common/Post.astro";
 import { getPost } from "$lib/common/getPostById";
 import { Icon } from "astro-icon/components";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import { Picture } from "astro:assets";
 import MsImg from "$lib/assets/images/mf.avif";
 import LinkPost from "$lib/components/common/LinkPost.astro";
@@ -121,7 +121,7 @@ const ID = "aa614ca5-0940-41a1-bf80-710096df26ac";
 const post = await getPost(ID);
 if (!post) throw new Error("Post not found");
 
-const lang = languageTag();
+const lang = getLocale();
 const t = translations[lang];
 ---
 

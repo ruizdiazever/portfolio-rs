@@ -12,7 +12,7 @@ import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 import { urls } from "$lib/common/urls";
 import * as m from "@paraglide/messages.js";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
 
 const posts = await getPosts();
@@ -58,12 +58,10 @@ const postViews = await Promise.all(
                         return (
                             <div transition:name={`blog-post-${post.id}`}>
                                 <Blog
-                                    title={post.title[languageTag()]}
+                                    title={post.title[getLocale()]}
                                     pinned={post.pinned}
-                                    url={`/${languageTag()}${post.url}`}
-                                    description={
-                                        post.description[languageTag()]
-                                    }
+                                    url={`/${getLocale()}${post.url}`}
+                                    description={post.description[getLocale()]}
                                     views={postView?.visits || 0}
                                     tags={post.tags}
                                     date={post.date}
@@ -92,10 +90,10 @@ const postViews = await Promise.all(
                 projects.map((entry) => (
                     <div transition:name={`project-${entry.title}`}>
                         <Project
-                            url={`/${languageTag()}${entry.url}`}
+                            url={`/${getLocale()}${entry.url}`}
                             title={entry.title}
                             repository={entry.repository}
-                            description={entry.description[languageTag()]}
+                            description={entry.description[getLocale()]}
                             tech={entry.tech}
                         />
                     </div>
@@ -119,10 +117,10 @@ const postViews = await Promise.all(
                             startDate={entry.startDate}
                             endDate={entry.endDate}
                             current={entry.current}
-                            position={entry.position[languageTag()]}
+                            position={entry.position[getLocale()]}
                             company={entry.company}
                             url={entry.url}
-                            description={entry.description[languageTag()]}
+                            description={entry.description[getLocale()]}
                         />
                     </div>
                 ))

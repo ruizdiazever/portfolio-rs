@@ -3,7 +3,7 @@ import Post from "$lib/components/common/Post.astro";
 import Table from "$lib/components/blog/organizations/table.svelte";
 import TableDescription from "$lib/components/blog/organizations/tableDescription.svelte";
 import { getPost } from "$lib/common/getPostById";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import LinkPost from "$lib/components/common/LinkPost.astro";
 
 const ID = "511bc558-3f6e-4375-8e57-37e19519f1db";
@@ -28,14 +28,14 @@ const translations = {
     },
 };
 
-const t = translations[languageTag() === "zh" ? "zh" : "en"];
+const t = translations[getLocale() === "zh" ? "zh" : "en"];
 ---
 
 <Post
     id={ID}
-    title={post.title[languageTag()]}
+    title={post.title[getLocale()]}
     url={post.url}
-    description={post.description[languageTag()]}
+    description={post.description[getLocale()]}
     readTime={post.readTime}
     author={post.author}
     tags={post.tags}

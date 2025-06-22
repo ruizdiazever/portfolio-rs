@@ -2,7 +2,7 @@
 import Layout from "$lib/layouts/Layout.astro";
 import Blog from "$lib/components/landing/cards/Blog.astro";
 import { getPosts } from "$lib/common/getPosts.ts";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 import * as m from "@paraglide/messages.js";
@@ -31,10 +31,10 @@ const postViews = await Promise.all(
                     return (
                         <>
                             <Blog
-                                title={post.title[languageTag()]}
+                                title={post.title[getLocale()]}
                                 pinned={post.pinned}
-                                url={`/${languageTag()}${post.url}`}
-                                description={post.description[languageTag()]}
+                                url={`/${getLocale()}${post.url}`}
+                                description={post.description[getLocale()]}
                                 views={postView?.visits || 0}
                                 tags={post.tags}
                                 date={post.date}

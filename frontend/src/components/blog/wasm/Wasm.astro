@@ -2,7 +2,7 @@
 import * as PostEn from "$lib/components/blog/wasm/article-en.mdx";
 import * as PostZh from "$lib/components/blog/wasm/article-zh.md";
 import PostAstro from "$lib/components/common/Post.astro";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import { getPost } from "$lib/common/getPostById";
 
 const ID = "9a5f3584-5a8a-4c22-8460-2d775d54d89b";
@@ -11,10 +11,10 @@ if (!post) throw new Error("Post not found");
 ---
 
 {
-    languageTag() === "en" ? (
+    getLocale() === "en" ? (
         <PostAstro
             id={ID}
-            title={post.title[languageTag()]}
+            title={post.title[getLocale()]}
             url={post.url}
             description={post.description.en}
             readTime={post.readTime}
@@ -27,7 +27,7 @@ if (!post) throw new Error("Post not found");
     ) : (
         <PostAstro
             id={ID}
-            title={post.title[languageTag()]}
+            title={post.title[getLocale()]}
             url={post.url}
             description={post.description.zh}
             readTime={post.readTime}

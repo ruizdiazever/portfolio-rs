@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Table from "$lib/components/ui/table/index.js";
     import { iconData } from "./tantan/data/data";
-    import { languageTag } from "@paraglide/runtime";
+    import { getLocale } from "@paraglide/runtime";
     import * as m from "@paraglide/messages.js";
 </script>
 
@@ -26,9 +26,7 @@
                         size={16}
                     /></Table.Cell
                 >
-                <Table.Cell class="py-1"
-                    >{description[languageTag()]}</Table.Cell
-                >
+                <Table.Cell class="py-1">{description[getLocale()]}</Table.Cell>
             </Table.Row>
         {/each}
     </Table.Body>

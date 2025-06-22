@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import dayjs from "dayjs";
 import * as m from "@paraglide/messages.js";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import LinkTitle from "$lib/components/common/LinkTitle.astro";
 
 interface Props {
@@ -68,7 +68,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                 <Icon name="date" title="Date" class="w-4 h-4 flex-shrink-0" />
                 <span class="whitespace-nowrap">
                     {
-                        languageTag() === "zh"
+                        getLocale() === "zh"
                             ? `${dayjs(date).format("YYYY年MM月")}`
                             : `${dayjs(date).format("MMM YYYY")}`
                     }

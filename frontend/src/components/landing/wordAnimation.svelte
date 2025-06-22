@@ -1,6 +1,6 @@
 <script>
     import { fade, fly } from "svelte/transition";
-    import { languageTag } from "@paraglide/runtime";
+    import { getLocale } from "@paraglide/runtime";
 
     const wordsEn = [
         "Rust Developer",
@@ -18,7 +18,7 @@
         "创始人",
     ];
 
-    const words = languageTag() === "zh" ? wordsZh : wordsEn;
+    const words = getLocale() === "zh" ? wordsZh : wordsEn;
 
     let index = Math.floor(Math.random() * words.length);
     let currentWord = $state(words[index]);

@@ -1,10 +1,10 @@
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 
 export const urls = {
-  about: `/${languageTag()}/sections/about`,
-  cv: `/${languageTag()}/sections/cv`,
-  books: `/${languageTag()}/sections/books`,
-  contact: `/${languageTag()}/sections/contact`,
-  home: `/${languageTag()}`,
-  articles: `${languageTag()}/blog/articles`,
+  about: `/${getLocale()}/sections/about`,
+  cv: `/${getLocale()}/sections/cv`,
+  books: `/${getLocale()}/sections/books`,
+  contact: `/${getLocale()}/sections/contact`,
+  home: `/${getLocale()}`,
+  articles: `${getLocale()}/blog/articles`,
 };

@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import dayjs from "dayjs";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import { Image } from "astro:assets";
 import EverAvatar from "$lib/assets/images/daft.webp";
 import MaxiAvatar from "$lib/assets/images/punk.avif";
@@ -63,7 +63,7 @@ let views = await getVisitRequest(id);
                 >
                     <p class="flex md:gap-1 text-muted-foreground text-md">
                         {readTime}
-                        {languageTag() === "zh" ? "分钟阅读" : "min read"}
+                        {getLocale() === "zh" ? "分钟阅读" : "min read"}
                     </p>
                     <Icon name="timer" title="Read time" size="0.8rem" />
                 </div>
@@ -81,7 +81,7 @@ let views = await getVisitRequest(id);
                     <Icon name="timer" title="Date" size="0.8rem" />
                     <code>
                         {
-                            languageTag() === "zh"
+                            getLocale() === "zh"
                                 ? `${dayjs(date).format("YYYY年MM月")}`
                                 : `${dayjs(date).format("MMM YYYY")}`
                         }
@@ -136,7 +136,7 @@ let views = await getVisitRequest(id);
         </div>
         <hr class="my-8 h-px border-0 bg-gray-300" />
         <div class="mt-6 space-y-4"><slot /></div>
-        <Feedback client:idle title={title} {id} language={languageTag()} />
+        <Feedback client:idle title={title} {id} language={getLocale()} />
     </article>
 </div>
 

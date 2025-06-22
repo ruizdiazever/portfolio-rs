@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import LinkTitle from "$lib/components/common/LinkTitle.astro";
 import Tech from "./tech.svelte";
 import { getTechnologiesFromJson } from "$lib/common/getTechData.js";
-import { languageTag } from "@paraglide/runtime";
+import { getLocale } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import LinkExternal from "$lib/components/common/LinkExternal.astro";
 
@@ -56,7 +56,7 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                                 client:idle
                                 name={technologies[n].name}
                                 description={
-                                    technologies[n].description[languageTag()]
+                                    technologies[n].description[getLocale()]
                                 }
                             >
                                 <Icon
