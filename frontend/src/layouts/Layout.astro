@@ -75,7 +75,7 @@ const {
         <Toast client:idle />
         {showHeader && <Header />}
         <main
-            class={`flex flex-col px-4 sm:px-6 lg:px-8 overflow-x-clip flex-1 justify-center mx-auto gap-4 antialiased ${maxWithMd ? "max-w-screen-md" : ""}`}
+            class={`flex flex-col px-4 sm:px-6 lg:px-8 overflow-x-clip flex-1 justify-center mx-auto gap-4 antialiased ${maxWithMd ? "max-w-(--breakpoint-md)" : ""}`}
         >
             <slot />
         </main>

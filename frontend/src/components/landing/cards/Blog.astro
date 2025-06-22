@@ -30,7 +30,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                             <Icon
                                 name="pinned"
                                 title="Pinned post"
-                                class="w-4 h-4 flex-shrink-0 text-muted-foreground"
+                                class="w-4 h-4 shrink-0 text-muted-foreground"
                             />
                             <p>{m.pinned()}</p>
                         </div>
@@ -48,7 +48,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
             <section
                 class="inline-flex items-center justify-center gap-1 font-medium"
             >
-                <Icon name="eye" title="Views" class="w-4 h-4 flex-shrink-0" />
+                <Icon name="eye" title="Views" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap"
                     >{views ? views : 0} {m.views()}</span
                 >
@@ -57,7 +57,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                 class="inline-flex items-center justify-center gap-1 font-medium"
                 title=""
             >
-                <Icon name="tag" title="Tags" class="w-4 h-4 flex-shrink-0" />
+                <Icon name="tag" title="Tags" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap"
                     >{tags?.length ? tags.length : 0} {m.tags()}</span
                 >
@@ -65,7 +65,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
             <section
                 class="inline-flex items-center justify-center gap-1 font-medium"
             >
-                <Icon name="date" title="Date" class="w-4 h-4 flex-shrink-0" />
+                <Icon name="date" title="Date" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap">
                     {
                         getLocale() === "zh"
