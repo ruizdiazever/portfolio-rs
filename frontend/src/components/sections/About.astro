@@ -1,6 +1,8 @@
 ---
 import { Picture } from "astro:assets";
-import AboutImg from "$lib/assets/images/about.avif";
+
+let urlImage =
+    "https://console.minio.berli.app/api/v1/buckets/public/objects/download?preview=true&prefix=portfolio%2Fever.avif";
 ---
 
 <div class="min-h-screen">
@@ -13,7 +15,7 @@ import AboutImg from "$lib/assets/images/about.avif";
             </h1>
 
             <div
-                class="mt-3 text-base text-foreground text-lg transition-colors space-y-6"
+                class="mt-3 text-lg text-foreground transition-colors space-y-6"
             >
                 <p>
                     I’m a passionate digital creator who lives and breathes
@@ -36,9 +38,12 @@ import AboutImg from "$lib/assets/images/about.avif";
             </div>
             <Picture
                 class="rounded-xl mt-6"
-                src={AboutImg}
-                formats={["avif", "webp"]}
+                src={urlImage}
                 alt="A description of my image."
+                formats={["avif", "webp"]}
+                alt="BERLi Dashboard"
+                width={1141}
+                height={641}
             />
         </div>
     </div>
