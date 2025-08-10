@@ -2,15 +2,15 @@ import { z } from "zod";
 import organizationsData from "$lib/assets/organizations.json";
 
 const urlsSchema = z.object({
-  rustSponsors: z.string().url(),
-  rustFoundation: z.string().url(),
-  rustLang: z.string().url(),
-  crates: z.string().url(),
+  rustSponsors: z.url(),
+  rustFoundation: z.url(),
+  rustLang: z.url(),
+  crates: z.url(),
 });
 
 const organizationSchema = z.object({
   name: z.string(),
-  url: z.string().url(),
+  url: z.url(),
   founded: z.number(),
   industry: z.string(),
   description: z.string(),

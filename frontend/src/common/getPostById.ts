@@ -2,7 +2,7 @@ import { z } from "zod";
 import postsData from "$lib/assets/posts.json";
 
 export const postSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   author: z.array(z.string()),
   pinned: z.boolean(),
   active: z.boolean(),

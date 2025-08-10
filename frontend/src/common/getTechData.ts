@@ -7,7 +7,7 @@ const technologySchema = z.object({
     en: z.string(),
     zh: z.string(),
   }),
-  url: z.string().url(),
+  url: z.url(),
 });
 
 const technologiesSchema = z.object({

@@ -9,7 +9,7 @@ const entrySchema = z.object({
     zh: z.string(),
   }),
   company: z.string(),
-  url: z.string().url(),
+  url: z.url(),
   description: z.object({
     en: z.string(),
     zh: z.string(),

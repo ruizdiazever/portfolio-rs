@@ -2,7 +2,7 @@ import { z } from "zod";
 import projectsData from "$lib/assets/projects.json";
 
 const projectSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   slug: z.string().min(1),
   author: z.array(z.string()),
   home: z.boolean(),
