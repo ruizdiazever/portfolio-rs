@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { fade, fly } from "svelte/transition";
     import { getLocale } from "@paraglide/runtime";
 

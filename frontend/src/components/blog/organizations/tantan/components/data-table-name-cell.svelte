@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconData } from "../data/data";
-    import ArrowUpRight from "lucide-svelte/icons/arrow-up-right";
+    import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
 
     export const labels = [
         {

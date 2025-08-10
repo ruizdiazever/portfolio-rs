@@ -166,3 +166,4 @@ pnpm-lock.yaml
 targetsVniPp/
 .DS_Store
 backups/
+.goose

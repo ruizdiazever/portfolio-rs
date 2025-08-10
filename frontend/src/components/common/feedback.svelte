@@ -2,12 +2,12 @@
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import { Button } from "$lib/components/ui/button/index.js";
     import { Textarea } from "$lib/components/ui/textarea/index.js";
-    import Heart from "lucide-svelte/icons/heart";
-    import Smile from "lucide-svelte/icons/smile";
-    import Meh from "lucide-svelte/icons/meh";
-    import Frown from "lucide-svelte/icons/frown";
-    import Loader from "lucide-svelte/icons/loader";
-    import Send from "lucide-svelte/icons/send";
+    import Heart from "@lucide/svelte/icons/heart";
+    import Smile from "@lucide/svelte/icons/smile";
+    import Meh from "@lucide/svelte/icons/meh";
+    import Frown from "@lucide/svelte/icons/frown";
+    import Loader from "@lucide/svelte/icons/loader";
+    import Send from "@lucide/svelte/icons/send";
     import * as m from "@paraglide/messages.js";
     import { postFeedback } from "$lib/common/postFeedback";
     import { toast } from "svelte-sonner";

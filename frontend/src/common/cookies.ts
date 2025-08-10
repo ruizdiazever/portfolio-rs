@@ -44,10 +44,3 @@ export function setCookiesData(
 ): void {
   Cookies.set(name, value, { expires: expires, path: "/", sameSite: sameSite });
 }
-
-export function setLang(lang: string) {
-  const LANGUAGE_COOKIE_NAME = "preferredLang";
-  const LANGUAGE_COOKIE_EXPIRATION = 365;
-  setCookiesData(LANGUAGE_COOKIE_NAME, lang, LANGUAGE_COOKIE_EXPIRATION, "Lax");
-  window.location.reload();
-}

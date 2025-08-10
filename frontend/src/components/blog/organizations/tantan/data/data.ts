@@ -1,7 +1,7 @@
 import { z } from "zod";
-import Heart from "lucide-svelte/icons/heart";
-import Link from "lucide-svelte/icons/link";
-import SquareMenu from "lucide-svelte/icons/square-menu";
+import Heart from "@lucide/svelte/icons/heart";
+import Link from "@lucide/svelte/icons/link";
+import SquareMenu from "@lucide/svelte/icons/square-menu";
 
 export const orgSchema = z.object({
   id: z.string(),

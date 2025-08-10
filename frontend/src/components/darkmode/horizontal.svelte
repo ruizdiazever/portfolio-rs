@@ -1,7 +1,7 @@
 <script>
-    import Sun from "lucide-svelte/icons/sun";
-    import MoonStar from "lucide-svelte/icons/moon-star";
-    import Laptop from "lucide-svelte/icons/laptop";
+    import Sun from "@lucide/svelte/icons/sun";
+    import MoonStar from "@lucide/svelte/icons/moon-star";
+    import Laptop from "@lucide/svelte/icons/laptop";
     import { resetMode, setMode } from "mode-watcher";
     import { Button } from "$lib/components/ui/button/index.ts";
     import { onMount } from "svelte";

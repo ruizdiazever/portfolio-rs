@@ -4,6 +4,7 @@ import Toggle from "$lib/components/darkmode/toggle.svelte";
 import Social from "$lib/components/common/Social.astro";
 import { Separator } from "$lib/components/ui/separator";
 import WordAnimation from "$lib/components/landing/wordAnimation.svelte";
+import { getLocale } from "@paraglide/runtime";
 
 let showSeparator = false;
 
@@ -21,7 +22,7 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
         <div
             class="flex items-center justify-between max-w-(--breakpoint-md) mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6"
         >
-            <a href="/" rel="external" class="flex flex-col items-start">
+            <a href={`/${getLocale()}/`} rel="external" class="flex flex-col items-start">
                 <p class="text-lg md:text-xl font-semibold text-foreground">
                     Ever Ruiz Diaz
                 </p>
