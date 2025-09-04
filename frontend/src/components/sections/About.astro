@@ -1,8 +1,6 @@
 ---
 import { Picture } from "astro:assets";
-
-let urlImage =
-    "https://console.minio.berli.app/api/v1/buckets/public/objects/download?preview=true&prefix=portfolio%2Fever.avif";
+import { aboutMain } from "$lib/common/minio/about";
 ---
 
 <div class="min-h-screen">
@@ -38,7 +36,7 @@ let urlImage =
             </div>
             <Picture
                 class="rounded-xl mt-6"
-                src={urlImage}
+                src={aboutMain.me}
                 alt="A description of my image."
                 formats={["avif", "webp"]}
                 alt="BERLi Dashboard"
