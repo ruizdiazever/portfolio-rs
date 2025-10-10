@@ -6,5 +6,5 @@ export const urls = {
   books: `/${getLocale()}/sections/books`,
   contact: `/${getLocale()}/sections/contact`,
   home: `/${getLocale()}`,
-  articles: `${getLocale()}/blog/articles`,
+  articles: `/${getLocale()}/blog/articles`,
 };

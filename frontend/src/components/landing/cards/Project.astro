@@ -64,6 +64,8 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                                     width="1.3em"
                                     height="1.3em"
                                     slot="icon"
+                                    class="cursor-pointer hover:scale-110 transition-transform duration-300"
+                                    title={technologies[n].name}
                                 />
                                 <span slot="link" class="text-xs">
                                     <LinkExternal
