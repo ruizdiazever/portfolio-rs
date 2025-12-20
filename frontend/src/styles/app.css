@@ -4,9 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --text-xs: 0.8rem;
+    --text-xs: 0.875rem;
     --text-sm: 1rem;
-    --text-md: 1.3rem;
+    --text-md: 1.25rem;
     --text-lg: 1.5rem;
     --text-xl: 2rem;
 }
@@ -211,7 +211,7 @@ pre {
 }
 
 .blog-content-paragraph {
-    @apply text-secondary-foreground text-base;
+    @apply text-secondary-foreground text-md;
 }
 
 .blog-content-table {
@@ -244,7 +244,7 @@ pre {
 }
 
 .blog-content-features-item {
-    @apply md:text-base;
+    @apply text-md;
 }
 
 .blog-content-features-title {

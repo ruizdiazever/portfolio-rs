@@ -67,11 +67,13 @@ let views = await getVisitRequest(id);
                     </p>
                     <Icon name="timer" title="Read time" size="0.8rem" />
                 </div>
-                <h1 class="text-5xl font-semibold text-foreground">{title}</h1>
+                <h1 class="text-3xl md:text-5xl font-semibold text-foreground">
+                    {title}
+                </h1>
             </div>
         </div>
         <div class="space-y-2 not-prose text-center">
-            <p class="text-md lg:text-lg">{description}</p>
+            <p class="text-base md:text-lg">{description}</p>
             <div
                 class="flex justify-center items-center text-sm text-muted-foreground space-x-4"
             >
