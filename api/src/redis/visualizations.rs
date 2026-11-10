@@ -26,7 +26,11 @@ fn generate_visitor_id(ip: &str, user_agent: &str) -> String {
     let mut hasher = Sha256::new();
     hasher.update(ip.as_bytes());
     hasher.update(user_agent.as_bytes());
-    format!("{:x}", hasher.finalize())
+    hasher
+        .finalize()
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect()
 }
 
 pub async fn sum_visit(
@@ -95,4 +99,27 @@ pub async fn get_visit(ctx: &ApiContext, project_id: Uuid) -> Result<i64, Error>
     })?;
 
     Ok(visits.unwrap_or(0))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::generate_visitor_id;
+
+    #[test]
+    fn visitor_id_is_deterministic_hex() {
+        let first = generate_visitor_id("203.0.113.7", "curl/8");
+        let second = generate_visitor_id("203.0.113.7", "curl/8");
+
+        assert_eq!(first, second);
+        assert_eq!(first.len(), 64);
+        assert!(first.chars().all(|c| c.is_ascii_hexdigit()));
+    }
+
+    #[test]
+    fn visitor_id_changes_with_ip_or_user_agent() {
+        let base = generate_visitor_id("203.0.113.7", "curl/8");
+
+        assert_ne!(base, generate_visitor_id("203.0.113.8", "curl/8"));
+        assert_ne!(base, generate_visitor_id("203.0.113.7", "curl/9"));
+    }
 }

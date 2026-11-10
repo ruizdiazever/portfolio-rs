@@ -46,7 +46,7 @@ async fn post_visit(
         ip_address: ip_address.clone(),
     };
 
-    let result = sum_visit(&ctx, payload.project_id, &meta).await?;
+    let result = sum_visit(&ctx, payload.project_id, meta).await?;
     Ok(Json(SuccessResponse {
         success: true,
         visits: result,

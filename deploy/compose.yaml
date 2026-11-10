@@ -1,0 +1,107 @@
+# Production stack for the portfolio VM.
+#
+# Images are built and tested by .github/workflows/ci.yml and published to
+# GHCR. The VM only pulls them (deploy/update.sh + portfolio-update.timer).
+#
+# Run with an explicit env file so interpolation and container env agree:
+#   PORTFOLIO_ENV_FILE=/etc/portfolio/env \
+#     docker compose --env-file /etc/portfolio/env -f deploy/compose.yaml up -d
+name: portfolio
+
+services:
+  frontend:
+    image: "${FRONTEND_IMAGE:-ghcr.io/ruizdiazever/portfolio-frontend}:${IMAGE_TAG:-latest}"
+    container_name: portfolio-frontend
+    restart: unless-stopped
+    init: true
+    env_file:
+      - path: ${PORTFOLIO_ENV_FILE:-/etc/portfolio/env}
+        required: false
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4321
+      INTERNAL_API_URL: http://api:3002
+    ports:
+      - "${BIND_IP:-0.0.0.0}:4321:4321"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - portfolio_net
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4321/en').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  api:
+    image: "${API_IMAGE:-ghcr.io/ruizdiazever/portfolio-api}:${IMAGE_TAG:-latest}"
+    container_name: portfolio-api
+    restart: unless-stopped
+    init: true
+    env_file:
+      - path: ${PORTFOLIO_ENV_FILE:-/etc/portfolio/env}
+        required: false
+    environment:
+      API_SERVER_URL: 0.0.0.0:3002
+    ports:
+      - "${BIND_IP:-0.0.0.0}:3002:3002"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - portfolio_net
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:3002/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  redis:
+    image: redis:8.10-alpine
+    container_name: portfolio-redis
+    restart: unless-stopped
+    env_file:
+      - path: ${PORTFOLIO_ENV_FILE:-/etc/portfolio/env}
+        required: false
+    command:
+      [
+        "sh",
+        "-c",
+        "exec redis-server --requirepass \"$${REDIS_PASSWORD:?REDIS_PASSWORD is required}\" --appendonly yes",
+      ]
+    networks:
+      - portfolio_net
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "redis-cli -a \"$${REDIS_PASSWORD}\" ping | grep -q PONG",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    security_opt:
+      - no-new-privileges
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+volumes:
+  redis_data:
+
+networks:
+  portfolio_net:

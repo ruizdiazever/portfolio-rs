@@ -3,6 +3,9 @@ use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    // Local development convenience; production gets real env vars.
+    let _ = dotenvy::dotenv();
+
     // Config
     let config = cfg::ConfigPortfolio::try_from_env()?;
 

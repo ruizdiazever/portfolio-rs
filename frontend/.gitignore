@@ -23,3 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .env.directus
+playwright-report/
+e2e/test-results/

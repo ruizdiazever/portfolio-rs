@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodically deploy the portfolio from main
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

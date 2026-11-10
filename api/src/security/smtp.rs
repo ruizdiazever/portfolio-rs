@@ -39,7 +39,7 @@ pub async fn send_email(
                 .singlepart(
                     SinglePart::builder()
                         .header(header::ContentType::TEXT_HTML)
-                        .body(String::from(html)),
+                        .body(html),
                 ),
         )
         .expect("failed to build email");

@@ -49,3 +49,39 @@ pub async fn get_client_ip(headers: &HeaderMap) -> String {
     tracing::warn!("No valid IP address found in headers");
     "Unknown".to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::get_client_ip;
+    use axum::http::{HeaderMap, HeaderValue};
+
+    fn headers(pairs: &[(&'static str, &'static str)]) -> HeaderMap {
+        let mut headers = HeaderMap::new();
+        for (name, value) in pairs {
+            headers.insert(*name, HeaderValue::from_static(value));
+        }
+        headers
+    }
+
+    #[tokio::test]
+    async fn forwarded_header_wins() {
+        let headers = headers(&[
+            ("Forwarded", "for=203.0.113.7;proto=https"),
+            ("X-Forwarded-For", "198.51.100.9"),
+        ]);
+
+        assert_eq!(get_client_ip(&headers).await, "203.0.113.7");
+    }
+
+    #[tokio::test]
+    async fn x_forwarded_for_is_the_fallback() {
+        let headers = headers(&[("X-Forwarded-For", "198.51.100.9, 10.0.0.1")]);
+
+        assert_eq!(get_client_ip(&headers).await, "198.51.100.9");
+    }
+
+    #[tokio::test]
+    async fn unknown_without_forwarding_headers() {
+        assert_eq!(get_client_ip(&HeaderMap::new()).await, "Unknown");
+    }
+}

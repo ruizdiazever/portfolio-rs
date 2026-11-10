@@ -9,11 +9,14 @@
 	}: CommandPrimitive.LinkItemProps = $props();
 </script>
 
+
 <CommandPrimitive.LinkItem
+	bind:ref
+	data-slot="command-item"
 	class={cn(
-		"aria-selected:bg-accent aria-selected:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
+		"data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4 group/command-item [&_svg]:pointer-events-none [&_svg]:shrink-0",
+		"data-disabled:pointer-events-none data-disabled:opacity-50",
 		className
 	)}
-	bind:ref
 	{...restProps}
 />

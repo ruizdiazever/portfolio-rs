@@ -77,6 +77,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-[#35c758] hover:text-white rounded-full dark:hover:bg-[#35c758]/80 transition-all duration-300 ease-in-out transform hover:scale-110"
             onclick={() => openFeedback(4)}
+            aria-label="Love"
         >
             <Heart class="h-5 w-5" />
         </Button>
@@ -86,6 +87,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-[#32ade6] hover:text-white rounded-full dark:hover:bg-[#32ade6]/80 transition-all duration-300 ease-in-out transform hover:scale-110"
             onclick={() => openFeedback(3)}
+            aria-label="Happy"
         >
             <Smile class="h-5 w-5" />
         </Button>
@@ -95,6 +97,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-[#ffcc01] hover:text-white rounded-full dark:hover:bg-[#ffcc01]/80 transition-all duration-300 ease-in-out transform hover:scale-110"
             onclick={() => openFeedback(2)}
+            aria-label="Neutral"
         >
             <Meh class="h-5 w-5" />
         </Button>
@@ -104,6 +107,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-[#ff3c2f] hover:text-white rounded-full dark:hover:bg-[#ff3c2f]/80 transition-all duration-300 ease-in-out transform hover:scale-110"
             onclick={() => openFeedback(1)}
+            aria-label="Sad"
         >
             <Frown class="h-5 w-5" />
         </Button>

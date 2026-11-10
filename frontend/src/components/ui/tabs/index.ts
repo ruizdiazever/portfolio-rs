@@ -1,15 +1,15 @@
-import { Tabs as TabsPrimitive } from "bits-ui";
 import Content from "./tabs-content.svelte";
-import List from "./tabs-list.svelte";
 import Trigger from "./tabs-trigger.svelte";
-
-const Root = TabsPrimitive.Root;
+import Root from "./tabs.svelte";
+import List, { tabsListVariants, type TabsListVariant } from "./tabs-list.svelte";
 
 export {
 	Root,
 	Content,
 	List,
 	Trigger,
+	tabsListVariants,
+	type TabsListVariant,
 	//
 	Root as Tabs,
 	Content as TabsContent,

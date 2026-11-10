@@ -26,7 +26,7 @@
         labelValue,
         url,
         id,
-    }: { value?: string; labelValue?: string; url?: string; id?: string } =
+    }: { value?: string | number; labelValue?: string; url?: string; id?: string } =
         $props();
 
     const icon = $derived(

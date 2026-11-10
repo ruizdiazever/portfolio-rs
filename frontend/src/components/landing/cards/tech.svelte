@@ -7,6 +7,7 @@
         description: string;
         icon?: Snippet;
         link?: Snippet;
+        children?: any;
     }
 
     let { name, description, icon, link }: Props = $props();

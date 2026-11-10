@@ -4,26 +4,26 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = { version = "0.8.1", features = ["macros", "tower-log"] }
-tokio = { version = "1.43.0", features = ["full"] }
-redis = { version = "0.29.0", features = ["tokio-comp"] }
-tower = { version = "0.5.2", features = ["timeout"] }
-tower-http = { version = "0.6.2", features = ["trace", "cors"] }
-reqwest = { version = "0.12.12", features = ["json"] }
-serde = { version = "1.0.217", features = ["derive"] }
-serde_json = "1.0.138"
-uuid = { version = "1.13.2", features = ["v4", "serde"] }
-config = { version = "0.15.8", default-features = false }
-lettre = "0.11.13"
-handlebars = "6.3.1"
-tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter", "std"] }
-thiserror = "2.0.11"
-anyhow = "1.0.95"
-chrono = "0.4.39"
+axum = { version = "0.8.9", features = ["macros", "tower-log"] }
+tokio = { version = "1.54.1", features = ["full"] }
+redis = { version = "1.8.1", features = ["tokio-comp"] }
+tower = { version = "0.5.3", features = ["timeout"] }
+tower-http = { version = "0.7.1", features = ["trace", "cors"] }
+reqwest = { version = "0.13.5", features = ["json"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+uuid = { version = "1.29.2", features = ["v4", "serde"] }
+config = { version = "0.15.27", default-features = false }
+lettre = "0.11.23"
+handlebars = "6.4.4"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "std"] }
+thiserror = "2.0.21"
+anyhow = "1.0.104"
+chrono = "0.4.45"
 dotenvy = "0.15.7"
-sha2 = "0.10.8"
-user-agent-parser = "0.3.6"
+sha2 = "0.11.1"
+user-agent-parser = "0.5.0"
 
 
 [lib]

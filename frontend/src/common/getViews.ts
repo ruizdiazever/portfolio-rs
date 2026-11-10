@@ -1,9 +1,10 @@
 import { API_URL } from "astro:env/client";
+import { INTERNAL_API_URL } from "astro:env/server";
 
 export async function getVisitRequest(
   projectId: string,
 ): Promise<{ projectId: string; visits: number }> {
-  let endpoint = `${API_URL}/visit/${projectId}`;
+  let endpoint = `${INTERNAL_API_URL || API_URL}/visit/${projectId}`;
 
   try {
     const response = await fetch(endpoint);

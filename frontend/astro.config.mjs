@@ -1,7 +1,6 @@
-import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
-import sitemap from "@astrojs/sitemap";
 import { defineConfig, envField } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import { seoConfig } from "./src/common/seoConfig";
 import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
@@ -14,33 +13,44 @@ import { remarkReadingTime } from "./remark-reading-time.mjs";
 
 export default defineConfig({
   markdown: {
-    remarkPlugins: [remarkReadingTime],
-    rehypePlugins: [
-      [
-        rehypeClassNames,
-        {
-          h1: "blog-content-title",
-          h2: "blog-content-subtitle",
-          h3: "blog-content-features-title",
-          p: "blog-content-paragraph",
-          table: "blog-content-table",
-          thead: "blog-content-table-head",
-          tbody: "blog-content-table-body",
-          tr: "blog-content-table-row",
-          th: "blog-content-table-header",
-          td: "blog-content-table-cell",
-          ul: "blog-content-features-list",
-          li: "blog-content-features-item",
-          strong: "blog-content-features-strong",
-        },
+    processor: unified({
+      remarkPlugins: [remarkReadingTime],
+      rehypePlugins: [
+        [
+          rehypeClassNames,
+          {
+            h1: "blog-content-title",
+            h2: "blog-content-subtitle",
+            h3: "blog-content-features-title",
+            p: "blog-content-paragraph",
+            table: "blog-content-table",
+            thead: "blog-content-table-head",
+            tbody: "blog-content-table-body",
+            tr: "blog-content-table-row",
+            th: "blog-content-table-header",
+            td: "blog-content-table-cell",
+            ul: "blog-content-features-list",
+            li: "blog-content-features-item",
+            strong: "blog-content-features-strong",
+          },
+        ],
       ],
-    ],
+    }),
   },
   prefetch: {
     defaultStrategy: "hover",
     prefetchAll: true,
   },
   vite: {
+    server: {
+      proxy: {
+        "/api": {
+          target: "http://127.0.0.1:3002",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ""),
+        },
+      },
+    },
     plugins: [
       tailwindcss({
         applyBaseStyles: false,
@@ -65,7 +75,7 @@ export default defineConfig({
     mode: "standalone",
   }),
   output: "server",
-  server: { port: 4322, host: true },
+  server: { port: 4321, host: true },
   site: seoConfig.baseURL,
   devToolbar: {
     enabled: false,
@@ -76,15 +86,6 @@ export default defineConfig({
   compressHTML: true,
   integrations: [
     svelte(),
-    sitemap({
-      i18n: {
-        defaultLocale: "en",
-        locales: {
-          en: "en-US",
-          zh: "zh-CN",
-        },
-      },
-    }),
     mdx(),
     icon(),
     playformCompress({
@@ -123,6 +124,11 @@ export default defineConfig({
         context: "server",
         access: "secret",
         optional: false,
+      }),
+      INTERNAL_API_URL: envField.string({
+        context: "server",
+        access: "public",
+        optional: true,
       }),
     },
   },

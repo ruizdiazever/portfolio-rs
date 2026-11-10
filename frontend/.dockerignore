@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+.git
+e2e/test-results/
+playwright-report/
+Dockerfile

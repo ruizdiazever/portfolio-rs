@@ -1,14 +1,35 @@
-FROM node:lts AS runtime
+# syntax=docker/dockerfile:1
+
+FROM node:24-bookworm-slim AS builder
+
+RUN npm install --global pnpm@10.26.1
+
 WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 COPY . .
 
-RUN apt-get update && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN npm install -g pnpm
-RUN pnpm install --force && pnpm build
+# API_URL is public and inlined at build: the browser calls the same origin
+# and Caddy routes /api. GITHUB_TOKEN is a runtime server secret only.
+ARG API_URL=/api
+ENV API_URL=$API_URL
 
-ENV HOST=0.0.0.0
-ENV PORT=4321
+RUN pnpm run build
+
+FROM node:24-bookworm-slim AS runtime
+
+ENV NODE_ENV=production \
+  HOST=0.0.0.0 \
+  PORT=4321
+
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./
+
+USER node
 EXPOSE 4321
 
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["node", "dist/server/entry.mjs"]
