@@ -39,6 +39,8 @@
   "devDependencies": {
     "@inlang/cli": "^3.6.0",
     "@inlang/paraglide-js": "3.2.1",
+    "@inlang/plugin-m-function-matcher": "2.4.3",
+    "@inlang/plugin-message-format": "4.6.0",
     "@internationalized/date": "^3.12.4",
     "@lucide/svelte": "^1.71.0",
     "@playform/compress": "0.2.5",
