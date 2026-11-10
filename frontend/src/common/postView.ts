@@ -11,6 +11,7 @@ export async function postVisitRequest(projectId: string): Promise<number> {
   try {
     const response = await fetch(endpoint, {
       method: "POST",
+      signal: AbortSignal.timeout(2_000),
       headers: {
         "Content-Type": "application/json",
       },

@@ -19,6 +19,7 @@ export async function postFeedback(
   try {
     const response = await fetch(endpoint, {
       method: "POST",
+      signal: AbortSignal.timeout(10_000),
       headers: {
         "Content-Type": "application/json",
       },

@@ -9,7 +9,9 @@ export async function getVisitRequest(
   let endpoint = `${serverApiUrl}/visit/${projectId}`;
 
   try {
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, {
+      signal: AbortSignal.timeout(2_000),
+    });
     if (response.ok) {
       try {
         const data = await response.json();
