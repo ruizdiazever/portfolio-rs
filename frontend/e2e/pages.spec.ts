@@ -14,6 +14,8 @@ const pages: Array<{
   { path: "/en/sections/cv", heading: "Work in progress.." },
   { path: "/en/blog/articles", heading: "Articles" },
   { path: "/zh/blog/articles", heading: "文章" },
+  { path: "/en/blog/hardware/minisforum-ms-01", heading: "Updating MS-01 bios" },
+  { path: "/zh/blog/hardware/minisforum-ms-01", heading: "更新 MS-01 BIOS" },
   { path: "/en/blog/organizations-using-rust", heading: "Organizations using Rust" },
   { path: "/zh/blog/organizations-using-rust", heading: "使用 Rust 的组织" },
   { path: "/en/blog/portfolio-wasm", heading: "Portfolio WASM" },

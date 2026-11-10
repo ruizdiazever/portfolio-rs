@@ -23,6 +23,7 @@ test.describe("seo", () => {
         "/sections/contact",
         "/sections/cv",
         "/blog/articles",
+        "/blog/hardware/minisforum-ms-01",
         "/blog/organizations-using-rust",
         "/blog/portfolio-wasm",
         "/projects/berli-system",
