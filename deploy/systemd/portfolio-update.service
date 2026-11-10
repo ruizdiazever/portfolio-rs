@@ -9,4 +9,4 @@ User=runner
 Group=docker
 Environment=REPO_DIR=/home/runner/portfolio
 Environment=PORTFOLIO_ENV_FILE=/etc/portfolio/env
-ExecStart=/home/runner/portfolio/deploy/update.sh
+ExecStart=/usr/local/bin/portfolio-update.sh

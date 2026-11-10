@@ -125,11 +125,6 @@ export default defineConfig({
         access: "secret",
         optional: false,
       }),
-      INTERNAL_API_URL: envField.string({
-        context: "server",
-        access: "public",
-        optional: true,
-      }),
     },
   },
 });

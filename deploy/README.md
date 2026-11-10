@@ -20,7 +20,7 @@ Caddy edge on `www.everdev.it`.
 | `/home/runner/portfolio` | checkout of this repo (public, HTTPS) |
 | `/etc/portfolio/env` | secrets + env for the stack, `0600 runner:runner` (vault) |
 | `deploy/compose.yaml` | the stack |
-| `deploy/update.sh` | the deploy script |
+| `deploy/update.sh` | the deploy script (ansible installs it as `/usr/local/bin/portfolio-update.sh`) |
 
 Caddy routes `www.everdev.it/api/*` to `portfolio:3002` (prefix stripped) and
 everything else to `portfolio:4321`. Browser API calls are same-origin.

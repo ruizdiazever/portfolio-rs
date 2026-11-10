@@ -1,8 +1,9 @@
 import { API_URL } from "astro:env/client";
-import { INTERNAL_API_URL } from "astro:env/server";
+
+const serverApiUrl = process.env.INTERNAL_API_URL ?? API_URL;
 
 export async function postVisitRequest(projectId: string): Promise<number> {
-  let endpoint = `${INTERNAL_API_URL || API_URL}/visit`;
+  let endpoint = `${serverApiUrl}/visit`;
   const body = {
     project_id: projectId,
   };
