@@ -26,4 +26,25 @@ test.describe("assets", () => {
       expect(response.headers()["content-type"]).toMatch(/^image\//);
     }
   });
+
+  test("about page image is served locally", async ({ page, request }) => {
+    await page.goto("/en/sections/about");
+
+    const image = page.getByAltText("Ever Ruiz Diaz", { exact: true }).first();
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+
+    await expect
+      .poll(() =>
+        image.evaluate((element) => (element as HTMLImageElement).naturalWidth),
+      )
+      .toBeGreaterThan(0);
+
+    const src = await image.getAttribute("src");
+    expect(src).toBeTruthy();
+    expect(src).not.toContain("console.minio.berli.app");
+
+    const response = await request.get(src!);
+    expect(response.status()).toBe(200);
+  });
 });

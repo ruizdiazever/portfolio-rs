@@ -1,6 +1,6 @@
 ---
 import { Picture } from "astro:assets";
-import { aboutMain } from "$lib/common/minio/about";
+import aboutImg from "$lib/assets/images/about.avif";
 ---
 
 <div class="min-h-screen">
@@ -35,12 +35,11 @@ import { aboutMain } from "$lib/common/minio/about";
             </div>
             <Picture
                 class="rounded-xl mt-6"
-                src={aboutMain.me}
-                alt="A description of my image."
+                src={aboutImg}
                 formats={["avif", "webp"]}
-                alt="BERLi Dashboard"
-                width={1141}
-                height={641}
+                alt="Ever Ruiz Diaz"
+                width={800}
+                height={533}
             />
         </div>
     </div>
