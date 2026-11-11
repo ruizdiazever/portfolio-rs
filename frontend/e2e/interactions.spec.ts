@@ -20,7 +20,17 @@ test.describe("interactions", () => {
         const date = dot.parentElement?.querySelector("[data-timeline-date]");
         const dotRect = dot.getBoundingClientRect();
         const dateRect = date?.getBoundingClientRect();
+        const line = dot.closest(".grid.gap-10");
+        const lineRect = line?.getBoundingClientRect();
+        const lineStyle = line ? getComputedStyle(line, "::after") : null;
         return {
+          dotX: dotRect.left + dotRect.width / 2,
+          lineX:
+            lineRect && lineStyle
+              ? lineRect.left +
+                Number.parseFloat(lineStyle.left) +
+                Number.parseFloat(lineStyle.width) / 2
+              : 0,
           dot: dotRect.top + dotRect.height / 2,
           date: dateRect ? dateRect.top + dateRect.height / 2 : 0,
         };
@@ -30,6 +40,7 @@ test.describe("interactions", () => {
     expect(pairs.length).toBeGreaterThan(0);
     for (const pair of pairs) {
       expect(Math.abs(pair.dot - pair.date)).toBeLessThanOrEqual(1);
+      expect(Math.abs(pair.dotX - pair.lineX)).toBeLessThanOrEqual(0.25);
     }
   });
 
