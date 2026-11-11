@@ -1,5 +1,4 @@
 ---
-import { media } from "$lib/common/media";
 import Layout from "$lib/layouts/Layout.astro";
 import { getPost } from "$lib/common/getPostById";
 import { getLocale } from "@paraglide/runtime";
@@ -13,7 +12,6 @@ const locale = getLocale();
 <Layout
     title={`${post.title[locale]} · Ever Ruiz Diaz`}
     description={post.description[locale]}
-    image={media("og/blog/updating-ms-01.png")}
 >
     <Post />
 </Layout>

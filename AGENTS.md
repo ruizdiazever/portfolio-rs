@@ -76,9 +76,15 @@ There are three locations on purpose:
 | `frontend/.media-output/v1/` | Generated AVIF/WebP/PNG | No | No |
 | `s3.berli.app/portfolio/v1/` | Public derivatives | No | Yes |
 
-`frontend/.dockerignore` excludes `media-src/` and `.media-output/`. The frontend build never reads `media-src/`; only `scripts/sync-media.mjs` does. The app has no image endpoint and no local fallback.
+`frontend/.dockerignore` excludes `media-src/` and `.media-output/`. The frontend build never reads `media-src/`; only `scripts/sync-media.mjs` does. Content images have no app endpoint and no local fallback. The one app image route is the social preview endpoint.
 
 `frontend/public/` is only for root-level files such as `manifest.webmanifest`, `humans.txt` and `browserconfig.xml`. Never put content images there.
+
+### Social previews
+
+`frontend/src/pages/og/[...slug].png.ts` generates 1200x630 PNGs at request time with `satori-astro`, `satori-html` and sharp. `frontend/src/common/og.ts` maps routes to copy. It uses the existing fontsource EB Garamond and Inter WOFF2 files, sets a one hour cache and is not part of the S3 media pipeline.
+
+The frontend `package.json` overrides `satori` to 0.63.2 because `satori-astro` 0.4.1 pins 0.26.0, which cannot parse WOFF2. Cards are English, matching the previous static OG assets; localized titles stay in the page metadata.
 
 ### Commands
 
@@ -95,7 +101,7 @@ RCLONE_CONFIG=~/.config/rclone/rclone.conf pnpm -C frontend media:sync
 ### Add or replace an image
 
 1. Put the original in `frontend/media-src/...`.
-2. Add a `responsive()`, `single()` or `og()` call in `frontend/scripts/sync-media.mjs`, or add the book to its `books` array.
+2. Add a `responsive()` or `single()` call in `frontend/scripts/sync-media.mjs`, or add the book to its `books` array.
 3. Run `media:sync`.
 4. Reference it with `<Media path="..." />` or `media("...")`.
 
@@ -124,7 +130,7 @@ Caddy terminates TLS for `www.everdev.it`, routes `/api/*` to the API and everyt
 
 - The README is public-facing. It shows the work, not the brush. Keep it to stack, architecture, the media flow, repository map and a footer.
 - No em dashes or en dashes in user-facing copy. Use commas, periods, colons or parentheses. The same applies to the README.
-- All content images come from S3. Do not add local content images or an image endpoint.
+- All content images come from S3. Do not add local content images. Social previews come from the Satori OG route; that is the only app image endpoint.
 - Write English and Chinese as native copy, not literal translations.
 - Avoid unnecessary comments in code.
 - Do not build, test or deploy `leptos/`.
