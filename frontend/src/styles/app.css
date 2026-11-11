@@ -5,10 +5,25 @@
 
 @theme {
     --text-xs: 0.875rem;
+    --text-xs--line-height: 1.5;
     --text-sm: 1rem;
+    --text-sm--line-height: 1.55;
     --text-md: 1.25rem;
+    --text-md--line-height: 1.6;
     --text-lg: 1.5rem;
-    --text-xl: 2rem;
+    --text-lg--line-height: 1.5;
+    --text-xl: 1.75rem;
+    --text-xl--line-height: 1.3;
+    --text-2xl: 2rem;
+    --text-2xl--line-height: 1.25;
+    --text-3xl: clamp(1.875rem, 3.5vw, 2.25rem);
+    --text-3xl--line-height: 1.2;
+    --text-4xl: clamp(2.25rem, 4.5vw, 3rem);
+    --text-4xl--line-height: 1.15;
+    --text-5xl: clamp(2.75rem, 5.5vw, 3.5rem);
+    --text-5xl--line-height: 1.1;
+    --text-6xl: clamp(3.25rem, 6.5vw, 4rem);
+    --text-6xl--line-height: 1.05;
 }
 
 :root {
@@ -158,6 +173,12 @@
 
 h1,
 h2,
+h3 {
+    letter-spacing: -0.01em;
+}
+
+h1,
+h2,
 h3,
 h4,
 h5,
@@ -234,7 +255,7 @@ pre {
 }
 
 .blog {
-    max-width: 80ch;
+    max-width: 72ch;
     overflow-wrap: break-word;
     word-spacing: 0.16em;
 }
