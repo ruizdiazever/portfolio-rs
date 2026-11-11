@@ -34,19 +34,12 @@ const postViews = await Promise.all(
             class="flex justify-between items-start gap-4 mb-6"
             transition:name="blog-header"
         >
-            <div>
-                <h2
-                    class="text-3xl md:text-5xl font-bold"
-                    transition:name="blog-title"
-                >
-                    {m.blog()}
-                </h2>
-                <p
-                    class="mt-2 max-w-[52ch] text-md text-secondary-foreground"
-                >
-                    {m.writingIntro()}
-                </p>
-            </div>
+            <h2
+                class="text-3xl md:text-5xl font-bold"
+                transition:name="blog-title"
+            >
+                {m.blog()}
+            </h2>
             <a
                 href={urls.articles}
                 class="flex shrink-0 items-center gap-2 text-sm text-secondary-foreground font-semibold"
@@ -90,14 +83,11 @@ const postViews = await Promise.all(
 
     <section id="work" transition:name="sof-section">
         <h2
-            class="text-3xl md:text-5xl font-bold mb-3"
+            class="text-3xl md:text-5xl font-bold mb-6"
             transition:name="sof-title"
         >
             {m.software()}
         </h2>
-        <p class="mb-6 max-w-[52ch] text-md text-secondary-foreground">
-            {m.softwareIntro()}
-        </p>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 gap-6"
             transition:name="software-grid"
