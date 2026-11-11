@@ -14,6 +14,7 @@ import { urls } from "$lib/common/urls";
 import * as m from "@paraglide/messages.js";
 import { getLocale } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
+import DailyTools from "./DailyTools.astro";
 
 const posts = await getPosts();
 const entries = await getEntriesFromJson();
@@ -137,4 +138,6 @@ const postViews = await Promise.all(
             }
         </div>
     </section>
+
+    <DailyTools />
 </div>

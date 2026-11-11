@@ -27,6 +27,12 @@ test.describe("home", () => {
     await expect(
       page.getByRole("heading", { name: "Experience", exact: true }),
     ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Daily tools", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Zed editor" }),
+    ).toHaveAttribute("href", "https://zed.dev");
     await expect(page.getByText("contributions in the last year")).toBeVisible();
 
     expect(errors).toEqual([]);
@@ -43,6 +49,12 @@ test.describe("home", () => {
     ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "经历", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "日常工具", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Zed 编辑器" }),
     ).toBeVisible();
   });
 

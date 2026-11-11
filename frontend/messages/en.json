@@ -107,5 +107,12 @@
   "firstPage": "Go to first page",
   "previousPage": "Go to previous page",
   "nextPage": "Go to next page",
-  "lastPage": "Go to last page"
+  "lastPage": "Go to last page",
+  "dailyTools": "Daily tools",
+  "dailyToolEditor": "editor",
+  "dailyToolTerminal": "terminal",
+  "dailyToolBrowser": "browser",
+  "dailyToolCodingAgent": "coding agent",
+  "dailyToolLocalModels": "local models",
+  "dailyToolHomeLab": "homelab"
 }
