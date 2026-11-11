@@ -36,6 +36,22 @@ test.describe("home", () => {
       "href",
       "https://github.com/deepseek-ai/deepseek-harness",
     );
+    const dailyTools = page.locator("section").filter({ hasText: "Daily tools" });
+    await expect(dailyTools.locator("img")).toHaveCount(6);
+    const iconSources = await dailyTools
+      .locator("img")
+      .evaluateAll((images) =>
+        images.map((image) => (image as HTMLImageElement).src),
+      );
+    for (const src of iconSources) {
+      expect(src).toMatch(/^https:\/\/cdn\.simpleicons\.org\//);
+    }
+    const headings = (await page.locator("main h2").allTextContents()).map(
+      (heading) => heading.trim(),
+    );
+    expect(headings.indexOf("Daily tools")).toBeLessThan(
+      headings.indexOf("Writing"),
+    );
     await expect(
       page.getByRole("link", { name: "Zed editor" }),
     ).toHaveAttribute("href", "https://zed.dev");

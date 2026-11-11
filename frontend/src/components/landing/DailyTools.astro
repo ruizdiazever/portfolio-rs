@@ -5,31 +5,37 @@ const tools = [
     {
         name: "DeepSeek Harness",
         href: "https://github.com/deepseek-ai/deepseek-harness",
+        icon: "https://cdn.simpleicons.org/deepseek/000000",
         role: m.dailyToolAgentHarness(),
     },
     {
         name: "Firefox",
         href: "https://www.mozilla.org/firefox/",
+        icon: "https://cdn.simpleicons.org/firefox/000000",
         role: m.dailyToolBrowser(),
     },
     {
         name: "Bitwarden",
         href: "https://bitwarden.com",
+        icon: "https://cdn.simpleicons.org/bitwarden/000000",
         role: m.dailyToolPasswords(),
     },
     {
         name: "Docker Desktop",
         href: "https://www.docker.com/products/docker-desktop/",
+        icon: "https://cdn.simpleicons.org/docker/000000",
         role: m.dailyToolContainers(),
     },
     {
         name: "Warp",
         href: "https://www.warp.dev",
+        icon: "https://cdn.simpleicons.org/warp/000000",
         role: m.dailyToolTerminal(),
     },
     {
         name: "Zed",
         href: "https://zed.dev",
+        icon: "https://cdn.simpleicons.org/zedindustries/000000",
         role: m.dailyToolEditor(),
     },
 ];
@@ -50,10 +56,24 @@ const tools = [
                         href={tool.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="group flex items-baseline justify-between gap-4 border-b border-border py-3 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                        class="group flex items-center justify-between gap-3 border-b border-border py-3 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
                     >
-                        <span class="text-lg font-semibold">{tool.name}</span>
-                        <span class="text-sm text-muted-foreground transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                        <span class="flex min-w-0 items-center gap-3">
+                            <img
+                                src={tool.icon}
+                                alt=""
+                                data-ui-icon
+                                width="24"
+                                height="24"
+                                loading="lazy"
+                                decoding="async"
+                                class="h-[18px] w-[18px] shrink-0 object-contain opacity-80 grayscale dark:invert sm:h-5 sm:w-5"
+                            />
+                            <span class="min-w-0 text-md font-semibold sm:text-lg">
+                                {tool.name}
+                            </span>
+                        </span>
+                        <span class="shrink-0 text-xs text-muted-foreground transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 sm:text-sm">
                             {tool.role}
                         </span>
                     </a>
