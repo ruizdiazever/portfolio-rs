@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import sharp from "sharp";
 
 test.describe("seo", () => {
   test("robots.txt points to the sitemap", async ({ request }) => {
@@ -78,6 +79,10 @@ test.describe("seo", () => {
       expect(Number(response.headers()["content-length"]), image).toBeGreaterThan(
         5_000,
       );
+
+      const metadata = await sharp(await response.body()).metadata();
+      expect(metadata.width, image).toBe(1200);
+      expect(metadata.height, image).toBe(630);
     }
   });
 

@@ -1,6 +1,10 @@
-import dayjs from "dayjs";
 import { getPosts } from "$lib/common/getPosts";
 import { getProjectsFromJson } from "$lib/common/getProjectCards";
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
+});
 
 export interface OgContent {
     kicker: string;
@@ -67,7 +71,7 @@ export async function getOgContent(key: string): Promise<OgContent> {
             kicker: "Writing",
             title: post.title.en,
             description: post.description.en,
-            footer: `${dayjs(post.date).format("MMM YYYY")} · ${tagCount} ${tagCount === 1 ? "tag" : "tags"}`,
+            footer: `${dateFormatter.format(post.date)} · ${tagCount} ${tagCount === 1 ? "tag" : "tags"}`,
         };
     }
 
