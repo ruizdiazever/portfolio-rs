@@ -37,6 +37,56 @@ test.describe("seo", () => {
     expect(body).toContain('hreflang="zh"');
   });
 
+  test("metadata images resolve from S3", async ({ page, request }) => {
+    for (const path of ["/en", "/en/blog/portfolio-wasm"]) {
+      await page.goto(path);
+
+      const urls = await page.evaluate(() => {
+        const values: string[] = [];
+        document
+          .querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')
+          .forEach((element) => {
+            const content = element.getAttribute("content");
+            if (content) values.push(content);
+          });
+        document
+          .querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"], link[rel="manifest"]')
+          .forEach((element) => {
+            const href = element.getAttribute("href");
+            if (href) values.push(href);
+          });
+        return values;
+      });
+
+      expect(urls.length).toBeGreaterThan(2);
+
+      for (const url of urls) {
+        const absolute = new URL(url, page.url()).href;
+
+        if (absolute.endsWith(".webmanifest")) {
+          const response = await request.get(absolute);
+          const manifest = (await response.json()) as {
+            icons: { src: string }[];
+          };
+          for (const icon of manifest.icons) {
+            expect(icon.src).toMatch(
+              /^https:\/\/s3\.berli\.app\/portfolio\/v1\//,
+            );
+            const iconResponse = await request.get(icon.src);
+            expect(iconResponse.status(), icon.src).toBe(200);
+          }
+          continue;
+        }
+
+        expect(absolute, `${path} ${url}`).toMatch(
+          /^https:\/\/s3\.berli\.app\/portfolio\/v1\//,
+        );
+        const response = await request.get(absolute);
+        expect(response.status(), absolute).toBe(200);
+      }
+    }
+  });
+
   test("pages expose canonical and alternate links", async ({ page }) => {
     await page.goto("/en/sections/about");
 

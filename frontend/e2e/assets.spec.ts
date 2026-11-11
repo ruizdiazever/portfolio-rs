@@ -61,7 +61,7 @@ test.describe("assets", () => {
   });
 
   test("no content images are served by the app", async ({ page }) => {
-    for (const path of ["/en", "/en/sections/books", "/en/blog/portfolio-wasm"]) {
+    for (const path of ["/en", "/en/sections/books", "/en/blog/hardware/minisforum-ms-01", "/en/blog/portfolio-wasm"]) {
       await page.goto(path);
 
       const sources = await page.locator("img").evaluateAll((images) =>
