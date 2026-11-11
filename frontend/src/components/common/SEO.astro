@@ -8,6 +8,7 @@ import inter from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.
 import "@fontsource-variable/inter";
 import "@fontsource-variable/eb-garamond";
 import "$lib/styles/app.css";
+import * as m from "@paraglide/messages.js";
 
 interface Props {
     title: string;
@@ -19,7 +20,7 @@ interface Props {
 
 const {
     title,
-    description = "Software Engineer focused on cutting-edge Technology, Design and Science.",
+    description = m.seoDefault(),
     preloadImgLCP,
     canonical,
     image = seoConfig.image.url,
@@ -106,7 +107,7 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
     content="#0a0a0a"
     media="(prefers-color-scheme: dark)"
 />
-<meta name="keywords" content="rust, developer, portfolio" />
+<meta name="keywords" content="Ever Ruiz Diaz, Rust, TypeScript, software engineer, platform engineer, Rome" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />

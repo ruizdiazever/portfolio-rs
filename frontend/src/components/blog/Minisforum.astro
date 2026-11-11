@@ -11,60 +11,60 @@ const translations = {
     en: {
         freedom: "Freedom",
         freedomText:
-            "Fed up with the costs and limitations of renting a virtual server, I decided to set up my own dedicated server. To my pleasant surprise, it wasnt as complicated as I expected! thats how I got my first dedicated machine, which now hosts",
+            "Renting a virtual server was getting expensive and limiting. I decided to build a dedicated one instead. To my surprise, it was less complicated than I expected. That machine now hosts",
         prerequisites: "Prerequisites",
-        prerequisitesText: "A pendrive and internet",
+        prerequisitesText: "A USB drive and an internet connection",
         downloads: "Downloads",
-        downloadsList: "A list of files that you need download",
+        downloadsList: "Files you need to download",
         description: "Description",
         link: "Link",
-        boot: "Booteable",
+        boot: "Bootable",
         bootText:
-            "Now you need to use the UEFI Shell ISO and boot it to the pendrive. You need create the booteable pendrive in this scheme:",
+            "Use the UEFI Shell ISO to create a bootable USB drive with these settings:",
         bootSelection: "Boot selection",
         partitionScheme: "Partition scheme",
         filesystem: "Filesystem",
         bootInstructions:
-            "Then extract the bios in the .zip and copy it to the pendrive that you boot with the UEFI Shell.",
+            "Extract the BIOS from the ZIP and copy it to the USB drive you booted with the UEFI Shell.",
         update: "Update",
-        updateText: "Insert the pendrive in the",
-        updateTextEnd: "and reboot, hit",
+        updateText: "Insert the USB drive into",
+        updateTextEnd: "and reboot. Press",
         updateTextEnd2:
-            "to enter the BIOS menu, select UEFI Shell or boot from the pendrive.. type and enter",
+            "to open the BIOS menu, select UEFI Shell, and boot from the USB drive. Type and press Enter",
         updateTextEnd3: "and select",
-        autoUpdate: "The update will start automatically..",
+        autoUpdate: "The update starts automatically.",
         computers: "Computers never sleep",
         computersText:
-            "You can find all detailed technical specifications and pricing information in MS-01. Thats all, if you have any questions you can write to me.",
+            "Full specifications and pricing are on the MS-01 page. If you have questions, write to me.",
         andThisWebsite: "and this website",
     },
     zh: {
         freedom: "自由",
         freedomText:
-            "厌倦了租用虚拟服务器的成本和限制，我决定建立自己的专用服务器。让我惊喜的是，这并不像我预期的那么复杂！这就是我如何得到我的第一台专用机器，现在它托管着",
+            "租用虚拟服务器的成本和限制越来越让人难受，于是我决定自己搭一台专用服务器。出乎意料的是，它没有我想的那么复杂。这台机器现在托管着",
         prerequisites: "先决条件",
-        prerequisitesText: "U盘和网络",
+        prerequisitesText: "一个 U 盘和网络连接",
         downloads: "下载",
-        downloadsList: "您需要下载的文件列表",
+        downloadsList: "需要下载的文件",
         description: "描述",
         link: "链接",
         boot: "可启动",
         bootText:
-            "现在您需要使用UEFI Shell ISO并将其引导到U盘。您需要按照以下方案创建可启动U盘：",
+            "用 UEFI Shell ISO 制作可启动 U 盘，设置如下：",
         bootSelection: "引导选择",
         partitionScheme: "分区方案",
         filesystem: "文件系统",
         bootInstructions:
-            "然后将BIOS解压缩到.zip中，并将其复制到使用UEFI Shell引导的U盘中。",
+            "解压 BIOS 压缩包，把它复制到用 UEFI Shell 启动的 U 盘里。",
         update: "更新",
-        updateText: "将U盘插入",
+        updateText: "将 U 盘插入",
         updateTextEnd: "并重启，按",
-        updateTextEnd2: "进入BIOS菜单，选择UEFI Shell或从U盘启动..输入并回车",
+        updateTextEnd2: "进入 BIOS 菜单，选择 UEFI Shell，从 U 盘启动。输入并回车",
         updateTextEnd3: "并选择",
-        autoUpdate: "更新将自动开始..",
+        autoUpdate: "更新会自动开始。",
         computers: "计算机永不休眠",
         computersText:
-            "您可以在MS-01中找到所有详细的技术规格和价格信息。就这样，如果您有任何问题可以写信给我。",
+            "完整的规格和价格见 MS-01 页面。如果有问题，可以写信给我。",
         andThisWebsite: "和这个网站",
     },
 };
@@ -74,7 +74,7 @@ const downloadsTableData = [
         name: "BIOS",
         description: {
             en: "Official BIOS",
-            zh: "官方BIOS",
+            zh: "官方 BIOS",
         },
         link: "https://www.minisforum.com/new/support?lang=en#/support/page/download/108",
         linkText: {
@@ -86,7 +86,7 @@ const downloadsTableData = [
         name: "UEFI Shell",
         description: {
             en: "ISO of UEFI Shell",
-            zh: "UEFI Shell的ISO",
+            zh: "UEFI Shell 的 ISO",
         },
         link: "https://github.com/pbatard/UEFI-Shell/releases",
         linkText: "GitHub",
@@ -95,7 +95,7 @@ const downloadsTableData = [
         name: "Rufus",
         description: {
             en: "Bootable USB tool",
-            zh: "可启动USB工具",
+            zh: "可启动 U 盘工具",
         },
         link: "https://rufus.ie/en/",
         linkText: {
@@ -109,7 +109,7 @@ const bootTableData = [
     {
         bootSelection: {
             en: "UEFI-Shell latest ISO",
-            zh: "UEFI-Shell最新ISO",
+            zh: "UEFI-Shell 最新 ISO",
         },
         partitionScheme: "GPT",
         filesystem: "FAT32",
@@ -134,9 +134,9 @@ const t = translations[lang];
     tags={post.tags}
     date={post.date}
 >
-    <h1 id="freedom" class="blog-content-title">
+    <h2 id="freedom" class="blog-content-title">
         <a href="#freedom">{t.freedom}</a>
-    </h1>
+    </h2>
     <Media
         path="blog/hardware/minisforum-ms-01/cover"
         widths={[400, 800, 1600]}

@@ -1,0 +1,73 @@
+---
+import Layout from "$lib/layouts/Layout.astro";
+import { getLocale } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
+import { projectDetails } from "$lib/common/projectDetails";
+
+interface Props {
+    slug: keyof typeof projectDetails;
+}
+
+const { slug } = Astro.props;
+const project = projectDetails[slug];
+const locale = getLocale();
+---
+
+<Layout
+    title={`${project.title} — Ever Ruiz Diaz`}
+    description={project.tagline[locale]}
+>
+    <article class="mt-10 max-w-[68ch]">
+        <a
+            href={`/${locale}#work`}
+            class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+        >
+            <span aria-hidden="true">←</span>
+            {m.projectBack()}
+        </a>
+
+        <p
+            class="mt-8 flex items-center gap-2 text-sm font-medium text-muted-foreground"
+        >
+            <span class="size-1.5 rounded-full bg-green-600" aria-hidden="true"
+            ></span>
+            {m.projectInProgress()}
+        </p>
+        <h1 class="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">
+            {project.title}
+        </h1>
+        <p class="mt-4 text-lg text-secondary-foreground">
+            {project.tagline[locale]}
+        </p>
+        <p class="mt-6 text-md text-secondary-foreground">
+            {project.body[locale]}
+        </p>
+
+        <div class="mt-10 border-t pt-6">
+            <h2 class="text-sm font-semibold">{m.projectStack()}</h2>
+            <ul class="mt-3 flex flex-wrap gap-2">
+                {
+                    project.stack.map((item) => (
+                        <li class="rounded-full border bg-muted/40 px-3 py-1 text-xs">
+                            {item}
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+
+        {
+            project.repository && (
+                <a
+                    href={project.repository}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-1 underline-offset-4 hover:text-[#68b5fc]"
+                >
+                    {m.projectSource()}
+                    <span aria-hidden="true">↗</span>
+                </a>
+            )
+        }
+    </article>
+</Layout>

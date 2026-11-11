@@ -19,10 +19,10 @@ test.describe("home", () => {
       page.getByRole("link", { name: /Ever Ruiz Diaz/ }).first(),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Blog", exact: true }),
+      page.getByRole("heading", { name: "Writing", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Software", exact: true }),
+      page.getByRole("heading", { name: "Selected work", exact: true }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "Experience", exact: true }),
@@ -36,13 +36,13 @@ test.describe("home", () => {
     await page.goto("/zh");
 
     await expect(
-      page.getByRole("heading", { name: "博客", exact: true }),
+      page.getByRole("heading", { name: "写作", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "项目", exact: true }),
+      page.getByRole("heading", { name: "精选项目", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "经验", exact: true }),
+      page.getByRole("heading", { name: "经历", exact: true }),
     ).toBeVisible();
   });
 

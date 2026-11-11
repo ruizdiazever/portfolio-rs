@@ -99,7 +99,7 @@ test.describe("seo", () => {
     ).toHaveAttribute("href", "https://www.everdev.it/zh/sections/about");
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
-      /Software Engineer/,
+      /tech lead|software engineer/i,
     );
     await expect(page.locator('meta[property="og:image"]').first()).toHaveAttribute(
       "content",

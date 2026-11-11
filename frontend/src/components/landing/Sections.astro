@@ -1,24 +1,25 @@
 ---
 import { Icon } from "astro-icon/components";
 import { urls } from "$lib/common/urls";
+import * as m from "@paraglide/messages.js";
 ---
 
 <div class="grid grid-cols-2 gap-3">
     {
         [
-            { href: urls.about, text: "About" },
-            { href: urls.cv, text: "CV" },
-            { href: urls.contact, text: "Contact" },
-            { href: urls.books, text: "Books" },
+            { href: urls.about, text: m.about() },
+            { href: urls.cv, text: m.cv() },
+            { href: urls.contact, text: m.contact() },
+            { href: urls.books, text: m.reading() },
         ].map((link) => (
             <a
-                class="flex items-center justify-between px-3 py-2 text-md border rounded-lg shadow"
+                class="group flex items-center justify-between px-3 py-2 text-md border rounded-lg shadow"
                 href={link.href}
             >
                 {link.text}
                 <Icon
                     name="arrow-right"
-                    title="Link"
+                    aria-hidden="true"
                     class="duration-200 group-hover:translate-x-[1.5px] w-4 h-4"
                 />
             </a>

@@ -1,27 +1,26 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
+import * as m from "@paraglide/messages.js";
 
 Astro.response.status = 500;
-const defaultTitle: string = "Server Error";
+const defaultTitle = m.serverErrorTitle();
 ---
 
 <Layout
-    description="500 Error Page - Server error occurred"
+    description={`500 — ${defaultTitle}`}
     title={defaultTitle}
     showFooter={false}
     showHeader={false}
 >
     <section class="grid place-content-center h-screen space-y-4">
-        <h1 class="mt-4 text-4xl font-semibold text-center">
-            Oops! Something Went Wrong
-        </h1>
-        <h3 class="text-xl font-medium text-center text-balance">
-            We're experiencing some technical issues on our end. Please try
-            again later.
-        </h3>
-        <span>If the problem persists, please contact our support team.</span>
+        <h1 class="mt-4 text-4xl font-semibold text-center">{defaultTitle}</h1>
+        <p
+            class="max-w-[40ch] text-lg text-center text-balance text-muted-foreground"
+        >
+            {m.serverErrorBody()}
+        </p>
         <a href="/" class="mt-6 font-semibold">
-            Go back home
+            {m.goHome()}
             <span aria-hidden="true"> &rarr;</span>
         </a>
     </section>

@@ -1,62 +1,60 @@
-# The journey to excellence
 
-Welcome to my WASM portfolio, a cutting-edge showcase of my work with [Rust](https://www.rust-lang.org/) and WebAssembly, powered by the [Leptos](https://leptos.dev/) framework.
+In 2024 I rebuilt my portfolio as a Rust and WebAssembly app: Leptos for the interface, Axum for the API, and Redis for views and feedback.
 
-This portfolio is more than just a collection of projects; it reflects my commitment to excellence and innovation in the tech industry.
+I wanted to see how far a Rust-only stack could go on the web. This is what I learned. The site has since moved to Astro and Svelte; this is a record of that earlier build.
 
-# Stack
+## Stack
 
-In addition to Leptos I have used [Axum](https://github.com/tokio-rs/axum) to create a microservice which uses [RedisDB](https://redis.io/) for persistence. I use the API for some web features like visits or feedback.
+Leptos compiled the interface to WebAssembly. A small Axum service handled visits and feedback, with Redis for persistence. The API was deliberately narrow: a few endpoints the page actually needed.
 
-# Design
+## Design
 
-Inspired by the achievements of [Vercel](https://vercel.com/), [Nio](https://www.nio.com/), [SpaceX](https://www.spacex.com/), [Apple](https://www.apple.com/), and [Nothing](https://nothing.tech/), with [Guille](https://twitter.com/gzmoreira/) as a role model for Latin Americans in software development, I strive for top-tier standards.
+I wanted the site to feel quiet and fast. I looked at [Vercel](https://vercel.com/), [Nio](https://www.nio.com/), [Apple](https://www.apple.com/), and [Nothing](https://nothing.tech/) for restraint, and at [Guille Moreira](https://twitter.com/gzmoreira/) as a reminder of what Latin American developers can build.
 
-Explore sections currently under development, exemplifying quality and precision. Every element is thoughtfully curated to create a functional and aesthetically pleasing digital space. Though some parts are still in progress, I am excited to share this journey with you.
+The first version shipped with some sections unfinished. I left them visible rather than hiding them. A portfolio should show the work in progress, not just the polished parts.
 
-# Features
+## Features
 
-### Enhanced Performance with SSR & Hydration
-  - Lightning-fast initial page loads through server-side rendering.
-  - Seamless transition to interactive content with client-side hydration.
-  - Optimized for both speed and user interaction.
+### SSR and hydration
+- Server-side rendering for the first paint.
+- Client-side hydration for the interactive parts.
+- A small JavaScript payload.
 
-### Interactive Feedback System
-  - Clean, intuitive feedback interface.
-  - Real-time email notifications via RedisDB and SMTP.
-  - Streamlined user engagement process.
+### Feedback
+- A short feedback form on each post.
+- Email notifications through Redis and SMTP.
+- No account required.
 
-### Advanced Analytics & Insights
-  - Individual post view tracking.
-  - Centralized visitor analytics in RedisDB.
-  - Visual engagement metrics dashboard.
+### Analytics
+- Per-post view counts.
+- Visitor analytics in Redis.
+- A dashboard for the numbers I actually used.
 
-# Architecture
+## Architecture
 
 ![Portfolio Architecture](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/architecture.svg)
 
+## Monitoring
 
-# Monitoring
-
-As I show in the graph above, I have used [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/) (another wonderful project powered by Rust) for monitoring. For those who do not know these technologies, InfluxDB is a timeseries database that has its own system for data collection and Grafana serves as a client for this data. In addition, InfluxDB has an alert system that I have connected to a Telegram bot to keep up to date with any incidents.
+I used [Grafana](https://grafana.com/) and [InfluxDB](https://www.influxdata.com/) for monitoring. InfluxDB stores the time series; Grafana reads it. I wired InfluxDB alerts to a Telegram bot so I would hear about incidents.
 
 ![Grafana Dashboard](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/grafana-1280.webp)
 
-# Deployment
+## Deployment
 
-I have deployed the entire portfolio and the various technologies around it on my own beloved mini server.
-
-The thrill of technological success is palpable. After working tirelessly, I have launched my portfolio and the entire technological environment surrounding it on my own server, a true palace of innovation:
+I ran the portfolio on a small home server: Fedora Server 40, Caddy for HTTPS, Cockpit and SSH for administration, Grafana and InfluxDB for monitoring. The current site runs on Proxmox with Caddy and S3 media; the table below describes the 2024 setup.
 
 | Component | Name |
 |-----------|------|
 | **OS** | Fedora Server 40 |
 | **HTTPS Server** | Caddy |
-| **Domain** | SquareSpace |
+| **Domain** | everdev.it |
 | **Administration** | Cockpit and SSH |
 | **Monitoring** | Grafana with InfluxDB |
 | **Alerts** | InfluxDB with Telegram |
 
-# See you soon
+## See you soon
 
-Making this portfolio has been a beautiful adventure, to get to know the WASM world and to reinforce my knowledge in Rust, I dedicate it to my beautiful daughter Sofia, source of my strength and eternal inspiration!
+Building this portfolio taught me that WebAssembly does not remove the hard parts: state, routing, and design decisions remain. It also gave me a reason to go deeper into Rust.
+
+I dedicate it to my daughter Sofia, who is the source of my strength and a constant reminder of why the work matters.

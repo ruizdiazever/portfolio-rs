@@ -239,8 +239,13 @@ pre {
     word-spacing: 0.16em;
 }
 
-.blog-content-title {
+.blog-content-title,
+.blog-content-subtitle {
     @apply text-lg font-bold text-secondary-foreground;
+}
+
+.blog-content-subtitle {
+    @apply mt-8 mb-3;
 }
 
 .blog-content-paragraph {

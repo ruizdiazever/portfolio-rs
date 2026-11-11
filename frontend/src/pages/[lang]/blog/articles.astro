@@ -13,10 +13,10 @@ const postViews = await Promise.all(
 );
 ---
 
-<Layout title="Ever Ruiz Diaz">
+<Layout title={m.titleWriting()} description={m.seoWriting()}>
     <div class="min-h-screen mt-20">
         <h1 class="text-5xl font-bold">{m.articles()}</h1>
-        <p class="mb-10 max-w-[400px] text-md">
+        <p class="mt-3 mb-10 max-w-[60ch] text-md text-secondary-foreground">
             {m.articlesDescription()}
         </p>
         <Divider />

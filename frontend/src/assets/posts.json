@@ -3,19 +3,27 @@
     {
       "id": "aa614ca5-0940-41a1-bf80-710096df26ac",
       "title": {
-        "en": "Updating MS-01 bios",
+        "en": "Updating the MS-01 BIOS",
         "zh": "更新 MS-01 BIOS"
       },
-      "author": ["Ever Ruiz Diaz"],
+      "author": [
+        "Ever Ruiz Diaz"
+      ],
       "pinned": false,
       "active": true,
       "url": "/blog/hardware/minisforum-ms-01",
       "description": {
-        "en": "Minisforum MS-01: a compact and powerful server with a lot of features.",
-        "zh": "Minisforum MS-01：一个紧凑而强大的服务器，具有许多功能"
+        "en": "What it took to bring a compact Minisforum server up to date, and why the details matter.",
+        "zh": "给一台紧凑的 Minisforum 服务器升级 BIOS，以及那些值得在意的细节。"
       },
       "readTime": 3,
-      "tags": ["Hardware", "Server", "Workstation", "Bios", "Minisforum"],
+      "tags": [
+        "Hardware",
+        "Server",
+        "Workstation",
+        "Bios",
+        "Minisforum"
+      ],
       "date": "2024-11-15"
     },
     {
@@ -24,30 +32,40 @@
         "en": "Organizations using Rust",
         "zh": "使用 Rust 的组织"
       },
-      "author": ["Ever Ruiz Diaz", "Community"],
+      "author": [
+        "Ever Ruiz Diaz",
+        "Community"
+      ],
       "pinned": true,
       "active": true,
       "url": "/blog/organizations-using-rust",
       "description": {
-        "en": "Forging the future, companies building with Rust.",
-        "zh": "打造未来，使用 Rust 构建的公司"
+        "en": "A short poem, then a field guide to the companies and foundations investing in Rust.",
+        "zh": "一首短诗，以及一份使用 Rust 的公司与基金会清单。"
       },
       "readTime": 3,
-      "tags": ["Rust", "Industry", "State", "Companies"],
+      "tags": [
+        "Rust",
+        "Industry",
+        "State",
+        "Companies"
+      ],
       "date": "2024-09-30"
     },
     {
       "id": "9a5f3584-5a8a-4c22-8460-2d775d54d89b",
       "title": {
-        "en": "Portfolio WASM",
-        "zh": "作品集 WASM"
+        "en": "Building a Rust/WASM portfolio",
+        "zh": "用 Rust 与 WASM 重做作品集"
       },
-      "author": ["Ever Ruiz Diaz"],
+      "author": [
+        "Ever Ruiz Diaz"
+      ],
       "pinned": false,
       "url": "/blog/portfolio-wasm",
       "description": {
-        "en": "New portfolio WASM, a history of performance and love powered by Rust with Leptos.",
-        "zh": "新的 WASM 作品集，由 Rust 和 Leptos 驱动的性能与热爱的历史"
+        "en": "The story of rebuilding my portfolio with Leptos, Axum, and WebAssembly.",
+        "zh": "用 Leptos、Axum 和 WebAssembly 重做作品集的经过。"
       },
       "readTime": 2,
       "tags": [
@@ -70,7 +88,9 @@
         "en": "Secure Auth with Rust",
         "zh": "使用 Rust 的安全认证"
       },
-      "author": ["Ever Ruiz Diaz"],
+      "author": [
+        "Ever Ruiz Diaz"
+      ],
       "pinned": true,
       "active": false,
       "url": "/blog/auth-refresh-acess-token",

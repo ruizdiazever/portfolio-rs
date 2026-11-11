@@ -1,11 +1,18 @@
 ---
 import { media } from "$lib/common/media";
 import Layout from "$lib/layouts/Layout.astro";
+import { getPost } from "$lib/common/getPostById";
+import { getLocale } from "@paraglide/runtime";
 import Post from "$lib/components/blog/Minisforum.astro";
+
+const post = await getPost("aa614ca5-0940-41a1-bf80-710096df26ac");
+if (!post) throw new Error("Post not found");
+const locale = getLocale();
 ---
 
 <Layout
-    title="Ever Ruiz Diaz | Minisforum MS-01"
+    title={`${post.title[locale]} — Ever Ruiz Diaz`}
+    description={post.description[locale]}
     image={media("og/blog/updating-ms-01.png")}
 >
     <Post />

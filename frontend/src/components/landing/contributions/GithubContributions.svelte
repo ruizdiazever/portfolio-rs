@@ -63,7 +63,7 @@
 </script>
 
 <div
-    class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 overflow-x-auto h-[170px] md:h-[220px]"
+    class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 h-[170px] md:h-[220px]"
     transition:fade={{ duration: prefersReducedMotion ? 0 : 300 }}
 >
     <div
@@ -91,7 +91,8 @@
     </div>
 
     {#if visible}
-        <div class="relative" transition:fade={{ duration: prefersReducedMotion ? 0 : 500 }}>
+        <div class="overflow-x-auto">
+        <div class="relative min-w-[560px]" transition:fade={{ duration: prefersReducedMotion ? 0 : 500 }}>
             <Tooltip.Provider>
                 <div
                     class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
@@ -132,6 +133,7 @@
                     </div>
                 {/each}
             </div>
+        </div>
         </div>
     {/if}
 </div>

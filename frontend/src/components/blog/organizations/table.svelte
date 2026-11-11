@@ -13,9 +13,9 @@
 </script>
 
 <!-- List -->
-<h1 id="organizations" class="blog-content-title my-3">
+<h2 id="organizations" class="blog-content-title my-3">
     <a href="#organizations">{m.organizations()}</a>
-</h1>
+</h2>
 
 <!-- Table -->
 <DataTable {data} {columns} />

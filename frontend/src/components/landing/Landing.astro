@@ -24,7 +24,6 @@ const postViews = await Promise.all(
 );
 ---
 
-<h1 class="sr-only">Ever Ruiz Diaz</h1>
 <Hero transition:name="hero" />
 <Contributions transition:name="contributions" />
 <Sections />
@@ -32,22 +31,29 @@ const postViews = await Promise.all(
 <div class="space-y-16 mt-16" transition:name="main">
     <section transition:name="blog-section">
         <div
-            class="flex justify-between items-center mb-6"
+            class="flex justify-between items-start gap-4 mb-6"
             transition:name="blog-header"
         >
-            <h2
-                class="text-3xl md:text-5xl font-bold"
-                transition:name="blog-title"
-            >
-                {m.blog()}
-            </h2>
+            <div>
+                <h2
+                    class="text-3xl md:text-5xl font-bold"
+                    transition:name="blog-title"
+                >
+                    {m.blog()}
+                </h2>
+                <p
+                    class="mt-2 max-w-[52ch] text-md text-secondary-foreground"
+                >
+                    {m.writingIntro()}
+                </p>
+            </div>
             <a
                 href={urls.articles}
-                class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
+                class="flex shrink-0 items-center gap-2 text-sm text-secondary-foreground font-semibold"
                 transition:name="blog-more-link"
             >
                 {m.more()}
-                <Icon name="arrow-right" title="LinkedIn" size="0.8rem" />
+                <Icon name="arrow-right" aria-hidden="true" size="0.8rem" />
             </a>
         </div>
         <div class="space-y-6" transition:name="blog-posts">
@@ -82,13 +88,16 @@ const postViews = await Promise.all(
         </div>
     </section>
 
-    <section transition:name="sof-section">
+    <section id="work" transition:name="sof-section">
         <h2
-            class="text-3xl md:text-5xl font-bold mb-6"
+            class="text-3xl md:text-5xl font-bold mb-3"
             transition:name="sof-title"
         >
             {m.software()}
         </h2>
+        <p class="mb-6 max-w-[52ch] text-md text-secondary-foreground">
+            {m.softwareIntro()}
+        </p>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 gap-6"
             transition:name="software-grid"

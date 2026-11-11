@@ -14,17 +14,17 @@ const translations = {
     en: {
         tomorrowTitle: "Rust's Rise",
         poem: "Where giants forge code in trust's sharp light, New pathways unfold for hands bold in Rust's might. Syntax secure, speed unconfined— Safety and ease reshape tech's frontier, redefined.",
-        communityTitle: "Note to community",
+        communityTitle: "A note for the community",
         communityText:
-            "Contribute to expanding the list submit a pull request at",
+            "To add an organization, open a pull request at",
         poemBy: "Poem by DeepSeek R1",
     },
     zh: {
-        tomorrowTitle: "Rust的崛起",
-        poem: "在信任的锐利光芒中巨人锻造代码，新的道路为Rust的力量而展开。语法安全，速度无限—安全与便捷重塑技术前沿。",
-        communityTitle: "社区注释",
-        communityText: "通过以下方式提交拉取请求来帮助扩展列表",
-        poemBy: "诗歌作者：DeepSeek R1",
+        tomorrowTitle: "Rust 的崛起",
+        poem: "在信任的锐光里，巨人锻造代码；\n新的道路，为敢于触碰 Rust 的人展开。\n语法安全，速度无界——\n安全与从容，重写技术的前沿。",
+        communityTitle: "给社区的一句话",
+        communityText: "想补充组织？请在以下仓库提交 pull request：",
+        poemBy: "诗歌：DeepSeek R1",
     },
 };
 
@@ -42,9 +42,9 @@ const t = translations[getLocale() === "zh" ? "zh" : "en"];
     date={post.date}
 >
     <div class="w-full">
-        <h1 id="tomorrow" class="blog-content-title">
+        <h2 id="tomorrow" class="blog-content-title">
             <a href="#tomorrow">{t.tomorrowTitle}</a>
-        </h1>
+        </h2>
         <p class="blog-content-paragraph">
             <em>[{t.poemBy}]</em><br />
             {
@@ -65,9 +65,9 @@ const t = translations[getLocale() === "zh" ? "zh" : "en"];
         </p>
         <TableDescription />
         <Table client:idle />
-        <h1 id="community" class="blog-content-title pt-6">
+        <h2 id="community" class="blog-content-title pt-6">
             <a href="#community">{t.communityTitle}</a>
-        </h1>
+        </h2>
         <p class="blog-content-paragraph">
             {t.communityText}
             <LinkPost

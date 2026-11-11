@@ -1,8 +1,9 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
 import AboutComponent from "$lib/components/sections/About.astro";
+import * as m from "@paraglide/messages.js";
 ---
 
-<Layout title="Ever Ruiz Diaz">
+<Layout title={m.titleAbout()} description={m.seoAbout()}>
     <AboutComponent />
 </Layout>

@@ -55,7 +55,7 @@
             onclick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
         >
-            <span class="sr-only">Go to first page</span>
+            <span class="sr-only">{m.firstPage()}</span>
             <ChevronsLeft />
         </Button>
         <Button
@@ -64,7 +64,7 @@
             onclick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
         >
-            <span class="sr-only">Go to previous page</span>
+            <span class="sr-only">{m.previousPage()}</span>
             <ChevronLeft />
         </Button>
         <Button
@@ -73,7 +73,7 @@
             onclick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
         >
-            <span class="sr-only">Go to next page</span>
+            <span class="sr-only">{m.nextPage()}</span>
             <ChevronRight />
         </Button>
         <Button
@@ -82,7 +82,7 @@
             onclick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
         >
-            <span class="sr-only">Go to last page</span>
+            <span class="sr-only">{m.lastPage()}</span>
             <ChevronsRight />
         </Button>
     </div>

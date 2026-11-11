@@ -5,9 +5,9 @@
     import * as m from "@paraglide/messages.js";
 </script>
 
-<h1 id="icon" class="blog-content-title my-3">
+<h2 id="icon" class="blog-content-title my-3">
     <a href="#icon">{m.meaningOfIcons()}</a>
-</h1>
+</h2>
 
 <Table.Root class="border rounded w-full text-sm bg-white dark:bg-black">
     <Table.Header>

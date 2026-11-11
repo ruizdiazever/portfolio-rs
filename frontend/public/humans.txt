@@ -1,6 +1,7 @@
-Hi, welcome!
+Hi.
 
-I am a developer, a technology enthusiast, a dreamer and an entrepreneur.
+I'm Ever Ruiz Diaz, a software engineer in Rome. I build platform software in Rust and TypeScript, and write about systems and design.
 
 GitHub: https://github.com/ruizdiazever
-Twitter: https://x.com/everruizdiazo
+X: https://x.com/everruizdiazo
+Site: https://www.everdev.it

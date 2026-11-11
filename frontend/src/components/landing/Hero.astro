@@ -3,25 +3,30 @@ import * as m from "@paraglide/messages.js";
 import Media from "$lib/components/common/Media.astro";
 ---
 
-<div class="flex justify-between items-center gap-5">
+<div class="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5 mt-6">
     <div
-        class="relative flex size-24 shrink-0 overflow-hidden rounded-full border mt-6"
+        class="relative flex size-20 sm:size-24 shrink-0 overflow-hidden rounded-full border"
     >
         <Media
             path="site/avatar"
             widths={[96, 192]}
             width={96}
             height={96}
-            sizes="96px"
+            sizes="(min-width: 640px) 96px, 80px"
             alt="Ever Ruiz Diaz"
             class="aspect-square size-full dark:bg-black"
             loading="eager"
             fetchpriority="high"
         />
     </div>
-    <p class="hero text-secondary-foreground md:text-lg text-md text-left mt-8">
-        {m.meTitle()}
-        <br />
-        {m.meDescription()}
-    </p>
+    <div class="min-w-0">
+        <h1
+            class="text-xl md:text-2xl font-semibold text-foreground text-balance"
+        >
+            {m.meTitle()}
+        </h1>
+        <p class="mt-2 text-md md:text-lg text-secondary-foreground text-pretty">
+            {m.meDescription()}
+        </p>
+    </div>
 </div>

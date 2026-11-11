@@ -60,7 +60,7 @@ test.describe("interactions", () => {
 
     await expect(page).toHaveURL(/\/zh\/sections\/about$/);
     await expect(
-      page.getByRole("heading", { name: "About", exact: true }),
+      page.getByRole("heading", { name: "关于", exact: true }),
     ).toBeVisible();
   });
 

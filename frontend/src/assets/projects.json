@@ -3,14 +3,16 @@
     {
       "id": "468ebc44-4ef0-4e41-8b05-525010becb11",
       "slug": "berli-system",
-      "author": ["Ever Ruiz Diaz"],
+      "author": [
+        "Ever Ruiz Diaz"
+      ],
       "home": true,
       "url": "/projects/berli-system",
-      "title": "BERLi Platform",
+      "title": "BERLi",
       "repository": "https://github.com/berli-app",
       "description": {
-        "en": "Async Enterprise Platform",
-        "zh": "异步企业软件管理"
+        "en": "A Rust-first platform for identity, credentials, and operations.",
+        "zh": "以 Rust 为核心的身份、凭证与运维平台。"
       },
       "readtime": 0,
       "tech": [
@@ -46,14 +48,16 @@
     {
       "id": "e3399a11-7ce6-4cdc-aba6-7d88d2a412b6",
       "slug": "raau-design",
-      "author": ["Ever Ruiz Diaz"],
+      "author": [
+        "Ever Ruiz Diaz"
+      ],
       "home": true,
       "url": "/projects/raau-design",
       "title": "RAAU Design",
       "repository": "",
       "description": {
-        "en": "Engineering Design Company",
-        "zh": "工程设计公司"
+        "en": "The digital home for an engineering design studio.",
+        "zh": "RAAU 工程设计工作室的数字主页。"
       },
       "readtime": 0,
       "tech": [
@@ -86,14 +90,16 @@
     {
       "id": "b3678579-1593-4c8e-891c-7a933f7a3760",
       "slug": "picu-iot",
-      "author": ["Ever Ruiz Diaz"],
+      "author": [
+        "Ever Ruiz Diaz"
+      ],
       "home": true,
       "url": "/projects/picu-iot",
       "title": "Picu IoT",
       "repository": "",
       "description": {
-        "en": "IoT solution powered by Rust",
-        "zh": "由Rust驱动的顶级IoT项目"
+        "en": "An IoT stack built in Rust, from API to dashboard.",
+        "zh": "用 Rust 构建的 IoT 技术栈，从 API 到仪表盘。"
       },
       "readtime": 2,
       "tech": [

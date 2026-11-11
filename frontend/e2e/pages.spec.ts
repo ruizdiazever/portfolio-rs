@@ -6,24 +6,24 @@ const pages: Array<{
   text?: string;
 }> = [
   { path: "/en/sections/about", heading: "About" },
-  { path: "/en/sections/books", heading: "Books" },
-  { path: "/en/sections/contact", heading: "Contact me", text: "Let's work on something amazing" },
-  { path: "/zh/sections/about", heading: "About" },
-  { path: "/zh/sections/books", heading: "Books" },
-  { path: "/zh/sections/contact", heading: "Contact me" },
-  { path: "/en/sections/cv", heading: "Work in progress…" },
-  { path: "/en/blog/articles", heading: "Articles" },
-  { path: "/zh/blog/articles", heading: "文章" },
-  { path: "/en/blog/hardware/minisforum-ms-01", heading: "Updating MS-01 bios" },
+  { path: "/en/sections/books", heading: "Reading" },
+  { path: "/en/sections/contact", heading: "Contact", text: "Have a systems problem" },
+  { path: "/zh/sections/about", heading: "关于" },
+  { path: "/zh/sections/books", heading: "阅读" },
+  { path: "/zh/sections/contact", heading: "联系" },
+  { path: "/en/sections/cv", heading: "CV" },
+  { path: "/en/blog/articles", heading: "Writing" },
+  { path: "/zh/blog/articles", heading: "写作" },
+  { path: "/en/blog/hardware/minisforum-ms-01", heading: "Updating the MS-01 BIOS" },
   { path: "/zh/blog/hardware/minisforum-ms-01", heading: "更新 MS-01 BIOS" },
   { path: "/en/blog/organizations-using-rust", heading: "Organizations using Rust" },
   { path: "/zh/blog/organizations-using-rust", heading: "使用 Rust 的组织" },
-  { path: "/en/blog/portfolio-wasm", heading: "Portfolio WASM" },
-  { path: "/zh/blog/portfolio-wasm", heading: "作品集 WASM" },
-  { path: "/en/projects/berli-system", heading: "Work in progress…" },
-  { path: "/en/projects/picu-iot", heading: "Work in progress…" },
-  { path: "/en/projects/raau-design", heading: "Work in progress…" },
-  { path: "/zh/projects/berli-system", heading: "Work in progress…" },
+  { path: "/en/blog/portfolio-wasm", heading: "Building a Rust/WASM portfolio" },
+  { path: "/zh/blog/portfolio-wasm", heading: "用 Rust 与 WASM 重做作品集" },
+  { path: "/en/projects/berli-system", heading: "BERLi" },
+  { path: "/en/projects/picu-iot", heading: "Picu IoT" },
+  { path: "/en/projects/raau-design", heading: "RAAU Design" },
+  { path: "/zh/projects/berli-system", heading: "BERLi" },
 ];
 
 test.describe("pages", () => {
@@ -62,7 +62,7 @@ test.describe("organizations table", () => {
     await page.getByRole("button", { name: "Next page" }).click();
     await expect(page.getByText("Page 2 of 3")).toBeVisible();
 
-    await page.getByPlaceholder("Filter by name...").fill("Google");
+    await page.getByPlaceholder("Filter by name…").fill("Google");
     await expect(page.getByText("Page 1 of 1")).toBeVisible();
     await expect(page.getByRole("cell", { name: "Google", exact: true })).toBeVisible();
   });
@@ -86,7 +86,7 @@ test.describe("feedback", () => {
     );
 
     await page.goto("/en/blog/portfolio-wasm");
-    await expect(page.getByText("Was this helpful?")).toBeVisible();
+    await expect(page.getByText("Was this useful?")).toBeVisible();
 
     await openFeedbackDialog(page);
     const dialog = page.getByRole("dialog");

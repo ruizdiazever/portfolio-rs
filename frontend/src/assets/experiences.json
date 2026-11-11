@@ -10,8 +10,8 @@
       "company": "Anritsu",
       "url": "https://www.anritsu.com/en-gb/",
       "description": {
-        "en": "Python lead developer in M4 Platform Team at Anritsu. My work consists in Python code quality control and modern interface development using RestAPI or GraphQL in VMs and Cloud infrastructures. Pioneered cloud-first architectures: Designed/developed scalable RestAPI & GraphQL interfaces adopted across 3 product lines.",
-        "zh": "在安立公司的M4平台团队担任Python技术主管。我的工作包括Python代码质量控制和使用RestAPI或GraphQL在虚拟机和云基础设施上开发现代界面。"
+        "en": "I design the REST and GraphQL interfaces behind M4, review code, and keep the platform workable across VMs and cloud. Those interfaces now serve three product lines.",
+        "zh": "负责 M4 背后的 REST 与 GraphQL 接口设计、代码评审，并让平台在虚拟机和云上都能稳定运行；这些接口目前服务三条产品线。"
       },
       "current": true
     },
@@ -25,14 +25,14 @@
       "company": "Italian Air Force",
       "url": "https://www.aeronautica.difesa.it/",
       "description": {
-        "en": "Spearheaded military-grade weather system modernization - migrated Flask API to FastAPI microservices (300% performance boost, 50% latency reduction). Elevated developer experience (DX).",
-        "zh": "领导了军用级天气系统的现代化 - 将Flask API迁移到FastAPI微服务（性能提升300%，延迟降低50%）。提升了开发者体验（DX）"
+        "en": "Modernized a weather system: moved a Flask API to FastAPI services, tripled throughput, halved latency, and made deploys simpler.",
+        "zh": "改造气象系统：将 Flask API 迁移到 FastAPI 服务，吞吐量提升至约 3 倍、延迟降低约一半，同时让部署更简单。"
       },
       "current": false
     },
     {
       "startDate": "2021-10-01",
-      "endDate": "2022-06-31",
+      "endDate": "2022-06-30",
       "position": {
         "en": "Software Developer",
         "zh": "软件开发工程师"
@@ -40,8 +40,8 @@
       "company": "Qi4M",
       "url": "https://www.qi4m.com/",
       "description": {
-        "en": "Engineered seamless integration of AI/ML components into enterprise Python 3 workflows, boosting cross-team productivity. Architected mission-critical full-stack solution using Vue.js + Flask REST API.",
-        "zh": "将AI/ML组件无缝集成到企业Python 3工作流中，提高了跨团队的生产力。使用Vue.js + Flask REST API构建了关键任务的全栈解决方案。"
+        "en": "Integrated ML components into Python workflows and built a Vue and Flask service for a client-facing product.",
+        "zh": "把机器学习组件接入 Python 业务流程，并用 Vue 与 Flask 交付一套面向客户的服务。"
       },
       "current": false
     }

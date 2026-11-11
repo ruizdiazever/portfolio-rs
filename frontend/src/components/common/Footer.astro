@@ -23,7 +23,7 @@ import Social from "$lib/components/common/Social.astro";
                     width={32}
                     height={19}
                     sizes="32px"
-                    alt="Rust Evangelist Strike Force mascot"
+                    alt="Rust mascot"
                     class="w-8 h-auto"
                 />
                 {m.rustLover()}
@@ -32,10 +32,24 @@ import Social from "$lib/components/common/Social.astro";
             <p
                 class="flex mt-4 text-center text-sm text-gray-500 dark:text-gray-400 lg:mt-0 lg:text-right"
             >
-                Ever Ruiz Diaz<span class="mx-1">-</span>{
+                Ever Ruiz Diaz<span class="mx-1">·</span>{
                     new Date().getFullYear()
                 }
             </p>
+        </div>
+
+        <div
+            class="mt-4 flex flex-col gap-1 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
+        >
+            <p>{m.colophon()}</p>
+            <a
+                href="https://github.com/ruizdiazever/portfolio-rs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-medium hover:text-foreground"
+            >
+                {m.source()}
+            </a>
         </div>
     </div>
 </footer>

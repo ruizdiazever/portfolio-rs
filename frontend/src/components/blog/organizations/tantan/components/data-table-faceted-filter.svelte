@@ -4,6 +4,7 @@
 </script>
 
 <script lang="ts" generics="TData, TValue">
+    import * as m from "@paraglide/messages.js";
     import CirclePlus from "@lucide/svelte/icons/circle-plus";
     import Check from "@lucide/svelte/icons/check";
     import type { Column } from "@tanstack/table-core";
@@ -81,7 +82,7 @@
         <Command.Root>
             <Command.Input placeholder={title} />
             <Command.List>
-                <Command.Empty>No results found.</Command.Empty>
+                <Command.Empty>{m.noResults()}</Command.Empty>
                 <Command.Group>
                     {#each options as option}
                         {@const isSelected = selectedValues.has(option.value)}

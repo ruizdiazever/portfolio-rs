@@ -1,8 +1,9 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
 import BooksComponent from "$lib/components/sections/books/Books.astro";
+import * as m from "@paraglide/messages.js";
 ---
 
-<Layout title="Ever Ruiz Diaz" maxWithMd={false} showFooter={false}>
+<Layout title={m.titleReading()} description={m.seoReading()} maxWithMd={false} showFooter={false}>
     <BooksComponent />
 </Layout>

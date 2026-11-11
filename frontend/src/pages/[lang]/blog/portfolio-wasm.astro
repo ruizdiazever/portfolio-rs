@@ -1,11 +1,18 @@
 ---
 import { media } from "$lib/common/media";
 import Layout from "$lib/layouts/Layout.astro";
+import { getPost } from "$lib/common/getPostById";
+import { getLocale } from "@paraglide/runtime";
 import Post from "$lib/components/blog/wasm/Wasm.astro";
+
+const post = await getPost("9a5f3584-5a8a-4c22-8460-2d775d54d89b");
+if (!post) throw new Error("Post not found");
+const locale = getLocale();
 ---
 
 <Layout
-    title="Ever Ruiz Diaz | Portfolio WASM"
+    title={`${post.title[locale]} — Ever Ruiz Diaz`}
+    description={post.description[locale]}
     image={media("og/blog/portfolio-wasm.png")}
 >
     <Post />

@@ -1,62 +1,60 @@
-# 追求卓越之旅
 
-欢迎来到我的WASM作品集，这是一个展示我使用[Rust](https://www.rust-lang.org/)和WebAssembly工作的前沿showcase，由[Leptos](https://leptos.dev/)框架驱动。
+2024 年，我用 Rust 和 WebAssembly 重做了作品集：界面用 Leptos，API 用 Axum，浏览量和小反馈存在 Redis 里。
 
-这个作品集不仅仅是项目的集合；它体现了我对科技行业卓越和创新的承诺。
+我想看看纯 Rust 技术栈在 Web 上能走多远。下面是我学到的东西。网站后来迁到了 Astro 与 Svelte；这篇记录的是当时的那一版。
 
-# 技术栈
+## 技术栈
 
-除了Leptos，我还使用了[Axum](https://github.com/tokio-rs/axum)来创建一个使用[RedisDB](https://redis.io/)进行持久化的微服务。我使用API来实现一些网页功能，如访问量或反馈。
+Leptos 把界面编译成 WebAssembly。一个很小的 Axum 服务处理浏览量和反馈，数据落在 Redis。API 刻意保持很窄：只提供页面真正需要的几个接口。
 
-# 设计
+## 设计
 
-受[Vercel](https://vercel.com/)、[Nio](https://www.nio.com/)、[SpaceX](https://www.spacex.com/)、[Apple](https://www.apple.com/)和[Nothing](https://nothing.tech/)的成就启发，以[Guille](https://twitter.com/gzmoreira/)作为拉丁美洲软件开发者的榜样，我致力于达到顶级标准。
+我想要一个安静、快速的作品集。克制感来自 [Vercel](https://vercel.com/)、[Nio](https://www.nio.com/)、[Apple](https://www.apple.com/) 和 [Nothing](https://nothing.tech/)；[Guille Moreira](https://twitter.com/gzmoreira/) 的作品则提醒我，拉丁美洲的开发者能做出什么。
 
-探索目前正在开发的部分，体现质量和精确性。每个元素都经过精心策划，以创造一个功能性和美观的数字空间。尽管有些部分仍在进行中，我很高兴与您分享这个旅程。
+第一版上线时，有些部分还没完成。我没有把它们藏起来——作品集应该展示正在做的东西，而不只是打磨好的部分。
 
-# 特点
+## 特点
 
-### 通过SSR和水合作用增强性能
-  - 通过服务器端渲染实现闪电般的初始页面加载。
-  - 通过客户端水合作用实现与交互内容的无缝过渡。
-  - 针对速度和用户交互进行优化。
+### SSR 与水合
+- 服务端渲染首屏。
+- 交互部分在客户端水合。
+- 尽量小的 JavaScript 体积。
 
-### 交互式反馈系统
-  - 清晰、直观的反馈界面。
-  - 通过RedisDB和SMTP实现实时电子邮件通知。
-  - 简化的用户参与过程。
+### 反馈
+- 每篇文章下方的短反馈表单。
+- 通过 Redis 与 SMTP 发邮件通知。
+- 不需要账号。
 
-### 高级分析与洞察
-  - 个别帖子查看跟踪。
-  - RedisDB中的集中访客分析。
-  - 可视化参与度指标仪表板。
+### 分析
+- 每篇文章的浏览量。
+- Redis 中的访客统计。
+- 一个可视化关键数据的仪表盘。
 
-# 架构
+## 架构
 
 ![作品集架构](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/architecture.svg)
 
+## 监控
 
-# 监控
+我用 [Grafana](https://grafana.com/) 和 [InfluxDB](https://www.influxdata.com/) 做监控。InfluxDB 存时间序列，Grafana 读取这些数据。我把 InfluxDB 的警报接到 Telegram 机器人，出问题时能收到消息。
 
-如上图所示，我使用了[Grafana](https://grafana.com/)和[InfluxDB](https://www.influxdata.com/)（另一个由Rust驱动的精彩项目）进行监控。对于不了解这些技术的人来说，InfluxDB是一个时间序列数据库，它有自己的数据收集系统，而Grafana作为这些数据的客户端。此外，InfluxDB有一个警报系统，我将其连接到Telegram机器人以随时了解任何事件。
+![Grafana 仪表板](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/grafana-1280.webp)
 
-![Grafana仪表板](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/grafana-1280.webp)
+## 部署
 
-# 部署
-
-我已经在自己心爱的迷你服务器上部署了整个作品集和周边各种技术。
-
-技术成功的兴奋感显而易见。经过不懈努力，我已经在自己的服务器上启动了我的作品集和整个技术环境，这是一个真正的创新殿堂：
+作品集跑在一台小主机上：Fedora Server 40、Caddy 负责 HTTPS、Cockpit 与 SSH 管理、Grafana 与 InfluxDB 监控。当前网站已经迁到 Proxmox，使用 Caddy 与 S3 媒体；下表描述的是 2024 年的配置。
 
 | 组件 | 名称 |
 |-----------|------|
 | **操作系统** | Fedora Server 40 |
-| **HTTPS服务器** | Caddy |
-| **域名** | SquareSpace |
-| **管理** | Cockpit和SSH |
-| **监控** | Grafana与InfluxDB |
-| **警报** | InfluxDB与Telegram |
+| **HTTPS 服务器** | Caddy |
+| **域名** | everdev.it |
+| **管理** | Cockpit 和 SSH |
+| **监控** | Grafana 与 InfluxDB |
+| **警报** | InfluxDB 与 Telegram |
 
-# 再见
+## 再见
 
-制作这个作品集是一次美好的冒险，了解WASM世界并加强我的Rust知识，我把它献给我美丽的女儿Sofia，她是我力量的源泉和永恒的灵感！
+做这个作品集让我意识到，WebAssembly 并没有消除难的部分：状态、路由、设计决策，一样都没少。它也让我更深入 Rust。
+
+把它献给我的女儿 Sofia——她是我力量的来源，也是我不断提醒自己为什么要把事情做好的原因。

@@ -1,11 +1,18 @@
 ---
 import { media } from "$lib/common/media";
 import Layout from "$lib/layouts/Layout.astro";
+import { getPost } from "$lib/common/getPostById";
+import { getLocale } from "@paraglide/runtime";
 import Post from "$lib/components/blog/organizations/Orgs.astro";
+
+const post = await getPost("511bc558-3f6e-4375-8e57-37e19519f1db");
+if (!post) throw new Error("Post not found");
+const locale = getLocale();
 ---
 
 <Layout
-    title="Ever Ruiz Diaz | Organizations using Rust"
+    title={`${post.title[locale]} — Ever Ruiz Diaz`}
+    description={post.description[locale]}
     image={media("og/blog/organizations-using-rust.png")}
 >
     <Post />
