@@ -31,6 +31,12 @@ test.describe("home", () => {
       page.getByRole("heading", { name: "Daily tools", exact: true }),
     ).toBeVisible();
     await expect(
+      page.getByRole("link", { name: "DeepSeek Harness agent harness" }),
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/deepseek-ai/deepseek-harness",
+    );
+    await expect(
       page.getByRole("link", { name: "Zed editor" }),
     ).toHaveAttribute("href", "https://zed.dev");
     await expect(page.getByText("contributions in the last year")).toBeVisible();
@@ -52,6 +58,9 @@ test.describe("home", () => {
     ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "日常工具", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "DeepSeek Harness 智能体工作台" }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "Zed 编辑器" }),
