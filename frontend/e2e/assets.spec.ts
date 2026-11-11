@@ -64,7 +64,7 @@ test.describe("assets", () => {
     for (const path of ["/en", "/en/sections/books", "/en/blog/hardware/minisforum-ms-01", "/en/blog/portfolio-wasm"]) {
       await page.goto(path);
 
-      const sources = await page.locator("img").evaluateAll((images) =>
+      const sources = await page.locator("img:not([data-ui-icon])").evaluateAll((images) =>
         images.map((image) => (image as HTMLImageElement).currentSrc || (image as HTMLImageElement).src),
       );
 

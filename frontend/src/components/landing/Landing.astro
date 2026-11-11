@@ -31,6 +31,8 @@ const postViews = await Promise.all(
 <Sections />
 
 <div class="space-y-16 mt-16" transition:name="main">
+    <DailyTools />
+
     <section transition:name="blog-section">
         <div
             class="flex justify-between items-start gap-4 mb-6"
@@ -138,6 +140,4 @@ const postViews = await Promise.all(
             }
         </div>
     </section>
-
-    <DailyTools />
 </div>
