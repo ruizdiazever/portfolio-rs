@@ -12,7 +12,9 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
 }
 
 const otherLocale = getLocale() === "en" ? "zh" : "en";
-const languageHref = Astro.url.pathname.replace(/^\/(en|zh)/, `/${otherLocale}`);
+const languageHref = Astro.url.pathname
+    .replace(/\/+$/, "")
+    .replace(/^\/(en|zh)/, `/${otherLocale}`);
 ---
 
 <nav

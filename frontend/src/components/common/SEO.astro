@@ -32,12 +32,13 @@ const defaultImage = new URL(
 ).href;
 const ogImage = image ?? defaultImage;
 
+const canonicalPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const canonicalURL = canonical
     ? new URL(canonical, Astro.site)
-    : new URL(Astro.url.pathname, Astro.site);
+    : new URL(canonicalPath, Astro.site);
 
 const localizedHref = (lang: string) => {
-    const path = Astro.url.pathname.replace(/^\/(en|zh)(?=\/|$)/, `/${lang}`);
+    const path = canonicalPath.replace(/^\/(en|zh)(?=\/|$)/, `/${lang}`);
     return new URL(path, Astro.site).href;
 };
 

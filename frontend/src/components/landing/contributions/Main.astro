@@ -1,50 +1,11 @@
 ---
 import GithubContributions from "./GithubContributions.svelte";
 import { GITHUB_TOKEN } from "astro:env/server";
-import type { Week } from "./types";
-const USERNAME = "ruizdiazever";
+import { getGithubContributions } from "$lib/common/githubContributions";
 import { Icon } from "astro-icon/components";
 
-let totalContributions = 0;
-let weeks: Week[] = [];
-
-const query = `{
-  user(login: "${USERNAME}") {
-    contributionsCollection {
-      contributionCalendar {
-        weeks {
-          contributionDays {
-            date
-            contributionCount
-          }
-        }
-        totalContributions
-      }
-    }
-  }
-}`;
-
-try {
-    const response = await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${GITHUB_TOKEN}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-        signal: AbortSignal.timeout(5_000),
-    });
-
-    if (response.ok) {
-        const { data } = await response.json();
-        const calendar =
-            data?.user?.contributionsCollection?.contributionCalendar;
-        weeks = calendar?.weeks ?? [];
-        totalContributions = calendar?.totalContributions ?? 0;
-    }
-} catch (error) {
-    console.error("Error fetching GitHub contributions:", error);
-}
+const { weeks, totalContributions } =
+    await getGithubContributions(GITHUB_TOKEN);
 ---
 
 <GithubContributions {weeks} {totalContributions}>

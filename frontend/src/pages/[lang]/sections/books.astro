@@ -2,6 +2,11 @@
 import Layout from "$lib/layouts/Layout.astro";
 import BooksComponent from "$lib/components/sections/books/Books.astro";
 import * as m from "@paraglide/messages.js";
+
+export const prerender = true;
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "zh" } }];
+}
 ---
 
 <Layout title={m.titleReading()} description={m.seoReading()} maxWithMd={false} showFooter={false}>
