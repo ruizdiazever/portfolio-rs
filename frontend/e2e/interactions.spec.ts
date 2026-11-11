@@ -53,6 +53,24 @@ test.describe("interactions", () => {
     }).toPass({ timeout: 20_000 });
   });
 
+  test("social links point at the current X profile", async ({ page }) => {
+    await page.goto("/en");
+
+    const xLinks = page.locator('a[aria-label="X (Twitter)"]');
+    expect(await xLinks.count()).toBeGreaterThan(0);
+    for (let index = 0; index < (await xLinks.count()); index++) {
+      await expect(xLinks.nth(index)).toHaveAttribute(
+        "href",
+        "https://x.com/everruizdiazo",
+      );
+    }
+
+    await page.goto("/en/sections/contact");
+    await expect(
+      page.getByRole("main").getByRole("link", { name: "X (Twitter)" }),
+    ).toHaveAttribute("href", "https://x.com/everruizdiazo");
+  });
+
   test("book filter hides non-matching cards", async ({ page }) => {
     await page.goto("/en/sections/books");
 

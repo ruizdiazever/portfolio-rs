@@ -18,6 +18,17 @@ test.describe("assets", () => {
         )
         .toBeGreaterThan(0);
 
+      if (alt === "Crab") {
+        const ratio = await image.evaluate(
+          (element) =>
+            (element as HTMLImageElement).naturalWidth /
+            (element as HTMLImageElement).naturalHeight,
+        );
+        expect(ratio, "mascot must keep its wide aspect ratio").toBeGreaterThan(
+          1.5,
+        );
+      }
+
       const src = await image.getAttribute("src");
       expect(src, `src for ${alt}`).toBeTruthy();
 
