@@ -77,7 +77,7 @@ export default defineConfig({
     enabled: false,
   },
   build: {
-    inlineStylesheets: "always",
+    inlineStylesheets: "auto",
   },
   compressHTML: true,
   integrations: [
