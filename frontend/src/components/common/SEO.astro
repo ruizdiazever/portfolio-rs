@@ -26,7 +26,9 @@ const {
     image,
 } = Astro.props;
 
-const pagePath = Astro.url.pathname.replace(/^\/(en|zh)(?=\/|$)/, "");
+const pagePath = Astro.url.pathname
+    .replace(/^\/(en|zh)(?=\/|$)/, "")
+    .replace(/\/+$/, "");
 const defaultImage = new URL(
     `/og${pagePath === "" || pagePath === "/" ? "/home" : pagePath}.png`,
     Astro.site,
