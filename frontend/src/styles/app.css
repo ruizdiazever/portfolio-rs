@@ -169,12 +169,12 @@
     a {
         @apply transition hover:opacity-75;
     }
-}
 
-h1,
-h2,
-h3 {
-    letter-spacing: -0.01em;
+    h1,
+    h2,
+    h3 {
+        letter-spacing: -0.01em;
+    }
 }
 
 h1,
@@ -262,7 +262,7 @@ pre {
 
 .blog-content-title,
 .blog-content-subtitle {
-    @apply text-lg font-bold text-secondary-foreground;
+    @apply text-xl font-bold text-secondary-foreground;
 }
 
 .blog-content-subtitle {
