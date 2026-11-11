@@ -3,10 +3,7 @@ import { getLocale } from "@paraglide/runtime";
 import { LOCALE } from "$lib/common/consts";
 import { seoConfig } from "$lib/common/seoConfig";
 import { media } from "$lib/common/media";
-import ebGaramond from "@fontsource-variable/eb-garamond/files/eb-garamond-latin-wght-normal.woff2?url";
-import inter from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2?url";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/eb-garamond";
+import ebGaramond from "$lib/assets/fonts/eb-garamond-latin.woff2?url";
 import "$lib/styles/app.css";
 import * as m from "@paraglide/messages.js";
 
@@ -61,13 +58,6 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 <link
     rel="preload"
     href={ebGaramond}
-    as="font"
-    type="font/woff2"
-    crossorigin="anonymous"
-/>
-<link
-    rel="preload"
-    href={inter}
     as="font"
     type="font/woff2"
     crossorigin="anonymous"
