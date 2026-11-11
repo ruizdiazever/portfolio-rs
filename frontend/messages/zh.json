@@ -1,7 +1,7 @@
 {
   "welcome": "欢迎",
-  "meTitle": "我让复杂系统变得简单。",
-  "meDescription": "我是 Ever——住在罗马的软件工程师，一个爱折腾的人，也是 Rust 布道者。我喜欢把复杂系统拆到能看懂，再用更少的零件装回去。最近我在构建 BERLi、写 Rust，以及维护一套总离下一次内核升级事故只差一步的 homelab。",
+  "meTitle": "嗨，我是一名软件开发者！",
+  "meDescription": "一个痴迷于技术、设计与科学交汇处的终身探索者。从噪声中提炼清晰。",
   "rustLover": "Rust 布道者突击队",
   "rustDev": "Rust 开发者",
   "blog": "写作",

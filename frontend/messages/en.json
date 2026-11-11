@@ -1,7 +1,7 @@
 {
   "welcome": "Welcome",
-  "meTitle": "I make complex systems feel simple.",
-  "meDescription": "I'm Ever — a software engineer in Rome, a lifelong tinkerer, and a Rust evangelist. I take complex systems apart until they make sense, then rebuild them with fewer moving parts. These days I'm building BERLi, writing about Rust, and keeping a home lab one kernel update away from adventure.",
+  "meTitle": "Hi, I’m a Software Developer!",
+  "meDescription": "A lifelong tinkerer obsessed with where technology, design, and science collide. Crafting clarity from noise.",
   "rustLover": "Rust Evangelist Strike Force",
   "rustDev": "Rust Developer",
   "blog": "Writing",
