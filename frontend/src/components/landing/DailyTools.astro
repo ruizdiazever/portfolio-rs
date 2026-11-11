@@ -1,0 +1,64 @@
+---
+import * as m from "@paraglide/messages.js";
+
+const tools = [
+    {
+        name: "Zed",
+        href: "https://zed.dev",
+        role: m.dailyToolEditor(),
+    },
+    {
+        name: "Warp",
+        href: "https://www.warp.dev",
+        role: m.dailyToolTerminal(),
+    },
+    {
+        name: "Firefox",
+        href: "https://www.mozilla.org/firefox/",
+        role: m.dailyToolBrowser(),
+    },
+    {
+        name: "Kimi Code",
+        href: "https://www.kimi.com/code",
+        role: m.dailyToolCodingAgent(),
+    },
+    {
+        name: "Ollama",
+        href: "https://ollama.com",
+        role: m.dailyToolLocalModels(),
+    },
+    {
+        name: "Proxmox",
+        href: "https://www.proxmox.com",
+        role: m.dailyToolHomeLab(),
+    },
+];
+---
+
+<section transition:name="tools-section">
+    <h2
+        class="mb-6 text-3xl font-bold md:text-5xl"
+        transition:name="tools-title"
+    >
+        {m.dailyTools()}
+    </h2>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-10">
+        {
+            tools.map((tool) => (
+                <li>
+                    <a
+                        href={tool.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group flex items-baseline justify-between gap-4 border-b border-border py-3 transition-colors hover:text-[#68b5fc]"
+                    >
+                        <span class="text-lg font-semibold">{tool.name}</span>
+                        <span class="text-sm text-muted-foreground transition-colors group-hover:text-[#68b5fc]">
+                            {tool.role}
+                        </span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</section>
