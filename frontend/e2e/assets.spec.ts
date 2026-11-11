@@ -7,7 +7,7 @@ test.describe("assets", () => {
   }) => {
     await page.goto("/en");
 
-    for (const alt of ["Ever Ruiz Diaz", "Rust mascot"]) {
+    for (const alt of ["Ever Ruiz Diaz", "Rust Evangelist Strike Force mascot"]) {
       const image = page.getByAltText(alt, { exact: true }).first();
       await image.scrollIntoViewIfNeeded();
       await expect(image).toBeVisible();
