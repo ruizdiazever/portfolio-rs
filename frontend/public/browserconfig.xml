@@ -2,9 +2,9 @@
 <browserconfig>
 	<msapplication>
 		<tile>
-			<square70x70logo src="/assets/icons/ms-icon-70x70.png"/>
-			<square150x150logo src="/assets/icons/ms-icon-150x150.png"/>
-			<square310x310logo src="/assets/icons/ms-icon-310x310.png"/>
+			<square70x70logo src="https://s3.berli.app/portfolio/v1/site/icons/ms-icon-70.png"/>
+			<square150x150logo src="https://s3.berli.app/portfolio/v1/site/icons/ms-icon-150.png"/>
+			<square310x310logo src="https://s3.berli.app/portfolio/v1/site/icons/ms-icon-310.png"/>
 			<TileColor>#00aba9</TileColor>
 		</tile>
 	</msapplication>

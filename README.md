@@ -1,6 +1,6 @@
 # Portfolio powered by Rust 🦀
 
-<img src="./frontend/public/assets/images/mascot.png" alt="Ferris, mascot of Rust" width="100"/>
+<img src="https://s3.berli.app/portfolio/v1/site/mascot-96.webp" alt="Ferris, mascot of Rust" width="100"/>
 
 Personal portfolio at [www.everdev.it](https://www.everdev.it): Astro 7 + Svelte 5
 frontend, Axum API, Redis.
@@ -30,6 +30,21 @@ pnpm -C frontend dev                  # http://127.0.0.1:4321
 
 `frontend/.env` defaults: `API_URL=/api` (Vite proxies `/api` to
 `127.0.0.1:3002` in dev) and `INTERNAL_API_URL=http://127.0.0.1:3002` for SSR.
+
+## Media
+
+All images and media are served from the `portfolio` bucket on RustFS
+(`https://s3.berli.app/portfolio/v1/...`). The source files live in
+[`frontend/media-src/`](frontend/media-src); the app imports no local images.
+
+```bash
+pnpm -C frontend media:build   # optimize into frontend/.media-output/v1
+RCLONE_CONFIG=~/.config/rclone/rclone.conf pnpm -C frontend media:sync
+```
+
+`media:sync` uploads with `Cache-Control: public, max-age=31536000, immutable`.
+Bump `v1` in [media.ts](frontend/src/common/media.ts) and the sync script when
+replacing assets.
 
 ## Build and test
 

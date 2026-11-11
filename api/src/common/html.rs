@@ -8,11 +8,11 @@ use std::io::prelude::Read;
 
 fn reaction_path(reaction: &u8) -> String {
     match reaction {
-        1 => "https://www.everdev.it/assets/emojis/1.png".to_string(),
-        2 => "https://www.everdev.it/assets/emojis/2.png".to_string(),
-        3 => "https://www.everdev.it/assets/emojis/3.png".to_string(),
-        4 => "https://www.everdev.it/assets/emojis/4.png".to_string(),
-        _ => "https://www.everdev.it/assets/emojis/0.png".to_string(),
+        1 => "https://s3.berli.app/portfolio/v1/feedback/reaction-sad.png".to_string(),
+        2 => "https://s3.berli.app/portfolio/v1/feedback/reaction-neutral.png".to_string(),
+        3 => "https://s3.berli.app/portfolio/v1/feedback/reaction-happy.png".to_string(),
+        4 => "https://s3.berli.app/portfolio/v1/feedback/reaction-love.png".to_string(),
+        _ => "https://s3.berli.app/portfolio/v1/feedback/reaction-default.png".to_string(),
     }
 }
 

@@ -168,6 +168,10 @@ p {
     box-sizing: border-box;
 }
 
+picture {
+    display: contents;
+}
+
 img,
 video,
 svg {

@@ -7,7 +7,7 @@ test.describe("assets", () => {
   }) => {
     await page.goto("/en");
 
-    for (const alt of ["Avatar", "Crab"]) {
+    for (const alt of ["Ever Ruiz Diaz", "Rust Evangelist Strike Force mascot"]) {
       const image = page.getByAltText(alt, { exact: true }).first();
       await image.scrollIntoViewIfNeeded();
       await expect(image).toBeVisible();
@@ -18,7 +18,7 @@ test.describe("assets", () => {
         )
         .toBeGreaterThan(0);
 
-      if (alt === "Crab") {
+      if (alt.includes("mascot")) {
         const ratio = await image.evaluate(
           (element) =>
             (element as HTMLImageElement).naturalWidth /
@@ -38,7 +38,7 @@ test.describe("assets", () => {
     }
   });
 
-  test("about page image is served locally", async ({ page, request }) => {
+  test("about page image is served from S3", async ({ page, request }) => {
     await page.goto("/en/sections/about");
 
     const image = page.getByAltText("Ever Ruiz Diaz", { exact: true }).first();
@@ -53,9 +53,29 @@ test.describe("assets", () => {
 
     const src = await image.getAttribute("src");
     expect(src).toBeTruthy();
+    expect(src).toMatch(/^https:\/\/s3\.berli\.app\/portfolio\/v1\//);
     expect(src).not.toContain("console.minio.berli.app");
 
     const response = await request.get(src!);
     expect(response.status()).toBe(200);
+  });
+
+  test("no content images are served by the app", async ({ page }) => {
+    for (const path of ["/en", "/en/sections/books", "/en/blog/portfolio-wasm"]) {
+      await page.goto(path);
+
+      const sources = await page.locator("img").evaluateAll((images) =>
+        images.map((image) => (image as HTMLImageElement).currentSrc || (image as HTMLImageElement).src),
+      );
+
+      expect(sources.length).toBeGreaterThan(0);
+      for (const src of sources) {
+        expect(src, `${path} image ${src}`).toMatch(
+          /^https:\/\/s3\.berli\.app\/portfolio\/v1\//,
+        );
+        const response = await page.request.get(src);
+        expect(response.status(), `${path} image ${src}`).toBe(200);
+      }
+    }
   });
 });

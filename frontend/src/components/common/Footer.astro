@@ -1,7 +1,6 @@
 ---
 import * as m from "@paraglide/messages.js";
-import { Picture } from "astro:assets";
-import Img from "$lib/assets/images/mascot.png";
+import Media from "$lib/components/common/Media.astro";
 import Social from "$lib/components/common/Social.astro";
 ---
 
@@ -18,13 +17,14 @@ import Social from "$lib/components/common/Social.astro";
             <div
                 class="flex justify-center items-center text-gray-600 dark:text-gray-400 sm:justify-start text-sm gap-2 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
             >
-                <Picture
-                    src={Img}
-                    alt="Crab"
-                    formats={["avif", "webp"]}
+                <Media
+                    path="site/mascot"
+                    widths={[96, 192]}
                     width={32}
                     height={19}
-                    fit="contain"
+                    sizes="32px"
+                    alt="Rust Evangelist Strike Force mascot"
+                    class="w-8 h-auto"
                 />
                 {m.rustLover()}
             </div>

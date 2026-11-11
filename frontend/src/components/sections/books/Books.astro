@@ -1,7 +1,7 @@
 ---
 import { books } from "./data";
 import { type Book } from "./data";
-import { Picture } from "astro:assets";
+import Media from "$lib/components/common/Media.astro";
 ---
 
 <div class="mx-auto px-4 py-8 space-y-6 max-w-(--breakpoint-lg)">
@@ -50,15 +50,14 @@ import { Picture } from "astro:assets";
                 >
                     <div class="content group-hover:opacity-0 transition-opacity duration-300 h-full flex flex-col">
                         <div class="relative aspect-3/4 overflow-hidden w-full">
-                            <Picture
-                                src={book.image}
-                                formats={["avif", "webp"]}
-                                alt={book.title}
-                                class="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-95 p-4"
+                            <Media
+                                path={book.cover}
+                                widths={[480]}
                                 width={300}
                                 height={400}
-                                loading="eager"
-                                decoding="sync"
+                                sizes="(min-width: 768px) 25vw, 90vw"
+                                alt={book.title}
+                                class="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-95 p-4"
                             />
                             <div class="absolute inset-0 bg-linear-to-t from-gray-600/20 to-transparent" />
                         </div>

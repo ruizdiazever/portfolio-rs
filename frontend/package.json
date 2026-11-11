@@ -13,7 +13,9 @@
     "check": "astro check",
     "test:e2e": "playwright test",
     "test:e2e:ci": "pnpm run build && playwright test",
-    "test:e2e:install": "playwright install --with-deps chromium"
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "media:build": "node scripts/sync-media.mjs",
+    "media:sync": "node scripts/sync-media.mjs --upload"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",

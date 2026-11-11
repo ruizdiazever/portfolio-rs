@@ -7,3 +7,5 @@ dist/
 e2e/test-results/
 playwright-report/
 Dockerfile
+media-src/
+.media-output/

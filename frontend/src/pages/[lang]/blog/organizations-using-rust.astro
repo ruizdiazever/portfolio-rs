@@ -1,11 +1,12 @@
 ---
+import { media } from "$lib/common/media";
 import Layout from "$lib/layouts/Layout.astro";
 import Post from "$lib/components/blog/organizations/Orgs.astro";
 ---
 
 <Layout
-    title="Ever Ruiz Diaz | Minisforum MS-01"
-    image="https://www.everdev.it/assets/images/og/blog/organizations-using-rust.svg"
+    title="Ever Ruiz Diaz | Organizations using Rust"
+    image={media("og/blog/organizations-using-rust.png")}
 >
     <Post />
 </Layout>

@@ -1,6 +1,5 @@
 ---
-import { Picture } from "astro:assets";
-import aboutImg from "$lib/assets/images/about.avif";
+import Media from "$lib/components/common/Media.astro";
 ---
 
 <div class="min-h-screen">
@@ -33,13 +32,14 @@ import aboutImg from "$lib/assets/images/about.avif";
                     what we expect from the tools we use every day.
                 </p>
             </div>
-            <Picture
-                class="rounded-xl mt-6"
-                src={aboutImg}
-                formats={["avif", "webp"]}
-                alt="Ever Ruiz Diaz"
+            <Media
+                path="site/about"
+                widths={[800, 1600]}
                 width={800}
-                height={533}
+                height={600}
+                sizes="(min-width: 768px) 800px, 100vw"
+                alt="Ever Ruiz Diaz"
+                class="rounded-xl mt-6 w-full"
             />
         </div>
     </div>

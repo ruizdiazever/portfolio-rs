@@ -25,3 +25,4 @@ pnpm-debug.log*
 .env.directus
 playwright-report/
 e2e/test-results/
+.media-output/

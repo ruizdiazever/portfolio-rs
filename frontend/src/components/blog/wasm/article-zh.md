@@ -33,14 +33,14 @@
 
 # 架构
 
-![作品集架构](/assets/images/articles/portfolio_arch.svg)
+![作品集架构](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/architecture.svg)
 
 
 # 监控
 
 如上图所示，我使用了[Grafana](https://grafana.com/)和[InfluxDB](https://www.influxdata.com/)（另一个由Rust驱动的精彩项目）进行监控。对于不了解这些技术的人来说，InfluxDB是一个时间序列数据库，它有自己的数据收集系统，而Grafana作为这些数据的客户端。此外，InfluxDB有一个警报系统，我将其连接到Telegram机器人以随时了解任何事件。
 
-![Grafana仪表板](/assets/images/articles/grafana.webp)
+![Grafana仪表板](https://s3.berli.app/portfolio/v1/blog/portfolio-wasm/grafana-1280.webp)
 
 # 部署
 

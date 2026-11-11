@@ -2,9 +2,7 @@
 import { Icon } from "astro-icon/components";
 import dayjs from "dayjs";
 import { getLocale } from "@paraglide/runtime";
-import { Image } from "astro:assets";
-import EverAvatar from "$lib/assets/images/daft.webp";
-import MaxiAvatar from "$lib/assets/images/punk.avif";
+import Media from "$lib/components/common/Media.astro";
 import Feedback from "$lib/components/common/feedback.svelte";
 import { postVisitRequest } from "$lib/common/postView.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
@@ -119,16 +117,18 @@ let views = await getVisitRequest(id);
                 {
                     author.map((name) => (
                         <>
-                            <Image
-                                src={
+                            <Media
+                                path={
                                     name === "Ever Ruiz Diaz"
-                                        ? EverAvatar
-                                        : MaxiAvatar
+                                        ? "site/authors/ever"
+                                        : "site/authors/maxi"
                                 }
-                                alt={name}
-                                class="rounded-full"
+                                widths={[44, 88]}
                                 width={22}
                                 height={22}
+                                sizes="22px"
+                                alt={name}
+                                class="rounded-full"
                             />
                             <span class="ml-1 mr-2">{name}</span>
                         </>

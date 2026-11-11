@@ -3,8 +3,7 @@ import Post from "$lib/components/common/Post.astro";
 import { getPost } from "$lib/common/getPostById";
 import { Icon } from "astro-icon/components";
 import { getLocale } from "@paraglide/runtime";
-import { Picture } from "astro:assets";
-import MsImg from "$lib/assets/images/mf.avif";
+import Media from "$lib/components/common/Media.astro";
 import LinkPost from "$lib/components/common/LinkPost.astro";
 import { BerliLink, RaauLink, Ms01Link } from "$lib/common/consts";
 
@@ -138,13 +137,14 @@ const t = translations[lang];
     <h1 id="freedom" class="blog-content-title">
         <a href="#freedom">{t.freedom}</a>
     </h1>
-    <Picture
-        src={MsImg}
-        alt="MS-01"
-        class="w-full rounded-lg grayscale"
-        formats={["avif", "webp"]}
+    <Media
+        path="blog/minisforum-ms-01/cover"
+        widths={[400, 800, 1600]}
         width={800}
-        height={600}
+        height={533}
+        sizes="(min-width: 768px) 800px, 100vw"
+        alt="Minisforum MS-01"
+        class="w-full rounded-lg grayscale"
     />
     <p class="blog-content-paragraph">
         {t.freedomText}

@@ -51,5 +51,9 @@ test.describe("seo", () => {
       "content",
       /Software Engineer/,
     );
+    await expect(page.locator('meta[property="og:image"]').first()).toHaveAttribute(
+      "content",
+      /^https:\/\/s3\.berli\.app\/portfolio\/v1\/og\//,
+    );
   });
 });

@@ -1,40 +1,8 @@
-// Foundation
-import ImRobotImg from "$lib/assets/books/foundation/1_im-robot.jpeg";
-import TheCaveOfSteelImg from "$lib/assets/books/foundation/2_the-caves-of-steel.jpg";
-import TheNakedSunImg from "$lib/assets/books/foundation/3_the-naked-sun.jpeg";
-
-// Geralt
-import TheLastWishImg from "$lib/assets/books/geralt/thelastwish.webp";
-import SwordOfDestinyImg from "$lib/assets/books/geralt/swordofdestiny.jpg";
-import BloodOfElvesImg from "$lib/assets/books/geralt/bloodofelves.jpg";
-import TimeOfContemptImg from "$lib/assets/books/geralt/timeofcontempt.jpg";
-import BaptismOfFireImg from "$lib/assets/books/geralt/baptismoffire.jpg";
-import TheTowerOfSwallowsImg from "$lib/assets/books/geralt/thetowerofswallows.jpg";
-import TheLadyOfTheLakeImg from "$lib/assets/books/geralt/theladyofthelake.webp";
-import LoveInTheTimeOfColeraImg from "$lib/assets/books/generic/loveinthetimeofcolera.jpg";
-
-// Generic
-import AnimalFarmImg from "$lib/assets/books/generic/animalfarm.jpg";
-import TheIllustratedManImg from "$lib/assets/books/generic/theillustratedman.jpg";
-import ElonMuskImg from "$lib/assets/books/generic/elonmusk.jpg";
-import TheClovenViscountImg from "$lib/assets/books/generic/theclovenviscount.jpg";
-
-// Technical
-import DeekSeekImg from "$lib/assets/books/technical/deepseek.png";
-import RustAtomicsAndLocksImg from "$lib/assets/books/technical/rustatomicsandlocks.jpg";
-import TheRustProgrammingLanguageImg from "$lib/assets/books/technical/therustprogramminglanguage.jpg";
-import ZeroToProductionRustImg from "$lib/assets/books/technical/zerotoproductionrust.png";
-
-// Comics
-import BatmanTheDarkKnightReturnsImg from "$lib/assets/books/comics/batmanthedarkknightreturns.jpg";
-import DoomsdayClockImg from "$lib/assets/books/comics/doomsdayclock.jpg";
-import WatchmenImg from "$lib/assets/books/comics/watchmen.jpg";
-
 export interface Book {
   title: string;
   author: string;
   genre: string;
-  image: ImageMetadata;
+  cover: string;
   technical: boolean;
   description: string;
   comic: boolean;
@@ -48,7 +16,7 @@ export const books: Book[] = [
     author: "Isaac Asimov",
     genre: "Science Fiction",
     comic: false,
-    image: ImRobotImg,
+    cover: "books/science-fiction/i-robot/cover",
     technical: false,
     description:
       "A collection of science fiction short stories that established the famous Three Laws of Robotics.",
@@ -60,7 +28,7 @@ export const books: Book[] = [
     author: "Isaac Asimov",
     genre: "Science Fiction",
     comic: false,
-    image: TheCaveOfSteelImg,
+    cover: "books/science-fiction/the-caves-of-steel/cover",
     technical: false,
     description:
       "The first Robot series novel featuring detective Elijah Baley",
@@ -72,7 +40,7 @@ export const books: Book[] = [
     author: "Isaac Asimov",
     genre: "Science Fiction",
     comic: false,
-    image: TheNakedSunImg,
+    cover: "books/science-fiction/the-naked-sun/cover",
     technical: false,
     description:
       "The second Robot series novel featuring detective Elijah Baley",
@@ -85,7 +53,7 @@ export const books: Book[] = [
     author: "Gabriel García Márquez",
     genre: "Literary Fiction",
     comic: false,
-    image: LoveInTheTimeOfColeraImg,
+    cover: "books/literary-fiction/love-in-the-time-of-cholera/cover",
     technical: false,
     description:
       "A love story spanning fifty years, following Florentino Ariza and Fermina Daza.",
@@ -97,7 +65,7 @@ export const books: Book[] = [
     author: "George Orwell",
     genre: "Political Satire",
     comic: false,
-    image: AnimalFarmImg,
+    cover: "books/political-satire/animal-farm/cover",
     technical: false,
     description:
       "An allegorical novella reflecting events leading up to the Russian Revolution.",
@@ -109,7 +77,7 @@ export const books: Book[] = [
     author: "Ray Bradbury",
     genre: "Science Fiction",
     comic: false,
-    image: TheIllustratedManImg,
+    cover: "books/science-fiction/the-illustrated-man/cover",
     technical: false,
     description:
       "A collection of science fiction short stories connected by the frame story of a tattooed man.",
@@ -121,7 +89,7 @@ export const books: Book[] = [
     author: "DeepSeek Team",
     genre: "Technical Paper",
     comic: false,
-    image: DeekSeekImg,
+    cover: "books/technical-paper/deepseek-r1/cover",
     technical: true,
     description:
       "Technical paper describing DeepSeek's R1 model and its approach towards AGI.",
@@ -133,7 +101,7 @@ export const books: Book[] = [
     author: "Italo Calvino",
     genre: "Fantasy",
     comic: false,
-    image: TheClovenViscountImg,
+    cover: "books/fantasy/the-cloven-viscount/cover",
     technical: false,
     description:
       "A fantasy novel about a viscount who is split in two by a cannonball.",
@@ -146,7 +114,7 @@ export const books: Book[] = [
     author: "Ashlee Vance",
     genre: "Biography",
     comic: false,
-    image: ElonMuskImg,
+    cover: "books/biography/elon-musk/cover",
     technical: false,
     description: "The biography of tech entrepreneur and innovator Elon Musk.",
     paper: false,
@@ -157,7 +125,7 @@ export const books: Book[] = [
     author: "Mara Bos",
     genre: "Technical",
     comic: false,
-    image: RustAtomicsAndLocksImg,
+    cover: "books/technical/rust-atomics-and-locks/cover",
     technical: true,
     description: "A deep dive into low-level concurrency in Rust",
     paper: false,
@@ -168,7 +136,7 @@ export const books: Book[] = [
     author: "Steve Klabnik and Carol Nichols",
     genre: "Technical",
     comic: false,
-    image: TheRustProgrammingLanguageImg,
+    cover: "books/technical/the-rust-programming-language/cover",
     technical: true,
     description: "The official book about the Rust programming language",
     paper: false,
@@ -179,7 +147,7 @@ export const books: Book[] = [
     author: "Luca Palmieri",
     genre: "Technical",
     comic: false,
-    image: ZeroToProductionRustImg,
+    cover: "books/technical/zero-to-production-in-rust/cover",
     technical: true,
     description: "A hands-on introduction to backend development in Rust",
     paper: false,
@@ -191,7 +159,7 @@ export const books: Book[] = [
     author: "Frank Miller",
     genre: "Comics",
     comic: true,
-    image: BatmanTheDarkKnightReturnsImg,
+    cover: "books/comics/batman-the-dark-knight-returns/cover",
     technical: false,
     description:
       "An aging Batman comes out of retirement to fight crime once more",
@@ -203,7 +171,7 @@ export const books: Book[] = [
     author: "Geoff Johns",
     genre: "Comics",
     comic: true,
-    image: DoomsdayClockImg,
+    cover: "books/comics/doomsday-clock/cover",
     technical: false,
     description: "A sequel to the original Watchmen series",
     paper: false,
@@ -214,7 +182,7 @@ export const books: Book[] = [
     author: "Alan Moore",
     genre: "Comics",
     comic: true,
-    image: WatchmenImg,
+    cover: "books/comics/watchmen/cover",
     technical: false,
     description:
       "A groundbreaking graphic novel that deconstructs the superhero genre",
@@ -225,7 +193,7 @@ export const books: Book[] = [
     title: "The Last Wish",
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
-    image: TheLastWishImg,
+    cover: "books/fantasy/the-last-wish/cover",
     comic: false,
     technical: false,
     description:
@@ -237,7 +205,7 @@ export const books: Book[] = [
     title: "Sword of Destiny",
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
-    image: SwordOfDestinyImg,
+    cover: "books/fantasy/sword-of-destiny/cover",
     comic: false,
     technical: false,
     description:
@@ -250,7 +218,7 @@ export const books: Book[] = [
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
     comic: false,
-    image: BloodOfElvesImg,
+    cover: "books/fantasy/blood-of-elves/cover",
     technical: false,
     description: "The first novel in the main Witcher saga.",
     paper: false,
@@ -261,7 +229,7 @@ export const books: Book[] = [
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
     comic: false,
-    image: TimeOfContemptImg,
+    cover: "books/fantasy/time-of-contempt/cover",
     technical: false,
     description: "The second novel in the main Witcher saga.",
     paper: false,
@@ -272,7 +240,7 @@ export const books: Book[] = [
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
     comic: false,
-    image: BaptismOfFireImg,
+    cover: "books/fantasy/baptism-of-fire/cover",
     technical: false,
     description: "The third novel in the main Witcher saga.",
     paper: false,
@@ -283,7 +251,7 @@ export const books: Book[] = [
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
     comic: false,
-    image: TheTowerOfSwallowsImg,
+    cover: "books/fantasy/the-tower-of-swallows/cover",
     technical: false,
     description: "The fourth novel in the main Witcher saga.",
     paper: false,
@@ -294,7 +262,7 @@ export const books: Book[] = [
     author: "Andrzej Sapkowski",
     genre: "Fantasy",
     comic: false,
-    image: TheLadyOfTheLakeImg,
+    cover: "books/fantasy/the-lady-of-the-lake/cover",
     technical: false,
     description: "The fifth and final novel in the main Witcher saga.",
     paper: false,
