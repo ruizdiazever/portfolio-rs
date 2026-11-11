@@ -43,8 +43,20 @@ test.describe("home", () => {
       .evaluateAll((images) =>
         images.map((image) => (image as HTMLImageElement).src),
       );
+    expect(iconSources).toEqual([
+      "https://cdn.simpleicons.org/deepseek/000000",
+      "https://cdn.simpleicons.org/firefox/000000",
+      "https://cdn.simpleicons.org/bitwarden/000000",
+      "https://cdn.simpleicons.org/docker/000000",
+      "https://cdn.simpleicons.org/warp/000000",
+      "https://cdn.simpleicons.org/zedindustries/000000",
+    ]);
     for (const src of iconSources) {
-      expect(src).toMatch(/^https:\/\/cdn\.simpleicons\.org\//);
+      const response = await page.request.get(src);
+      expect(response.status(), src).toBe(200);
+      expect(response.headers()["content-type"], src).toContain(
+        "image/svg+xml",
+      );
     }
     const headings = (await page.locator("main h2").allTextContents()).map(
       (heading) => heading.trim(),

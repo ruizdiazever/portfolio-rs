@@ -26,4 +26,27 @@ test.describe("320px layout", () => {
       expect(overflowing).toEqual([]);
     });
   }
+
+  test("/en daily tools stay inside the viewport", async ({ page }) => {
+    await page.goto("/en");
+
+    const section = page.locator("section").filter({ hasText: "Daily tools" });
+    await section.scrollIntoViewIfNeeded();
+    await expect(section.locator("img")).toHaveCount(6);
+
+    const overflowing = await section.evaluate((element) => {
+      const selected = element.querySelectorAll("a, a span, a img");
+      return [...selected]
+        .filter((child) => {
+          const rect = child.getBoundingClientRect();
+          return rect.width > 0 && rect.right > window.innerWidth + 1;
+        })
+        .map(
+          (child) =>
+            `${child.tagName.toLowerCase()} ${child.textContent?.trim().slice(0, 40)}`,
+        );
+    });
+
+    expect(overflowing).toEqual([]);
+  });
 });
