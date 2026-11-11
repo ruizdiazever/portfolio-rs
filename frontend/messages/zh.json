@@ -112,7 +112,7 @@
   "dailyToolEditor": "编辑器",
   "dailyToolTerminal": "终端",
   "dailyToolBrowser": "浏览器",
-  "dailyToolCodingAgent": "编程智能体",
-  "dailyToolLocalModels": "本地模型",
-  "dailyToolHomeLab": "homelab"
+  "dailyToolAgentHarness": "智能体工作台",
+  "dailyToolPasswords": "密码管理器",
+  "dailyToolContainers": "容器"
 }

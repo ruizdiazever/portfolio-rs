@@ -3,14 +3,9 @@ import * as m from "@paraglide/messages.js";
 
 const tools = [
     {
-        name: "Zed",
-        href: "https://zed.dev",
-        role: m.dailyToolEditor(),
-    },
-    {
-        name: "Warp",
-        href: "https://www.warp.dev",
-        role: m.dailyToolTerminal(),
+        name: "DeepSeek Harness",
+        href: "https://github.com/deepseek-ai/deepseek-harness",
+        role: m.dailyToolAgentHarness(),
     },
     {
         name: "Firefox",
@@ -18,19 +13,24 @@ const tools = [
         role: m.dailyToolBrowser(),
     },
     {
-        name: "Kimi Code",
-        href: "https://www.kimi.com/code",
-        role: m.dailyToolCodingAgent(),
+        name: "Bitwarden",
+        href: "https://bitwarden.com",
+        role: m.dailyToolPasswords(),
     },
     {
-        name: "Ollama",
-        href: "https://ollama.com",
-        role: m.dailyToolLocalModels(),
+        name: "Docker Desktop",
+        href: "https://www.docker.com/products/docker-desktop/",
+        role: m.dailyToolContainers(),
     },
     {
-        name: "Proxmox",
-        href: "https://www.proxmox.com",
-        role: m.dailyToolHomeLab(),
+        name: "Warp",
+        href: "https://www.warp.dev",
+        role: m.dailyToolTerminal(),
+    },
+    {
+        name: "Zed",
+        href: "https://zed.dev",
+        role: m.dailyToolEditor(),
     },
 ];
 ---

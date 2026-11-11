@@ -112,7 +112,7 @@
   "dailyToolEditor": "editor",
   "dailyToolTerminal": "terminal",
   "dailyToolBrowser": "browser",
-  "dailyToolCodingAgent": "coding agent",
-  "dailyToolLocalModels": "local models",
-  "dailyToolHomeLab": "homelab"
+  "dailyToolAgentHarness": "agent harness",
+  "dailyToolPasswords": "passwords",
+  "dailyToolContainers": "containers"
 }
