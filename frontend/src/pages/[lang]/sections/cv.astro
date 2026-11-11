@@ -1,5 +1,10 @@
 ---
 import CvNote from "$lib/components/common/CvNote.astro";
+
+export const prerender = true;
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "zh" } }];
+}
 ---
 
 <CvNote />

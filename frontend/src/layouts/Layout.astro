@@ -52,11 +52,35 @@ const {
 
             applyTheme();
         </script>
-        <script
-            is:inline
-            defer
-            data-domain="everdev.it"
-            src="https://plausible.berli.app/js/script.js"></script>
+        <script is:inline>
+            function loadAnalytics() {
+                if (document.querySelector("script[data-plausible]")) return;
+                const script = document.createElement("script");
+                script.defer = true;
+                script.dataset.plausible = "true";
+                script.dataset.domain = "everdev.it";
+                script.src = "https://plausible.berli.app/js/script.js";
+                document.head.appendChild(script);
+            }
+
+            function scheduleAnalytics() {
+                if ("requestIdleCallback" in window) {
+                    window.requestIdleCallback(loadAnalytics, {
+                        timeout: 3_000,
+                    });
+                } else {
+                    window.setTimeout(loadAnalytics, 2_000);
+                }
+            }
+
+            if (document.readyState === "complete") {
+                scheduleAnalytics();
+            } else {
+                window.addEventListener("load", scheduleAnalytics, {
+                    once: true,
+                });
+            }
+        </script>
         <SEO
             title={title}
             description={description}

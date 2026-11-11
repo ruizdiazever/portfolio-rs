@@ -1,4 +1,10 @@
 ---
+export const prerender = true;
+
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "zh" } }];
+}
+
 import ProjectNote from "$lib/components/projects/ProjectNote.astro";
 ---
 
