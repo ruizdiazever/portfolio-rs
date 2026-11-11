@@ -24,22 +24,23 @@ const postViews = await Promise.all(
 );
 ---
 
+<h1 class="sr-only">Ever Ruiz Diaz</h1>
 <Hero transition:name="hero" />
 <Contributions transition:name="contributions" />
 <Sections />
 
-<main class="space-y-16 mt-16" transition:name="main">
+<div class="space-y-16 mt-16" transition:name="main">
     <section transition:name="blog-section">
         <div
             class="flex justify-between items-center mb-6"
             transition:name="blog-header"
         >
-            <h1
+            <h2
                 class="text-3xl md:text-5xl font-bold"
                 transition:name="blog-title"
             >
                 {m.blog()}
-            </h1>
+            </h2>
             <a
                 href={urls.articles}
                 class="flex items-center gap-2 text-sm text-secondary-foreground font-semibold"
@@ -82,12 +83,12 @@ const postViews = await Promise.all(
     </section>
 
     <section transition:name="sof-section">
-        <h1
+        <h2
             class="text-3xl md:text-5xl font-bold mb-6"
             transition:name="sof-title"
         >
             {m.software()}
-        </h1>
+        </h2>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 gap-6"
             transition:name="software-grid"
@@ -109,12 +110,12 @@ const postViews = await Promise.all(
     </section>
 
     <section transition:name="experience-section">
-        <h1
+        <h2
             class="text-3xl md:text-5xl font-bold mb-6"
             transition:name="experience-title"
         >
             {m.experience()}
-        </h1>
+        </h2>
         <div
             class="after:absolute after:inset-y-0 after:w-px after:bg-gray-500/20 relative pl-6 after:left-0 grid gap-10"
             transition:name="experience-grid"
@@ -136,4 +137,4 @@ const postViews = await Promise.all(
             }
         </div>
     </section>
-</main>
+</div>

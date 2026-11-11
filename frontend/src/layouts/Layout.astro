@@ -6,6 +6,7 @@ import Header from "$lib/components/common/Header.astro";
 import Toast from "$lib/components/common/toast.svelte";
 import { ModeWatcher } from "mode-watcher";
 import SEO from "$lib/components/common/SEO.astro";
+import * as m from "@paraglide/messages.js";
 import "$lib/styles/app.css";
 
 interface Props {
@@ -71,10 +72,18 @@ const {
         <ClientRouter />
     </head>
     <body class="bg-[#fafafa] dark:bg-[#0a0a0a] mx-auto overflow-y-scroll">
-        <ModeWatcher client:load />
+        <a
+            href="#main"
+            class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:border focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"
+        >
+            {m.skipToContent()}
+        </a>
+        <ModeWatcher client:load disableTransitions />
         <Toast client:idle />
         {showHeader && <Header />}
         <main
+            id="main"
+            tabindex="-1"
             class={`flex flex-col px-4 sm:px-6 lg:px-8 overflow-x-clip flex-1 justify-center mx-auto gap-4 antialiased ${maxWithMd ? "max-w-(--breakpoint-md)" : ""}`}
         >
             <slot />

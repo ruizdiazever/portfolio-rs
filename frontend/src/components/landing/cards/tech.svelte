@@ -14,7 +14,7 @@
 </script>
 
 <Popover.Root>
-    <Popover.Trigger>{@render icon?.()}</Popover.Trigger>
+    <Popover.Trigger aria-label={`${name} details`}>{@render icon?.()}</Popover.Trigger>
     <Popover.Content class="max-w-[300px] p-4 space-y-3">
         <p class="flex items-center gap-2 text-xl">{name} {@render icon?.()}</p>
         <hr />

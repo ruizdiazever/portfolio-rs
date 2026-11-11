@@ -11,7 +11,7 @@ const pages: Array<{
   { path: "/zh/sections/about", heading: "About" },
   { path: "/zh/sections/books", heading: "Books" },
   { path: "/zh/sections/contact", heading: "Contact me" },
-  { path: "/en/sections/cv", heading: "Work in progress.." },
+  { path: "/en/sections/cv", heading: "Work in progress…" },
   { path: "/en/blog/articles", heading: "Articles" },
   { path: "/zh/blog/articles", heading: "文章" },
   { path: "/en/blog/hardware/minisforum-ms-01", heading: "Updating MS-01 bios" },
@@ -20,10 +20,10 @@ const pages: Array<{
   { path: "/zh/blog/organizations-using-rust", heading: "使用 Rust 的组织" },
   { path: "/en/blog/portfolio-wasm", heading: "Portfolio WASM" },
   { path: "/zh/blog/portfolio-wasm", heading: "作品集 WASM" },
-  { path: "/en/projects/berli-system", heading: "Work in progress.." },
-  { path: "/en/projects/picu-iot", heading: "Work in progress.." },
-  { path: "/en/projects/raau-design", heading: "Work in progress.." },
-  { path: "/zh/projects/berli-system", heading: "Work in progress.." },
+  { path: "/en/projects/berli-system", heading: "Work in progress…" },
+  { path: "/en/projects/picu-iot", heading: "Work in progress…" },
+  { path: "/en/projects/raau-design", heading: "Work in progress…" },
+  { path: "/zh/projects/berli-system", heading: "Work in progress…" },
 ];
 
 test.describe("pages", () => {
@@ -96,7 +96,7 @@ test.describe("feedback", () => {
 
     await dialog.getByRole("button", { name: "Submit" }).click();
     await expect(
-      dialog.getByText("Please enter your feedback."),
+      dialog.getByText("Enter your feedback before submitting."),
     ).toBeVisible();
 
     await dialog.getByRole("textbox").fill("Excellent portfolio!");

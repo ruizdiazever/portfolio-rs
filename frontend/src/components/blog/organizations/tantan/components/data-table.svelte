@@ -104,7 +104,7 @@
 
 <div class="space-y-4 text-xs">
   <DataTableToolbar {table} />
-  <div class="bg-white dark:bg-black rounded-md border">
+  <div class="bg-white dark:bg-black rounded-md border max-w-full overflow-x-auto">
     <Table.Root>
       <Table.Header>
         {#each table.getHeaderGroups() as headerGroup (headerGroup.id)}

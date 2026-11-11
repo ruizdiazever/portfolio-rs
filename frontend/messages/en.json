@@ -18,13 +18,13 @@
   "pinned": "Pinned",
   "feedback": "Feedback",
   "feedbackLegend": "Was this helpful?",
-  "feedbackPlaceholder": "Enter your feedback here",
-  "feedbackEnterError": "Please enter your feedback.",
+  "feedbackPlaceholder": "Enter your feedback here…",
+  "feedbackEnterError": "Enter your feedback before submitting.",
   "feedbackSubmitted": "Thank you for your feedback!",
-  "feedbackError": "Failed to submit feedback.",
-  "feedbackLengthError": "Feedback must be 500 characters or less.",
+  "feedbackError": "Unable to send feedback. Check your connection and try again.",
+  "feedbackLengthError": "Keep your feedback to 500 characters or fewer.",
   "submit": "Submit",
-  "more": "More",
+  "more": "More articles",
   "articles": "Articles",
   "articlesDescription": "Explore my articles on various topics related to Software Development, Technology, and Design.",
   "back": "Back",
@@ -40,5 +40,7 @@
   "view": "View",
   "rowsPerPage": "Rows per page",
   "pageIndicator": "Page {currentPage} of {totalPages}",
-  "columns": "Columns"
+  "columns": "Columns",
+  "skipToContent": "Skip to content",
+  "viewSingular": "view"
 }

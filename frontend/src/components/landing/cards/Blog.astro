@@ -50,7 +50,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
             >
                 <Icon name="eye" title="Views" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap"
-                    >{views ? views : 0} {m.views()}</span
+                    >{views ?? 0} {views === 1 ? m.viewSingular() : m.views()}</span
                 >
             </section>
             <section

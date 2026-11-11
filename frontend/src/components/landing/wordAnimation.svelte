@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import { fade, fly } from "svelte/transition";
     import { getLocale } from "@paraglide/runtime";
 
@@ -20,36 +21,47 @@
 
     const words = getLocale() === "zh" ? wordsZh : wordsEn;
 
-    let index = Math.floor(Math.random() * words.length);
+    let index = 0;
     let currentWord = $state(words[index]);
     let visible = $state(false);
+    let animate = $state(false);
 
     function changeWord() {
         index = (index + 1) % words.length;
         currentWord = words[index];
     }
-    $effect(() => {
+
+    onMount(() => {
         visible = true;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            return;
+        }
+
+        animate = true;
         const interval = setInterval(changeWord, 10000);
         return () => clearInterval(interval);
     });
 </script>
 
-{#key currentWord}
-    {#if visible}
-        <div>
-            <div class="centered" out:fly={{ y: -20, duration: 1000 }}>
-                {#each currentWord as char, i}
-                    <span
-                        in:fade|global={{ delay: 200 + i * 150, duration: 800 }}
-                    >
-                        {char}
-                    </span>
-                {/each}
+{#if visible}
+    {#if animate}
+        {#key currentWord}
+            <div>
+                <div class="centered" out:fly={{ y: -10, duration: 250 }}>
+                    {#each currentWord as char, i}
+                        <span
+                            in:fade|global={{ delay: i * 20, duration: 250 }}
+                        >
+                            {char}
+                        </span>
+                    {/each}
+                </div>
             </div>
-        </div>
+        {/key}
+    {:else}
+        <div class="centered">{currentWord}</div>
     {/if}
-{/key}
+{/if}
 
 <style>
     .centered span {

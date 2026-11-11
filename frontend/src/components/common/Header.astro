@@ -15,14 +15,14 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
 
 <nav
     id="navbar"
-    class="sticky top-0 w-full overflow-hidden backdrop-blur-lg z-50 antialiased transition-all duration-300"
+    class="sticky top-0 w-full backdrop-blur-lg z-50 antialiased transition-colors duration-300"
     on:separator-change={handleSeparatorChange}
 >
     <div class="w-full">
         <div
             class="flex items-center justify-between max-w-(--breakpoint-md) mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6"
         >
-            <a href={`/${getLocale()}/`} rel="external" class="flex flex-col items-start">
+            <a href={`/${getLocale()}/`} class="flex min-w-0 flex-col items-start">
                 <p class="text-lg md:text-xl font-semibold text-foreground">
                     Ever Ruiz Diaz
                 </p>

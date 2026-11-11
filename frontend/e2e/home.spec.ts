@@ -14,6 +14,7 @@ test.describe("home", () => {
     await page.goto("/en");
 
     await expect(page).toHaveTitle(/Ever Ruiz Diaz/);
+    await expect(page.locator("h1")).toHaveCount(1);
     await expect(
       page.getByRole("link", { name: /Ever Ruiz Diaz/ }).first(),
     ).toBeVisible();

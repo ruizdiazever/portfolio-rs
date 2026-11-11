@@ -129,9 +129,22 @@
     }
 
     html {
+        color-scheme: light;
+        scroll-padding-top: calc(var(--header-height) + 1rem);
         transition:
             background-color 0.3s ease,
             color 0.3s ease;
+    }
+
+    .dark {
+        color-scheme: dark;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--foreground) !important;
+        outline-color: var(--foreground) !important;
+        outline-offset: 2px;
+        transition: none !important;
     }
 
     body {
@@ -156,9 +169,24 @@ p {
     text-wrap: pretty;
 }
 
-@media (prefer-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
     }
 }
 
@@ -207,6 +235,7 @@ pre {
 
 .blog {
     max-width: 80ch;
+    overflow-wrap: break-word;
     word-spacing: 0.16em;
 }
 

@@ -1,6 +1,31 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("interactions", () => {
+  test("skip link is the first focus target", async ({ page }) => {
+    await page.goto("/en");
+    await page.keyboard.press("Tab");
+
+    const skip = page.getByRole("link", { name: "Skip to content" });
+    await expect(skip).toBeFocused();
+    await skip.press("Enter");
+    await expect(page.locator("main")).toBeFocused();
+  });
+
+  test("book cards reveal details on keyboard focus", async ({ page }) => {
+    await page.goto("/en/sections/books");
+
+    const card = page.locator(".book-card:not(.hidden)").first();
+    await card.focus();
+    await expect(card.locator(".details")).toHaveCSS("opacity", "1");
+  });
+
+  test("technology triggers have an accessible name", async ({ page }) => {
+    await page.goto("/en");
+    await expect(
+      page.locator("[data-slot='popover-trigger']").first(),
+    ).toHaveAccessibleName(/details$/);
+  });
+
   test("theme toggle switches to dark and persists", async ({ page }) => {
     await page.goto("/en");
     const html = page.locator("html");

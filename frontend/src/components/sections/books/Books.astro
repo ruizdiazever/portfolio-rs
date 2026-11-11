@@ -11,7 +11,7 @@ import Media from "$lib/components/common/Media.astro";
         <span class="block">Books</span>
     </h1>
 
-    <div class="flex justify-center space-x-4 mb-8">
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
         <button
             class="px-4 py-2 rounded-lg text-sm"
             data-filter="all"
@@ -38,17 +38,18 @@ import Media from "$lib/components/common/Media.astro";
         {
             books.map((book: Book) => (
                 <div
-                    class="book-card group rounded-lg shadow-lg overflow-hidden transform transition-all
-                duration-300 ease-in-out hover:scale-[1.02] border cursor-pointer relative
-                min-h-[400px] hover:z-10 hover:shadow-xl w-full"
+                    class="book-card group rounded-lg shadow-lg overflow-hidden transform transition-[transform,box-shadow]
+                duration-300 ease-in-out hover:scale-[1.02] focus-visible:scale-[1.02] border relative
+                min-h-[400px] hover:z-10 hover:shadow-xl focus-visible:z-10 w-full"
                     transition:name={`book-card-${book.title}`}
-                    role="button"
+                    role="group"
+                    aria-label={`${book.title} details`}
                     tabindex="0"
                     data-technical={book.technical}
                     data-paper={book.paper}
                     data-comic={book.comic}
                 >
-                    <div class="content group-hover:opacity-0 transition-opacity duration-300 h-full flex flex-col">
+                    <div class="content group-hover:opacity-0 group-focus:opacity-0 transition-opacity duration-300 h-full flex flex-col">
                         <div class="relative aspect-3/4 overflow-hidden w-full">
                             <Media
                                 path={book.cover}
@@ -83,8 +84,8 @@ import Media from "$lib/components/common/Media.astro";
                     </div>
 
                     <div
-                        class="details opacity-0 group-hover:opacity-100 absolute inset-0 transition-opacity duration-300
-                        overflow-y-auto pointer-events-none group-hover:pointer-events-auto flex flex-col"
+                        class="details opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute inset-0 transition-opacity duration-300
+                        overflow-y-auto overscroll-contain pointer-events-none group-hover:pointer-events-auto group-focus:pointer-events-auto flex flex-col"
                     >
                         <div class="p-6 flex-1">
                             <h2 class="text-md font-bold mb-3">{book.title}</h2>

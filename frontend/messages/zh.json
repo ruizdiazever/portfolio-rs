@@ -18,13 +18,13 @@
   "pinned": "已钉",
   "feedback": "反馈",
   "feedbackLegend": "是否有所帮助？",
-  "feedbackPlaceholder": "在此处输入您的反馈",
-  "feedbackEnterError": "请输入您的反馈。",
+  "feedbackPlaceholder": "在此输入反馈…",
+  "feedbackEnterError": "提交前请输入反馈内容。",
   "feedbackSubmitted": "感谢您的反馈！",
-  "feedbackError": "提交反馈失败。",
-  "feedbackLengthError": "反馈不得超过500个字符。",
+  "feedbackError": "无法发送反馈，请检查网络连接后重试。",
+  "feedbackLengthError": "反馈内容请控制在500个字符以内。",
   "submit": "提交",
-  "more": "更多",
+  "more": "更多文章",
   "articles": "文章",
   "articlesDescription": "探索我的文章，涉及软件开发、技术、设计等主题。",
   "back": "返回",
@@ -40,5 +40,7 @@
   "view": "查看",
   "rowsPerPage": "每页行数",
   "pageIndicator": "页 {currentPage} 之 {totalPages}",
-  "columns": "列"
+  "columns": "列",
+  "skipToContent": "跳至主要内容",
+  "viewSingular": "浏览量"
 }

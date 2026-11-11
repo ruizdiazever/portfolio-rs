@@ -41,6 +41,8 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<link rel="preconnect" href="https://s3.berli.app" crossorigin />
 <title>{title}</title>
 <meta name="description" content={description} />
 <link type="text/plain" rel="author" href="/humans.txt" />
@@ -94,7 +96,16 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
     name="msapplication-TileImage"
     content={media("site/icons/ms-icon-144.png")}
 />
-<meta name="theme-color" content="hsl(0 0% 5%)" />
+<meta
+    name="theme-color"
+    content="#fafafa"
+    media="(prefers-color-scheme: light)"
+/>
+<meta
+    name="theme-color"
+    content="#0a0a0a"
+    media="(prefers-color-scheme: dark)"
+/>
 <meta name="keywords" content="rust, developer, portfolio" />
 
 <!-- Twitter -->

@@ -31,7 +31,7 @@
 >
     <span class="sr-only">Display theme selector</span>
     <Button
-        class="size-6 p-1 hover:scale-110 transition-all cursor-pointer
+        class="size-6 p-1 hover:scale-110 transition-[transform,background-color,color] cursor-pointer
         {storedMode === 'system' ? selected : noSelect}"
         onclick={() => updateMode("system")}
         variant="ghost"
@@ -39,7 +39,7 @@
         <Laptop />
     </Button>
     <Button
-        class="size-6 p-1 hover:scale-110 transition-all cursor-pointer
+        class="size-6 p-1 hover:scale-110 transition-[transform,background-color,color] cursor-pointer
         {storedMode === 'light' ? selected : noSelect}"
         onclick={() => updateMode("light")}
         variant="ghost"
@@ -47,7 +47,7 @@
         <Sun />
     </Button>
     <Button
-        class="size-6 p-1 hover:scale-110 transition-all cursor-pointer
+        class="size-6 p-1 hover:scale-110 transition-[transform,background-color,color] cursor-pointer
         {storedMode === 'dark' ? selected : noSelect}"
         onclick={() => updateMode("dark")}
         variant="ghost"
