@@ -34,6 +34,8 @@
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
     "rehype-class-names": "^2.0.0",
+    "satori-astro": "^0.4.1",
+    "satori-html": "^0.3.2",
     "sharp": "^0.35.5",
     "svelte": "^5.57.3",
     "zod": "^4.6.7"
@@ -71,7 +73,10 @@
     "ignoredBuiltDependencies": [
       "esbuild",
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "satori": "0.63.2"
+    }
   },
   "packageManager": "pnpm@10.26.1"
 }

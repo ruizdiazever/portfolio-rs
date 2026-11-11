@@ -23,8 +23,17 @@ const {
     description = m.seoDefault(),
     preloadImgLCP,
     canonical,
-    image = seoConfig.image.url,
+    image,
 } = Astro.props;
+
+const pagePath = Astro.url.pathname
+    .replace(/^\/(en|zh)(?=\/|$)/, "")
+    .replace(/\/+$/, "");
+const defaultImage = new URL(
+    `/og${pagePath === "" || pagePath === "/" ? "/home" : pagePath}.png`,
+    Astro.site,
+).href;
+const ogImage = image ?? defaultImage;
 
 const canonicalURL = canonical
     ? new URL(canonical, Astro.site)
@@ -115,13 +124,13 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 <meta name="twitter:creator" content="@everruizdiazo" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={image} />
+<meta name="twitter:image" content={ogImage} />
 
 <!-- Open Graph -->
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL.href} />
-<meta property="og:image" content={image} />
-<meta property="og:image:secure_url" content={image} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:alt" content={title} />
 <meta property="og:image:width" content={String(seoConfig.image.width)} />

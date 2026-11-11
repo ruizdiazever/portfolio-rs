@@ -49,16 +49,6 @@ function copy({ src, key }) {
   fs.copyFileSync(path.join(ROOT, src), dest);
 }
 
-async function og({ src, key, fit = "cover" }) {
-  const dest = path.join(OUT_VERSION, key);
-  ensureDir(dest);
-  await sharp(path.join(ROOT, src), { density: 300 })
-    .resize(1200, 630, { fit, background: "#ffffff" })
-    .flatten({ background: "#ffffff" })
-    .png()
-    .toFile(dest);
-}
-
 async function maskable() {
   const dest = path.join(OUT_VERSION, "site/icons/icon-mask-512.png");
   ensureDir(dest);
@@ -169,15 +159,6 @@ async function build() {
       height: 80,
     });
   }
-
-  await og({ src: "media-src/og/home.png", key: "og/home.png" });
-  await og({ src: "media-src/og/ever-card.avif", key: "og/ever-card.png" });
-  await og({ src: "media-src/og/blog/organizations-using-rust.svg", key: "og/blog/organizations-using-rust.png", fit: "contain" });
-  await og({ src: "media-src/og/blog/portfolio-wasm.svg", key: "og/blog/portfolio-wasm.png", fit: "contain" });
-  await og({ src: "media-src/og/blog/updating-ms-01.svg", key: "og/blog/updating-ms-01.png", fit: "contain" });
-  await og({ src: "media-src/og/projects/berli.png", key: "og/projects/berli-system.png" });
-  await og({ src: "media-src/og/projects/picu.png", key: "og/projects/picu-iot.png" });
-  await og({ src: "media-src/og/projects/raau.png", key: "og/projects/raau-design.png" });
 
   copy({ src: "media-src/blog/portfolio-wasm/architecture.svg", key: "blog/portfolio-wasm/architecture.svg" });
 
