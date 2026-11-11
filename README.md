@@ -1,8 +1,4 @@
 <div align="center">
-  <a href="https://www.everdev.it">
-    <img src="https://s3.berli.app/portfolio/v1/og/home.png" width="760" alt="Ever Ruiz Diaz, software engineer in Rome">
-  </a>
-
   <h1>everdev.it</h1>
 
   <p><strong>Selected work, writing, and reading, in one quiet place.</strong></p>
@@ -99,13 +95,21 @@ S3 holds generated files, not a backup of the source. The source remains in Git.
 
 ### The flow
 
-```mermaid
-flowchart LR
-  A[media-src originals] -->|media:build| B[.media-output/v1]
-  B -->|media:sync| C[(S3 portfolio/v1)]
-  C -->|HTTPS| Browser
-  D[Media.astro / media()] -->|URLs| Browser
+```text
+media-src/ (originals, committed)
+    │  pnpm media:build
+    ▼
+.media-output/v1/ (optimized, ignored)
+    │  pnpm media:sync (rclone)
+    ▼
+S3 portfolio/v1 (public, immutable)
+    │  HTTPS
+    ▼
+browser
 ```
+
+`Media.astro` and `media()` only build the S3 URLs. They never read local files.
+
 
 ```bash
 # Generate derivatives locally. No network, no upload.
