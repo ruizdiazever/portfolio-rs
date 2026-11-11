@@ -44,12 +44,12 @@ test.describe("home", () => {
         images.map((image) => (image as HTMLImageElement).src),
       );
     expect(iconSources).toEqual([
-      "https://cdn.simpleicons.org/deepseek/000000",
-      "https://cdn.simpleicons.org/firefox/000000",
-      "https://cdn.simpleicons.org/bitwarden/000000",
-      "https://cdn.simpleicons.org/docker/000000",
-      "https://cdn.simpleicons.org/warp/000000",
-      "https://cdn.simpleicons.org/zedindustries/000000",
+      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/deepseek.svg",
+      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/firefox.svg",
+      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/bitwarden.svg",
+      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/docker.svg",
+      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/warp.svg",
+      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/zedindustries.svg",
     ]);
     for (const src of iconSources) {
       const response = await page.request.get(src);
