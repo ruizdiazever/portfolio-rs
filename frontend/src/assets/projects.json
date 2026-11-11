@@ -11,15 +11,14 @@
       "title": "BERLi",
       "repository": "https://github.com/berli-app",
       "description": {
-        "en": "A Rust-first platform for identity, credentials, and operations.",
-        "zh": "以 Rust 为核心的身份、凭证与运维平台。"
+        "en": "A modular work OS for teams: projects, timesheets, HR, and notes.",
+        "zh": "面向团队的模块化工作操作系统：项目、工时、HR 与笔记。"
       },
       "readtime": 0,
       "tech": [
         "rust",
         "postgres",
         "redis",
-        "meilisearch",
         "astro",
         "svelte",
         "docker",
@@ -27,21 +26,16 @@
         "caddy"
       ],
       "tags": [
-        "GraphQL",
         "Rust",
         "Axum",
-        "IoT",
-        "security",
-        "auth",
-        "credentials",
-        "async-graphql",
-        "backend",
-        "api",
-        "project",
-        "design",
-        "system",
-        "BERLi",
-        "docker"
+        "SQLx",
+        "Postgres",
+        "Redis",
+        "multi-tenant",
+        "RBAC",
+        "audit",
+        "work OS",
+        "platform"
       ],
       "date": "2024-06-20"
     },

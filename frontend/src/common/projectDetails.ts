@@ -10,20 +10,19 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "berli-system": {
     title: "BERLi",
     tagline: {
-      en: "A Rust-first platform for identity, credentials, and operations.",
-      zh: "以 Rust 为核心的身份、凭证与运维平台。",
+      en: "A modular work OS for teams: projects, timesheets, HR, and notes in one async workspace.",
+      zh: "面向团队的模块化工作操作系统：项目、工时、HR 与笔记，集中在一个异步工作空间。",
     },
     body: {
-      en: "BERLi brings credentials, identities, and operational workflows into one place. The API is Axum and async-graphql; Postgres and Redis hold state; Meilisearch handles search; the interface is Astro and Svelte. The repositories are private while the platform is in progress.",
-      zh: "BERLi 把凭证、身份与运维流程放在同一个地方。API 使用 Axum 与 async-graphql；Postgres 与 Redis 保存状态；Meilisearch 负责搜索；界面使用 Astro 与 Svelte。平台仍在开发中，仓库暂为私有。",
+      en: "BERLi is a multi-tenant work OS for teams that run on projects, people, and time. Projects, timesheets, HR records, expenses, notes, documents, and reporting live in one workspace, with modules each customer can switch on or off. The API is Rust and Axum with SQLx and Postgres; Redis holds sessions and queues; the interface is Astro and Svelte. Identity, RBAC, and audit are shared across every module. The repositories are private while the platform is in progress.",
+      zh: "BERLi 是面向团队的多租户工作操作系统，围绕项目、人员与时间运转。项目、工时、HR 档案、报销、笔记、文档与报表都在同一个工作空间里，客户可以按需开启或关闭模块。API 使用 Rust、Axum、SQLx 与 Postgres；Redis 负责会话与队列；界面使用 Astro 与 Svelte。身份、RBAC 与审计是所有模块共享的基础能力。平台仍在开发中，仓库暂为私有。",
     },
     stack: [
       "Rust",
       "Axum",
-      "async-graphql",
+      "SQLx",
       "Postgres",
       "Redis",
-      "Meilisearch",
       "Astro",
       "Svelte",
       "Docker",
