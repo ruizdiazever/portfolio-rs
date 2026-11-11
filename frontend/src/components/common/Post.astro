@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { getLocale } from "@paraglide/runtime";
 import Media from "$lib/components/common/Media.astro";
 import Feedback from "$lib/components/common/feedback.svelte";
+import Toast from "$lib/components/common/toast.svelte";
 import { postVisitRequest } from "$lib/common/postView.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 import * as m from "@paraglide/messages.js";
@@ -139,6 +140,7 @@ let views = await getVisitRequest(id);
         <hr class="my-8 h-px border-0 bg-gray-300" />
         <div class="mt-6 space-y-4"><slot /></div>
         <Feedback client:idle title={title} {id} language={getLocale()} />
+        <Toast client:idle />
     </article>
 </div>
 

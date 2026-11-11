@@ -19,11 +19,11 @@ test.describe("interactions", () => {
     await expect(card.locator(".details")).toHaveCSS("opacity", "1");
   });
 
-  test("technology triggers have an accessible name", async ({ page }) => {
+  test("technology tags link out", async ({ page }) => {
     await page.goto("/en");
-    await expect(
-      page.locator("[data-slot='popover-trigger']").first(),
-    ).toHaveAccessibleName(/details$/);
+    const tag = page.locator("[data-tech]").first();
+    await expect(tag).toHaveAttribute("href", /^https?:\/\//);
+    await expect(tag).toHaveAccessibleName(/.+/);
   });
 
   test("theme toggle switches to dark and persists", async ({ page }) => {
@@ -49,33 +49,12 @@ test.describe("interactions", () => {
   test("language switcher navigates to the translated page", async ({ page }) => {
     await page.goto("/en/sections/about");
 
-    await expect(async () => {
-      await page.getByRole("button", { name: "Language" }).click();
-      await expect(
-        page.getByRole("menuitemradio", { name: "中文" }),
-      ).toBeVisible({ timeout: 1_000 });
-    }).toPass({ timeout: 20_000 });
-
-    await page.getByRole("menuitemradio", { name: "中文" }).click();
+    await page.getByRole("link", { name: "Language" }).click();
 
     await expect(page).toHaveURL(/\/zh\/sections\/about$/);
     await expect(
       page.getByRole("heading", { name: "关于", exact: true }),
     ).toBeVisible();
-  });
-
-  test("project technology popover opens", async ({ page }) => {
-    await page.goto("/en");
-
-    const trigger = page.locator("[data-slot='popover-trigger']").first();
-    await expect(trigger).toBeVisible();
-
-    await expect(async () => {
-      await trigger.click();
-      await expect(page.locator("[data-slot='popover-content']")).toBeVisible({
-        timeout: 1_000,
-      });
-    }).toPass({ timeout: 20_000 });
   });
 
   test("social links point at the current X profile", async ({ page }) => {

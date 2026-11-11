@@ -1,10 +1,7 @@
 ---
 import { getLocale } from "@paraglide/runtime";
-import { ClientRouter } from "astro:transitions";
 import Footer from "$lib/components/common/Footer.astro";
 import Header from "$lib/components/common/Header.astro";
-import Toast from "$lib/components/common/toast.svelte";
-import { ModeWatcher } from "mode-watcher";
 import SEO from "$lib/components/common/SEO.astro";
 import * as m from "@paraglide/messages.js";
 import "$lib/styles/app.css";
@@ -54,8 +51,6 @@ const {
             }
 
             applyTheme();
-
-            document.addEventListener("astro:after-swap", applyTheme);
         </script>
         <script
             is:inline
@@ -69,7 +64,6 @@ const {
             canonical={canonical}
             image={image}
         />
-        <ClientRouter />
     </head>
     <body class="bg-[#fafafa] dark:bg-[#0a0a0a] mx-auto overflow-y-scroll">
         <a
@@ -78,8 +72,6 @@ const {
         >
             {m.skipToContent()}
         </a>
-        <ModeWatcher client:load disableTransitions />
-        <Toast client:idle />
         {showHeader && <Header />}
         <main
             id="main"
