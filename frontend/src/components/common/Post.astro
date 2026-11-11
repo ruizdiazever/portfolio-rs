@@ -59,7 +59,7 @@ let views = await getVisitRequest(id);
                 <div
                     class="flex items-center justify-center gap-2 text-card-foreground"
                 >
-                    <p class="flex md:gap-1 text-muted-foreground text-md">
+                    <p class="flex md:gap-1 text-muted-foreground text-md tabular-nums">
                         {readTime}
                         {getLocale() === "zh" ? "分钟阅读" : "min read"}
                     </p>
@@ -79,7 +79,7 @@ let views = await getVisitRequest(id);
                     class="flex items-center justify-center gap-1 flex-wrap font-medium"
                 >
                     <Icon name="timer" title="Date" size="0.8rem" />
-                    <code>
+                    <code class="tabular-nums">
                         {
                             getLocale() === "zh"
                                 ? `${dayjs(date).format("YYYY年MM月")}`
@@ -92,7 +92,7 @@ let views = await getVisitRequest(id);
                     title={tags.join(", ")}
                 >
                     <Icon name="tag" title="Tags" size="0.8rem" />
-                    <code>{tags.length} {m.tags()}</code>
+                    <code class="tabular-nums">{tags.length} {m.tags()}</code>
                 </section>
                 <section class="flex items-center justify-center">
                     <code
@@ -101,7 +101,7 @@ let views = await getVisitRequest(id);
                         <Icon name="eye" title="Views" size="0.8rem" />
 
                         <span
-                            class="backdrop-filter backdrop-blur-md animate-backdrop transition duration-700 ease-in-out"
+                            class="backdrop-filter backdrop-blur-md animate-backdrop transition duration-700 ease-in-out tabular-nums"
                         >
                             {views.visits}
                         </span>

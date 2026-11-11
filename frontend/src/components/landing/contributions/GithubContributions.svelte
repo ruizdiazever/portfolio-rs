@@ -71,7 +71,7 @@
         transition:fly={{ y: prefersReducedMotion ? 0 : 20, duration: prefersReducedMotion ? 0 : 400 }}
     >
         <div
-            class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center sm:text-left"
+            class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center sm:text-left tabular-nums"
         >
             {totalContributions}
             {getLocale() === "zh"

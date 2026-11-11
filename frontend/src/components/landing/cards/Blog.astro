@@ -49,7 +49,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                 class="inline-flex items-center justify-center gap-1 font-medium"
             >
                 <Icon name="eye" title="Views" class="w-4 h-4 shrink-0" />
-                <span class="whitespace-nowrap"
+                <span class="whitespace-nowrap tabular-nums"
                     >{views ?? 0} {views === 1 ? m.viewSingular() : m.views()}</span
                 >
             </section>
@@ -58,7 +58,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                 title=""
             >
                 <Icon name="tag" title="Tags" class="w-4 h-4 shrink-0" />
-                <span class="whitespace-nowrap"
+                <span class="whitespace-nowrap tabular-nums"
                     >{tags?.length ? tags.length : 0} {m.tags()}</span
                 >
             </section>
@@ -66,7 +66,7 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                 class="inline-flex items-center justify-center gap-1 font-medium"
             >
                 <Icon name="date" title="Date" class="w-4 h-4 shrink-0" />
-                <span class="whitespace-nowrap">
+                <span class="whitespace-nowrap tabular-nums">
                     {
                         getLocale() === "zh"
                             ? `${dayjs(date).format("YYYY年MM月")}`
