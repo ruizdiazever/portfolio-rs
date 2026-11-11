@@ -11,7 +11,7 @@ Leptos 把界面编译成 WebAssembly。一个很小的 Axum 服务处理浏览�
 
 我想要一个安静、快速的作品集。克制感来自 [Vercel](https://vercel.com/)、[Nio](https://www.nio.com/)、[Apple](https://www.apple.com/) 和 [Nothing](https://nothing.tech/)；[Guille Moreira](https://twitter.com/gzmoreira/) 的作品则提醒我，拉丁美洲的开发者能做出什么。
 
-第一版上线时，有些部分还没完成。我没有把它们藏起来——作品集应该展示正在做的东西，而不只是打磨好的部分。
+第一版上线时，有些部分还没完成。我没有把它们藏起来。作品集应该展示正在做的东西，而不只是打磨好的部分。
 
 ## 特点
 
@@ -57,4 +57,4 @@ Leptos 把界面编译成 WebAssembly。一个很小的 Axum 服务处理浏览�
 
 做这个作品集让我意识到，WebAssembly 并没有消除难的部分：状态、路由、设计决策，一样都没少。它也让我更深入 Rust。
 
-把它献给我的女儿 Sofia——她是我力量的来源，也是我不断提醒自己为什么要把事情做好的原因。
+把它献给我的女儿 Sofia，她是我力量的来源，也是我不断提醒自己为什么要把事情做好的原因。

@@ -32,8 +32,8 @@ let {
     <div class="text-gray-500 text-md">
         {
             getLocale() === "zh"
-                ? `${dayjs(startDate).format("YYYY年MM月")} – ${endDate ? dayjs(endDate).format("YYYY年MM月") : "至今"}`
-                : `${dayjs(startDate).format("MMM YYYY")} – ${endDate ? dayjs(endDate).format("MMM YYYY") : "Present"}`
+                ? `${dayjs(startDate).format("YYYY年MM月")} - ${endDate ? dayjs(endDate).format("YYYY年MM月") : "至今"}`
+                : `${dayjs(startDate).format("MMM YYYY")} - ${endDate ? dayjs(endDate).format("MMM YYYY") : "Present"}`
         }
     </div>
     <div class="text-foreground text-xl">{position}</div>
