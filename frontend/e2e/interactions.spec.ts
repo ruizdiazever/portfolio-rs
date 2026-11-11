@@ -11,6 +11,28 @@ test.describe("interactions", () => {
     await expect(page.locator("main")).toBeFocused();
   });
 
+
+  test("experience dots align with their dates", async ({ page }) => {
+    await page.goto("/en");
+
+    const pairs = await page.evaluate(() =>
+      Array.from(document.querySelectorAll("[data-timeline-dot]")).map((dot) => {
+        const date = dot.parentElement?.querySelector("[data-timeline-date]");
+        const dotRect = dot.getBoundingClientRect();
+        const dateRect = date?.getBoundingClientRect();
+        return {
+          dot: dotRect.top + dotRect.height / 2,
+          date: dateRect ? dateRect.top + dateRect.height / 2 : 0,
+        };
+      }),
+    );
+
+    expect(pairs.length).toBeGreaterThan(0);
+    for (const pair of pairs) {
+      expect(Math.abs(pair.dot - pair.date)).toBeLessThanOrEqual(1);
+    }
+  });
+
   test("book cards reveal details on keyboard focus", async ({ page }) => {
     await page.goto("/en/sections/books");
 
