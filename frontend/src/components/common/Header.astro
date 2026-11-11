@@ -1,16 +1,18 @@
 ---
-import Lang from "./lang.svelte";
-import Toggle from "$lib/components/darkmode/toggle.svelte";
 import Social from "$lib/components/common/Social.astro";
 import { Separator } from "$lib/components/ui/separator";
-import WordAnimation from "$lib/components/landing/wordAnimation.svelte";
+import WordAnimation from "$lib/components/landing/WordAnimation.astro";
 import { getLocale } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
 
 let showSeparator = false;
 
 function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
     showSeparator = event.detail.show;
 }
+
+const otherLocale = getLocale() === "en" ? "zh" : "en";
+const languageHref = Astro.url.pathname.replace(/^\/(en|zh)/, `/${otherLocale}`);
 ---
 
 <nav
@@ -27,12 +29,52 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
                     Ever Ruiz Diaz
                 </p>
                 <p class="text-secondary-foreground text-md h-[32px]">
-                    <WordAnimation client:load />
+                    <WordAnimation />
                 </p>
             </a>
             <div class="flex items-center">
-                <Toggle client:idle />
-                <Lang client:idle />
+                <a
+                    href={languageHref}
+                    hreflang={otherLocale}
+                    aria-label={m.language()}
+                    title={m.language()}
+                    class="inline-flex h-9 items-center justify-center rounded-md px-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                    {otherLocale === "zh" ? "中文" : "EN"}
+                </a>
+                <button
+                    id="theme-toggle"
+                    type="button"
+                    aria-label={m.theme()}
+                    title={m.theme()}
+                    class="relative inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                    <svg
+                        class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-transform dark:-rotate-90 dark:scale-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg
+                        class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-transform dark:rotate-0 dark:scale-100"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path>
+                    </svg>
+                </button>
                 <div class="hidden md:flex items-center">
                     <Separator orientation="vertical" class="mx-2 h-6! w-0.5! bg-gray-400! dark:bg-gray-600!" />
                     <Social />
@@ -63,8 +105,16 @@ function handleSeparatorChange(event: CustomEvent<{ show: boolean }>) {
         }
     }
 
-    // Run on initial load
     initializeNavbar();
-    // Run when navigating between pages
-    document.addEventListener("astro:page-load", initializeNavbar);
+
+    function initializeThemeToggle() {
+        const button = document.getElementById("theme-toggle");
+        if (!button) return;
+        button.addEventListener("click", () => {
+            const dark = document.documentElement.classList.toggle("dark");
+            localStorage.setItem("mode-watcher-mode", dark ? "dark" : "light");
+        });
+    }
+
+    initializeThemeToggle();
 </script>

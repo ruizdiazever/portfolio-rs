@@ -1,11 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import LinkTitle from "$lib/components/common/LinkTitle.astro";
-import Tech from "./tech.svelte";
 import { getTechnologiesFromJson } from "$lib/common/getTechData.js";
 import { getLocale } from "@paraglide/runtime";
-import * as m from "@paraglide/messages.js";
-import LinkExternal from "$lib/components/common/LinkExternal.astro";
 
 interface Props {
     url: string;
@@ -52,28 +49,23 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                         if (!technologies[n]) return null;
 
                         return (
-                            <Tech
-                                client:idle
-                                name={technologies[n].name}
-                                description={
-                                    technologies[n].description[getLocale()]
-                                }
+                            <a
+                                href={technologies[n].url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={technologies[n].name}
+                                title={technologies[n].description[getLocale()]}
+                                data-tech
+                                class="text-muted-foreground hover:text-[#68b5fc] dark:hover:text-[#68b5fc] transition-colors duration-200"
                             >
                                 <Icon
                                     name={n}
                                     width="1.3em"
                                     height="1.3em"
-                                    slot="icon"
-                                    class="cursor-pointer hover:scale-110 transition-transform duration-300"
+                                    class="transition-transform duration-300 hover:scale-110"
                                     title={technologies[n].name}
                                 />
-                                <span slot="link" class="text-xs">
-                                    <LinkExternal
-                                        title={m.moreInformation()}
-                                        url={technologies[n].url}
-                                    />
-                                </span>
-                            </Tech>
+                            </a>
                         );
                     })
                 }
