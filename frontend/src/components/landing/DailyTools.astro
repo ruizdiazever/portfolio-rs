@@ -1,41 +1,42 @@
 ---
 import * as m from "@paraglide/messages.js";
+import ToolIcons from "./ToolIcons.astro";
 
 const tools = [
     {
         name: "DeepSeek Harness",
         href: "https://github.com/deepseek-ai/deepseek-harness",
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/deepseek.svg",
+        icon: "tool-deepseek",
         role: m.dailyToolAgentHarness(),
     },
     {
         name: "Firefox",
         href: "https://www.mozilla.org/firefox/",
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/firefox.svg",
+        icon: "tool-firefox",
         role: m.dailyToolBrowser(),
     },
     {
         name: "Bitwarden",
         href: "https://bitwarden.com",
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/bitwarden.svg",
+        icon: "tool-bitwarden",
         role: m.dailyToolPasswords(),
     },
     {
         name: "Docker Desktop",
         href: "https://www.docker.com/products/docker-desktop/",
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/docker.svg",
+        icon: "tool-docker",
         role: m.dailyToolContainers(),
     },
     {
         name: "Warp",
         href: "https://www.warp.dev",
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/warp.svg",
+        icon: "tool-warp",
         role: m.dailyToolTerminal(),
     },
     {
         name: "Zed",
         href: "https://zed.dev",
-        icon: "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/zedindustries.svg",
+        icon: "tool-zedindustries",
         role: m.dailyToolEditor(),
     },
 ];
@@ -72,16 +73,14 @@ const rows = Array.from({ length: Math.ceil(tools.length / 2) }, (_, index) =>
                             rel="noopener noreferrer"
                             class="group grid min-h-[62px] grid-cols-[20px_minmax(0,1fr)_14px] items-center gap-x-3 border-b border-border py-3.5 transition-colors last:border-b-0 hover:text-blue-600 dark:hover:text-blue-400 sm:min-h-[72px] sm:grid-cols-[24px_minmax(0,1fr)_14px] sm:border-b-0"
                         >
-                            <img
-                                src={tool.icon}
-                                alt=""
+                            <svg
                                 data-ui-icon
-                                width="24"
-                                height="24"
-                                loading="lazy"
-                                decoding="async"
-                                class="h-[18px] w-[18px] shrink-0 object-contain opacity-80 grayscale transition-opacity group-hover:opacity-100 dark:invert sm:h-[22px] sm:w-[22px]"
-                            />
+                                class="h-[18px] w-[18px] shrink-0 text-foreground opacity-80 transition-opacity group-hover:opacity-100 sm:h-[22px] sm:w-[22px]"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <use href={`#${tool.icon}`}></use>
+                            </svg>
                             <span class="flex min-w-0 flex-col gap-0.5">
                                 <span class="text-md font-semibold leading-[1.2] sm:text-lg">
                                     {tool.name}
@@ -110,6 +109,8 @@ const rows = Array.from({ length: Math.ceil(tools.length / 2) }, (_, index) =>
         }
     </div>
 </section>
+
+<ToolIcons />
 
 <style>
     .ui {

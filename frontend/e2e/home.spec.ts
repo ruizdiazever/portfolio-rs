@@ -37,27 +37,21 @@ test.describe("home", () => {
       "https://github.com/deepseek-ai/deepseek-harness",
     );
     const dailyTools = page.locator("section").filter({ hasText: "Daily tools" });
-    await expect(dailyTools.locator("img")).toHaveCount(6);
-    const iconSources = await dailyTools
-      .locator("img")
-      .evaluateAll((images) =>
-        images.map((image) => (image as HTMLImageElement).src),
+    const icons = dailyTools.locator("svg[data-ui-icon]");
+    await expect(icons).toHaveCount(6);
+    const iconHrefs = await icons
+      .locator("use")
+      .evaluateAll((uses) =>
+        uses.map((use) => use.getAttribute("href")),
       );
-    expect(iconSources).toEqual([
-      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/deepseek.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/firefox.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/bitwarden.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/docker.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/warp.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/zedindustries.svg",
+    expect(iconHrefs).toEqual([
+      "#tool-deepseek",
+      "#tool-firefox",
+      "#tool-bitwarden",
+      "#tool-docker",
+      "#tool-warp",
+      "#tool-zedindustries",
     ]);
-    for (const src of iconSources) {
-      const response = await page.request.get(src);
-      expect(response.status(), src).toBe(200);
-      expect(response.headers()["content-type"], src).toContain(
-        "image/svg+xml",
-      );
-    }
     const headings = (await page.locator("main h2").allTextContents()).map(
       (heading) => heading.trim(),
     );
