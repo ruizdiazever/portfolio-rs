@@ -78,7 +78,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#35c758] hover:text-black rounded-full dark:hover:bg-[#35c758]/80 transition-[background-color,color,transform] duration-300 ease-in-out hover:scale-110"
+            class="h-8 w-8 hover:bg-[#35c758] hover:text-black rounded-full dark:hover:bg-[#35c758]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(4)}
             aria-label="Love"
         >
@@ -88,7 +88,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#32ade6] hover:text-black rounded-full dark:hover:bg-[#32ade6]/80 transition-[background-color,color,transform] duration-300 ease-in-out hover:scale-110"
+            class="h-8 w-8 hover:bg-[#32ade6] hover:text-black rounded-full dark:hover:bg-[#32ade6]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(3)}
             aria-label="Happy"
         >
@@ -98,7 +98,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#ffcc01] hover:text-black rounded-full dark:hover:bg-[#ffcc01]/80 transition-[background-color,color,transform] duration-300 ease-in-out hover:scale-110"
+            class="h-8 w-8 hover:bg-[#ffcc01] hover:text-black rounded-full dark:hover:bg-[#ffcc01]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(2)}
             aria-label="Neutral"
         >
@@ -108,7 +108,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#ff3c2f] hover:text-white rounded-full dark:hover:bg-[#ff3c2f]/80 transition-[background-color,color,transform] duration-300 ease-in-out hover:scale-110"
+            class="h-8 w-8 hover:bg-[#ff3c2f] hover:text-white rounded-full dark:hover:bg-[#ff3c2f]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(1)}
             aria-label="Sad"
         >

@@ -19,9 +19,9 @@ let { url, title, repository, description, tech }: Props = Astro.props;
 <div class="group relative block w-full">
     <div
         class="relative p-2 flex
-        border duration-200 hover:ease-in
+        border
         rounded-md bg-white dark:bg-black shadow-sm hover:shadow-md
-        transition-shadow"
+        transition-shadow duration-200 ease-out"
     >
         <div class="flex flex-col px-2 my-2 gap-2 pt-0!">
             <LinkTitle title={title} url={url} />
@@ -62,7 +62,6 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                                     name={n}
                                     width="1.3em"
                                     height="1.3em"
-                                    class="transition-transform duration-300 hover:scale-110"
                                     title={technologies[n].name}
                                 />
                             </a>

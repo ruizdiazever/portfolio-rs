@@ -29,22 +29,22 @@ const genreZh: Record<string, string> = {
 
     <div class="flex flex-wrap justify-center gap-2 mb-8">
         <button
-            class="px-4 py-2 rounded-lg text-sm"
+            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
             data-filter="all"
             aria-pressed="false">{m.all()}</button
         >
         <button
-            class="px-4 py-2 rounded-lg text-sm"
+            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
             data-filter="technical"
             aria-pressed="true">{m.technical()}</button
         >
         <button
-            class="px-4 py-2 rounded-lg text-sm"
+            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
             data-filter="paper"
             aria-pressed="false">{m.papers()}</button
         >
         <button
-            class="px-4 py-2 rounded-lg text-sm"
+            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
             data-filter="comic"
             aria-pressed="false">{m.comics()}</button
         >
@@ -54,9 +54,8 @@ const genreZh: Record<string, string> = {
         {
             books.map((book: Book) => (
                 <div
-                    class="book-card group rounded-lg shadow-lg overflow-hidden transform transition-[transform,box-shadow]
-                duration-300 ease-in-out hover:scale-[1.02] focus-visible:scale-[1.02] border relative
-                min-h-[400px] hover:z-10 hover:shadow-xl focus-visible:z-10 w-full"
+                    class="book-card group rounded-lg shadow-lg overflow-hidden border relative
+                min-h-[400px] transition-shadow duration-200 ease-out hover:z-10 hover:shadow-xl focus-visible:z-10 w-full"
                     transition:name={`book-card-${book.title}`}
                     role="group"
                     aria-label={`${book.title} details`}
@@ -65,7 +64,7 @@ const genreZh: Record<string, string> = {
                     data-paper={book.paper}
                     data-comic={book.comic}
                 >
-                    <div class="content group-hover:opacity-0 group-focus:opacity-0 transition-opacity duration-300 h-full flex flex-col">
+                    <div class="content group-hover:opacity-0 group-focus:opacity-0 transition-opacity duration-200 ease-out h-full flex flex-col">
                         <div class="relative aspect-3/4 overflow-hidden w-full">
                             <Media
                                 path={book.cover}
@@ -74,7 +73,7 @@ const genreZh: Record<string, string> = {
                                 height={400}
                                 sizes="(min-width: 768px) 25vw, 90vw"
                                 alt={book.title}
-                                class="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-95 p-4"
+                                class="w-full h-full object-contain p-4"
                             />
                             <div class="absolute inset-0 bg-linear-to-t from-gray-600/20 to-transparent" />
                         </div>
@@ -100,7 +99,7 @@ const genreZh: Record<string, string> = {
                     </div>
 
                     <div
-                        class="details opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute inset-0 transition-opacity duration-300
+                        class="details opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute inset-0 transition-opacity duration-200 ease-out
                         overflow-y-auto overscroll-contain pointer-events-none group-hover:pointer-events-auto group-focus:pointer-events-auto flex flex-col"
                     >
                         <div class="p-6 flex-1">

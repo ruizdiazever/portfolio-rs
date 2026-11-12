@@ -130,6 +130,10 @@ Caddy terminates TLS for `www.everdev.it`, routes `/api/*` to the API and everyt
 
 Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource()` and rendered with `<Font>` in `src/layouts/Layout.astro`. Use the Tailwind scale in `src/styles/app.css`; do not add local `@font-face` blocks or a second family. Long-form copy uses `text-md` (18px) with a 60 to 75 character measure. Chinese falls back to the system CJK stack.
 
+## Motion
+
+Motion tokens live in `src/styles/app.css` (`--ease-out`, `--ease-in-out`, `--ease-drawer`). Use explicit transition properties, never `transition-all`. Animate `transform` and `opacity` for movement; colors may transition with `ease`. Keep UI motion at 150 to 200 ms and dialogs at 200 ms. Hover motion is gated by Tailwind's `hover` variant, and reduced motion keeps color and opacity while dropping transforms and shadows.
+
 ## Conventions
 
 - The README is public-facing. It shows the work, not the brush. Keep it to stack, architecture, the media flow, repository map and a footer.

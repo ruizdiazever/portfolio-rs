@@ -55,8 +55,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub profile"
-            class="text-muted-foreground hover:text-primary transition-[color,transform]
-            duration-200 ease-in-out hover:scale-110 focus:scale-110"
+            class="text-muted-foreground hover:text-primary transition-colors duration-200"
         >
             {@render gitHubIcon?.()}
         </a>

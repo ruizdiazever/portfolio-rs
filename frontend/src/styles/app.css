@@ -71,6 +71,9 @@
     --text-5xl--line-height: 1.08;
     --text-6xl: clamp(2.75rem, 5.4vw, 3.75rem);
     --text-6xl--line-height: 1.05;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 :root {
@@ -194,8 +197,8 @@
         color-scheme: light;
         scroll-padding-top: calc(var(--header-height) + 1rem);
         transition:
-            background-color 0.3s ease,
-            color 0.3s ease;
+            background-color 200ms ease,
+            color 200ms ease;
     }
 
     .dark {
@@ -214,7 +217,7 @@
     }
 
     a {
-        @apply transition hover:opacity-75;
+        @apply transition-[color,opacity] duration-150 ease-out hover:opacity-75;
     }
 
     h1,
@@ -253,7 +256,8 @@ p {
     *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-property: color, background-color, border-color, opacity !important;
+        transition-duration: 150ms !important;
         scroll-behavior: auto !important;
     }
 

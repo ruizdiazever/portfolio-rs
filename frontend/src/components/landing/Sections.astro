@@ -13,14 +13,14 @@ import * as m from "@paraglide/messages.js";
             { href: urls.books, text: m.reading() },
         ].map((link) => (
             <a
-                class="group flex items-center justify-between px-3 py-2 text-md font-medium border rounded-lg shadow"
+                class="group flex items-center justify-between px-3 py-2 text-md font-medium border rounded-lg shadow transition-transform duration-150 ease-out active:scale-[0.99]"
                 href={link.href}
             >
                 {link.text}
                 <Icon
                     name="arrow-right"
                     aria-hidden="true"
-                    class="duration-200 group-hover:translate-x-[1.5px] w-4 h-4"
+                    class="duration-150 ease-out group-hover:translate-x-[1.5px] w-4 h-4"
                 />
             </a>
         ))
