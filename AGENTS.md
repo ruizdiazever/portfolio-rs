@@ -132,11 +132,11 @@ Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource
 
 ## Books
 
-Book cards are click triggers, not hover cards. Each card has a transparent `.book-card-open` button with its payload in `data-book`; `frontend/src/components/sections/books/BookTicket.svelte` reads that payload, opens the parallax ticket dialog and exposes `data-book-ticket-ready` for Playwright. Keep both when changing the grid.
+Book cards flip in place. Each card has a transparent `.book-card-toggle` button, a `.book-front` and a `.book-back`; the button flips the card and no modal is opened. Hidden faces are `aria-hidden` and `inert`. Keep the 3D faces equal in height and preserve keyboard access.
 
 ## Visual language
 
-The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairlines, mist body text, and a single acid lime accent for primary actions and active filters. Cards use 12px radii, buttons 6px, filters are pills, and content cards have no shadows. Light mode remains a paper alternative. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add extra accent colors or card shadows.
+The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairlines, mist body text, and a single paper-white primary state for active filters and primary actions. Cards use 12px radii, buttons 6px, filters are pills, and content cards have no shadows. Light mode remains a paper alternative. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add yellow or acid-lime UI accents, extra accent colors or card shadows. The full system lives in `DESIGN.md`.
 
 ## Motion
 

@@ -44,31 +44,37 @@ test.describe("interactions", () => {
     }
   });
 
-  test("book cards open a flippable ticket", async ({ page }) => {
+  test("book cards flip in place", async ({ page }) => {
     await page.goto("/en/sections/books");
-    await expect(page.locator("html")).toHaveAttribute(
-      "data-book-ticket-ready",
-      "true",
-    );
 
     const card = page.locator(".book-card:not(.hidden)").first();
-    const title = (await card.locator("h2").innerText()).trim();
-    await card.click();
+    const toggle = card.locator(".book-card-toggle");
+    const title = (await card.locator(".book-front h2").innerText()).trim();
 
-    const dialog = page.getByRole("dialog");
-    await expect(dialog).toBeVisible();
-    await expect(
-      dialog.getByRole("heading", { name: title, exact: true }),
-    ).toBeVisible();
+    await expect(toggle).toHaveAttribute("aria-pressed", "false");
+    await toggle.click();
 
-    const ticket = dialog.locator("[data-book-ticket]");
-    await expect(ticket).toHaveAttribute("aria-pressed", "false");
-    await ticket.click();
-    await expect(ticket).toHaveAttribute("aria-pressed", "true");
+    await expect(toggle).toBeFocused();
+    await expect(toggle).toHaveAttribute("aria-pressed", "true");
+    await expect(card).toHaveClass(/is-flipped/);
+    await expect(card.locator(".book-front")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+    await expect(card.locator(".book-back")).toHaveAttribute(
+      "aria-hidden",
+      "false",
+    );
+    await expect(card.locator(".book-back h3")).toHaveText(title);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
 
-    await page.keyboard.press("Escape");
-    await expect(dialog).toBeHidden();
-    await expect(card.locator(".book-card-open")).toBeFocused();
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-pressed", "false");
+    await expect(card).not.toHaveClass(/is-flipped/);
+    await expect(card.locator(".book-front")).toHaveAttribute(
+      "aria-hidden",
+      "false",
+    );
   });
 
   test("technology tags link out", async ({ page }) => {

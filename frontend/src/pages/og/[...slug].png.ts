@@ -96,7 +96,7 @@ export const GET: APIRoute = async ({ params, url }) => {
         >
             <div style="display:flex;align-items:center;">
                 <div
-                    style="width:10px;height:10px;border-radius:999px;background-color:#e4f222;margin-right:12px;"
+                    style="width:10px;height:10px;border-radius:999px;background-color:#d0d6e0;margin-right:12px;"
                 ></div>
                 <div>EVER RUIZ DIAZ</div>
             </div>
@@ -108,7 +108,7 @@ export const GET: APIRoute = async ({ params, url }) => {
         >
             <div style="display:flex;align-items:center;margin-bottom:26px;">
                 <div
-                    style="width:48px;height:2px;background-color:#e4f222;margin-right:16px;"
+                    style="width:48px;height:2px;background-color:#d0d6e0;margin-right:16px;"
                 ></div>
                 <div
                     style="font-family:Inter;font-size:17px;font-weight:500;color:#8a8f98;letter-spacing:0.09em;"
