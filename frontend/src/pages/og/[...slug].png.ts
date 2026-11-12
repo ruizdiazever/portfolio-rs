@@ -89,14 +89,14 @@ export const GET: APIRoute = async ({ params, url }) => {
             : content.description;
 
     const template = html`<div
-        style="width:1200px;height:630px;display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;background-color:#ffffff;color:#000000;box-sizing:border-box;"
+        style="width:1200px;height:630px;display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;background-color:#08090a;color:#ffffff;box-sizing:border-box;"
     >
         <div
-            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:17px;font-weight:500;color:#666666;letter-spacing:0.09em;"
+            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:17px;font-weight:500;color:#8a8f98;letter-spacing:0.09em;"
         >
             <div style="display:flex;align-items:center;">
                 <div
-                    style="width:10px;height:10px;border-radius:999px;background-color:#000000;margin-right:12px;"
+                    style="width:10px;height:10px;border-radius:999px;background-color:#e4f222;margin-right:12px;"
                 ></div>
                 <div>EVER RUIZ DIAZ</div>
             </div>
@@ -108,28 +108,28 @@ export const GET: APIRoute = async ({ params, url }) => {
         >
             <div style="display:flex;align-items:center;margin-bottom:26px;">
                 <div
-                    style="width:48px;height:2px;background-color:#000000;margin-right:16px;"
+                    style="width:48px;height:2px;background-color:#e4f222;margin-right:16px;"
                 ></div>
                 <div
-                    style="font-family:Inter;font-size:17px;font-weight:500;color:#666666;letter-spacing:0.09em;"
+                    style="font-family:Inter;font-size:17px;font-weight:500;color:#8a8f98;letter-spacing:0.09em;"
                 >
                     ${kicker}
                 </div>
             </div>
             <div
-                style="font-family:Inter;font-size:${titleSize}px;font-weight:600;line-height:1.04;letter-spacing:-0.035em;color:#000000;max-width:1000px;"
+                style="font-family:Inter;font-size:${titleSize}px;font-weight:600;line-height:1.04;letter-spacing:-0.022em;color:#ffffff;max-width:1000px;"
             >
                 ${content.title}
             </div>
             <div
-                style="font-family:Inter;font-size:26px;font-weight:400;line-height:1.45;letter-spacing:-0.01em;color:#666666;margin-top:24px;max-width:940px;"
+                style="font-family:Inter;font-size:26px;font-weight:400;line-height:1.45;letter-spacing:-0.01em;color:#d0d6e0;margin-top:24px;max-width:940px;"
             >
                 ${description}
             </div>
         </div>
 
         <div
-            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:17px;font-weight:400;color:#666666;"
+            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:17px;font-weight:400;color:#8a8f98;"
         >
             <div>${content.footer}</div>
             <div>EVERDEV.IT</div>

@@ -120,7 +120,7 @@
 <Dialog.Root bind:open={showFeedback}>
     <Dialog.Content>
         <Dialog.Header>
-            <Dialog.Title class="text-xl font-semibold tracking-[-0.015em]"
+            <Dialog.Title class="text-xl font-medium tracking-[-0.012em]"
                 >{m.feedback()}</Dialog.Title
             >
         </Dialog.Header>

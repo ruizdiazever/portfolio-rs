@@ -59,23 +59,23 @@ test.describe("interactions", () => {
     await expect(tag).toHaveAccessibleName(/.+/);
   });
 
-  test("theme toggle switches to dark and persists", async ({ page }) => {
+  test("theme toggle switches theme and persists", async ({ page }) => {
     await page.goto("/en");
     const html = page.locator("html");
 
-    await expect(html).not.toHaveClass(/dark/);
-
-    await expect(async () => {
-      await page.getByRole("button", { name: "Theme" }).click();
-      await expect(html).toHaveClass(/dark/, { timeout: 1_000 });
-    }).toPass({ timeout: 20_000 });
-
-    await page.reload();
     await expect(html).toHaveClass(/dark/);
 
     await expect(async () => {
       await page.getByRole("button", { name: "Theme" }).click();
       await expect(html).not.toHaveClass(/dark/, { timeout: 1_000 });
+    }).toPass({ timeout: 20_000 });
+
+    await page.reload();
+    await expect(html).not.toHaveClass(/dark/);
+
+    await expect(async () => {
+      await page.getByRole("button", { name: "Theme" }).click();
+      await expect(html).toHaveClass(/dark/, { timeout: 1_000 });
     }).toPass({ timeout: 20_000 });
   });
 

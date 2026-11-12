@@ -55,12 +55,12 @@
     --text-sm--line-height: 1.55;
     --text-base: 1rem;
     --text-base--line-height: 1.6;
-    --text-md: 1.0625rem;
-    --text-md--line-height: 1.65;
-    --text-lg: 1.375rem;
-    --text-lg--line-height: 1.5;
-    --text-xl: 1.75rem;
-    --text-xl--line-height: 1.25;
+    --text-md: 1rem;
+    --text-md--line-height: 1.6;
+    --text-lg: 1.25rem;
+    --text-lg--line-height: 1.4;
+    --text-xl: 1.5rem;
+    --text-xl--line-height: 1.3;
     --text-2xl: 1.875rem;
     --text-2xl--line-height: 1.2;
     --text-3xl: clamp(2rem, 3.2vw, 2.5rem);
@@ -74,6 +74,8 @@
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
     --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --font-weight-medium: 510;
+    --font-weight-semibold: 590;
 }
 
 :root {
@@ -111,49 +113,49 @@
     --sidebar-ring: rgb(0 0 0 / 40%);
 
     /* Header effect hover */
-    --header-height: 4rem;
+    --header-height: 5.25rem;
     --announcement-height: 32px;
 }
 
 .dark {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --card: #0a0a0a;
-    --card-foreground: #fafafa;
-    --popover: #141414;
-    --popover-foreground: #fafafa;
-    --primary: #fafafa;
-    --primary-foreground: #0a0a0a;
-    --secondary: #1a1a1a;
-    --secondary-foreground: #e5e5e5;
-    --muted: #1a1a1a;
-    --muted-foreground: #999999;
-    --accent: #1a1a1a;
-    --accent-foreground: #fafafa;
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: rgb(255 255 255 / 12%);
-    --input: rgb(255 255 255 / 12%);
-    --ring: rgb(255 255 255 / 40%);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: #141414;
-    --sidebar-foreground: #fafafa;
-    --sidebar-primary: #fafafa;
-    --sidebar-primary-foreground: #0a0a0a;
-    --sidebar-accent: #1a1a1a;
-    --sidebar-accent-foreground: #fafafa;
-    --sidebar-border: rgb(255 255 255 / 12%);
-    --sidebar-ring: rgb(255 255 255 / 40%);
+    --background: #08090a;
+    --foreground: #ffffff;
+    --card: #0f1011;
+    --card-foreground: #d0d6e0;
+    --popover: #161718;
+    --popover-foreground: #ffffff;
+    --primary: #e4f222;
+    --primary-foreground: #08090a;
+    --secondary: #161718;
+    --secondary-foreground: #d0d6e0;
+    --muted: #161718;
+    --muted-foreground: #8a8f98;
+    --accent: #23252a;
+    --accent-foreground: #ffffff;
+    --destructive: #eb5757;
+    --border: #23252a;
+    --input: #23252a;
+    --ring: #8a8f98;
+    --chart-1: #27a644;
+    --chart-2: #02b8cc;
+    --chart-3: #6366f1;
+    --chart-4: #8b5cf6;
+    --chart-5: #eb5757;
+    --sidebar: #0f1011;
+    --sidebar-foreground: #d0d6e0;
+    --sidebar-primary: #e4f222;
+    --sidebar-primary-foreground: #08090a;
+    --sidebar-accent: #23252a;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #23252a;
+    --sidebar-ring: #8a8f98;
 }
 
 @theme inline {
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
+    --radius-sm: 2px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -213,7 +215,16 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-card-foreground;
+        font-feature-settings:
+            "cv01" 1,
+            "ss03" 1;
+        font-variant-numeric: slashed-zero;
+    }
+
+    strong,
+    b {
+        font-weight: 590;
     }
 
     a {
@@ -222,14 +233,14 @@
 
     h1,
     h2 {
-        letter-spacing: -0.025em;
+        letter-spacing: -0.022em;
     }
 
     h3,
     h4,
     h5,
     h6 {
-        letter-spacing: -0.015em;
+        letter-spacing: -0.012em;
     }
 }
 
@@ -239,6 +250,7 @@ h3,
 h4,
 h5,
 h6 {
+    color: var(--foreground);
     text-wrap: balance;
 }
 
@@ -317,7 +329,7 @@ pre {
 
 .blog-content-title,
 .blog-content-subtitle {
-    @apply text-2xl font-semibold text-secondary-foreground;
+    @apply text-2xl font-medium text-foreground;
 }
 
 .blog-content-subtitle {

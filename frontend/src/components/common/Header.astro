@@ -25,15 +25,15 @@ const languageHref = Astro.url.pathname
 
 <nav
     id="navbar"
-    class="sticky top-0 w-full bg-background/80 backdrop-blur-lg z-50 antialiased transition-colors duration-200"
+    class="sticky top-0 w-full bg-background z-50 antialiased transition-colors duration-200"
     on:separator-change={handleSeparatorChange}
 >
     <div class="w-full">
         <div
-            class={`flex flex-wrap items-center justify-between gap-y-2 ${wide ? "max-w-(--breakpoint-lg)" : "max-w-(--breakpoint-md)"} mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6`}
+            class={`flex flex-wrap items-center justify-between gap-y-2 ${wide ? "max-w-(--breakpoint-lg)" : "max-w-(--breakpoint-md)"} mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4`}
         >
             <a href={`/${getLocale()}/`} class="flex min-w-0 flex-col items-start">
-                <p class="text-lg font-medium tracking-[-0.015em] text-foreground md:text-xl">
+                <p class="text-lg font-medium tracking-[-0.012em] text-foreground md:text-xl">
                     Ever Ruiz Diaz
                 </p>
                 <p class="text-secondary-foreground text-md h-[32px]">
@@ -46,7 +46,7 @@ const languageHref = Astro.url.pathname
                     hreflang={otherLocale}
                     aria-label={m.language()}
                     title={m.language()}
-                    class="inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-3 text-sm font-medium transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9"
+                    class="inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9"
                 >
                     {otherLocale === "zh" ? "中文" : "EN"}
                 </a>
@@ -55,7 +55,7 @@ const languageHref = Astro.url.pathname
                     type="button"
                     aria-label={m.theme()}
                     title={m.theme()}
-                    class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
+                    class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
                 >
                     <svg
                         class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-transform duration-150 ease-out dark:-rotate-90 dark:scale-0"

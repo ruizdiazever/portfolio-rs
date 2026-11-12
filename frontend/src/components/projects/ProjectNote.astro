@@ -33,7 +33,7 @@ const locale = getLocale();
             ></span>
             {m.projectInProgress()}
         </p>
-        <h1 class="mt-3 text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">
+        <h1 class="mt-3 text-4xl font-medium tracking-[-0.022em] sm:text-5xl">
             {project.title}
         </h1>
         <p class="mt-4 text-lg text-secondary-foreground">
@@ -48,7 +48,7 @@ const locale = getLocale();
             <ul class="mt-3 flex flex-wrap gap-2">
                 {
                     project.stack.map((item) => (
-                        <li class="rounded-full border bg-muted/40 px-3 py-1 text-xs">
+                        <li class="rounded border bg-muted/40 px-3 py-1 text-xs">
                             {item}
                         </li>
                     ))

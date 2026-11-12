@@ -31,7 +31,7 @@ const {
 ---
 
 <!doctype html>
-<html lang={getLocale()}>
+<html lang={getLocale()} class="dark">
     <head>
         <script is:inline>
             function applyTheme() {
@@ -44,7 +44,7 @@ const {
                         ? systemDark
                             ? "dark"
                             : "light"
-                        : storedTheme || (systemDark ? "dark" : "light");
+                        : storedTheme || "dark";
                 document.documentElement.classList.toggle(
                     "dark",
                     theme === "dark",
