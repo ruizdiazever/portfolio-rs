@@ -44,12 +44,31 @@ test.describe("interactions", () => {
     }
   });
 
-  test("book cards reveal details on keyboard focus", async ({ page }) => {
+  test("book cards open a flippable ticket", async ({ page }) => {
     await page.goto("/en/sections/books");
+    await expect(page.locator("html")).toHaveAttribute(
+      "data-book-ticket-ready",
+      "true",
+    );
 
     const card = page.locator(".book-card:not(.hidden)").first();
-    await card.focus();
-    await expect(card.locator(".details")).toHaveCSS("opacity", "1");
+    const title = (await card.locator("h2").innerText()).trim();
+    await card.click();
+
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(
+      dialog.getByRole("heading", { name: title, exact: true }),
+    ).toBeVisible();
+
+    const ticket = dialog.locator("[data-book-ticket]");
+    await expect(ticket).toHaveAttribute("aria-pressed", "false");
+    await ticket.click();
+    await expect(ticket).toHaveAttribute("aria-pressed", "true");
+
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(card.locator(".book-card-open")).toBeFocused();
   });
 
   test("technology tags link out", async ({ page }) => {

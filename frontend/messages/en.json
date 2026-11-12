@@ -114,5 +114,11 @@
   "dailyToolBrowser": "browser",
   "dailyToolAgentHarness": "agent harness",
   "dailyToolPasswords": "passwords",
-  "dailyToolContainers": "containers"
+  "dailyToolContainers": "containers",
+  "viewDetails": "View details",
+  "close": "Close",
+  "book": "Book",
+  "bookNotes": "Notes",
+  "tapToFlip": "Tap to flip",
+  "tapToCover": "Tap to see the cover"
 }

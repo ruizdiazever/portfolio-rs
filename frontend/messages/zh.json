@@ -114,5 +114,11 @@
   "dailyToolBrowser": "浏览器",
   "dailyToolAgentHarness": "智能体工作台",
   "dailyToolPasswords": "密码管理器",
-  "dailyToolContainers": "容器"
+  "dailyToolContainers": "容器",
+  "viewDetails": "查看详情",
+  "close": "关闭",
+  "book": "图书",
+  "bookNotes": "笔记",
+  "tapToFlip": "轻点翻转",
+  "tapToCover": "轻点返回封面"
 }

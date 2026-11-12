@@ -130,6 +130,10 @@ Caddy terminates TLS for `www.everdev.it`, routes `/api/*` to the API and everyt
 
 Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource()` and rendered with `<Font>` in `src/layouts/Layout.astro`. Use the Tailwind scale in `src/styles/app.css`; do not add local `@font-face` blocks or a second family. Long-form copy uses `text-md` (16px) with a 60 to 75 character measure. Chinese falls back to the system CJK stack.
 
+## Books
+
+Book cards are click triggers, not hover cards. Each card has a transparent `.book-card-open` button with its payload in `data-book`; `frontend/src/components/sections/books/BookTicket.svelte` reads that payload, opens the parallax ticket dialog and exposes `data-book-ticket-ready` for Playwright. Keep both when changing the grid.
+
 ## Visual language
 
 The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairlines, mist body text, and a single acid lime accent for primary actions and active filters. Cards use 12px radii, buttons 6px, filters are pills, and content cards have no shadows. Light mode remains a paper alternative. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add extra accent colors or card shadows.
