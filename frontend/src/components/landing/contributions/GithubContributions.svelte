@@ -43,7 +43,7 @@
 >
     <div class="flex justify-between items-center mb-4">
         <div
-            class="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center sm:text-left tabular-nums"
+            class="text-sm font-medium text-foreground text-center sm:text-left tabular-nums"
         >
             {totalContributions}
             {getLocale() === "zh"
@@ -86,7 +86,7 @@
             </div>
 
             <div
-                class="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400 h-4"
+                class="flex justify-between mt-2 text-xs text-muted-foreground h-4"
             >
                 {#each monthLabels as label}
                     <div

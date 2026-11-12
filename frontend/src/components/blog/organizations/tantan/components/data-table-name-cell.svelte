@@ -45,7 +45,7 @@
 <div class="flex items-center space-x-2">
     {#if id === "name"}
         <a
-            class="group flex items-center hover:text-[#68b5fc] duration-200 cursor-pointer font-semibold"
+            class="group flex items-center hover:underline duration-150 cursor-pointer font-medium"
             href={url}
             rel="noopener"
             target="_blank"

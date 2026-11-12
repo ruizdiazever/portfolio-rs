@@ -19,9 +19,8 @@ let { url, title, repository, description, tech }: Props = Astro.props;
 <div class="group relative block w-full">
     <div
         class="relative p-2 flex
-        border
-        rounded-md bg-white dark:bg-black shadow-sm hover:shadow-md
-        transition-shadow duration-200 ease-out"
+        border rounded-lg bg-card hover:border-foreground/30 hover:bg-muted/30
+        transition-[border-color,background-color] duration-150 ease-out"
     >
         <div class="flex flex-col px-2 my-2 gap-2 pt-0!">
             <LinkTitle title={title} url={url} />
@@ -33,7 +32,7 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                             rel="noopener"
                             target="_blank"
                             aria-label={`${title} on GitHub`}
-                            class="absolute top-3 right-3 text-gray-700 dark:text-gray-300 hover:text-[#68b5fc] dark:hover:text-[#68b5fc]"
+                            class="absolute top-3 right-3 text-muted-foreground hover:text-foreground"
                         >
                             <Icon name="github" width="1.2em" height="1.2em" />
                         </a>
@@ -56,7 +55,7 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                                 aria-label={technologies[n].name}
                                 title={technologies[n].description[getLocale()]}
                                 data-tech
-                                class="text-muted-foreground hover:text-[#68b5fc] dark:hover:text-[#68b5fc] transition-colors duration-200"
+                                class="text-muted-foreground hover:text-foreground transition-colors duration-200"
                             >
                                 <Icon
                                     name={n}

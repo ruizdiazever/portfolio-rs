@@ -18,4 +18,4 @@
     });
 </script>
 
-<Toaster {theme} richColors closeButton />
+<Toaster {theme} closeButton />

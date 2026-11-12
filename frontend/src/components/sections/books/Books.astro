@@ -17,7 +17,7 @@ const genreZh: Record<string, string> = {
 };
 ---
 
-<div class="mx-auto px-4 py-8 space-y-6 max-w-(--breakpoint-lg)">
+<div class="mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 max-w-(--breakpoint-lg)">
     <h1
         class="text-4xl text-center font-semibold tracking-[-0.035em] sm:text-5xl md:text-6xl"
     >
@@ -29,22 +29,22 @@ const genreZh: Record<string, string> = {
 
     <div class="flex flex-wrap justify-center gap-2 mb-8">
         <button
-            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
+            class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="all"
             aria-pressed="false">{m.all()}</button
         >
         <button
-            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
+            class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="technical"
             aria-pressed="true">{m.technical()}</button
         >
         <button
-            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
+            class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="paper"
             aria-pressed="false">{m.papers()}</button
         >
         <button
-            class="px-4 py-2 rounded-lg text-sm transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.98]"
+            class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="comic"
             aria-pressed="false">{m.comics()}</button
         >
@@ -54,8 +54,10 @@ const genreZh: Record<string, string> = {
         {
             books.map((book: Book) => (
                 <div
-                    class="book-card group rounded-lg shadow-lg overflow-hidden border relative
-                min-h-[400px] transition-shadow duration-200 ease-out hover:z-10 hover:shadow-xl focus-visible:z-10 w-full"
+                    class:list={[
+                        "book-card group rounded-lg bg-card overflow-hidden border relative min-h-[400px] transition-[border-color,background-color] duration-150 ease-out hover:border-foreground/30 focus-visible:border-foreground/30 hover:z-10 focus-visible:z-10 w-full",
+                        { hidden: !book.technical },
+                    ]}
                     transition:name={`book-card-${book.title}`}
                     role="group"
                     aria-label={`${book.title} details`}
@@ -79,10 +81,10 @@ const genreZh: Record<string, string> = {
                         </div>
 
                         <div class="p-4 flex-1 flex flex-col">
-                            <h2 class="text-md font-semibold leading-[1.35] tracking-[-0.01em] mb-2 line-clamp-2">
+                            <h2 class="text-md font-medium leading-[1.35] tracking-[-0.01em] mb-2 line-clamp-2">
                                 {book.title}
                             </h2>
-                            <p class="text-sm mb-4 text-gray-600 dark:text-gray-400 line-clamp-1">
+                            <p class="text-sm mb-4 text-muted-foreground line-clamp-1">
                                 {m.by()}{getLocale() === "zh" ? "" : " "}{book.author}
                             </p>
                             <div class="mt-auto flex gap-2 flex-wrap">
@@ -103,7 +105,7 @@ const genreZh: Record<string, string> = {
                         overflow-y-auto overscroll-contain pointer-events-none group-hover:pointer-events-auto group-focus:pointer-events-auto flex flex-col"
                     >
                         <div class="p-6 flex-1">
-                            <h2 class="text-md font-semibold leading-[1.35] tracking-[-0.01em] mb-3">{book.title}</h2>
+                            <h2 class="text-md font-medium leading-[1.35] tracking-[-0.01em] mb-3">{book.title}</h2>
                             <p class="text-sm mb-4">
                                 {m.by()}{getLocale() === "zh" ? "" : " "}{book.author}
                             </p>
@@ -117,11 +119,11 @@ const genreZh: Record<string, string> = {
                         <div class="mt-auto p-4 border-t">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <p class="text-sm font-semibold">{m.published()}</p>
+                                    <p class="text-sm font-medium">{m.published()}</p>
                                     <p class="text-sm">{book.publishedYear}</p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-semibold">{m.type()}</p>
+                                    <p class="text-sm font-medium">{m.type()}</p>
                                     <p class="text-sm">
                                         {book.technical
                                             ? m.technical()
@@ -129,13 +131,13 @@ const genreZh: Record<string, string> = {
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-semibold">{m.format()}</p>
+                                    <p class="text-sm font-medium">{m.format()}</p>
                                     <p class="text-sm">
                                         {book.paper ? m.paper() : m.digital()}
                                     </p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-semibold">{m.genre()}</p>
+                                    <p class="text-sm font-medium">{m.genre()}</p>
                                     <p class="text-sm">{getLocale() === "zh" ? (genreZh[book.genre] ?? book.genre) : book.genre}</p>
                                 </div>
                             </div>
@@ -149,73 +151,51 @@ const genreZh: Record<string, string> = {
     <script>
         type FilterType = "all" | "technical" | "paper" | "comic";
 
+        const FILTERS: FilterType[] = ["all", "technical", "paper", "comic"];
+        const DEFAULT_FILTER: FilterType = "technical";
+
         const buttons =
             document.querySelectorAll<HTMLButtonElement>("[data-filter]");
         const books = document.querySelectorAll<HTMLElement>(".book-card");
 
-        // Initialize with technical filter
-        books.forEach((book) => {
-            if (book instanceof HTMLElement) {
-                book.classList.toggle(
-                    "hidden",
-                    book.getAttribute("data-technical") !== "true",
-                );
-            }
-        });
+        const filterFromUrl = (): FilterType => {
+            const value = new URLSearchParams(location.search).get("filter");
+            return value && FILTERS.includes(value as FilterType)
+                ? (value as FilterType)
+                : DEFAULT_FILTER;
+        };
+
+        const applyFilter = (filter: FilterType, updateUrl = false) => {
+            buttons.forEach((button) => {
+                const active = button.dataset.filter === filter;
+                button.setAttribute("aria-pressed", String(active));
+            });
+
+            books.forEach((book) => {
+                const visible =
+                    filter === "all" ||
+                    book.getAttribute(`data-${filter}`) === "true";
+                book.classList.toggle("hidden", !visible);
+            });
+
+            if (!updateUrl) return;
+
+            const url = new URL(location.href);
+            if (url.searchParams.get("filter") === filter) return;
+            url.searchParams.set("filter", filter);
+            history.pushState({ filter }, "", url);
+        };
 
         buttons.forEach((button) => {
-            if (button.dataset.filter === "technical") {
-                button.setAttribute("aria-pressed", "true");
-                button.classList.add(
-                    "bg-primary",
-                    "dark:text-black",
-                    "text-white",
-                );
-            }
-
             button.addEventListener("click", () => {
-                const filter = button.getAttribute("data-filter") as FilterType;
-
-                // Update button states
-                buttons.forEach((btn) => {
-                    btn.setAttribute("aria-pressed", "false");
-                    btn.classList.remove(
-                        "bg-primary",
-                        "dark:text-black",
-                        "text-white",
-                    );
-                });
-                button.setAttribute("aria-pressed", "true");
-                button.classList.add(
-                    "bg-primary",
-                    "dark:text-black",
-                    "text-white",
-                );
-
-                // Filter books
-                books.forEach((book) => {
-                    if (book instanceof HTMLElement) {
-                        if (filter === "all") {
-                            book.classList.remove("hidden");
-                        } else if (filter === "technical") {
-                            book.classList.toggle(
-                                "hidden",
-                                book.getAttribute("data-technical") !== "true",
-                            );
-                        } else if (filter === "paper") {
-                            book.classList.toggle(
-                                "hidden",
-                                book.getAttribute("data-paper") !== "true",
-                            );
-                        } else if (filter === "comic") {
-                            book.classList.toggle(
-                                "hidden",
-                                book.getAttribute("data-comic") !== "true",
-                            );
-                        }
-                    }
-                });
+                applyFilter(button.dataset.filter as FilterType, true);
             });
         });
+
+        window.addEventListener("popstate", () => {
+            applyFilter(filterFromUrl());
+        });
+
+        applyFilter(filterFromUrl());
     </script>
 </div>

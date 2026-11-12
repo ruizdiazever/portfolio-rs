@@ -13,8 +13,8 @@ let { title, url }: Props = Astro.props;
     href={url}
     rel="noopener"
     target="_blank"
-    class="group inline-flex items-center hover:text-[#68b5fc] text-[#0074de] dark:text-[#68b5fc] dark:hover:text-[#8cc7fd] duration-200
-    hover:underline underline-offset-4 decoration-dashed decoration-[#57b1fc]"
+    class="group inline-flex items-center text-foreground underline decoration-foreground/30 underline-offset-4 duration-150
+    hover:decoration-foreground"
 >
     {title}
     <Icon

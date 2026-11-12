@@ -16,7 +16,7 @@ const links = [
     <div class="mx-auto py-16">
         <div class="text-left space-y-6">
             <h1
-                class="text-4xl font-semibold tracking-[-0.035em] text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
+                class="text-4xl font-semibold tracking-[-0.035em] text-foreground sm:text-5xl md:text-6xl"
             >
                 {m.about()}
             </h1>
@@ -34,7 +34,7 @@ const links = [
                 height={600}
                 sizes="(min-width: 768px) 800px, 100vw"
                 alt="Ever Ruiz Diaz"
-                class="rounded-xl mt-6 w-full"
+                class="rounded-lg mt-6 w-full"
             />
 
             <dl
@@ -63,7 +63,7 @@ const links = [
                     <dd class="mt-1 text-foreground">
                         <a
                             href={`/${getLocale()}/projects/berli-system`}
-                            class="font-medium underline decoration-1 underline-offset-4 hover:text-[#68b5fc]"
+                            class="font-medium underline decoration-foreground/30 underline-offset-4 hover:decoration-foreground"
                         >
                             {m.aboutCurrentlyValue()}
                         </a>
@@ -81,7 +81,7 @@ const links = [
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1 underline decoration-1 underline-offset-4 hover:text-[#68b5fc]"
+                            class="inline-flex items-center gap-1 underline decoration-foreground/30 underline-offset-4 hover:decoration-foreground"
                         >
                             {link.label}
                             <span aria-hidden="true">↗</span>

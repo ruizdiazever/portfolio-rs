@@ -71,14 +71,14 @@
 </script>
 
 <div
-    class="flex items-center mx-auto justify-center px-6 py-1 w-fit text-sm mt-10 gap-x-4 bg-background shadow-sm rounded-full border border-border"
+    class="flex items-center mx-auto justify-center px-6 py-1 w-fit text-sm mt-10 gap-x-4 bg-background rounded-full border border-border"
 >
     <p class="text-muted-foreground">{m.feedbackLegend()}</p>
     <div class="flex items-center">
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#35c758] hover:text-black rounded-full dark:hover:bg-[#35c758]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
+            class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(4)}
             aria-label="Love"
         >
@@ -88,7 +88,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#32ade6] hover:text-black rounded-full dark:hover:bg-[#32ade6]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
+            class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(3)}
             aria-label="Happy"
         >
@@ -98,7 +98,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#ffcc01] hover:text-black rounded-full dark:hover:bg-[#ffcc01]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
+            class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(2)}
             aria-label="Neutral"
         >
@@ -108,7 +108,7 @@
         <Button
             variant="ghost"
             size="icon"
-            class="h-8 w-8 hover:bg-[#ff3c2f] hover:text-white rounded-full dark:hover:bg-[#ff3c2f]/80 transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
+            class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(1)}
             aria-label="Sad"
         >

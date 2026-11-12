@@ -2,11 +2,17 @@
 import * as m from "@paraglide/messages.js";
 import Media from "$lib/components/common/Media.astro";
 import Social from "$lib/components/common/Social.astro";
+
+interface Props {
+    wide?: boolean;
+}
+
+const { wide = false } = Astro.props;
 ---
 
 <footer>
     <div
-        class="mx-auto max-w-(--breakpoint-md) py-8 mt-10 antialiased bg-transparent border-t px-4 sm:px-6 lg:px-8"
+        class={`mx-auto ${wide ? "max-w-(--breakpoint-lg)" : "max-w-(--breakpoint-md)"} py-8 mt-10 antialiased bg-transparent border-t px-4 sm:px-6 lg:px-8`}
     >
         <div
             class="flex flex-col md:flex-row items-center justify-between space-y-2"
@@ -15,7 +21,7 @@ import Social from "$lib/components/common/Social.astro";
                 <Social />
             </div>
             <div
-                class="flex justify-center items-center text-gray-600 dark:text-gray-400 sm:justify-start text-sm gap-2 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                class="flex justify-center items-center text-muted-foreground sm:justify-start text-sm gap-2 hover:text-foreground transition-colors"
             >
                 <Media
                     path="site/mascot"
@@ -30,7 +36,7 @@ import Social from "$lib/components/common/Social.astro";
             </div>
 
             <p
-                class="flex mt-4 text-center text-sm text-gray-500 dark:text-gray-400 lg:mt-0 lg:text-right"
+                class="flex mt-4 text-center text-sm text-muted-foreground lg:mt-0 lg:text-right"
             >
                 Ever Ruiz Diaz<span class="mx-1">-</span>{
                     new Date().getFullYear()

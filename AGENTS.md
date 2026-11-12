@@ -128,7 +128,11 @@ Caddy terminates TLS for `www.everdev.it`, routes `/api/*` to the API and everyt
 
 ## Typography
 
-Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource()` and rendered with `<Font>` in `src/layouts/Layout.astro`. Use the Tailwind scale in `src/styles/app.css`; do not add local `@font-face` blocks or a second family. Long-form copy uses `text-md` (18px) with a 60 to 75 character measure. Chinese falls back to the system CJK stack.
+Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource()` and rendered with `<Font>` in `src/layouts/Layout.astro`. Use the Tailwind scale in `src/styles/app.css`; do not add local `@font-face` blocks or a second family. Long-form copy uses `text-md` (17px) with a 60 to 75 character measure. Chinese falls back to the system CJK stack.
+
+## Visual language
+
+The UI is monochrome and editorial: black on paper, graphite for muted text, borders at 12 percent, 6px cards, pill buttons and filters, and no shadows on content cards. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add colored hover states or card shadows.
 
 ## Motion
 

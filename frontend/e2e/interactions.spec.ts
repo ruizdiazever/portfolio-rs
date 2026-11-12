@@ -108,16 +108,30 @@ test.describe("interactions", () => {
     ).toHaveAttribute("href", "https://x.com/everruizdiazo");
   });
 
-  test("book filter hides non-matching cards", async ({ page }) => {
+  test("book filters are shareable through the query string", async ({ page }) => {
     await page.goto("/en/sections/books");
 
     const technical = page.locator("[data-technical='true']");
     const comics = page.locator("[data-comic='true']");
-    const technicalCount = await technical.count();
-    expect(technicalCount).toBeGreaterThan(0);
+    expect(await technical.count()).toBeGreaterThan(0);
 
     await page.getByRole("button", { name: "Comics", exact: true }).click();
+    await expect(page).toHaveURL(/\/en\/sections\/books\?filter=comic$/);
+    await expect(
+      page.getByRole("button", { name: "Comics", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
     await expect(comics.first()).toBeVisible();
     await expect(technical.first()).toBeHidden();
+
+    await page.reload();
+    await expect(comics.first()).toBeVisible();
+    await expect(technical.first()).toBeHidden();
+
+    await page.goBack();
+    await expect(page).toHaveURL(/\/en\/sections\/books$/);
+    await expect(
+      page.getByRole("button", { name: "Technical", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(technical.first()).toBeVisible();
   });
 });
