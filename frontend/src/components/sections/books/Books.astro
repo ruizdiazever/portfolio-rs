@@ -37,26 +37,36 @@ const cards = books.map((book) => ({
 
     <div class="flex flex-wrap justify-center gap-2 mb-8">
         <button
+            type="button"
             class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="all"
             aria-pressed="false">{m.all()}</button
         >
         <button
+            type="button"
             class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="technical"
             aria-pressed="true">{m.technical()}</button
         >
         <button
+            type="button"
             class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="paper"
             aria-pressed="false">{m.papers()}</button
         >
         <button
+            type="button"
             class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
             data-filter="comic"
             aria-pressed="false">{m.comics()}</button
         >
     </div>
+    <p
+        id="book-filter-status"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+    ></p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {
@@ -84,7 +94,10 @@ const cards = books.map((book) => ({
                                     class="w-full h-full object-contain p-4 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                                 />
                                 <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-                                <span class="absolute right-3 top-3 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em] text-white/80 backdrop-blur">
+                                <span
+                                    class="absolute right-3 top-3 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em] text-white/80 backdrop-blur"
+                                    aria-hidden="true"
+                                >
                                     {m.flip()}
                                 </span>
                             </div>
@@ -118,9 +131,9 @@ const cards = books.map((book) => ({
                                     <span>{book.publishedYear}</span>
                                 </div>
                                 <div class="my-auto py-4">
-                                    <h3 class="text-md font-medium leading-[1.3] tracking-[-0.01em] text-foreground">
+                                    <h2 class="text-md font-medium leading-[1.3] tracking-[-0.01em] text-foreground">
                                         {book.title}
-                                    </h3>
+                                    </h2>
                                     <p class="mt-1 text-xs text-muted-foreground">
                                         {m.by()}{locale === "zh" ? "" : " "}{book.author}
                                     </p>
@@ -162,17 +175,22 @@ const cards = books.map((book) => ({
                                     </div>
                                     </dl>
                                 </div>
-                                <p class="text-center text-[10px] text-muted-foreground">
+                                <button
+                                    type="button"
+                                    class="book-card-back-toggle mx-auto mt-3 rounded-full border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground transition-[color,border-color,transform] duration-150 ease-out hover:border-foreground/30 hover:text-foreground active:scale-[0.97]"
+                                >
                                     {m.tapToCover()}
-                                </p>
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <button
                         type="button"
-                        class="book-card-toggle absolute inset-0 z-20 cursor-pointer rounded-lg outline-none"
+                        class="book-card-toggle absolute inset-0 z-20 cursor-pointer rounded-lg active:bg-foreground/5"
                         aria-label={`${book.title}, ${m.flip()}`}
+                        data-flip-label={`${book.title}, ${m.flip()}`}
+                        data-back-label={`${book.title}, ${m.tapToCover()}`}
                         aria-pressed="false"
                     ></button>
                 </div>
@@ -210,6 +228,17 @@ const cards = books.map((book) => ({
                 book.classList.toggle("hidden", !visible);
             });
 
+            const status = document.getElementById("book-filter-status");
+            if (status) {
+                const visible = Array.from(books).filter(
+                    (book) => !book.classList.contains("hidden"),
+                ).length;
+                status.textContent =
+                    document.documentElement.lang === "zh"
+                        ? `显示 ${visible} 本书`
+                        : `Showing ${visible} ${visible === 1 ? "book" : "books"}`;
+            }
+
             if (!updateUrl) return;
 
             const url = new URL(location.href);
@@ -238,9 +267,21 @@ const cards = books.map((book) => ({
                 const back = card?.querySelector<HTMLElement>(".book-back");
                 if (!card || !front || !back) return;
 
+                const flipLabel = toggle.dataset.flipLabel ?? "";
+                const backLabel = toggle.dataset.backLabel ?? "";
+
+                const backToggle = card.querySelector<HTMLButtonElement>(
+                    ".book-card-back-toggle",
+                );
+
                 const setFlipped = (flipped: boolean) => {
                     card.classList.toggle("is-flipped", flipped);
                     toggle.setAttribute("aria-pressed", String(flipped));
+                    toggle.setAttribute(
+                        "aria-label",
+                        flipped ? backLabel : flipLabel,
+                    );
+                    toggle.style.pointerEvents = flipped ? "none" : "";
                     front.setAttribute("aria-hidden", String(flipped));
                     back.setAttribute("aria-hidden", String(!flipped));
                     front.toggleAttribute("inert", flipped);
@@ -250,6 +291,10 @@ const cards = books.map((book) => ({
                 setFlipped(false);
                 toggle.addEventListener("click", () => {
                     setFlipped(!card.classList.contains("is-flipped"));
+                });
+                backToggle?.addEventListener("click", () => {
+                    setFlipped(false);
+                    toggle.focus();
                 });
             });
     </script>
@@ -286,12 +331,8 @@ const cards = books.map((book) => ({
             position: absolute;
             inset: 0;
             overflow-y: auto;
+            overscroll-behavior: contain;
             transform: rotateY(180deg);
-            scrollbar-width: none;
-        }
-
-        .book-back::-webkit-scrollbar {
-            display: none;
         }
 
         @media (prefers-reduced-motion: reduce) {

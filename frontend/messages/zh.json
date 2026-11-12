@@ -18,7 +18,7 @@
   "pinned": "置顶",
   "feedback": "反馈",
   "feedbackLegend": "这篇文章对你有帮助吗？",
-  "feedbackPlaceholder": "在此输入反馈…",
+  "feedbackPlaceholder": "哪里有用，哪里可以更好？",
   "feedbackEnterError": "提交前请输入反馈内容。",
   "feedbackSubmitted": "感谢您的反馈！",
   "feedbackError": "无法发送反馈，请检查网络连接后重试。",
@@ -117,5 +117,14 @@
   "dailyToolContainers": "容器",
   "bookNotes": "笔记",
   "tapToCover": "翻回封面",
-  "flip": "翻转"
+  "flip": "翻转",
+  "switchToLight": "切换到浅色主题",
+  "switchToDark": "切换到深色主题",
+  "switchToChinese": "切换到中文",
+  "switchToEnglish": "切换到英文",
+  "reactionLove": "喜欢",
+  "reactionHappy": "开心",
+  "reactionNeutral": "一般",
+  "reactionSad": "不喜欢",
+  "author": "作者"
 }

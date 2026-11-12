@@ -1,0 +1,7 @@
+---
+import { getLocale } from "@paraglide/runtime";
+
+const tagline = getLocale() === "zh" ? "Rust 开发者" : "Rust Developer";
+---
+
+<span class="inline-block" data-tagline>{tagline}</span>

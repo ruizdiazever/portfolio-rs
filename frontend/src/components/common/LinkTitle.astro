@@ -4,23 +4,26 @@ import { Icon } from "astro-icon/components";
 interface Props {
     url: string;
     title: string;
+    headingLevel?: 2 | 3 | 4;
 }
 
-let { title, url = "_self" }: Props = Astro.props;
+let { title, url, headingLevel = 3 }: Props = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3" | "h4";
 ---
 
-<a
-    href={url}
-    rel="noopener"
-    target="_self"
-    class="flex group items-center gap-1 text-lg font-medium tracking-[-0.012em] md:text-xl
-    text-foreground duration-150 cursor-pointer
-    hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-foreground/40"
->
-    {title}
-    <Icon
-        name="arrow-right"
-        title="Link"
-        class="duration-150 ease-out group-hover:translate-x-[1.5px] w-4 h-4"
-    />
-</a>
+<Heading class="text-lg font-medium tracking-[-0.012em] md:text-xl">
+    <a
+        href={url}
+        rel="noopener"
+        target="_self"
+        class="flex group items-center gap-1 text-foreground duration-150 cursor-pointer
+        hover:underline hover:decoration-dashed hover:underline-offset-8 hover:decoration-foreground/40"
+    >
+        <span>{title}</span>
+        <Icon
+            name="arrow-right"
+            aria-hidden="true"
+            class="duration-150 ease-out group-hover:translate-x-[1.5px] w-4 h-4 shrink-0"
+        />
+    </a>
+</Heading>

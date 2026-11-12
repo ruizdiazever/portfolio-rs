@@ -35,6 +35,7 @@ const postViews = await Promise.all(
                                 views={postView?.visits || 0}
                                 tags={post.tags}
                                 date={post.date}
+                                headingLevel={2}
                             />
                             {index < filteredPosts.length - 1 && <Divider />}
                         </>

@@ -1,7 +1,7 @@
 ---
 import Social from "$lib/components/common/Social.astro";
 import { Separator } from "$lib/components/ui/separator";
-import WordAnimation from "$lib/components/landing/WordAnimation.astro";
+import Tagline from "$lib/components/landing/Tagline.astro";
 import { getLocale } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 
@@ -21,6 +21,11 @@ const otherLocale = getLocale() === "en" ? "zh" : "en";
 const languageHref = Astro.url.pathname
     .replace(/\/+$/, "")
     .replace(/^\/(en|zh)/, `/${otherLocale}`);
+const languageName = otherLocale === "zh" ? "中文" : "EN";
+const languageLabel =
+    otherLocale === "zh"
+        ? `${languageName}, ${m.switchToChinese()}`
+        : `${languageName}, ${m.switchToEnglish()}`;
 ---
 
 <nav
@@ -37,24 +42,26 @@ const languageHref = Astro.url.pathname
                     Ever Ruiz Diaz
                 </p>
                 <p class="text-secondary-foreground text-md h-[32px]">
-                    <WordAnimation />
+                    <Tagline />
                 </p>
             </a>
             <div class="flex shrink-0 items-center">
                 <a
                     href={languageHref}
                     hreflang={otherLocale}
-                    aria-label={m.language()}
-                    title={m.language()}
+                    aria-label={languageLabel}
+                    title={languageLabel}
                     class="inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9"
                 >
-                    {otherLocale === "zh" ? "中文" : "EN"}
+                    {languageName}
                 </a>
                 <button
                     id="theme-toggle"
                     type="button"
-                    aria-label={m.theme()}
-                    title={m.theme()}
+                    aria-label={m.switchToLight()}
+                    title={m.switchToLight()}
+                    data-label-dark={m.switchToLight()}
+                    data-label-light={m.switchToDark()}
                     class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
                 >
                     <svg
@@ -118,9 +125,35 @@ const languageHref = Astro.url.pathname
     function initializeThemeToggle() {
         const button = document.getElementById("theme-toggle");
         if (!button) return;
+
+        const syncTheme = () => {
+            const dark = document.documentElement.classList.contains("dark");
+            const label =
+                (dark ? button.dataset.labelDark : button.dataset.labelLight) ??
+                "";
+            button.setAttribute("aria-label", label);
+            button.setAttribute("title", label);
+
+            const meta = document.querySelector<HTMLMetaElement>(
+                'meta[name="theme-color"]',
+            );
+            if (meta) {
+                meta.content = dark ? "#08090a" : "#ffffff";
+            }
+        };
+
+        syncTheme();
         button.addEventListener("click", () => {
-            const dark = document.documentElement.classList.toggle("dark");
+            const root = document.documentElement;
+            root.classList.add("theme-switching");
+            const dark = root.classList.toggle("dark");
             localStorage.setItem("mode-watcher-mode", dark ? "dark" : "light");
+            syncTheme();
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    root.classList.remove("theme-switching");
+                });
+            });
         });
     }
 

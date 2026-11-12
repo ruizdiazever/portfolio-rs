@@ -1,9 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
-import dayjs from "dayjs";
 import * as m from "@paraglide/messages.js";
-import { getLocale } from "@paraglide/runtime";
 import LinkTitle from "$lib/components/common/LinkTitle.astro";
+import { formatMonth } from "$lib/common/formatDate";
 
 interface Props {
     title: string;
@@ -13,14 +12,22 @@ interface Props {
     views: number;
     tags: string[];
     date: Date;
+    headingLevel?: 2 | 3 | 4;
 }
 
-let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
+let {
+    title,
+    url,
+    description,
+    views,
+    tags,
+    date,
+    pinned,
+    headingLevel = 3,
+}: Props = Astro.props;
 ---
 
-<div
-    class="relative flex flex-wrap flex-row items-center h-auto"
->
+<article class="relative flex flex-wrap flex-row items-center h-auto">
     <div class="flex-1 flex flex-col gap-2 w-full">
         <div class="flex justify-between items-center w-full">
             <div class="flex flex-col items-left gap-2">
@@ -29,14 +36,14 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
                         <div class="flex items-center gap-2 text-sm text-muted-foreground">
                             <Icon
                                 name="pinned"
-                                title="Pinned post"
+                                aria-hidden="true"
                                 class="w-4 h-4 shrink-0 text-muted-foreground"
                             />
                             <p>{m.pinned()}</p>
                         </div>
                     )
                 }
-                <LinkTitle title={title} url={url} />
+                <LinkTitle title={title} url={url} {headingLevel} />
             </div>
         </div>
         <p class="text-md text-secondary-foreground break-words">
@@ -45,35 +52,24 @@ let { title, url, description, views, tags, date, pinned }: Props = Astro.props;
         <div
             class="flex flex-wrap justify-left items-center mt-2 text-sm text-muted-foreground gap-4"
         >
-            <section
-                class="inline-flex items-center justify-center gap-1 font-medium"
-            >
-                <Icon name="eye" title="Views" class="w-4 h-4 shrink-0" />
+            <div class="inline-flex items-center justify-center gap-1 font-medium">
+                <Icon name="eye" aria-hidden="true" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap tabular-nums"
                     >{views ?? 0} {views === 1 ? m.viewSingular() : m.views()}</span
                 >
-            </section>
-            <section
-                class="inline-flex items-center justify-center gap-1 font-medium"
-                title=""
-            >
-                <Icon name="tag" title="Tags" class="w-4 h-4 shrink-0" />
+            </div>
+            <div class="inline-flex items-center justify-center gap-1 font-medium">
+                <Icon name="tag" aria-hidden="true" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap tabular-nums"
                     >{tags?.length ? tags.length : 0} {m.tags()}</span
                 >
-            </section>
-            <section
-                class="inline-flex items-center justify-center gap-1 font-medium"
-            >
-                <Icon name="date" title="Date" class="w-4 h-4 shrink-0" />
+            </div>
+            <div class="inline-flex items-center justify-center gap-1 font-medium">
+                <Icon name="date" aria-hidden="true" class="w-4 h-4 shrink-0" />
                 <span class="whitespace-nowrap tabular-nums">
-                    {
-                        getLocale() === "zh"
-                            ? `${dayjs(date).format("YYYY年MM月")}`
-                            : `${dayjs(date).locale("en").format("MMM YYYY")}`
-                    }
+                    {formatMonth(date)}
                 </span>
-            </section>
+            </div>
         </div>
     </div>
-</div>
+</article>

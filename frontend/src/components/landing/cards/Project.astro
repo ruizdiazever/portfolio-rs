@@ -16,13 +16,13 @@ const technologies = await getTechnologiesFromJson();
 let { url, title, repository, description, tech }: Props = Astro.props;
 ---
 
-<div class="group relative block w-full">
+<article class="group relative block w-full">
     <div
         class="relative p-2 flex
         border rounded-lg bg-card hover:border-foreground/30 hover:bg-muted/30
         transition-[border-color,background-color] duration-150 ease-out"
     >
-        <div class="flex flex-col px-2 my-2 gap-2 pt-0!">
+        <div class="flex flex-col px-2 my-2 gap-2 pr-10 pt-0!">
             <LinkTitle title={title} url={url} />
             {
                 repository !== "" && (
@@ -31,10 +31,15 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                             href={repository}
                             rel="noopener"
                             target="_blank"
-                            aria-label={`${title} on GitHub`}
-                            class="absolute top-3 right-3 text-muted-foreground hover:text-foreground"
+                            aria-label={getLocale() === "zh" ? `${title} 的 GitHub 仓库` : `${title} on GitHub`}
+                            class="absolute top-3 right-3 inline-flex size-7 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
                         >
-                            <Icon name="github" width="1.2em" height="1.2em" />
+                            <Icon
+                                name="github"
+                                aria-hidden="true"
+                                width="1.2em"
+                                height="1.2em"
+                            />
                         </a>
                     </span>
                 )
@@ -55,13 +60,13 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                                 aria-label={technologies[n].name}
                                 title={technologies[n].description[getLocale()]}
                                 data-tech
-                                class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                                class="inline-flex size-7 items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
                             >
                                 <Icon
                                     name={n}
+                                    aria-hidden="true"
                                     width="1.3em"
                                     height="1.3em"
-                                    title={technologies[n].name}
                                 />
                             </a>
                         );
@@ -70,4 +75,4 @@ let { url, title, repository, description, tech }: Props = Astro.props;
             </div>
         </div>
     </div>
-</div>
+</article>

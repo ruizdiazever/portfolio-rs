@@ -39,6 +39,6 @@ test.describe("performance budget", () => {
     await expect(
       page.locator('[role="img"][aria-label*="contributions"]'),
     ).toBeVisible();
-    await expect(page.locator("[data-word-animation]")).toBeVisible();
+    await expect(page.locator("[data-tagline]")).toBeVisible();
   });
 });

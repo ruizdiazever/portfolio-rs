@@ -54,8 +54,8 @@
             href="https://github.com/ruizdiazever"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="GitHub profile"
-            class="text-muted-foreground hover:text-foreground transition-colors duration-200"
+            aria-label={getLocale() === "zh" ? "GitHub 主页" : "GitHub profile"}
+            class="inline-flex size-7 items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
             {@render gitHubIcon?.()}
         </a>
@@ -67,7 +67,7 @@
                 class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
                 style="grid-template-columns: repeat(51, minmax(0, 1fr))"
                 role="img"
-                aria-label={`${totalContributions} contributions in the last year`}
+                aria-label={getLocale() === "zh" ? `${totalContributions} 个贡献在过去一年` : `${totalContributions} contributions in the last year`}
             >
                 {#each weeks as week}
                     {#each week.contributionDays as day}

@@ -96,7 +96,7 @@
     --accent-foreground: #000000;
     --destructive: oklch(0.577 0.245 27.325);
     --border: rgb(0 0 0 / 12%);
-    --input: rgb(0 0 0 / 12%);
+    --input: #767676;
     --ring: rgb(0 0 0 / 40%);
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
@@ -134,7 +134,7 @@
     --accent-foreground: #ffffff;
     --destructive: #eb5757;
     --border: #23252a;
-    --input: #23252a;
+    --input: #62666d;
     --ring: #8a8f98;
     --chart-1: #27a644;
     --chart-2: #02b8cc;
@@ -191,6 +191,12 @@
 }
 
 @layer base {
+    html.theme-switching *,
+    html.theme-switching *::before,
+    html.theme-switching *::after {
+        transition: none !important;
+    }
+
     * {
         @apply border-border outline-ring/50;
     }

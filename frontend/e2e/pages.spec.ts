@@ -93,6 +93,7 @@ test.describe("feedback", () => {
     await expect(
       dialog.getByRole("heading", { name: "Feedback" }),
     ).toBeVisible();
+    await expect(dialog.getByLabel("Feedback")).toBeVisible();
 
     await dialog.getByRole("button", { name: "Submit" }).click();
     await expect(

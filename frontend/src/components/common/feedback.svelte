@@ -80,7 +80,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(4)}
-            aria-label="Love"
+            aria-label={m.reactionLove()}
         >
             <Heart class="h-5 w-5" />
         </Button>
@@ -90,7 +90,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(3)}
-            aria-label="Happy"
+            aria-label={m.reactionHappy()}
         >
             <Smile class="h-5 w-5" />
         </Button>
@@ -100,7 +100,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(2)}
-            aria-label="Neutral"
+            aria-label={m.reactionNeutral()}
         >
             <Meh class="h-5 w-5" />
         </Button>
@@ -110,7 +110,7 @@
             size="icon"
             class="h-8 w-8 hover:bg-muted hover:text-foreground rounded-full transition-[background-color,color,transform] duration-200 ease-out hover:scale-105"
             onclick={() => openFeedback(1)}
-            aria-label="Sad"
+            aria-label={m.reactionSad()}
         >
             <Frown class="h-5 w-5" />
         </Button>
@@ -127,6 +127,7 @@
 
         <div class="space-y-4 mb-4">
             <div class="relative">
+                <label for="feedback-message" class="sr-only">{m.feedback()}</label>
                 <Textarea
                     id="feedback-message"
                     name="feedback"

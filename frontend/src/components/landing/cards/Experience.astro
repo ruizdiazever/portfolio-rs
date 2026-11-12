@@ -1,7 +1,7 @@
 ---
-import dayjs from "dayjs";
 import { getLocale } from "@paraglide/runtime";
 import LinkExternal from "$lib/components/common/LinkExternal.astro";
+import { formatMonth } from "$lib/common/formatDate";
 
 interface Props {
     startDate: Date;
@@ -31,13 +31,9 @@ let {
     >
     </div>
     <div class="text-sm text-muted-foreground tabular-nums" data-timeline-date>
-        {
-            getLocale() === "zh"
-                ? `${dayjs(startDate).format("YYYY年MM月")} - ${endDate ? dayjs(endDate).format("YYYY年MM月") : "至今"}`
-                : `${dayjs(startDate).locale("en").format("MMM YYYY")} - ${endDate ? dayjs(endDate).locale("en").format("MMM YYYY") : "Present"}`
-        }
+        {formatMonth(startDate)} - {endDate ? formatMonth(endDate) : getLocale() === "zh" ? "至今" : "Present"}
     </div>
-    <div class="text-xl font-medium tracking-[-0.012em] text-foreground">{position}</div>
+    <h3 class="text-xl font-medium tracking-[-0.012em] text-foreground">{position}</h3>
     <div class="mb-1 text-md text-muted-foreground">
         <LinkExternal title={company} url={url} />
     </div>

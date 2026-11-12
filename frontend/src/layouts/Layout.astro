@@ -90,6 +90,19 @@ const {
             canonical={canonical}
             image={image}
         />
+        <script is:inline>
+            (() => {
+                const meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) {
+                    meta.setAttribute(
+                        "content",
+                        document.documentElement.classList.contains("dark")
+                            ? "#08090a"
+                            : "#ffffff",
+                    );
+                }
+            })();
+        </script>
     </head>
     <body class="bg-background mx-auto overflow-y-scroll">
         <a

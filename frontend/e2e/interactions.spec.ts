@@ -65,10 +65,15 @@ test.describe("interactions", () => {
       "aria-hidden",
       "false",
     );
-    await expect(card.locator(".book-back h3")).toHaveText(title);
+    await expect(card.locator(".book-back h2")).toHaveText(title);
+    await expect(toggle).toHaveAttribute(
+      "aria-label",
+      `${title}, Flip back`,
+    );
     await expect(page.getByRole("dialog")).toHaveCount(0);
 
-    await toggle.click();
+    await card.locator(".book-card-back-toggle").click();
+    await expect(toggle).toBeFocused();
     await expect(toggle).toHaveAttribute("aria-pressed", "false");
     await expect(card).not.toHaveClass(/is-flipped/);
     await expect(card.locator(".book-front")).toHaveAttribute(
@@ -87,27 +92,58 @@ test.describe("interactions", () => {
   test("theme toggle switches theme and persists", async ({ page }) => {
     await page.goto("/en");
     const html = page.locator("html");
+    const meta = page.locator('meta[name="theme-color"]');
 
     await expect(html).toHaveClass(/dark/);
+    await expect(meta).toHaveAttribute("content", "#08090a");
 
     await expect(async () => {
-      await page.getByRole("button", { name: "Theme" }).click();
+      await page
+        .getByRole("button", { name: "Switch to light theme" })
+        .click();
       await expect(html).not.toHaveClass(/dark/, { timeout: 1_000 });
     }).toPass({ timeout: 20_000 });
+
+    await expect(meta).toHaveAttribute("content", "#ffffff");
+    await expect(
+      page.getByRole("button", { name: "Switch to dark theme" }),
+    ).toBeVisible();
 
     await page.reload();
     await expect(html).not.toHaveClass(/dark/);
 
     await expect(async () => {
-      await page.getByRole("button", { name: "Theme" }).click();
+      await page
+        .getByRole("button", { name: "Switch to dark theme" })
+        .click();
       await expect(html).toHaveClass(/dark/, { timeout: 1_000 });
     }).toPass({ timeout: 20_000 });
+
+    await expect(meta).toHaveAttribute("content", "#08090a");
+  });
+
+  test("article titles are headings", async ({ page }) => {
+    await page.goto("/en/blog/articles");
+
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Writing",
+    );
+    await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
+  });
+
+  test("post back link is inert until it appears", async ({ page }) => {
+    await page.goto("/en/blog/portfolio-wasm");
+    const back = page.locator("#back-button");
+    await expect(back).toHaveAttribute("inert", "");
+
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await expect(back).not.toHaveAttribute("inert", "");
   });
 
   test("language switcher navigates to the translated page", async ({ page }) => {
     await page.goto("/en/sections/about");
 
-    await page.getByRole("link", { name: "Language" }).click();
+    await page.getByRole("link", { name: /中文, Switch to Chinese/ }).click();
 
     await expect(page).toHaveURL(/\/zh\/sections\/about$/);
     await expect(
@@ -147,6 +183,9 @@ test.describe("interactions", () => {
     ).toHaveAttribute("aria-pressed", "true");
     await expect(comics.first()).toBeVisible();
     await expect(technical.first()).toBeHidden();
+    await expect(page.locator("#book-filter-status")).toHaveText(
+      /Showing \d+ books?/,
+    );
 
     await page.reload();
     await expect(comics.first()).toBeVisible();
@@ -158,5 +197,8 @@ test.describe("interactions", () => {
       page.getByRole("button", { name: "Technical", exact: true }),
     ).toHaveAttribute("aria-pressed", "true");
     await expect(technical.first()).toBeVisible();
+    await expect(page.locator("#book-filter-status")).toHaveText(
+      /Showing \d+ books?/,
+    );
   });
 });

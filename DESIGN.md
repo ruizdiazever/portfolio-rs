@@ -23,6 +23,7 @@ Dark is the default theme. Light mode is a paper alternative.
 | `--card-foreground` | `#d0d6e0` | `#000000` | Body copy |
 | `--muted-foreground` | `#8a8f98` | `#666666` | Metadata, captions |
 | `--border` | `#23252a` | `rgb(0 0 0 / 12%)` | Hairline borders |
+| `--input` | `#62666d` | `#767676` | Form control borders, 3:1 against the surface |
 | `--primary` | `#ffffff` | `#000000` | Active filter, primary action |
 | `--primary-foreground` | `#08090a` | `#ffffff` | Text on primary |
 | `--secondary` | `#161718` | `#f1f1f1` | Badges, quiet fills |
@@ -75,6 +76,7 @@ Do not use shadows on cards. Use `border-border`; change to `border-foreground/3
 - Use explicit transition properties, never `transition-all`.
 - Movement uses `transform` and `opacity`; colors use `ease`.
 - Reduced motion keeps the state change and removes transforms, tilt and glare.
+- Do not auto-rotate text. The header tagline is static.
 
 ## Components
 
@@ -91,7 +93,7 @@ Outlined, 14px, 510 weight, fully rounded. Inactive uses `border-border` and `ca
 - The card is a 3D flip surface with perspective 1200px.
 - Front: cover, title, author, year and type. A small `FLIP` pill sits on the cover.
 - Back: notes, title, author, description and a two-column metadata grid. It fills the same box as the front.
-- Clicking, tapping, Enter or Space flips the card. The card does not open a modal.
+- Clicking the front, or pressing Enter or Space on the card control, flips the card. The back has a visible Flip back control. The card does not open a modal.
 - The hidden face is `aria-hidden` and `inert`; `aria-pressed` reports the state.
 - The overlay trigger is a real button with a visible focus ring. Cards in a row share the same height.
 - Reduced motion changes faces without the 3D rotation.
@@ -108,6 +110,7 @@ Dialogs use bits-ui, a 200ms fade and a 12px radius. The submit action uses `bg-
 
 - No yellow or acid-lime selector.
 - No modal for book details.
+- No auto-rotating or updating text without a pause control.
 - No hover-only book content.
 - No card shadows.
 - No weights above 590.

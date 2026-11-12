@@ -1,9 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
-import dayjs from "dayjs";
 import { getLocale } from "@paraglide/runtime";
 import Media from "$lib/components/common/Media.astro";
 import Feedback from "$lib/components/common/feedback.svelte";
+import { formatMonth } from "$lib/common/formatDate";
 import Toast from "$lib/components/common/toast.svelte";
 import { postVisitRequest } from "$lib/common/postView.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
@@ -30,6 +30,7 @@ let views = await getVisitRequest(id);
 <div class="relative mx-auto blog mt-10 w-full min-w-0 max-w-full">
     <div
         id="back-button"
+        inert
         class="fixed bottom-4 left-1/2 opacity-0 transition-[opacity,transform] duration-200 ease-out translate-y-10
         lg:top-36 lg:left-8 lg:ml-10"
     >
@@ -46,7 +47,7 @@ let views = await getVisitRequest(id);
             <Icon
                 class="duration-150 group-hover:translate-x-[-2.5px] text-foreground dark:text-foreground"
                 name="chevron-left"
-                title="Back"
+                aria-hidden="true"
                 size="1rem"
             />
             <p class="text-sm text-foreground dark:text-foreground">
@@ -64,7 +65,7 @@ let views = await getVisitRequest(id);
                         {readTime}
                         {getLocale() === "zh" ? "分钟阅读" : "min read"}
                     </p>
-                    <Icon name="timer" title="Read time" size="0.8rem" />
+                    <Icon name="timer" aria-hidden="true" size="0.8rem" />
                 </div>
                 <h1 class="text-3xl font-medium tracking-[-0.022em] text-foreground md:text-5xl">
                     {title}
@@ -76,30 +77,24 @@ let views = await getVisitRequest(id);
             <div
                 class="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-sm text-muted-foreground"
             >
-                <section
-                    class="flex items-center justify-center gap-1 flex-wrap font-medium"
-                >
-                    <Icon name="timer" title="Date" size="0.8rem" />
+                <div class="flex items-center justify-center gap-1 flex-wrap font-medium">
+                    <Icon name="timer" aria-hidden="true" size="0.8rem" />
                     <span class="tabular-nums">
-                        {
-                            getLocale() === "zh"
-                                ? `${dayjs(date).format("YYYY年MM月")}`
-                                : `${dayjs(date).locale("en").format("MMM YYYY")}`
-                        }
+                        {formatMonth(date)}
                     </span>
-                </section>
-                <section
+                </div>
+                <div
                     class="flex items-center justify-center gap-1 flex-wrap font-medium"
                     title={tags.join(", ")}
                 >
-                    <Icon name="tag" title="Tags" size="0.8rem" />
+                    <Icon name="tag" aria-hidden="true" size="0.8rem" />
                     <span class="tabular-nums">{tags.length} {m.tags()}</span>
-                </section>
-                <section class="flex items-center justify-center">
+                </div>
+                <div class="flex items-center justify-center">
                     <span
                         class="flex items-center justify-center gap-1 flex-wrap font-medium"
                     >
-                        <Icon name="eye" title="Views" size="0.8rem" />
+                        <Icon name="eye" aria-hidden="true" size="0.8rem" />
 
                         <span
                             class="tabular-nums"
@@ -108,13 +103,10 @@ let views = await getVisitRequest(id);
                         </span>
                         {views.visits === 1 ? m.viewSingular() : m.views()}
                     </span>
-                </section>
+                </div>
             </div>
-            <p
-                class="flex flex-wrap items-center justify-center gap-x-1 text-secondary-foreground pt-3"
-                aria-label="Author"
-                title="Author"
-            >
+            <p class="flex flex-wrap items-center justify-center gap-x-1 text-secondary-foreground pt-3">
+                <span class="sr-only">{getLocale() === "zh" ? "作者：" : `${m.author()}: `}</span>
                 {
                     author.map((name) => (
                         <>
@@ -145,9 +137,10 @@ let views = await getVisitRequest(id);
 </div>
 
 <script>
-    window.addEventListener("scroll", () => {
-        const backButton = document.getElementById("back-button");
-        if (backButton) {
+    const backButton = document.getElementById("back-button");
+
+    if (backButton) {
+        const updateBackButton = () => {
             const windowHeight = window.innerHeight;
             const documentHeight = document.documentElement.scrollHeight;
             const scrollTop =
@@ -155,18 +148,18 @@ let views = await getVisitRequest(id);
             const scrollPercentage =
                 (scrollTop + windowHeight) / documentHeight;
             const isMobile = window.innerWidth <= 1024;
-
-            if (
+            const show =
                 window.scrollY > 100 &&
-                ((isMobile && scrollPercentage < 0.9) || !isMobile)
-            ) {
-                backButton.style.opacity = "1";
-                backButton.style.transform = "translateX(-50%) translateY(0)";
-            } else {
-                backButton.style.opacity = "0";
-                backButton.style.transform =
-                    "translateX(-50%) translateY(10px)";
-            }
-        }
-    });
+                ((isMobile && scrollPercentage < 0.9) || !isMobile);
+
+            backButton.toggleAttribute("inert", !show);
+            backButton.style.opacity = show ? "1" : "0";
+            backButton.style.transform = show
+                ? "translateX(-50%) translateY(0)"
+                : "translateX(-50%) translateY(10px)";
+        };
+
+        window.addEventListener("scroll", updateBackButton, { passive: true });
+        updateBackButton();
+    }
 </script>
