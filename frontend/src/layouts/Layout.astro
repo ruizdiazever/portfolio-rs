@@ -31,28 +31,8 @@ const {
 ---
 
 <!doctype html>
-<html lang={getLocale()} class="dark">
+<html lang={getLocale()}>
     <head>
-        <script is:inline>
-            function applyTheme() {
-                const storedTheme = localStorage.getItem("mode-watcher-mode");
-                const systemDark = window.matchMedia(
-                    "(prefers-color-scheme: dark)",
-                ).matches;
-                const theme =
-                    storedTheme === "system"
-                        ? systemDark
-                            ? "dark"
-                            : "light"
-                        : storedTheme || "dark";
-                document.documentElement.classList.toggle(
-                    "dark",
-                    theme === "dark",
-                );
-            }
-
-            applyTheme();
-        </script>
         <script is:inline>
             function loadAnalytics() {
                 if (document.querySelector("script[data-plausible]")) return;
@@ -93,14 +73,21 @@ const {
         <script is:inline>
             (() => {
                 const meta = document.querySelector('meta[name="theme-color"]');
-                if (meta) {
+                if (!meta) return;
+
+                const sync = () => {
                     meta.setAttribute(
                         "content",
                         document.documentElement.classList.contains("dark")
                             ? "#08090a"
                             : "#ffffff",
                     );
-                }
+                };
+
+                sync();
+                window
+                    .matchMedia("(prefers-color-scheme: dark)")
+                    .addEventListener("change", sync);
             })();
         </script>
     </head>

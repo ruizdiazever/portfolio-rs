@@ -136,7 +136,7 @@ Book cards flip in place. Each card has a transparent `.book-card-toggle` button
 
 ## Visual language
 
-The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairlines, mist body text, and a single paper-white primary state for active filters and primary actions. Cards use 12px radii, buttons 6px, filters are pills, and content cards have no shadows. Light mode remains a paper alternative. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add yellow or acid-lime UI accents, extra accent colors or card shadows. The full system lives in `DESIGN.md`.
+The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairlines, mist body text, and a single paper-white primary state for active filters and primary actions. It follows the system color scheme by default, with a persisted light or dark override and `light-dark()` tokens. Cards use 12px radii, buttons 6px, filters are pills, and content cards have no shadows. Light mode remains a paper alternative. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add yellow or acid-lime UI accents, extra accent colors or card shadows. The full system lives in `DESIGN.md`. Keep `color-scheme: light dark` on `:root` and map the `<meta name="color-scheme">` element; never hardcode the root scheme.
 
 ## Motion
 

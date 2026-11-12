@@ -1,5 +1,4 @@
 <script lang="ts">
-    import * as Dialog from "$lib/components/ui/dialog/index.js";
     import { Button } from "$lib/components/ui/button/index.js";
     import { Textarea } from "$lib/components/ui/textarea/index.js";
     import Heart from "@lucide/svelte/icons/heart";
@@ -8,6 +7,7 @@
     import Frown from "@lucide/svelte/icons/frown";
     import Loader from "@lucide/svelte/icons/loader";
     import Send from "@lucide/svelte/icons/send";
+    import XIcon from "@lucide/svelte/icons/x";
     import * as m from "@paraglide/messages.js";
     import { postFeedback } from "$lib/common/postFeedback";
     import { toast } from "svelte-sonner";
@@ -20,16 +20,61 @@
     let { id, title, language }: Props = $props();
 
     let showFeedback = $state(false);
+    let dialogEl = $state<HTMLDialogElement | null>(null);
     let selectedReaction = $state(0);
     let message = $state("");
     let error = $state("");
     let loading = $state(false);
     const maxLength = 500;
 
+    $effect(() => {
+        if (!dialogEl) return;
+        if (showFeedback && !dialogEl.open) {
+            dialogEl.showModal();
+        } else if (!showFeedback && dialogEl.open) {
+            dialogEl.close();
+        }
+    });
+
     const openFeedback = (reaction: number) => {
         selectedReaction = reaction;
         showFeedback = true;
     };
+
+    const handleDialogClose = () => {
+        showFeedback = false;
+    };
+
+    $effect(() => {
+        const dialog = dialogEl;
+        if (!dialog || "closedBy" in HTMLDialogElement.prototype) return;
+
+        const outside = (event: PointerEvent) => {
+            const rect = dialog.getBoundingClientRect();
+            return (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            );
+        };
+
+        let pressedOutside = false;
+        const onPointerDown = (event: PointerEvent) => {
+            pressedOutside = outside(event);
+        };
+        const onPointerUp = (event: PointerEvent) => {
+            if (pressedOutside && outside(event)) dialog.close();
+            pressedOutside = false;
+        };
+
+        dialog.addEventListener("pointerdown", onPointerDown);
+        dialog.addEventListener("pointerup", onPointerUp);
+        return () => {
+            dialog.removeEventListener("pointerdown", onPointerDown);
+            dialog.removeEventListener("pointerup", onPointerUp);
+        };
+    });
 
     const validate = () => {
         if (message.length < 1) {
@@ -117,21 +162,44 @@
     </div>
 </div>
 
-<Dialog.Root bind:open={showFeedback}>
-    <Dialog.Content>
-        <Dialog.Header>
-            <Dialog.Title class="text-xl font-medium tracking-[-0.012em]"
-                >{m.feedback()}</Dialog.Title
-            >
-        </Dialog.Header>
+<dialog
+    bind:this={dialogEl}
+    closedby="any"
+    aria-labelledby="feedback-title"
+    onclose={handleDialogClose}
+    class="feedback-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-sm overflow-y-auto rounded-lg border bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10"
+>
+    <Button
+        variant="ghost"
+        type="button"
+        size="icon-sm"
+        class="absolute top-2 right-2"
+        aria-label={m.close()}
+        onclick={() => dialogEl?.close()}
+    >
+        <XIcon />
+    </Button>
 
-        <div class="space-y-4 mb-4">
+    <h2 id="feedback-title" class="text-xl font-medium tracking-[-0.012em]">
+        {m.feedback()}
+    </h2>
+
+    <form
+        method="dialog"
+        class="mt-4 grid gap-4"
+        onsubmit={(event) => {
+            event.preventDefault();
+            handleSubmit();
+        }}
+    >
+        <div class="space-y-4">
             <div class="relative">
                 <label for="feedback-message" class="sr-only">{m.feedback()}</label>
                 <Textarea
                     id="feedback-message"
                     name="feedback"
                     autocomplete="off"
+                    autofocus
                     bind:value={message}
                     placeholder={m.feedbackPlaceholder()}
                     class="min-h-[100px] resize-none"
@@ -141,29 +209,67 @@
                     oninput={validate}
                 />
                 <span
-                    class="absolute bottom-2 right-2 text-sm text-muted-foreground"
+                    class="absolute right-2 bottom-2 text-sm text-muted-foreground"
                 >
                     {message.length}/{maxLength}
                 </span>
             </div>
             <div class="h-6">
                 {#if error}
-                    <p id="feedback-error" role="alert" class="text-sm text-destructive">
+                    <p
+                        id="feedback-error"
+                        role="alert"
+                        class="text-sm text-destructive"
+                    >
                         {error}
                     </p>
                 {/if}
             </div>
         </div>
 
-        <Dialog.Footer>
-            <Button onclick={handleSubmit} disabled={loading}>
+        <div class="flex justify-end">
+            <Button type="submit" disabled={loading}>
                 {#if loading}
-                    <Loader class="h-4 w-4 mr-1 animate-spin" />
+                    <Loader class="mr-1 h-4 w-4 animate-spin" />
                 {:else}
-                    <Send class="h-4 w-4 mr-1" />
+                    <Send class="mr-1 h-4 w-4" />
                 {/if}
                 {m.submit()}
             </Button>
-        </Dialog.Footer>
-    </Dialog.Content>
-</Dialog.Root>
+        </div>
+    </form>
+</dialog>
+
+<style>
+    .feedback-dialog:modal {
+        overscroll-behavior: contain;
+    }
+
+    .feedback-dialog::backdrop {
+        background: rgb(0 0 0 / 0.8);
+        backdrop-filter: blur(4px);
+        overflow: hidden;
+        overscroll-behavior: contain;
+    }
+
+    .feedback-dialog[open] {
+        animation: feedback-dialog-in 200ms var(--ease-out);
+    }
+
+    @keyframes feedback-dialog-in {
+        from {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .feedback-dialog[open] {
+            animation: none;
+        }
+    }
+</style>

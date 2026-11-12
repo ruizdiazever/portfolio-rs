@@ -49,6 +49,38 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="color-scheme" content="light dark" />
+<script is:inline>
+    (() => {
+        const meta = document.querySelector('meta[name="color-scheme"]');
+        if (!meta) return;
+
+        let stored = null;
+        try {
+            stored = localStorage.getItem("mode-watcher-mode");
+        } catch {}
+
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const scheme =
+            stored === "light" || stored === "dark"
+                ? stored
+                : media.matches
+                  ? "dark"
+                  : "light";
+
+        if (stored === "light" || stored === "dark") {
+            meta.content = stored;
+        }
+        document.documentElement.classList.toggle("dark", scheme === "dark");
+
+        media.addEventListener("change", () => {
+            try {
+                const current = localStorage.getItem("mode-watcher-mode");
+                if (current === "light" || current === "dark") return;
+            } catch {}
+            document.documentElement.classList.toggle("dark", media.matches);
+        });
+    })();
+</script>
 <link rel="preconnect" href="https://s3.berli.app" crossorigin />
 <title>{title}</title>
 <meta name="description" content={description} />

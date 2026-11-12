@@ -89,37 +89,63 @@ test.describe("interactions", () => {
     await expect(tag).toHaveAccessibleName(/.+/);
   });
 
-  test("theme toggle switches theme and persists", async ({ page }) => {
+  test("theme follows the system and the override persists", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ colorScheme: "dark" });
     await page.goto("/en");
     const html = page.locator("html");
-    const meta = page.locator('meta[name="theme-color"]');
+    const colorScheme = page.locator('meta[name="color-scheme"]');
+    const themeColor = page.locator('meta[name="theme-color"]');
 
     await expect(html).toHaveClass(/dark/);
-    await expect(meta).toHaveAttribute("content", "#08090a");
+    await expect(colorScheme).toHaveAttribute("content", "light dark");
+    await expect(themeColor).toHaveAttribute("content", "#08090a");
 
-    await expect(async () => {
-      await page
-        .getByRole("button", { name: "Switch to light theme" })
-        .click();
-      await expect(html).not.toHaveClass(/dark/, { timeout: 1_000 });
-    }).toPass({ timeout: 20_000 });
+    await page
+      .getByRole("button", { name: "Switch to light theme" })
+      .click();
+    await expect(html).not.toHaveClass(/dark/);
+    await expect(colorScheme).toHaveAttribute("content", "light");
+    await expect(themeColor).toHaveAttribute("content", "#ffffff");
 
-    await expect(meta).toHaveAttribute("content", "#ffffff");
+    await page.reload();
+    await expect(html).not.toHaveClass(/dark/);
+    await expect(colorScheme).toHaveAttribute("content", "light");
     await expect(
       page.getByRole("button", { name: "Switch to dark theme" }),
     ).toBeVisible();
 
-    await page.reload();
+    await page.getByRole("button", { name: "Switch to dark theme" }).click();
+    await expect(html).toHaveClass(/dark/);
+    await expect(colorScheme).toHaveAttribute("content", "light dark");
+    await expect(themeColor).toHaveAttribute("content", "#08090a");
+    expect(
+      await page.evaluate(() => localStorage.getItem("mode-watcher-mode")),
+    ).toBeNull();
+  });
+
+  test("theme follows system changes without an override", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.goto("/en");
+    const html = page.locator("html");
+    const colorScheme = page.locator('meta[name="color-scheme"]');
+    const themeColor = page.locator('meta[name="theme-color"]');
+
     await expect(html).not.toHaveClass(/dark/);
+    await expect(colorScheme).toHaveAttribute("content", "light dark");
+    await expect(themeColor).toHaveAttribute("content", "#ffffff");
+    await expect(
+      page.getByRole("button", { name: "Switch to dark theme" }),
+    ).toBeVisible();
 
-    await expect(async () => {
-      await page
-        .getByRole("button", { name: "Switch to dark theme" })
-        .click();
-      await expect(html).toHaveClass(/dark/, { timeout: 1_000 });
-    }).toPass({ timeout: 20_000 });
-
-    await expect(meta).toHaveAttribute("content", "#08090a");
+    await page.emulateMedia({ colorScheme: "dark" });
+    await expect(html).toHaveClass(/dark/);
+    await expect(colorScheme).toHaveAttribute("content", "light dark");
+    await expect(themeColor).toHaveAttribute("content", "#08090a");
+    await expect(
+      page.getByRole("button", { name: "Switch to light theme" }),
+    ).toBeVisible();
   });
 
   test("article titles are headings", async ({ page }) => {

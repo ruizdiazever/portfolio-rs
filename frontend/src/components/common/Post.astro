@@ -41,16 +41,15 @@ let views = await getVisitRequest(id);
         rounded-full px-4 text-sm bg-background text-foreground
         transition-colors hover:bg-muted focus-visible:outline-none
         focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none
-        disabled:opacity-50 gap-1
-        dark:bg-background dark:text-foreground dark:hover:bg-muted z-20"
+        disabled:opacity-50 gap-1 z-20"
         >
             <Icon
-                class="duration-150 group-hover:translate-x-[-2.5px] text-foreground dark:text-foreground"
+                class="duration-150 group-hover:translate-x-[-2.5px] text-foreground"
                 name="chevron-left"
                 aria-hidden="true"
                 size="1rem"
             />
-            <p class="text-sm text-foreground dark:text-foreground">
+            <p class="text-sm text-foreground">
                 {m.back()}
             </p>
         </a>

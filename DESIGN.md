@@ -1,6 +1,6 @@
 # Design System
 
-The portfolio is a dark, editorial interface with one typeface, hairline structure and a single neutral active state. It is built from the direction given for this site: Inter, a Linear-like dark canvas, no yellow selector, book cards that flip in place and no modal for book details.
+The portfolio is an editorial interface with one typeface, hairline structure and a single neutral active state. It follows the system color scheme by default and keeps a dark, Linear-like canvas as its dark theme. It is built from the direction given for this site: Inter, no yellow selector, book cards that flip in place and no modal for book details.
 
 ## Principles
 
@@ -12,7 +12,7 @@ The portfolio is a dark, editorial interface with one typeface, hairline structu
 
 ## Color
 
-Dark is the default theme. Light mode is a paper alternative.
+The site follows the system color scheme by default. A light or dark override is stored only when it differs from the system; toggling back to the system value removes the override. `color-scheme` is declared as `light dark`, mapped from the `<meta name="color-scheme">` element and consumed by `light-dark()` tokens. Light mode is a paper alternative; dark mode is the Linear-like canvas.
 
 | Token | Dark | Light | Use |
 | --- | --- | --- | --- |
@@ -104,11 +104,12 @@ Text links are underlined with `decoration-foreground/30` and become fully under
 
 ### Feedback dialog and toast
 
-Dialogs use bits-ui, a 200ms fade and a 12px radius. The submit action uses `bg-primary`. Toasts follow the current theme and remain neutral.
+Dialogs use the native `<dialog>` element with `showModal()`, `closedby`, `::backdrop` and `autofocus`. Do not add `role="dialog"`, `aria-modal`, a focus trap or manual focus return. The panel uses a 12px radius and a 200ms entrance. The submit action uses `bg-primary`. Toasts follow the current theme and remain neutral.
 
 ## Don'ts
 
 - No yellow or acid-lime selector.
+- No hardcoded root `color-scheme: light` or `color-scheme: dark`; keep the base at `light dark` and map the meta element.
 - No modal for book details.
 - No auto-rotating or updating text without a pause control.
 - No hover-only book content.

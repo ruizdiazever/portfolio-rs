@@ -58,14 +58,12 @@ const languageLabel =
                 <button
                     id="theme-toggle"
                     type="button"
-                    aria-label={m.switchToLight()}
-                    title={m.switchToLight()}
-                    data-label-dark={m.switchToLight()}
-                    data-label-light={m.switchToDark()}
                     class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
                 >
+                    <span class="sr-only theme-label-light">{m.switchToLight()}</span>
+                    <span class="sr-only theme-label-dark">{m.switchToDark()}</span>
                     <svg
-                        class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-transform duration-150 ease-out dark:-rotate-90 dark:scale-0"
+                        class="theme-icon-sun h-[1.2rem] w-[1.2rem] transition-transform duration-150 ease-out"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -78,7 +76,7 @@ const languageLabel =
                         <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
                     </svg>
                     <svg
-                        class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-transform duration-150 ease-out dark:rotate-0 dark:scale-100"
+                        class="theme-icon-moon absolute h-[1.2rem] w-[1.2rem] transition-transform duration-150 ease-out"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -126,35 +124,78 @@ const languageLabel =
         const button = document.getElementById("theme-toggle");
         if (!button) return;
 
-        const syncTheme = () => {
-            const dark = document.documentElement.classList.contains("dark");
-            const label =
-                (dark ? button.dataset.labelDark : button.dataset.labelLight) ??
-                "";
-            button.setAttribute("aria-label", label);
-            button.setAttribute("title", label);
+        const root = document.documentElement;
+        const meta = document.querySelector<HTMLMetaElement>(
+            'meta[name="color-scheme"]',
+        );
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const key = "mode-watcher-mode";
 
-            const meta = document.querySelector<HTMLMetaElement>(
-                'meta[name="theme-color"]',
-            );
-            if (meta) {
-                meta.content = dark ? "#08090a" : "#ffffff";
+        const stored = () => {
+            try {
+                const value = localStorage.getItem(key);
+                return value === "light" || value === "dark" ? value : null;
+            } catch {
+                return null;
             }
         };
 
-        syncTheme();
-        button.addEventListener("click", () => {
-            const root = document.documentElement;
+        const setScheme = (dark: boolean, override: boolean) => {
             root.classList.add("theme-switching");
-            const dark = root.classList.toggle("dark");
-            localStorage.setItem("mode-watcher-mode", dark ? "dark" : "light");
-            syncTheme();
+            root.classList.toggle("dark", dark);
+            if (meta) {
+                meta.content = override ? (dark ? "dark" : "light") : "light dark";
+            }
+
+            const themeColor = document.querySelector<HTMLMetaElement>(
+                'meta[name="theme-color"]',
+            );
+            if (themeColor) {
+                themeColor.content = dark ? "#08090a" : "#ffffff";
+            }
+
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     root.classList.remove("theme-switching");
                 });
             });
+        };
+
+        const syncFromStored = () => {
+            const value = stored();
+            setScheme(
+                value ? value === "dark" : media.matches,
+                value !== null,
+            );
+        };
+
+        button.addEventListener("click", () => {
+            const targetDark = !root.classList.contains("dark");
+            const target = targetDark ? "dark" : "light";
+            const system = media.matches ? "dark" : "light";
+
+            if (target === system) {
+                try {
+                    localStorage.removeItem(key);
+                } catch {}
+                setScheme(targetDark, false);
+            } else {
+                try {
+                    localStorage.setItem(key, target);
+                } catch {}
+                setScheme(targetDark, true);
+            }
         });
+
+        media.addEventListener("change", () => {
+            if (!stored()) setScheme(media.matches, false);
+        });
+
+        window.addEventListener("storage", (event) => {
+            if (event.key === key) syncFromStored();
+        });
+
+        syncFromStored();
     }
 
     initializeThemeToggle();

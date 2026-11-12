@@ -126,5 +126,6 @@
   "reactionHappy": "Happy",
   "reactionNeutral": "Neutral",
   "reactionSad": "Sad",
-  "author": "Author"
+  "author": "Author",
+  "close": "Close"
 }
