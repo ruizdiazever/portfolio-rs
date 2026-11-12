@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import { getLocale } from "@paraglide/runtime";
 import Footer from "$lib/components/common/Footer.astro";
 import Header from "$lib/components/common/Header.astro";
@@ -81,6 +82,7 @@ const {
                 });
             }
         </script>
+        <Font cssVariable="--font-inter" preload />
         <SEO
             title={title}
             description={description}

@@ -1,5 +1,5 @@
 import svelte from "@astrojs/svelte";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
 import { seoConfig } from "./src/common/seoConfig";
 import tailwindcss from "@tailwindcss/vite";
@@ -73,6 +73,25 @@ export default defineConfig({
   output: "server",
   server: { port: 4321, host: true },
   site: seoConfig.baseURL,
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Inter",
+      cssVariable: "--font-inter",
+      weights: ["100 900"],
+      styles: ["normal"],
+      subsets: ["latin"],
+      fallbacks: [
+        "system-ui",
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Microsoft YaHei",
+        "Noto Sans CJK SC",
+        "Noto Sans SC",
+        "sans-serif",
+      ],
+    },
+  ],
   devToolbar: {
     enabled: false,
   },

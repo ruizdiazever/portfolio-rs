@@ -15,8 +15,8 @@ const { message = defaultTitle } = Astro.props as { message: string };
     showHeader={false}
 >
     <section class="grid place-content-center h-screen gap-3 text-center">
-        <span class="text-6xl font-bold">404</span>
-        <h1 class="text-2xl font-semibold">{message}</h1>
+        <span class="text-6xl font-semibold tracking-[-0.04em]">404</span>
+        <h1 class="text-2xl font-semibold tracking-[-0.02em]">{message}</h1>
         <p class="max-w-[40ch] text-md text-muted-foreground">
             {m.notFoundBody()}
         </p>

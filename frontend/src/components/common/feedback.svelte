@@ -120,7 +120,7 @@
 <Dialog.Root bind:open={showFeedback}>
     <Dialog.Content>
         <Dialog.Header>
-            <Dialog.Title class="text-xl font-normal"
+            <Dialog.Title class="text-xl font-semibold tracking-[-0.015em]"
                 >{m.feedback()}</Dialog.Title
             >
         </Dialog.Header>
@@ -155,7 +155,7 @@
         </div>
 
         <Dialog.Footer>
-            <Button onclick={handleSubmit} class="text-md" disabled={loading}>
+            <Button onclick={handleSubmit} disabled={loading}>
                 {#if loading}
                     <Loader class="h-4 w-4 mr-1 animate-spin" />
                 {:else}

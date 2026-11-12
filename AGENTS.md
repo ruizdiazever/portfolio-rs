@@ -6,7 +6,7 @@ The public `README.md` is intentionally short. Keep local setup, media, test and
 
 ## Stack
 
-- `frontend/`: Astro 7 SSR, Svelte 5, TailwindCSS 4, shadcn-svelte, Paraglide (EN/ZH), Playwright.
+- `frontend/`: Astro 7 SSR, Astro Fonts API (Inter), Svelte 5, TailwindCSS 4, shadcn-svelte, Paraglide (EN/ZH), Playwright.
 - `api/`: Rust, Axum, Redis, lettre for feedback email.
 - Media: RustFS S3 at `https://s3.berli.app/portfolio/v1`, sharp, rclone.
 - Edge: Caddy on the BERLi network VM, `www.everdev.it`.
@@ -82,7 +82,7 @@ There are three locations on purpose:
 
 ### Social previews
 
-`frontend/src/pages/og/[...slug].png.ts` generates 1200x630 PNGs at request time with `satori-astro`, `satori-html` and sharp. `frontend/src/common/og.ts` maps routes to copy. It uses the existing fontsource EB Garamond and Inter WOFF2 files, sets a one hour cache and is not part of the S3 media pipeline.
+`frontend/src/pages/og/[...slug].png.ts` generates 1200x630 PNGs at request time with `satori-astro`, `satori-html` and sharp. `frontend/src/common/og.ts` maps routes to copy. It reads Inter from the Astro Fonts API with `fontData` and `experimental_getFontFileURL`, sets a one hour cache and is not part of the S3 media pipeline.
 
 The frontend `package.json` overrides `satori` to 0.63.2 because `satori-astro` 0.4.1 pins 0.26.0, which cannot parse WOFF2. Cards are English, matching the previous static OG assets; localized titles stay in the page metadata.
 
@@ -125,6 +125,10 @@ journalctl -u portfolio-update.service -n 50
 ```
 
 Caddy terminates TLS for `www.everdev.it`, routes `/api/*` to the API and everything else to the frontend. Full pipeline and rollback: `deploy/README.md`.
+
+## Typography
+
+Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource()` and rendered with `<Font>` in `src/layouts/Layout.astro`. Use the Tailwind scale in `src/styles/app.css`; do not add local `@font-face` blocks or a second family. Long-form copy uses `text-md` (18px) with a 60 to 75 character measure. Chinese falls back to the system CJK stack.
 
 ## Conventions
 

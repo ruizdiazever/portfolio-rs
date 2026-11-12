@@ -28,10 +28,11 @@ test.describe("performance budget", () => {
 
     expect(metrics.resources).toBeLessThan(12);
     expect(metrics.scripts).toBeLessThanOrEqual(2);
-    expect(metrics.fonts).toHaveLength(2);
+    expect(metrics.fonts).toHaveLength(1);
+    expect(metrics.fonts[0]).toMatch(/\.woff2$/);
     expect(
-      metrics.fonts.every((font) => font?.startsWith("eb-garamond-latin.") || font?.startsWith("inter-latin.")),
-    ).toBe(true);
+      await page.evaluate(() => getComputedStyle(document.body).fontFamily),
+    ).toMatch(/^Inter/);
     expect(metrics.iconCdn).toBe(0);
     expect(metrics.htmlBytes).toBeLessThan(300_000);
     expect(metrics.dom).toBeLessThan(1_300);

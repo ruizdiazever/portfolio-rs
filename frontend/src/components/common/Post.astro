@@ -60,19 +60,19 @@ let views = await getVisitRequest(id);
                 <div
                     class="flex items-center justify-center gap-2 text-card-foreground"
                 >
-                    <p class="flex md:gap-1 text-muted-foreground text-md tabular-nums">
+                    <p class="flex md:gap-1 text-sm text-muted-foreground tabular-nums">
                         {readTime}
                         {getLocale() === "zh" ? "分钟阅读" : "min read"}
                     </p>
                     <Icon name="timer" title="Read time" size="0.8rem" />
                 </div>
-                <h1 class="text-3xl md:text-5xl font-semibold text-foreground">
+                <h1 class="text-3xl font-semibold tracking-[-0.03em] text-foreground md:text-5xl">
                     {title}
                 </h1>
             </div>
         </div>
         <div class="space-y-2 not-prose text-center">
-            <p class="text-base md:text-lg">{description}</p>
+            <p class="text-base text-pretty md:text-lg">{description}</p>
             <div
                 class="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-sm text-muted-foreground"
             >
@@ -80,23 +80,23 @@ let views = await getVisitRequest(id);
                     class="flex items-center justify-center gap-1 flex-wrap font-medium"
                 >
                     <Icon name="timer" title="Date" size="0.8rem" />
-                    <code class="tabular-nums">
+                    <span class="tabular-nums">
                         {
                             getLocale() === "zh"
                                 ? `${dayjs(date).format("YYYY年MM月")}`
-                                : `${dayjs(date).format("MMM YYYY")}`
+                                : `${dayjs(date).locale("en").format("MMM YYYY")}`
                         }
-                    </code>
+                    </span>
                 </section>
                 <section
                     class="flex items-center justify-center gap-1 flex-wrap font-medium"
                     title={tags.join(", ")}
                 >
                     <Icon name="tag" title="Tags" size="0.8rem" />
-                    <code class="tabular-nums">{tags.length} {m.tags()}</code>
+                    <span class="tabular-nums">{tags.length} {m.tags()}</span>
                 </section>
                 <section class="flex items-center justify-center">
-                    <code
+                    <span
                         class="flex items-center justify-center gap-1 flex-wrap font-medium"
                     >
                         <Icon name="eye" title="Views" size="0.8rem" />
@@ -107,7 +107,7 @@ let views = await getVisitRequest(id);
                             {views.visits}
                         </span>
                         {views.visits === 1 ? m.viewSingular() : m.views()}
-                    </code>
+                    </span>
                 </section>
             </div>
             <p

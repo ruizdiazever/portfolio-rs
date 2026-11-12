@@ -26,19 +26,19 @@ let {
 
 <div class="relative z-10 grid gap-1">
     <div
-        class={`absolute left-0 top-2.5 z-20 aspect-square w-3 -translate-x-[29.5px] rounded-full ring-[3px] ring-[#fafafa] dark:ring-[#0a0a0a] ${current ? "bg-gray-600 dark:bg-gray-300" : "bg-gray-300 dark:bg-gray-600"}`}
+        class={`absolute left-0 top-1.5 z-20 aspect-square w-3 -translate-x-[29.5px] rounded-full ring-[3px] ring-[#fafafa] dark:ring-[#0a0a0a] ${current ? "bg-gray-600 dark:bg-gray-300" : "bg-gray-300 dark:bg-gray-600"}`}
         data-timeline-dot
     >
     </div>
-    <div class="text-gray-500 text-md" data-timeline-date>
+    <div class="text-sm text-gray-500 tabular-nums" data-timeline-date>
         {
             getLocale() === "zh"
                 ? `${dayjs(startDate).format("YYYY年MM月")} - ${endDate ? dayjs(endDate).format("YYYY年MM月") : "至今"}`
-                : `${dayjs(startDate).format("MMM YYYY")} - ${endDate ? dayjs(endDate).format("MMM YYYY") : "Present"}`
+                : `${dayjs(startDate).locale("en").format("MMM YYYY")} - ${endDate ? dayjs(endDate).locale("en").format("MMM YYYY") : "Present"}`
         }
     </div>
-    <div class="text-foreground text-xl">{position}</div>
-    <div class="text-muted-foreground text-md mb-1">
+    <div class="text-xl font-semibold tracking-[-0.015em] text-foreground">{position}</div>
+    <div class="mb-1 text-md text-muted-foreground">
         <LinkExternal title={company} url={url} />
     </div>
     <div class="text-secondary-foreground text-md">

@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
-import { createRequire } from "node:module";
 import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { experimental_getFontFileURL, fontData } from "astro:assets";
 import { satoriAstroOG } from "satori-astro";
 import { html } from "satori-html";
 import { getOgContent } from "$lib/common/og";
@@ -9,55 +10,79 @@ export const prerender = false;
 
 const WIDTH = 1200;
 const HEIGHT = 630;
-const require = createRequire(import.meta.url);
 
 type Font = {
     name: string;
-    data: Buffer;
-    weight: 400;
+    data: ArrayBuffer;
+    weight: 400 | 600;
     style: "normal";
 };
 
 let fontsPromise: Promise<Font[]> | undefined;
 
-function loadFonts(): Promise<Font[]> {
-    fontsPromise ??= Promise.all([
-        readFile(
-            require.resolve(
-                "@fontsource-variable/eb-garamond/files/eb-garamond-latin-wght-normal.woff2",
-            ),
-        ),
-        readFile(
-            require.resolve(
-                "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
-            ),
-        ),
-    ]).then(([garamond, inter]) => [
-        {
-            name: "EB Garamond",
-            data: garamond,
-            weight: 400 as const,
-            style: "normal" as const,
-        },
-        {
-            name: "Inter",
-            data: inter,
-            weight: 400 as const,
-            style: "normal" as const,
-        },
-    ]);
+async function readFont(
+    sourceUrl: string,
+    requestUrl: URL,
+): Promise<ArrayBuffer> {
+    const name = sourceUrl.split("/").pop() ?? "";
+    const candidates = [
+        join(process.cwd(), "dist", "client", sourceUrl),
+        join(process.cwd(), ".astro", "fonts", name),
+    ];
+
+    for (const file of candidates) {
+        try {
+            const data = await readFile(file);
+            return data.buffer.slice(
+                data.byteOffset,
+                data.byteOffset + data.byteLength,
+            ) as ArrayBuffer;
+        } catch {
+            // Try the next location, then the runtime URL.
+        }
+    }
+
+    const response = await fetch(
+        experimental_getFontFileURL(sourceUrl, requestUrl),
+    );
+    if (!response.ok) {
+        throw new Error(`Unable to load Inter: ${response.status}`);
+    }
+
+    return response.arrayBuffer();
+}
+
+async function loadFonts(requestUrl: URL): Promise<Font[]> {
+    fontsPromise ??= (async () => {
+        const faces = fontData["--font-inter"];
+        const variable =
+            faces?.find((face) => face.weight?.includes(" ")) ?? faces?.[0];
+        const source =
+            variable?.src.find((entry) => entry.format === "woff2") ??
+            variable?.src[0];
+
+        if (!source) {
+            throw new Error("Inter is not registered in the Astro font config.");
+        }
+
+        const data = await readFont(source.url, requestUrl);
+        return [
+            { name: "Inter", data, weight: 400, style: "normal" },
+            { name: "Inter", data, weight: 600, style: "normal" },
+        ];
+    })();
 
     return fontsPromise;
 }
 
-export const GET: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params, url }) => {
     const key = String(params.slug ?? "home").replace(/\.png$/i, "");
     const content = await getOgContent(key);
-    const fonts = await loadFonts();
+    const fonts = await loadFonts(url);
 
     const kicker = content.kicker.toUpperCase();
     const titleSize =
-        content.title.length > 52 ? 52 : content.title.length > 34 ? 62 : 76;
+        content.title.length > 52 ? 50 : content.title.length > 34 ? 58 : 68;
     const description =
         content.description.length > 170
             ? `${content.description.slice(0, 167).trimEnd()}…`
@@ -67,7 +92,7 @@ export const GET: APIRoute = async ({ params }) => {
         style="width:1200px;height:630px;display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;background-color:#fafafa;color:#171717;box-sizing:border-box;"
     >
         <div
-            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:18px;color:#737373;letter-spacing:0.08em;"
+            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:17px;font-weight:500;color:#737373;letter-spacing:0.09em;"
         >
             <div style="display:flex;align-items:center;">
                 <div
@@ -86,25 +111,25 @@ export const GET: APIRoute = async ({ params }) => {
                     style="width:48px;height:2px;background-color:#96513c;margin-right:16px;"
                 ></div>
                 <div
-                    style="font-family:Inter;font-size:18px;color:#96513c;letter-spacing:0.08em;"
+                    style="font-family:Inter;font-size:17px;font-weight:500;color:#96513c;letter-spacing:0.09em;"
                 >
                     ${kicker}
                 </div>
             </div>
             <div
-                style="font-family:'EB Garamond';font-size:${titleSize}px;line-height:1.05;letter-spacing:-0.02em;color:#171717;max-width:1000px;"
+                style="font-family:Inter;font-size:${titleSize}px;font-weight:600;line-height:1.04;letter-spacing:-0.035em;color:#171717;max-width:1000px;"
             >
                 ${content.title}
             </div>
             <div
-                style="font-family:'EB Garamond';font-size:27px;line-height:1.45;color:#525252;margin-top:24px;max-width:940px;"
+                style="font-family:Inter;font-size:26px;font-weight:400;line-height:1.45;letter-spacing:-0.01em;color:#525252;margin-top:24px;max-width:940px;"
             >
                 ${description}
             </div>
         </div>
 
         <div
-            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:18px;color:#737373;"
+            style="display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:17px;font-weight:400;color:#737373;"
         >
             <div>${content.footer}</div>
             <div>EVERDEV.IT</div>

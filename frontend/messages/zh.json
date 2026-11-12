@@ -76,7 +76,7 @@
   "aboutLinks": "链接",
   "contactIntro": "有系统问题、Rust 项目，或想聊一个职位？告诉我你在构建什么、卡在哪里、时间线如何。最快的方式是 LinkedIn；简短留言可以用 X。每一条我都会看。",
   "contactNote": "现居罗马，工作语言为英语、西班牙语和意大利语。",
-  "colophon": "使用 Astro、Svelte、Rust 与 Caddy 构建；字体为 EB Garamond。",
+  "colophon": "使用 Astro、Svelte、Rust 与 Caddy 构建；字体为 Inter。",
   "source": "源码",
   "seoDefault": "Ever Ruiz Diaz，现居罗马的软件工程师。他让复杂系统变得简单；Anritsu Python 平台技术主管，BERLi 构建者。",
   "seoHome": "Ever Ruiz Diaz，现居罗马的软件工程师。他让复杂系统变得简单；Anritsu Python 平台技术主管，BERLi 构建者。",

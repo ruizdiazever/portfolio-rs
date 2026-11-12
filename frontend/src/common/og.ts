@@ -31,7 +31,7 @@ const staticPages: Record<string, OgContent> = {
     },
     "sections/contact": {
         kicker: "Contact",
-        title: "Let's talk",
+        title: "Let’s talk",
         description:
             "A systems problem, a Rust project, or a role in mind. Tell me what you are building.",
         footer: "Rome, Italy",

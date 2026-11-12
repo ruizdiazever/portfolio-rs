@@ -3,7 +3,6 @@ import { getLocale } from "@paraglide/runtime";
 import { LOCALE } from "$lib/common/consts";
 import { seoConfig } from "$lib/common/seoConfig";
 import { media } from "$lib/common/media";
-import ebGaramond from "$lib/assets/fonts/eb-garamond-latin.woff2?url";
 import "$lib/styles/app.css";
 import * as m from "@paraglide/messages.js";
 
@@ -54,15 +53,6 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 <title>{title}</title>
 <meta name="description" content={description} />
 <link type="text/plain" rel="author" href="/humans.txt" />
-
-<!-- Font -->
-<link
-    rel="preload"
-    href={ebGaramond}
-    as="font"
-    type="font/woff2"
-    crossorigin="anonymous"
-/>
 
 <!-- ImgLCP -->
 {
