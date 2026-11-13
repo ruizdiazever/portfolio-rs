@@ -216,8 +216,8 @@ main landmark shows one plain-text document:
   image, terminal palette or animation.
 - A single hairline toolbar names the surface as `text/markdown`, shows the
   line count, and offers `Copy agent brief`, `agent.md` and `Human view`.
-- Copy confirms in a polite live region and restores the label after 2.5
-  seconds. `Human view` returns focus to the header control.
+- Copy confirms in a polite live region that clears after 2.5 seconds. The
+  `Human view` action returns focus to the header control.
 - The state persists in `localStorage` and `?mode=agent`, applied before first
   paint. The human view stays hidden from assistive technology; the text view
   stays hidden when the mode is off.
