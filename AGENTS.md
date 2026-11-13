@@ -1,160 +1,171 @@
-# Portfolio Repo Notes
+# Portfolio
 
-Context for agents working on https://www.everdev.it.
+Context for agents working on the live portfolio at
+[www.everdev.it](https://www.everdev.it).
 
-The public `README.md` is intentionally short. Keep local setup, media, test and deploy details in this file. Do not turn the README into an operations manual.
+This file is the operational entry point. Read it with:
 
-## Stack
+- [DESIGN.md](DESIGN.md): the visual system, components, states and UI rules.
+- [docs/skills/SKILLS.md](docs/skills/SKILLS.md): the skill routing map and UI
+  review process.
+- [README.md](README.md): the public description. Keep it short.
 
-- `frontend/`: Astro 7 SSR, Astro Fonts API (Inter), Svelte 5, TailwindCSS 4, shadcn-svelte, Paraglide (EN/ZH), Playwright.
-- `api/`: Rust, Axum, Redis, lettre for feedback email.
-- Media: RustFS S3 at `https://s3.berli.app/portfolio/v1`, sharp, rclone.
-- Edge: Caddy on the BERLi network VM, `www.everdev.it`.
-- Delivery: GitHub Actions, GHCR, Docker Compose, pull-based timer on the `portfolio` VM.
-- `leptos/`: pre-Astro implementation. Reference only. Not built, tested or deployed.
+DeepSeek Harness loads the root `AGENTS.md` as durable workspace instructions,
+then follows the project chain from broad to specific. Keep this file concise;
+do not duplicate the design system or the skill instructions.
 
-## Layout
+## Scope
+
+- `frontend/`: the live Astro and Svelte application.
+- `api/`: the Rust feedback and visit API.
+- `deploy/`: the production Compose stack, Caddy routing and update timer.
+- `leptos/`: a legacy implementation. Do not build, test or deploy it.
+
+## Repository map
 
 ```text
 frontend/
-  media-src/              original images, committed
-  scripts/sync-media.mjs  sharp + rclone pipeline
-  src/common/media.ts     media() and mediaSrcSet()
-  src/components/common/Media.astro
-  e2e/                    Playwright
-api/                      Axum API and Redis
-deploy/                   Compose stack and update units
-leptos/                   legacy
-.github/workflows/ci.yml  CI
+  src/pages/          Astro routes and endpoints
+  src/layouts/        Page shells
+  src/components/     Common, landing, blog, projects, sections and UI primitives
+  src/common/         Data loaders, API boundaries, media and SEO helpers
+  src/styles/         Tailwind entry, tokens, motion and light/dark mapping
+  e2e/                Playwright tests
+api/
+  src/cfg.rs          Validated, redacted runtime configuration
+  src/routes.rs       Router, HTTP client, timeouts and shutdown
+  src/services/       Feedback and visit handlers
+  src/redis/          Redis persistence and visitor logic
+  src/security/       Errors and SMTP delivery
+  src/common/         Request metadata, IP, HTML, rate limit and helpers
+deploy/               Compose stack and production operations
+docs/skills/          Skill routing and review criteria
 ```
 
 ## Local development
 
-Prerequisites: Node 24, pnpm 10, Rust (CI uses 1.99), Docker.
+Prerequisites: Node 24, pnpm 10, Rust 1.99 and Docker.
 
 ```bash
 cp .env.template .env
 cp frontend/.env.template frontend/.env
 pnpm -C frontend install
-
 docker compose up -d redis
-(cd api && cargo run)          # API at 127.0.0.1:3002
-pnpm -C frontend dev           # site at 127.0.0.1:4321
+(cd api && cargo run)
+pnpm -C frontend dev
 ```
 
-`frontend/.env` keeps the browser on same-origin `/api`; Vite proxies it to `127.0.0.1:3002`. In production Caddy does that routing.
+The frontend runs at `127.0.0.1:4321`. Vite proxies `/api` to
+`127.0.0.1:3002`; production Caddy performs the same routing.
 
-## Environment
+## Checks
 
-- Root `.env`: API env. Redis URL/password, SMTP, logos, IPinfo.
-- `frontend/.env`: `API_URL=/api`, `INTERNAL_API_URL`, server-only `GITHUB_TOKEN` for the contributions graph.
-- Production secrets live in `/etc/portfolio/env` on the VM, `0600`.
-- Never commit real secrets. `.env.template` files are safe examples.
-
-## Test
+Run the checks for every touched side before pushing:
 
 ```bash
-pnpm -C frontend test:e2e:install   # first run, installs Chromium
+pnpm -C frontend install --frozen-lockfile
 pnpm -C frontend build
 pnpm -C frontend test:e2e
 
-cd api
-cargo fmt --all --check
-cargo clippy --all-targets -- -D warnings
-cargo test --locked
+(cd api && cargo fmt --all --check)
+(cd api && cargo clippy --all-targets -- -D warnings)
+(cd api && cargo test --locked)
+(cd api && cargo build --release --locked)
 ```
 
-Playwright covers pages, the 320 px layout, SEO metadata, S3 assets, book filters, language switching and feedback. CI runs the same checks on every PR and push to `main`.
+Playwright covers routing, 320px layout, SEO, S3 assets, books, language,
+feedback, theme behavior and the organizations table. Add a test when behavior
+has a user-visible contract. Use a free port for local runs; do not assume
+`4321` or `4322` is available.
+
+## Architecture invariants
+
+### Frontend
+
+- Astro renders SSR; Svelte is used for islands and native-like interactions.
+  Keep client JavaScript small and justified.
+- All network calls go through `frontend/src/common/api.ts` and the server or
+  browser wrapper. Include a timeout and surface a typed failure.
+- URL builders are request-scoped. Never capture the locale at module load.
+- Static JSON is validated once and cached. Do not re-parse it for every call.
+- Requests for content come from S3. `public/` is only for root-level files.
+- The feedback dialog is a native `<dialog>` with `showModal()`, `autofocus`,
+  `closedby` and a backdrop. Do not reintroduce a focus trap or `role="dialog"`.
+- `light-dark()` tokens and the `<meta name="color-scheme">` element own the
+  color scheme. Never hardcode a root light or dark scheme.
+- The API is same-origin in production. Never ship a server secret in a client
+  bundle. `GITHUB_TOKEN` is server-only.
+
+### API
+
+- `ConfigPortfolio` is the only source of runtime settings. Handlers must not
+  read environment variables or panic on missing configuration.
+- Validate the feedback boundary: UUID, reaction, title, message and language.
+  Keep the public error body generic.
+- Email is best-effort and runs on a blocking worker. Redis is the source of
+  truth for a saved feedback item.
+- Rate limit feedback and visit writes by client IP. Trust forwarding headers
+  only from a local or private proxy.
+- Bind API and frontend ports to `127.0.0.1` in production; Caddy is the only
+  public entry point.
+
+## UI rules
+
+The full system lives in [DESIGN.md](DESIGN.md). The short version:
+
+- Inter, system color scheme, semantic tokens, 12px cards, 6px controls, pill
+  filters, no card shadows, no second accent.
+- Text stays readable at 320px and 200% scaling. Long content wraps or
+  truncates with a way to the full value.
+- Every interactive element has a name, focus ring and keyboard path. Hover is
+  an enhancement, never the only way to reach content.
+- Motion stays between 150 and 200ms for UI; the book flip is 620ms. Honor
+  `prefers-reduced-motion`; no auto-rotating text.
+- Search the actual page and both themes before changing spacing, typography,
+  color or interaction. Follow the review evidence in
+  [docs/skills/SKILLS.md](docs/skills/SKILLS.md).
+
+## Environment and secrets
+
+| File | Purpose |
+| --- | --- |
+| Root `.env` | API, Redis, SMTP, IPinfo and email settings |
+| `frontend/.env` | Public `API_URL` and server-only `INTERNAL_API_URL`, `GITHUB_TOKEN` |
+
+Production secrets live in `/etc/portfolio/env` on the VM, mode `0600`. Never
+commit a real secret. `.env.template` files are safe examples.
 
 ## Media
 
-There are three locations on purpose:
+Originals live in `frontend/media-src/`. Generated AVIF, WebP and PNG files are
+published to `s3.berli.app/portfolio/v1` by `pnpm -C frontend media:sync`; the
+build never reads originals. Reference content with `<Media>` or `media()`.
 
-| Location | Role | In Git | Runtime |
-| --- | --- | --- | --- |
-| `frontend/media-src/` | Originals, edited by hand | Yes | No |
-| `frontend/.media-output/v1/` | Generated AVIF/WebP/PNG | No | No |
-| `s3.berli.app/portfolio/v1/` | Public derivatives | No | Yes |
-
-`frontend/.dockerignore` excludes `media-src/` and `.media-output/`. The frontend build never reads `media-src/`; only `scripts/sync-media.mjs` does. Content images have no app endpoint and no local fallback. The one app image route is the social preview endpoint.
-
-`frontend/public/` is only for root-level files such as `manifest.webmanifest`, `humans.txt` and `browserconfig.xml`. Never put content images there.
-
-### Social previews
-
-`frontend/src/pages/og/[...slug].png.ts` generates 1200x630 PNGs at request time with `satori-astro`, `satori-html` and sharp. `frontend/src/common/og.ts` maps routes to copy. It reads Inter from the Astro Fonts API with `fontData` and `experimental_getFontFileURL`, sets a one hour cache and is not part of the S3 media pipeline.
-
-The frontend `package.json` overrides `satori` to 0.63.2 because `satori-astro` 0.4.1 pins 0.26.0, which cannot parse WOFF2. Cards are English, matching the previous static OG assets; localized titles stay in the page metadata.
-
-### Commands
-
-```bash
-# Generate only. No network, no upload.
-pnpm -C frontend media:build
-
-# Rebuild and upload. Requires rclone and a configured remote.
-RCLONE_CONFIG=~/.config/rclone/rclone.conf pnpm -C frontend media:sync
-```
-
-`media:sync` rebuilds `.media-output/v1` and copies it to `${MEDIA_REMOTE:-rustfs}:${MEDIA_BUCKET:-portfolio}/v1` with `Cache-Control: public, max-age=31536000, immutable`.
-
-### Add or replace an image
-
-1. Put the original in `frontend/media-src/...`.
-2. Add a `responsive()` or `single()` call in `frontend/scripts/sync-media.mjs`, or add the book to its `books` array.
-3. Run `media:sync`.
-4. Reference it with `<Media path="..." />` or `media("...")`.
-
-`media()` returns the base S3 URL. `mediaSrcSet()` builds responsive candidates. `Media.astro` renders `<picture>` with AVIF and WebP.
-
-If you replace an existing key, bump `v1` in both `frontend/src/common/media.ts` and `frontend/scripts/sync-media.mjs`. Do not reuse a key after changing the file; immutable caches will keep serving the old object for a year.
-
-`media:sync` needs an rclone remote named `rustfs` with write access to the `portfolio` bucket. `MEDIA_REMOTE` and `MEDIA_BUCKET` override the defaults. No credentials are committed.
+If a file changes, bump the version in `frontend/src/common/media.ts` and
+`frontend/scripts/sync-media.mjs`. Immutable caches keep the old object for a
+year; never reuse a key for different bytes.
 
 ## Deploy
 
-1. CI runs Rust checks, the Astro build and Playwright.
-2. On `main`, GHCR publishes `ghcr.io/ruizdiazever/portfolio-api` and `portfolio-frontend`, tagged `latest` and the commit SHA.
-3. The `portfolio` VM runs `portfolio-update.timer` every 10 minutes. It resets to `origin/main`, pulls images and converges `deploy/compose.yaml`.
-
-Manual update:
+A push to `main` runs CI, publishes both GHCR images and lets the
+`portfolio-update.timer` converge the VM every 10 minutes.
 
 ```bash
 sudo systemctl start portfolio-update.service
 journalctl -u portfolio-update.service -n 50
 ```
 
-Caddy terminates TLS for `www.everdev.it`, routes `/api/*` to the API and everything else to the frontend. Full pipeline and rollback: `deploy/README.md`.
-
-## Typography
-
-Inter is registered once in `astro.config.mjs` through `fontProviders.fontsource()` and rendered with `<Font>` in `src/layouts/Layout.astro`. Use the Tailwind scale in `src/styles/app.css`; do not add local `@font-face` blocks or a second family. Long-form copy uses `text-md` (16px) with a 60 to 75 character measure. Chinese falls back to the system CJK stack.
-
-## Books
-
-Book cards flip in place. Each card has a transparent `.book-card-toggle` button, a `.book-front` and a `.book-back`; the button flips the card and no modal is opened. Hidden faces are `aria-hidden` and `inert`. Keep the 3D faces equal in height and preserve keyboard access.
-
-## Visual language
-
-The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairlines, mist body text, and a single paper-white primary state for active filters and primary actions. It follows the system color scheme by default, with a persisted light or dark override and `light-dark()` tokens. Cards use 12px radii, buttons 6px, filters are pills, and content cards have no shadows. Light mode remains a paper alternative. Keep color for content such as covers, technology marks and the contributions graph, not for UI chrome. Use the tokens in `src/styles/app.css`; do not add yellow or acid-lime UI accents, extra accent colors or card shadows. The full system lives in `DESIGN.md`. Keep `color-scheme: light dark` on `:root` and map the `<meta name="color-scheme">` element; never hardcode the root scheme.
-
-## Motion
-
-Motion tokens live in `src/styles/app.css` (`--ease-out`, `--ease-in-out`, `--ease-drawer`). Use explicit transition properties, never `transition-all`. Animate `transform` and `opacity` for movement; colors may transition with `ease`. Keep UI motion at 150 to 200 ms and dialogs at 200 ms. Hover motion is gated by Tailwind's `hover` variant, and reduced motion keeps color and opacity while dropping transforms and shadows.
-
-## Refactor guardrails
-
-- The API reads configuration once in `ConfigPortfolio`; request handlers must not call `std::env::var` or panic on missing values. Email delivery is best-effort and runs off the async runtime.
-- Feedback payloads are validated at the HTTP boundary. Keep Redis writes atomic and bounded.
-- Frontend network calls go through `frontend/src/common/api.ts` and the server/browser wrappers. URL builders are request-scoped, and static JSON is validated once and cached.
-- Only keep reachable UI modules. Do not reintroduce removed component trees or dependencies without a reachability check, a frozen-lock install and a full build.
+Caddy terminates TLS and routes `/api/*` to the API and all other paths to the
+frontend. Full pipeline and rollback: [deploy/README.md](deploy/README.md).
 
 ## Conventions
 
-- The README is public-facing. It shows the work, not the brush. Keep it to stack, architecture, the media flow, repository map and a footer.
-- No em dashes or en dashes in user-facing copy. Use commas, periods, colons or parentheses. The same applies to the README.
-- All content images come from S3. Do not add local content images. Social previews come from the Satori OG route; that is the only app image endpoint.
-- Write English and Chinese as native copy, not literal translations.
-- Avoid unnecessary comments in code.
-- Do not build, test or deploy `leptos/`.
-- Keep the public README free of deploy, test and media publishing instructions. Those belong here.
+- English and Chinese are native copy, not literal translations.
+- No em dashes or en dashes in user-facing strings. Use commas, periods,
+  colons or parentheses.
+- Prefer native HTML and the platform over a custom rebuild.
+- Reuse tokens and reachable components. Do not add an unused UI tree or a
+  dependency that no reachable file imports.
+- Keep source text selectable. Do not disable selection across content.
+- Do not add comments that restate the code; explain a non-obvious decision.
+- Keep the public README free of deploy, test and secret operations.

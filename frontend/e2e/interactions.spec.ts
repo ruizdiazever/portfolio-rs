@@ -195,6 +195,67 @@ test.describe("interactions", () => {
     );
   });
 
+  test("mobile layout keeps project links and the graph cue visible", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en");
+
+    const maxTechRight = await page.locator("[data-tech]").evaluateAll((links) =>
+      Math.max(...links.map((link) => link.getBoundingClientRect().right)),
+    );
+    expect(maxTechRight).toBeLessThanOrEqual(320);
+    await expect(
+      page.getByText("Swipe to see the full year"),
+    ).toBeVisible();
+  });
+
+  test("200 percent text scaling does not clip book pages", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en/sections/books");
+    await page.evaluate(() => {
+      document.documentElement.style.fontSize = "32px";
+    });
+
+    const width = await page.evaluate(() => ({
+      scroll: document.documentElement.scrollWidth,
+      client: document.documentElement.clientWidth,
+    }));
+    expect(width.scroll).toBeLessThanOrEqual(width.client);
+  });
+
+  test("long blog tables scroll inside their own wrapper", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en/blog/portfolio-wasm");
+    await page.evaluate(() => {
+      document.documentElement.style.fontSize = "32px";
+    });
+
+    const wrapper = page.locator(".table-scroll").first();
+    await expect(wrapper).toBeVisible();
+    const widths = await wrapper.evaluate((element) => ({
+      wrapper: element.clientWidth,
+      table: element.scrollWidth,
+    }));
+    expect(widths.table).toBeGreaterThan(widths.wrapper);
+    const pageWidth = await page.evaluate(() => ({
+      scroll: document.documentElement.scrollWidth,
+      client: document.documentElement.clientWidth,
+    }));
+    expect(pageWidth.scroll).toBeLessThanOrEqual(pageWidth.client);
+  });
+
+  test("sort menu copy follows the current locale", async ({ page }) => {
+    await page.goto("/zh/blog/organizations-using-rust");
+    await expect(page.getByRole("cell", { name: "AWS", exact: true })).toBeVisible({
+      timeout: 15_000,
+    });
+
+    await page.getByRole("button", { name: /名称/ }).first().click();
+    await expect(page.getByRole("menuitem", { name: "升序" })).toBeVisible();
+    await expect(page.getByRole("menuitem", { name: "隐藏列" })).toBeVisible();
+  });
+
   test("language switcher navigates to the translated page", async ({ page }) => {
     await page.goto("/en/sections/about");
 

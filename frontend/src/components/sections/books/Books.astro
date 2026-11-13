@@ -25,7 +25,7 @@ const cards = books.map((book) => ({
 }));
 ---
 
-<div class="mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 max-w-(--breakpoint-lg)">
+<div class="mx-auto w-full min-w-0 px-4 sm:px-6 lg:px-8 py-8 space-y-6 max-w-(--breakpoint-lg)">
     <h1
         class="text-4xl text-center font-medium tracking-[-0.022em] sm:text-5xl md:text-6xl"
     >
@@ -95,7 +95,7 @@ const cards = books.map((book) => ({
                                 />
                                 <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                                 <span
-                                    class="absolute right-3 top-3 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em] text-white/80 backdrop-blur"
+                                    class="absolute right-3 top-3 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/80 backdrop-blur"
                                     aria-hidden="true"
                                 >
                                     {m.flip()}
@@ -126,7 +126,7 @@ const cards = books.map((book) => ({
                             inert
                         >
                             <div class="flex h-full flex-col p-4">
-                                <div class="flex items-center justify-between gap-3 text-[10px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                                <div class="flex items-center justify-between gap-3 text-[11px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
                                     <span>{m.bookNotes()}</span>
                                     <span>{book.publishedYear}</span>
                                 </div>
@@ -142,7 +142,7 @@ const cards = books.map((book) => ({
                                     </p>
                                     <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border pt-3">
                                     <div>
-                                        <dt class="text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                        <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                                             {m.published()}
                                         </dt>
                                         <dd class="mt-0.5 text-xs text-foreground">
@@ -150,7 +150,7 @@ const cards = books.map((book) => ({
                                         </dd>
                                     </div>
                                     <div>
-                                        <dt class="text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                        <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                                             {m.type()}
                                         </dt>
                                         <dd class="mt-0.5 text-xs text-foreground">
@@ -158,7 +158,7 @@ const cards = books.map((book) => ({
                                         </dd>
                                     </div>
                                     <div>
-                                        <dt class="text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                        <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                                             {m.format()}
                                         </dt>
                                         <dd class="mt-0.5 text-xs text-foreground">
@@ -166,7 +166,7 @@ const cards = books.map((book) => ({
                                         </dd>
                                     </div>
                                     <div>
-                                        <dt class="text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                        <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                                             {m.genre()}
                                         </dt>
                                         <dd class="mt-0.5 text-xs text-foreground">

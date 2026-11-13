@@ -4,9 +4,10 @@ import { Icon } from "astro-icon/components";
 interface Props {
     url: string;
     title: string;
+    showIcon?: boolean;
 }
 
-let { title, url }: Props = Astro.props;
+let { title, url, showIcon = true }: Props = Astro.props;
 ---
 
 <a
@@ -17,9 +18,13 @@ let { title, url }: Props = Astro.props;
     hover:decoration-foreground"
 >
     {title}
-    <Icon
-        name="arrow-up-right"
-        aria-hidden="true"
-        class="duration-200 group-hover:translate-x-[1.5px] w-4 h-4 shrink-0"
-    />
+    {
+        showIcon && (
+            <Icon
+                name="arrow-up-right"
+                aria-hidden="true"
+                class="duration-200 group-hover:translate-x-[1.5px] w-4 h-4 shrink-0"
+            />
+        )
+    }
 </a>

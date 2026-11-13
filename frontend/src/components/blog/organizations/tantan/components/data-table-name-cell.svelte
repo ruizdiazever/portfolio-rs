@@ -40,7 +40,7 @@
             />
         </a>
     {:else}
-        <span class="max-w-[500px] truncate font-medium">
+        <span class="max-w-[500px] truncate font-medium" title={typeof value === "string" ? value : undefined}>
             {value}
         </span>
     {/if}

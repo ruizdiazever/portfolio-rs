@@ -128,5 +128,10 @@
   "reactionSad": "不喜欢",
   "author": "作者",
   "close": "关闭",
-  "seoCv": "Ever Ruiz Diaz 的简历，常驻罗马的软件工程师。"
+  "seoCv": "Ever Ruiz Diaz 的简历，常驻罗马的软件工程师。",
+  "contributionsUnavailable": "贡献图暂不可用。",
+  "sortAscending": "升序",
+  "sortDescending": "降序",
+  "hideColumn": "隐藏列",
+  "swipeContributions": "左右滑动查看全年"
 }

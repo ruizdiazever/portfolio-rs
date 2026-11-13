@@ -2,6 +2,7 @@
     import type { Week } from "./types";
     import type { Snippet } from "svelte";
     import { getLocale } from "@paraglide/runtime";
+    import * as m from "@paraglide/messages.js";
 
     interface Props {
         weeks: Week[];
@@ -43,7 +44,7 @@
 </script>
 
 <div
-    class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 h-[170px] md:h-[220px]"
+    class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 h-auto md:h-[220px]"
 >
     <div class="flex justify-between items-center mb-4">
         <div
@@ -65,42 +66,82 @@
         </a>
     </div>
 
-    <div class="overflow-x-auto">
-        <div class="relative min-w-[560px]">
-            <div
-                class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
-                style={`grid-template-columns: repeat(${columnCount}, minmax(0, 1fr))`}
-                role="img"
-                aria-label={getLocale() === "zh" ? `${totalContributions} 个贡献在过去一年` : `${totalContributions} contributions in the last year`}
-            >
-                {#each weeks as week}
-                    {#each week.contributionDays as day}
-                        <div
-                            class="w-2 h-2 sm:w-3 sm:h-3 rounded-sm border"
-                            class:opacity-50={day.contributionCount === 0}
-                            style="background-color: rgba(38, 166, 65, {Math.min(
-                                day.contributionCount / 10,
-                                1,
-                            )})"
-                            title={contributionLabel(day)}
-                            aria-hidden="true"
-                        ></div>
-                    {/each}
-                {/each}
-            </div>
-
-            <div
-                class="flex justify-between mt-2 text-xs text-muted-foreground h-4"
-            >
-                {#each monthLabels as label}
+    {#if weeks.length === 0}
+        <p class="flex h-[100px] items-center justify-center text-sm text-muted-foreground">
+            {m.contributionsUnavailable()}
+        </p>
+    {:else}
+        <div class="relative">
+            <div class="contributions-scroller overflow-x-auto [scrollbar-width:thin]">
+                <div class="relative min-w-[560px]">
                     <div
-                        class="first:ml-0"
-                        style={`flex: 0 0 ${100 / Math.max(monthLabels.length, 1)}%; margin-left: -${(label.offset * 100) / columnCount}%`}
+                        class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
+                        style={`grid-template-columns: repeat(${columnCount}, minmax(0, 1fr))`}
+                        role="img"
+                        aria-label={getLocale() === "zh" ? `${totalContributions} 个贡献在过去一年` : `${totalContributions} contributions in the last year`}
                     >
-                        {label.month}
+                        {#each weeks as week}
+                            {#each week.contributionDays as day}
+                                <div
+                                    class="w-2 h-2 sm:w-3 sm:h-3 rounded-sm border"
+                                    class:opacity-50={day.contributionCount === 0}
+                                    style="background-color: rgba(38, 166, 65, {Math.min(
+                                        day.contributionCount / 10,
+                                        1,
+                                    )})"
+                                    title={contributionLabel(day)}
+                                    aria-hidden="true"
+                                ></div>
+                            {/each}
+                        {/each}
                     </div>
-                {/each}
+
+                    <div
+                        class="relative mt-2 h-4 text-xs text-muted-foreground"
+                    >
+                        {#each monthLabels as label}
+                            <span
+                                class="absolute whitespace-nowrap"
+                                style={`left: ${(label.offset / columnCount) * 100}%`}
+                            >
+                                {label.month}
+                            </span>
+                        {/each}
+                    </div>
+                </div>
             </div>
+            <div
+                class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-background to-transparent sm:hidden"
+                aria-hidden="true"
+            ></div>
         </div>
-    </div>
+        <p class="mt-2 text-xs text-muted-foreground sm:hidden">
+            {m.swipeContributions()}
+        </p>
+    {/if}
 </div>
+
+<style>
+    @media (max-width: 639px) {
+        .contributions-scroller {
+            mask-image: linear-gradient(
+                to right,
+                black calc(100% - 2rem),
+                transparent
+            );
+        }
+    }
+
+    .contributions-scroller::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .contributions-scroller::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: var(--border);
+    }
+
+    .contributions-scroller::-webkit-scrollbar-track {
+        background: transparent;
+    }
+</style>

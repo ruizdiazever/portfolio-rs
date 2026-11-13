@@ -47,7 +47,7 @@ let { url, title, repository, description, tech }: Props = Astro.props;
             <p class="text-md text-card-foreground pb-1 line-clamp-3">
                 {description}
             </p>
-            <div class="flex gap-4">
+            <div class="flex flex-wrap gap-2">
                 {
                     tech.map((n) => {
                         if (!technologies[n]) return null;

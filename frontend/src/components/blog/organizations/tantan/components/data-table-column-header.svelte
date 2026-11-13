@@ -14,6 +14,7 @@
     import { cn } from "$lib/utils.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import { Button } from "$lib/components/ui/button/index.js";
+    import * as m from "@paraglide/messages.js";
 
     type Props = HTMLAttributes<HTMLDivElement> & {
         column: Column<TData, TValue>;
@@ -47,30 +48,30 @@
                             {title}
                         </span>
                         {#if column.getIsSorted() === "desc"}
-                            <ArrowDown />
+                            <ArrowDown aria-hidden="true" />
                         {:else if column.getIsSorted() === "asc"}
-                            <ArrowUp />
+                            <ArrowUp aria-hidden="true" />
                         {:else}
-                            <ChevronsUpDown />
+                            <ChevronsUpDown aria-hidden="true" />
                         {/if}
                     </Button>
                 {/snippet}
             </DropdownMenu.Trigger>
             <DropdownMenu.Content align="start">
                 <DropdownMenu.Item onclick={() => column.toggleSorting(false)}>
-                    <ArrowUp class="text-muted-foreground/70 mr-2 size-3.5" />
-                    Asc
+                    <ArrowUp class="text-muted-foreground/70 mr-2 size-3.5" aria-hidden="true" />
+                    {m.sortAscending()}
                 </DropdownMenu.Item>
                 <DropdownMenu.Item onclick={() => column.toggleSorting(true)}>
-                    <ArrowDown class="text-muted-foreground/70 mr-2 size-3.5" />
-                    Desc
+                    <ArrowDown class="text-muted-foreground/70 mr-2 size-3.5" aria-hidden="true" />
+                    {m.sortDescending()}
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item
                     onclick={() => column.toggleVisibility(false)}
                 >
-                    <EyeOff class="text-muted-foreground/70 mr-2 size-3.5" />
-                    Hide
+                    <EyeOff class="text-muted-foreground/70 mr-2 size-3.5" aria-hidden="true" />
+                    {m.hideColumn()}
                 </DropdownMenu.Item>
             </DropdownMenu.Content>
         </DropdownMenu.Root>

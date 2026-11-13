@@ -128,5 +128,10 @@
   "reactionSad": "Sad",
   "author": "Author",
   "close": "Close",
-  "seoCv": "CV of Ever Ruiz Diaz, software engineer in Rome."
+  "seoCv": "CV of Ever Ruiz Diaz, software engineer in Rome.",
+  "contributionsUnavailable": "Contribution graph unavailable.",
+  "sortAscending": "Ascending",
+  "sortDescending": "Descending",
+  "hideColumn": "Hide column",
+  "swipeContributions": "Swipe to see the full year"
 }

@@ -1,119 +1,308 @@
-# Design System
+# Design system
 
-The portfolio is an editorial interface with one typeface, hairline structure and a single neutral active state. It follows the system color scheme by default and keeps a dark, Linear-like canvas as its dark theme. It is built from the direction given for this site: Inter, no yellow selector, book cards that flip in place and no modal for book details.
+The portfolio is a reading-first personal site. It uses one typeface, a small
+neutral palette, hairline structure and a single active state. The interface
+follows the system color scheme and keeps a dark, Linear-like canvas as its dark
+theme.
+
+The visual owner is this file. The operational owner is [AGENTS.md](AGENTS.md).
+The skill routing and review process are in
+[docs/skills/SKILLS.md](docs/skills/SKILLS.md).
 
 ## Principles
 
-1. **Type carries the hierarchy.** Inter, tight tracking and a small weight range do the work. Color is not used to rank content.
-2. **Structure comes from hairlines.** Cards and panels are separated by 1px borders and surface shifts, never by shadows.
-3. **One active state.** The selected filter and the primary form action are paper white on dark, black on light. There is no acid lime, yellow or second accent.
-4. **Click is explicit.** Book cards reveal their notes by flipping in place. No hover-only details and no modal.
-5. **Motion explains state.** Flips, fades and press feedback are short and interruptible. Reduced motion keeps the state change without the movement.
+1. **Reading first.** Type, measure and contrast carry the site. Decoration
+   never competes with the work.
+2. **Structure from hairlines.** Cards and panels use a 1px border and a surface
+   shift. Content cards do not use shadows.
+3. **One active state.** The selected filter and the primary action use paper
+   white on dark and black on light. There is no yellow, acid lime or second
+   accent.
+4. **Interaction is explicit.** Content is reachable by a visible control.
+   Nothing important exists only behind hover, and book notes are reached by a
+   click or keyboard flip.
+5. **Motion explains state.** Transitions are short, interruptible and
+   removable. Reduced motion keeps the state change and drops the movement.
+6. **The platform first.** Prefer native elements, system color scheme,
+   `light-dark()`, native `<dialog>`, real buttons and links, and the browser's
+   focus behavior.
 
 ## Color
 
-The site follows the system color scheme by default. A light or dark override is stored only when it differs from the system; toggling back to the system value removes the override. `color-scheme` is declared as `light dark`, mapped from the `<meta name="color-scheme">` element and consumed by `light-dark()` tokens. Light mode is a paper alternative; dark mode is the Linear-like canvas.
+The site follows the system color scheme by default. A light or dark override
+is stored only when it differs from the system. Toggling back to the system
+value removes the override. `color-scheme` is `light dark` on `:root`; the
+`<meta name="color-scheme">` element is mapped back into CSS; tokens use
+`light-dark()`.
 
-| Token | Dark | Light | Use |
+| Token | Light | Dark | Role |
 | --- | --- | --- | --- |
-| `--background` | `#08090a` | `#ffffff` | Page canvas |
-| `--card` | `#0f1011` | `#ffffff` | Cards and panels |
-| `--popover` | `#161718` | `#ffffff` | Dialogs and elevated surfaces |
-| `--foreground` | `#ffffff` | `#000000` | Headings, emphasis |
-| `--card-foreground` | `#d0d6e0` | `#000000` | Body copy |
-| `--muted-foreground` | `#8a8f98` | `#666666` | Metadata, captions |
-| `--border` | `#23252a` | `rgb(0 0 0 / 12%)` | Hairline borders |
-| `--input` | `#62666d` | `#767676` | Form control borders, 3:1 against the surface |
-| `--primary` | `#ffffff` | `#000000` | Active filter, primary action |
-| `--primary-foreground` | `#08090a` | `#ffffff` | Text on primary |
-| `--secondary` | `#161718` | `#f1f1f1` | Badges, quiet fills |
-| `--accent` | `#23252a` | `#f1f1f1` | Hover and selected surfaces |
-| `--destructive` | `#eb5757` | `oklch(0.577 0.245 27.325)` | Errors only |
+| `--background` | `#ffffff` | `#08090a` | Page canvas |
+| `--foreground` | `#000000` | `#ffffff` | Headings and emphasis |
+| `--card` | `#ffffff` | `#0f1011` | Cards and panels |
+| `--card-foreground` | `#000000` | `#d0d6e0` | Body copy on cards |
+| `--popover` | `#ffffff` | `#161718` | Dialogs and elevated surfaces |
+| `--muted-foreground` | `#666666` | `#8a8f98` | Metadata and captions |
+| `--border` | `rgb(0 0 0 / 12%)` | `#23252a` | Hairline borders |
+| `--input` | `#767676` | `#62666d` | Form borders, at least 3:1 |
+| `--primary` | `#000000` | `#ffffff` | Active filter and primary action |
+| `--primary-foreground` | `#ffffff` | `#08090a` | Text on primary |
+| `--secondary` | `#f1f1f1` | `#161718` | Badges and quiet fills |
+| `--accent` | `#f1f1f1` | `#23252a` | Hover and selected surfaces |
+| `--destructive` | semantic red | `#eb5757` | Errors only |
 
-Color in covers, technology marks and the contributions graph is content, not UI chrome. Do not add colored hover states, gradients or card shadows.
+Content color is allowed in book covers, technology marks and the contribution
+graph. UI chrome uses the tokens above. Do not add a colored hover, a gradient
+behind UI text or a card shadow.
+
+Body and control pairs must meet their WCAG contrast ratio in both themes.
+Muted text is for secondary metadata, not for body copy. State is never carried
+by color alone.
 
 ## Typography
 
-Inter Variable is loaded once through the Astro Fonts API. Use the Tailwind scale in `frontend/src/styles/app.css`.
+Inter Variable is loaded once through the Astro Fonts API. Use the Tailwind
+scale in `frontend/src/styles/app.css`; do not add a second family or local
+`@font-face` blocks.
 
 | Role | Size | Line height | Weight |
 | --- | --- | --- | --- |
-| Caption | 13px | 1.5 | 400 |
-| Meta | 14px | 1.55 | 400 to 510 |
-| Body | 16px | 1.6 | 400 |
-| Lead | 20px | 1.4 | 400 |
+| Caption, metadata | 13px | 1.5 | 400 to 510 |
+| Body, long form | 16px | 1.6 | 400 |
+| Lead | 18 to 20px | 1.4 | 400 |
 | Card title | 16 to 24px | 1.3 | 510 |
-| Subheading | 30px | 1.2 | 510 |
-| Page title | 40 to 48px | 1.08 | 510 |
+| Subheading | 24 to 30px | 1.2 | 510 |
 | Section title | 32 to 44px | 1.15 | 510 |
+| Page title | 40 to 48px | 1.08 | 510 |
 
 Rules:
 
-- Weights are 400, 510 and 590. Never 700 or 800.
-- Display tracking is `-0.022em`; medium sizes use `-0.012em`; small uppercase labels use `0.08em` to `0.1em`.
-- Enable `cv01` and `ss03`, and use slashed zero through `font-variant-numeric`.
-- Long-form copy stays between 60 and 75 characters per line.
-- Line heights are unitless.
+- Weights are 400, 510 and 590. Avoid 700 and 800.
+- Display tracking is `-0.022em`; medium sizes use `-0.012em`; uppercase
+  microcopy uses `0.08em` to `0.1em`.
+- Enable `cv01` and `ss03`; use `font-variant-numeric: slashed-zero` and
+  `tabular-nums` for counters, dates and table figures.
+- Long-form copy is 60 to 75 characters per line. Use `text-wrap: balance` on
+  headings and `text-wrap: pretty` on paragraphs, never balance on body copy.
+- Chinese uses the same scale with the system CJK fallback stack. Mixed
+  direction values use `<bdi>` when needed.
+- Keep control text at 12px or larger. Book microcopy is the deliberate lower
+  exception at 11px; it is not a general UI size.
+- Use typographic punctuation in copy: curly quotes and the ellipsis
+  character. Code keeps straight punctuation.
 
-## Shape and spacing
+## Layout and spacing
 
-| Element | Radius |
-| --- | --- |
-| Cards | 12px |
-| Buttons and inputs | 6px |
-| Badges | 4px |
-| Filters | 9999px |
+Use a 4px base with common steps of 8, 12, 16, 24, 32, 48 and 64px. The reading
+column is 768px; Books may use 1024px with the header and footer matching that
+width.
 
-Use a 4px base. Common steps are 8, 12, 16, 24, 32, 48 and 64px. Cards have 16 to 24px padding. The reading column is 768px; Books may use 1024px with the header matching that width.
-
-Do not use shadows on cards. Use `border-border`; change to `border-foreground/30` on hover or focus.
-
-## Motion
-
-- UI transitions: 150 to 200ms.
-- Book flip: 620ms with `cubic-bezier(0.34, 1.2, 0.64, 1)`.
-- Easing tokens: `--ease-out`, `--ease-in-out`, `--ease-drawer`.
-- Use explicit transition properties, never `transition-all`.
-- Movement uses `transform` and `opacity`; colors use `ease`.
-- Reduced motion keeps the state change and removes transforms, tilt and glare.
-- Do not auto-rotate text. The header tagline is static.
+- Cards use 12px radii; buttons and inputs 6px; badges 4px; filters are pills.
+- Content cards have no shadows. Use `border-border`, changing to
+  `border-foreground/30` on hover or focus.
+- Keep the reading measure and section rhythm stable. Group with space first,
+  then a surface, and only then a line.
+- Keep text starts on shared axes across sections. A title and its metadata
+  share the leading edge; actions align to the trailing edge.
+- At 320px, content must reflow without clipping, horizontal page scroll or
+  hidden actions. At 200% text scaling, the same applies.
+- Use the supported breakpoints: 640, 768 and 1024px. Books use one column on
+  small screens, two at `md`, four at `lg`.
+- The header is sticky. Its height is part of `scroll-padding-top`, so focused
+  anchors are not hidden under it.
+- Safe areas are respected on mobile with `env(safe-area-inset-*)`; the viewport
+  opts into `viewport-fit=cover`.
 
 ## Components
 
 ### Header
 
-Solid `background`, no blur. A two-line wordmark at 510 weight, 40px controls on mobile and 36px on desktop. The Books page header matches the 1024px grid.
+Solid `background`, no blur. A two-line wordmark in 510 weight. Mobile controls
+are 40px; desktop controls are 36px. The language and theme controls have
+visible names, not only glyphs. The theme control exposes both action states in
+the markup and resolves them from the color-scheme meta and media query.
 
-### Filter pills
+### Section links
 
-Outlined, 14px, 510 weight, fully rounded. Inactive uses `border-border` and `card-foreground`. Active uses `bg-primary` and `text-primary-foreground`. No yellow. Hover darkens the border.
+A bordered card row with a label and a trailing arrow. The whole row is the
+link. Hover changes the border and surface; focus uses the global ring; active
+presses to a subtle scale.
+
+### Writing cards
+
+An article with a heading, description, view count, tag count and date. The
+title is an `h3` on the home page and an `h2` on the Writing page. Metadata is
+13px. Dates use `Intl.DateTimeFormat` and the active locale.
+
+### Experience
+
+A timeline with a dot aligned to the date line. Dates are `tabular-nums`. The
+role is an `h3`; the company link is external and clearly underlined. The dot is
+decorative and never the only status cue.
+
+### Project cards
+
+A bordered card with a title, a three-line description, a repository link and
+wrapped technology links. Technology targets are at least 24px and wrap instead
+of overflowing. The full description lives on the project page.
 
 ### Book card
 
-- The card is a 3D flip surface with perspective 1200px.
-- Front: cover, title, author, year and type. A small `FLIP` pill sits on the cover.
-- Back: notes, title, author, description and a two-column metadata grid. It fills the same box as the front.
-- Clicking the front, or pressing Enter or Space on the card control, flips the card. The back has a visible Flip back control. The card does not open a modal.
-- The hidden face is `aria-hidden` and `inert`; `aria-pressed` reports the state.
-- The overlay trigger is a real button with a visible focus ring. Cards in a row share the same height.
+The card is a 3D flip surface with perspective 1200px.
+
+- Front: cover, title, author, year and type. A small `FLIP` hint sits on the
+  cover and is decorative for assistive technology.
+- Back: notes, title, author, description and a two-column metadata grid. It
+  fills the same box as the front.
+- Clicking the front, or pressing Enter or Space on the card control, flips it.
+  The back contains a real `Flip back` control. No dialog opens.
+- The hidden face is `aria-hidden` and `inert`; the trigger reports
+  `aria-pressed`. The focus ring is visible.
+- Cards in a row share height. The back is scrollable if content exceeds the
+  card; the overlay must not block that scroll.
 - Reduced motion changes faces without the 3D rotation.
 
-### Links
+### Filter pills
 
-Text links are underlined with `decoration-foreground/30` and become fully underlined on hover. No blue or other colored hovers. Arrow icons are allowed where they clarify the action.
+Outlined, 14px, 510 weight, fully rounded. Inactive uses `border-border`;
+active uses `bg-primary` and `text-primary-foreground`. No yellow. Filtering is
+reflected in the query string, and the number of visible books is announced in
+a polite status region.
 
-### Feedback dialog and toast
+### Contribution graph
 
-Dialogs use the native `<dialog>` element with `showModal()`, `closedby`, `::backdrop` and `autofocus`. Do not add `role="dialog"`, `aria-modal`, a focus trap or manual focus return. The panel uses a 12px radius and a 200ms entrance. The submit action uses `bg-primary`. Toasts follow the current theme and remain neutral.
+A compact 52 or 53 week calendar. Column count and month offsets come from the
+data, never a fixed 51. Dates and month labels use `Intl.DateTimeFormat`. The
+graph scrolls horizontally on narrow screens; provide a visible scrollbar or a
+fade at the trailing edge. An empty data set is an error state, not a zero
+count. The GitHub link is at least 28px.
+
+### Tables
+
+Organization and icon tables keep names on one line where they are compared,
+but descriptions and long values wrap. Long values retain access to the full
+string through a title or a detail surface. Empty results use a localized empty
+state. Pagination, column visibility, sorting and filtering have text labels or
+accessible names; menus are localized. Tables never force the page wider than
+the viewport; the table wrapper scrolls if necessary.
+
+### Feedback dialog
+
+Native `<dialog>` opened with `showModal()`, named with `aria-labelledby`, with
+`autofocus` on the textarea, `closedby="any"` and a `::backdrop`. Do not add
+`role="dialog"`, `aria-modal`, a focus trap or manual focus return. The page
+behind is inert by the platform. The message field has a visible or
+screen-reader label; the counter and error remain associated.
+
+### Toast and footer
+
+Toasts follow the active theme and stay neutral. The footer mirrors the header
+width, keeps the mascot and copyright readable, and respects the bottom safe
+area.
+
+## States
+
+- **Hover:** only under `(hover: hover) and (pointer: fine)`. It is never the
+  only way to reach content.
+- **Focus:** global `:focus-visible` ring with a 2px foreground perimeter and
+  offset. Do not remove it without an equivalent.
+- **Active:** a short press scale or surface shift between 100 and 160ms.
+- **Selected:** a surface or border change plus an accessible state attribute.
+- **Disabled:** native `disabled`, reduced opacity and no press motion.
+- **Loading:** keep the current context, disable duplicate submission and show
+  a spinner or progress cue. Text loading states use an ellipsis.
+- **Empty:** a localized message and a path forward. Never render a broken
+  layout.
+- **Error:** say what failed and what the reader can do next. Keep valid input.
+
+## Motion
+
+- UI transitions: 150 to 200ms with `--ease-out`.
+- Book flip: 620ms with `cubic-bezier(0.34, 1.2, 0.64, 1)`.
+- Use explicit transition properties, never `transition-all`.
+- Animate `transform` and `opacity` for movement; colors use `ease`.
+- Hover motion is gated; reduced motion keeps color and opacity and removes
+  transforms, tilt and glare.
+- Do not auto-rotate text. The header tagline is static.
+- No motion on functional data while it is being read.
+
+## Accessibility
+
+- Native elements first: `<button>` for actions, `<a href>` for navigation,
+  `<dialog>` for modals.
+- Every control has an accessible name; icon-only controls use a localized
+  label.
+- Every pointer action has a keyboard path. Focus order follows DOM order.
+- Focus is never hidden under the sticky header; `scroll-padding-top` covers it.
+- Targets are at least 24px; primary mobile controls are 40px.
+- Form fields have labels, error associations and a 3:1 boundary. Text inputs
+  are at least 16px on mobile.
+- Images have dimensions and meaningful alt text. Decorative icons are
+  `aria-hidden`.
+- Respect `prefers-reduced-motion` and 200% text scaling.
+- Tables and the contribution graph have accessible summaries. An empty state
+  is announced, not only drawn.
+
+## Content and internationalization
+
+- English and Chinese are native copy, not literal translations.
+- No em dashes or en dashes in user-facing strings. Use commas, periods,
+  colons, parentheses or a semicolon.
+- Buttons are verb-first. Links describe their destination. Errors name a
+  recovery.
+- Use one vocabulary for an object across the site.
+- Dates and numbers use `Intl`. Counters use plural rules, not string
+  concatenation.
+- Keep strings whole for translation; do not assemble sentences from
+  fragments.
+
+## Implementation
+
+- Tokens live in `frontend/src/styles/app.css`; components consume semantic
+  tokens and avoid literal UI colors.
+- `light-dark()` and the color-scheme meta own theming. Do not add a second
+  theme switch mechanism.
+- The native `<dialog>` owns modal behavior; do not rebuild a focus trap.
+- Use the project's Tailwind scale and existing component primitives. Do not
+  add a second component library.
+- Only keep reachable UI modules. Do not add a dependency no reachable file
+  imports.
+- Run the review in [docs/skills/SKILLS.md](docs/skills/SKILLS.md) before
+  claiming a UI change is verified.
+
+## Review checklist
+
+For every UI change, inspect the actual page in both themes:
+
+- 1440px, a narrow layout and 320px; 200% text scaling.
+- Long and wrapping content, one item, empty and error states.
+- Hover, focus, active, disabled, loading and selected states, where affected.
+- Shared component consumers, not only the edited surface.
+- The full page composition, not only the isolated component.
+- The keyboard path, accessible names and focus visibility.
+- No clipped content, hidden action, horizontal page scroll or overlapping
+  label.
+- No state carried by color or motion alone.
+- No unverified claim: report what was inspected and what was not.
+
+The DeepSeek Harness UI workflow and review cookbook are the source of the
+evidence requirements:
+
+- [UI development workflow](https://github.com/deepseek-ai/deepseek-harness/blob/master/.agents/skills/dsh-client-ui-ux/SKILL.md)
+- [Review cookbook](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cookbook/reviewing-ui-design.md)
+- [UI design principles](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/ui-design-review-cases.md)
 
 ## Don'ts
 
 - No yellow or acid-lime selector.
-- No hardcoded root `color-scheme: light` or `color-scheme: dark`; keep the base at `light dark` and map the meta element.
+- No hardcoded root `color-scheme: light` or `color-scheme: dark`; map the meta.
 - No modal for book details.
-- No auto-rotating or updating text without a pause control.
-- No hover-only book content.
+- No auto-rotating or auto-updating text without a pause control.
+- No hover-only content.
 - No card shadows.
 - No weights above 590.
 - No second typeface.
 - No additional accent colors in UI chrome.
+- No clipped content at 320px or 200% scaling.
+- No dead UI tree or unused dependency.
+- No em dashes or en dashes in user-facing copy.

@@ -138,6 +138,16 @@ let views = await getVisitRequest(id);
 <script>
     const backButton = document.getElementById("back-button");
 
+    document
+        .querySelectorAll<HTMLTableElement>(".blog-content-table")
+        .forEach((table) => {
+            if (table.parentElement?.classList.contains("table-scroll")) return;
+            const wrapper = document.createElement("div");
+            wrapper.className = "table-scroll";
+            table.parentElement?.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        });
+
     if (backButton) {
         const updateBackButton = () => {
             const windowHeight = window.innerHeight;

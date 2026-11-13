@@ -26,7 +26,7 @@
                         size={16}
                     /></Table.Cell
                 >
-                <Table.Cell class="py-1">{description[getLocale()]}</Table.Cell>
+                <Table.Cell class="py-1 whitespace-normal">{description[getLocale()]}</Table.Cell>
             </Table.Row>
         {/each}
     </Table.Body>

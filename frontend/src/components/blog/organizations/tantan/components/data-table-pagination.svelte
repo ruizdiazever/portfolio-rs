@@ -30,7 +30,7 @@
                 table.setPageSize(Number(value));
             }}
         >
-            <Select.Trigger class="h-8 w-[70px]">
+            <Select.Trigger class="h-8 w-[70px]" aria-label={m.rowsPerPage()}>
                 {String(table.getState().pagination.pageSize)}
             </Select.Trigger>
             <Select.Content side="top">
