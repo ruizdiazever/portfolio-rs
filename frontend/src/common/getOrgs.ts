@@ -25,13 +25,19 @@ const rootSchema = z.object({
   organizations: z.array(organizationSchema),
 });
 
+export type Organization = z.infer<typeof organizationSchema>;
 export type RootData = z.infer<typeof rootSchema>;
 
-export async function getOrganizations(): Promise<RootData> {
-  const result = rootSchema.safeParse(organizationsData);
+let cache: RootData | undefined;
 
+export function getOrganizations(): RootData {
+  if (cache) return cache;
+
+  const result = rootSchema.safeParse(organizationsData);
   if (!result.success) {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }
-  return result.data;
+
+  cache = result.data;
+  return cache;
 }

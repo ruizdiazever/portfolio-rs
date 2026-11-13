@@ -26,13 +26,22 @@ const blogDataSchema = z.object({
 
 type Post = z.infer<typeof postSchema>;
 
-export async function getPost(id: string): Promise<Post | undefined> {
+let cache: Post[] | undefined;
+
+function allPosts(): Post[] {
+  if (cache) return cache;
+
   const result = blogDataSchema.safeParse(postsData);
   if (!result.success) {
     throw new Error(
       `Invalid JSON structure for posts.json: ${result.error.message}`,
     );
   }
-  const post = result.data.posts.find((post: Post) => post.id === id);
-  return post;
+
+  cache = result.data.posts;
+  return cache;
+}
+
+export function getPost(id: string): Post | undefined {
+  return allPosts().find((post) => post.id === id && post.active);
 }

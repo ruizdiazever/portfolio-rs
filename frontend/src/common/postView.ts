@@ -1,39 +1,10 @@
-import { API_URL } from "astro:env/client";
-
-const serverApiUrl = process.env.INTERNAL_API_URL ?? API_URL;
+import { postServerVisit } from "./serverApi";
 
 export async function postVisitRequest(projectId: string): Promise<number> {
-  let endpoint = `${serverApiUrl}/visit`;
-  const body = {
-    project_id: projectId,
-  };
-
   try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      signal: AbortSignal.timeout(2_000),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (response.ok) {
-      try {
-        const data = await response.json();
-        return data.visits ?? 0;
-      } catch (err) {
-        console.log(`Failed to parse JSON response: ${err}`);
-        return 0;
-      }
-    } else {
-      console.log(
-        `Error during the visit POST request: ${response.status} in URL ${endpoint}`,
-      );
-      return 0;
-    }
-  } catch (err) {
-    console.log(`POST request failed in postVisitRequest: ${err}`);
+    const { visits } = await postServerVisit(projectId);
+    return Number.isFinite(visits) ? visits : 0;
+  } catch {
     return 0;
   }
 }

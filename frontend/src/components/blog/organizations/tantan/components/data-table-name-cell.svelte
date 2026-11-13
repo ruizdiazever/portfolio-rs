@@ -1,25 +1,7 @@
 <script lang="ts">
     import { iconData } from "../data/data";
     import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
-
-    export const labels = [
-        {
-            value: "platinum",
-            label: "Platinum",
-        },
-        {
-            value: "founder",
-            label: "Founder",
-        },
-        {
-            value: "gold",
-            label: "Gold",
-        },
-        {
-            value: "silver",
-            label: "Silver",
-        },
-    ];
+    import { getLocale } from "@paraglide/runtime";
 
     let {
         value,
@@ -63,7 +45,7 @@
         </span>
     {/if}
     {#if icon}
-        <div class="tooltip" title={icon.title}>
+        <div class="tooltip" title={icon.title[getLocale()]}>
             <icon.icon class={icon.color} size={16} />
         </div>
     {/if}

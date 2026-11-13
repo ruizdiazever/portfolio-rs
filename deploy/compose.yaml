@@ -22,7 +22,8 @@ services:
       PORT: 4321
       INTERNAL_API_URL: http://api:3002
     ports:
-      - "${BIND_IP:-0.0.0.0}:4321:4321"
+      # Caddy runs on the host. Keep the app ports off the public interface.
+      - "${BIND_IP:-127.0.0.1}:4321:4321"
     depends_on:
       api:
         condition: service_healthy
@@ -52,7 +53,7 @@ services:
     environment:
       API_SERVER_URL: 0.0.0.0:3002
     ports:
-      - "${BIND_IP:-0.0.0.0}:3002:3002"
+      - "${BIND_IP:-127.0.0.1}:3002:3002"
     depends_on:
       redis:
         condition: service_healthy

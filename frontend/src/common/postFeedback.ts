@@ -1,4 +1,5 @@
 import { API_URL } from "astro:env/client";
+import { fetchJson } from "./api";
 
 export async function postFeedback(
   id: string,
@@ -7,35 +8,18 @@ export async function postFeedback(
   title: string,
   language: string,
 ): Promise<boolean> {
-  let endpoint = `${API_URL}/feedback`;
-  const body = {
-    id,
-    reaction,
-    msg,
-    title,
-    language,
-  };
-
   try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      signal: AbortSignal.timeout(10_000),
-      headers: {
-        "Content-Type": "application/json",
+    await fetchJson(
+      `${API_URL}/feedback`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, reaction, msg, title, language }),
       },
-      body: JSON.stringify(body),
-    });
-
-    if (response.ok) {
-      return true;
-    } else {
-      console.log(
-        `Error during the visit POST request: ${response.status} in URL ${endpoint}`,
-      );
-      return false;
-    }
-  } catch (err) {
-    console.log(`POST request failed in postVisitRequest: ${err}`);
+      10_000,
+    );
+    return true;
+  } catch {
     return false;
   }
 }

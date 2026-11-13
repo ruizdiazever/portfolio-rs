@@ -7,7 +7,7 @@ import Divider from "$lib/components/common/Divider.astro";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 import * as m from "@paraglide/messages.js";
 
-const posts = await getPosts();
+const posts = getPosts();
 const postViews = await Promise.all(
     posts.map((post) => getVisitRequest(post.id)),
 );
@@ -19,7 +19,6 @@ const postViews = await Promise.all(
         <Divider />
         {
             posts
-                .filter((post) => post.active)
                 .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0))
                 .map((post, index, filteredPosts) => {
                     const postView = postViews.find(

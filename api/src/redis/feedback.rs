@@ -1,10 +1,11 @@
 use crate::redis::models::{ExtraData, Payload};
 use crate::routes::{ApiContext, Result};
 use crate::security::error::Error;
-use redis::AsyncCommands;
 use serde::{Deserialize, Serialize};
 use tracing::{error, info};
 use uuid::Uuid;
+
+const FEEDBACK_TTL_SECONDS: i64 = 90 * 24 * 60 * 60;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Output {
@@ -29,12 +30,13 @@ pub async fn save_feedback_to_redis(
         .redis_client
         .get_multiplexed_async_connection()
         .await
-        .map_err(|e| {
-            error!("RedisDB error: {:?}", e);
+        .map_err(|error| {
+            error!("RedisDB connection failed: {error:?}");
             Error::Anyhow(anyhow::anyhow!("RedisDB error"))
         })?;
 
     let feedback_key = format!("feedback:{}", feedback.id);
+    let ids_key = format!("{feedback_key}:ids");
     let feedback_id = Uuid::new_v4().to_string();
     let feedback_data = serde_json::json!({
         "id": feedback_id,
@@ -46,26 +48,24 @@ pub async fn save_feedback_to_redis(
         "extra_data": extra_data,
     });
 
-    // Use HSET to save the new feedback as a field within the post's hash
-    let _: () = redis_client
+    let mut pipe = redis::pipe();
+    pipe.atomic()
         .hset(&feedback_key, &feedback_id, feedback_data.to_string())
-        .await
-        .map_err(|e| {
-            error!("Error saving feedback to Redis: {:?}", e);
-            Error::Anyhow(anyhow::anyhow!("Error saving feedback"))
-        })?;
+        .ignore()
+        .rpush(&ids_key, &feedback_id)
+        .ignore()
+        .expire(&feedback_key, FEEDBACK_TTL_SECONDS)
+        .ignore()
+        .expire(&ids_key, FEEDBACK_TTL_SECONDS)
+        .ignore();
 
-    // Optionally, maintain a list of feedback IDs for this post
-    let _: () = redis_client
-        .rpush(format!("{}:ids", feedback_key), &feedback_id)
-        .await
-        .map_err(|e| {
-            error!("Error adding feedback ID to list: {:?}", e);
-            Error::Anyhow(anyhow::anyhow!("Error updating feedback list"))
-        })?;
+    let _: () = pipe.query_async(&mut redis_client).await.map_err(|error| {
+        error!("Error saving feedback to Redis: {error:?}");
+        Error::Anyhow(anyhow::anyhow!("Error saving feedback"))
+    })?;
 
     info!(
-        "Feedback saved successfully for post ID: {}, feedback ID: {}",
+        "Feedback saved for post {}, feedback {}",
         feedback.id, feedback_id
     );
 

@@ -103,7 +103,7 @@
   "titleCv": "CV · Ever Ruiz Diaz",
   "cvIntro": "The full CV is being updated. LinkedIn has the current version.",
   "reset": "Reset",
-  "noResults": "No results found.",
+  "noResults": "No results.",
   "firstPage": "Go to first page",
   "previousPage": "Go to previous page",
   "nextPage": "Go to next page",
@@ -127,5 +127,6 @@
   "reactionNeutral": "Neutral",
   "reactionSad": "Sad",
   "author": "Author",
-  "close": "Close"
+  "close": "Close",
+  "seoCv": "CV of Ever Ruiz Diaz, software engineer in Rome."
 }

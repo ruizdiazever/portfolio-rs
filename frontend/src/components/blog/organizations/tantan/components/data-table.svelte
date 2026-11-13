@@ -23,6 +23,7 @@
   import { createSvelteTable } from "$lib/components/ui/data-table/index.js";
   import FlexRender from "$lib/components/ui/data-table/flex-render.svelte";
   import * as Table from "$lib/components/ui/table/index.js";
+  import * as m from "@paraglide/messages.js";
 
   let {
     columns,
@@ -104,7 +105,7 @@
 
 <div class="space-y-4 text-xs">
   <DataTableToolbar {table} />
-  <div class="bg-white dark:bg-black rounded-md border max-w-full overflow-x-auto">
+  <div class="bg-card rounded-md border max-w-full overflow-x-auto">
     <Table.Root>
       <Table.Header>
         {#each table.getHeaderGroups() as headerGroup (headerGroup.id)}

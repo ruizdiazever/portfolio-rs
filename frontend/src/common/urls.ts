@@ -1,10 +1,13 @@
 import { getLocale } from "@paraglide/runtime";
 
-export const urls = {
-  about: `/${getLocale()}/sections/about`,
-  cv: `/${getLocale()}/sections/cv`,
-  books: `/${getLocale()}/sections/books`,
-  contact: `/${getLocale()}/sections/contact`,
-  home: `/${getLocale()}`,
-  articles: `/${getLocale()}/blog/articles`,
-};
+export function getUrls() {
+  const locale = getLocale();
+  return {
+    about: `/${locale}/sections/about`,
+    cv: `/${locale}/sections/cv`,
+    books: `/${locale}/sections/books`,
+    contact: `/${locale}/sections/contact`,
+    home: `/${locale}`,
+    articles: `/${locale}/blog/articles`,
+  };
+}

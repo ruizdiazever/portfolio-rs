@@ -4,12 +4,7 @@
     import { columns } from "./tantan/components/columns.js";
     import * as m from "@paraglide/messages.js";
 
-    let data = $state<Organization[]>([]);
-    $effect(() => {
-        void getOrganizations().then((orgs: Organization) => {
-            data = orgs.organizations;
-        });
-    });
+    const data = $state<Organization[]>(getOrganizations().organizations);
 </script>
 
 <!-- List -->

@@ -166,6 +166,35 @@ test.describe("interactions", () => {
     await expect(back).not.toHaveAttribute("inert", "");
   });
 
+  test("section links stay inside the current locale", async ({ page }) => {
+    await page.goto("/zh");
+
+    await expect(
+      page.getByRole("link", { name: "关于", exact: true }).first(),
+    ).toHaveAttribute("href", "/zh/sections/about");
+    await expect(
+      page.getByRole("link", { name: "阅读", exact: true }).first(),
+    ).toHaveAttribute("href", "/zh/sections/books");
+  });
+
+  test("contribution grid matches the number of weeks", async ({ page }) => {
+    await page.goto("/en");
+
+    const grid = page.locator('[role="img"][aria-label*="contributions"]');
+    await expect(grid).toBeVisible();
+
+    const counts = await grid.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns
+        .split(" ")
+        .filter(Boolean).length,
+      cells: element.children.length,
+    }));
+
+    expect(counts.columns).toBe(
+      counts.cells === 0 ? 1 : Math.ceil(counts.cells / 7),
+    );
+  });
+
   test("language switcher navigates to the translated page", async ({ page }) => {
     await page.goto("/en/sections/about");
 

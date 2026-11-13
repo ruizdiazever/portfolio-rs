@@ -1,5 +1,5 @@
 import type { ColumnDef } from "@tanstack/table-core";
-import type { Organization } from "../data/data.ts";
+import type { Organization } from "$lib/common/getOrgs";
 import { DataTableColumnHeader, DataTableNameCell } from "./index.js";
 import { renderComponent } from "$lib/components/ui/data-table/index.js";
 import * as m from "@paraglide/messages.js";

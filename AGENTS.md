@@ -142,6 +142,13 @@ The UI is dark and editorial: void #08090a canvas, carbon cards, graphite hairli
 
 Motion tokens live in `src/styles/app.css` (`--ease-out`, `--ease-in-out`, `--ease-drawer`). Use explicit transition properties, never `transition-all`. Animate `transform` and `opacity` for movement; colors may transition with `ease`. Keep UI motion at 150 to 200 ms and dialogs at 200 ms. Hover motion is gated by Tailwind's `hover` variant, and reduced motion keeps color and opacity while dropping transforms and shadows.
 
+## Refactor guardrails
+
+- The API reads configuration once in `ConfigPortfolio`; request handlers must not call `std::env::var` or panic on missing values. Email delivery is best-effort and runs off the async runtime.
+- Feedback payloads are validated at the HTTP boundary. Keep Redis writes atomic and bounded.
+- Frontend network calls go through `frontend/src/common/api.ts` and the server/browser wrappers. URL builders are request-scoped, and static JSON is validated once and cached.
+- Only keep reachable UI modules. Do not reintroduce removed component trees or dependencies without a reachability check, a frozen-lock install and a full build.
+
 ## Conventions
 
 - The README is public-facing. It shows the work, not the brush. Keep it to stack, architecture, the media flow, repository map and a footer.

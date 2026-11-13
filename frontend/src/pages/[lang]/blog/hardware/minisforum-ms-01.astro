@@ -4,7 +4,7 @@ import { getPost } from "$lib/common/getPostById";
 import { getLocale } from "@paraglide/runtime";
 import Post from "$lib/components/blog/Minisforum.astro";
 
-const post = await getPost("aa614ca5-0940-41a1-bf80-710096df26ac");
+const post = getPost("aa614ca5-0940-41a1-bf80-710096df26ac");
 if (!post) throw new Error("Post not found");
 const locale = getLocale();
 ---

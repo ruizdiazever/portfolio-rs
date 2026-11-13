@@ -63,7 +63,7 @@ export async function getOgContent(key: string): Promise<OgContent> {
 
     if (staticPages[normalized]) return staticPages[normalized];
 
-    const posts = await getPosts();
+    const posts = getPosts();
     const post = posts.find((entry) => entry.url === `/${normalized}`);
     if (post) {
         const tagCount = post.tags.length;
@@ -75,7 +75,7 @@ export async function getOgContent(key: string): Promise<OgContent> {
         };
     }
 
-    const projects = await getProjectsFromJson();
+    const projects = getProjectsFromJson();
     const project = projects.find((entry) => entry.url === `/${normalized}`);
     if (project) {
         return {

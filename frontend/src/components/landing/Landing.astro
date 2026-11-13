@@ -10,15 +10,17 @@ import { getPosts } from "$lib/common/getPosts";
 import { getEntriesFromJson } from "$lib/common/getExperience.ts";
 import { getProjectsFromJson } from "$lib/common/getProjectCards.ts";
 import { getVisitRequest } from "$lib/common/getViews.ts";
-import { urls } from "$lib/common/urls";
+import { getUrls } from "$lib/common/urls";
 import * as m from "@paraglide/messages.js";
 import { getLocale } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
 import DailyTools from "./DailyTools.astro";
 
-const posts = await getPosts();
-const entries = await getEntriesFromJson();
-const projects = await getProjectsFromJson();
+const urls = getUrls();
+
+const posts = getPosts();
+const entries = getEntriesFromJson();
+const projects = getProjectsFromJson();
 
 const postViews = await Promise.all(
     posts.map((post) => getVisitRequest(post.id)),
@@ -56,7 +58,6 @@ const postViews = await Promise.all(
         <div class="space-y-6" transition:name="blog-posts">
             {
                 posts
-                    .filter((post) => post.active)
                     .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0))
                     .map((post, index, filteredPosts) => {
                         const postView = postViews.find(

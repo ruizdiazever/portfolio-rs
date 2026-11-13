@@ -1,40 +1,65 @@
 use crate::security::error::Error;
+use std::sync::OnceLock;
 use user_agent_parser::UserAgentParser;
 
 pub struct UserAgentInfo {
     pub browser: String,
     pub os: String,
     pub device: String,
-    pub engine: String,
-    pub cpu: String,
 }
 
-// https://github.com/ua-parser/uap-core
-pub async fn get_user_agent_info(user_agent: &str) -> Result<UserAgentInfo, Error> {
-    let ua_parser = UserAgentParser::from_path("src/assets/regexes.yaml")?;
+static PARSER: OnceLock<Result<UserAgentParser, String>> = OnceLock::new();
 
-    let product = ua_parser.parse_product(user_agent);
-    let os = ua_parser.parse_os(user_agent);
-    let device = ua_parser.parse_device(user_agent);
-    let cpu = ua_parser.parse_cpu(user_agent);
-    let engine = ua_parser.parse_engine(user_agent);
+fn parser() -> Result<&'static UserAgentParser, Error> {
+    match PARSER.get_or_init(|| {
+        UserAgentParser::from_path("src/assets/regexes.yaml")
+            .map_err(|error| format!("failed to load user agent patterns: {error}"))
+    }) {
+        Ok(parser) => Ok(parser),
+        Err(error) => Err(Error::Anyhow(anyhow::anyhow!(error.clone()))),
+    }
+}
 
-    let info = UserAgentInfo {
+pub fn get_user_agent_info(user_agent: &str) -> Result<UserAgentInfo, Error> {
+    let parser = parser()?;
+
+    let product = parser.parse_product(user_agent);
+    let os = parser.parse_os(user_agent);
+    let device = parser.parse_device(user_agent);
+
+    Ok(UserAgentInfo {
         browser: format!(
             "{} {}.{}",
             product.name.unwrap_or_default(),
             product.major.unwrap_or_default(),
             product.minor.unwrap_or_default()
-        ),
+        )
+        .trim()
+        .to_string(),
         os: os.name.unwrap_or_default().to_string(),
         device: format!(
             "{} {}",
             device.brand.unwrap_or_default(),
             device.name.unwrap_or_default(),
-        ),
-        engine: engine.name.unwrap_or_default().to_string(),
-        cpu: cpu.architecture.unwrap_or_default().to_string(),
-    };
+        )
+        .trim()
+        .to_string(),
+    })
+}
 
-    Ok(info)
+#[cfg(test)]
+mod tests {
+    use super::get_user_agent_info;
+
+    #[test]
+    fn parses_a_known_browser() {
+        let info = get_user_agent_info(
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
+             (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        )
+        .expect("parser should exist");
+
+        assert_eq!(info.os, "Linux");
+        assert!(info.browser.starts_with("Chrome"));
+    }
 }

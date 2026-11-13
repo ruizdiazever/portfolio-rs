@@ -14,15 +14,18 @@ const technologiesSchema = z.object({
   technologies: z.record(z.string(), technologySchema),
 });
 
-type Technology = z.infer<typeof technologySchema>;
+export type Technology = z.infer<typeof technologySchema>;
 
-export async function getTechnologiesFromJson(): Promise<
-  Record<string, Technology>
-> {
+let cache: Record<string, Technology> | undefined;
+
+export function getTechnologiesFromJson(): Record<string, Technology> {
+  if (cache) return cache;
+
   const result = technologiesSchema.safeParse(technologiesData);
-
   if (!result.success) {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }
-  return result.data.technologies;
+
+  cache = result.data.technologies;
+  return cache;
 }

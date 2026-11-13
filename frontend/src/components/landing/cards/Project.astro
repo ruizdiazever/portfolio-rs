@@ -12,7 +12,7 @@ interface Props {
     tech: string[];
 }
 
-const technologies = await getTechnologiesFromJson();
+const technologies = getTechnologiesFromJson();
 let { url, title, repository, description, tech }: Props = Astro.props;
 ---
 

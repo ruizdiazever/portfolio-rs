@@ -1,7 +1,8 @@
-use axum::{http::StatusCode, response::Html};
+use crate::routes::ApiContext;
+use axum::{extract::State, http::StatusCode, response::Html};
 
-pub async fn homepage() -> Result<Html<String>, StatusCode> {
-    let version = std::env::var("API_VERSION").map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+pub async fn homepage(State(ctx): State<ApiContext>) -> Result<Html<String>, StatusCode> {
+    let version = &ctx.env.api_version;
 
     let html_content = format!(
         r#"
@@ -10,7 +11,7 @@ pub async fn homepage() -> Result<Html<String>, StatusCode> {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Portfolio WASM API</title>
+            <title>Portfolio API</title>
             <style>
                 body {{
                     margin: 0;
@@ -74,7 +75,7 @@ pub async fn homepage() -> Result<Html<String>, StatusCode> {
                     <span class="dot"></span>
                     <span id="status">All system normal</span>
                 </div>
-                <h1>Portfolio WASM API</h1>
+                <h1>Portfolio API</h1>
                 <p>Powered by Rust and GNU/Linux</p>
                 <p>🦀</p>
                 <code>{}</code>

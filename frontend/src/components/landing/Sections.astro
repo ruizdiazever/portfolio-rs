@@ -1,7 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
-import { urls } from "$lib/common/urls";
+import { getUrls } from "$lib/common/urls";
 import * as m from "@paraglide/messages.js";
+
+const urls = getUrls();
 ---
 
 <div class="grid grid-cols-2 gap-3">

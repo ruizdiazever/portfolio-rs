@@ -23,10 +23,16 @@ const entriesDataSchema = z.object({
 
 type Entry = z.infer<typeof entrySchema>;
 
-export async function getEntriesFromJson(): Promise<Entry[]> {
+let cache: Entry[] | undefined;
+
+export function getEntriesFromJson(): Entry[] {
+  if (cache) return cache;
+
   const result = entriesDataSchema.safeParse(experiencesData);
   if (!result.success) {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }
-  return result.data.entries;
+
+  cache = result.data.entries;
+  return cache;
 }

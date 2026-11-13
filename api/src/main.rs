@@ -6,30 +6,15 @@ async fn main() -> anyhow::Result<()> {
     // Local development convenience; production gets real env vars.
     let _ = dotenvy::dotenv();
 
-    // Config
     let config = cfg::ConfigPortfolio::try_from_env()?;
 
-    // Init Tracing
-    tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::from_default_env())
-        .init();
+    let filter = EnvFilter::try_from_default_env()
+        .unwrap_or_else(|_| EnvFilter::new("api=info,tower_http=info"));
+    tracing_subscriber::fmt().with_env_filter(filter).init();
 
-    // RedisDB
-    let redis_url = config.redis_url.to_owned();
-    let redis_client = match redis::Client::open(&*redis_url) {
-        Ok(client) => {
-            tracing::info!("RedisDB connection was successful!");
-            client
-        }
-        Err(e) => {
-            tracing::info!("Error connecting to RedisDB: {}", e);
-            std::process::exit(1);
-        }
-    };
+    let redis_client = redis::Client::open(config.redis_url.as_str())?;
+    tracing::info!("Redis client configured");
 
-    // Server
-    let config = config.clone();
     routes::serve(config, redis_client).await?;
-
     Ok(())
 }

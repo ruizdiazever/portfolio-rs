@@ -7,7 +7,7 @@ import { getLocale } from "@paraglide/runtime";
 import LinkPost from "$lib/components/common/LinkPost.astro";
 
 const ID = "511bc558-3f6e-4375-8e57-37e19519f1db";
-const post = await getPost(ID);
+const post = getPost(ID);
 if (!post) throw new Error("Post not found");
 
 const translations = {

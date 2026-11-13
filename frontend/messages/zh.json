@@ -103,7 +103,7 @@
   "titleCv": "简历 · Ever Ruiz Diaz",
   "cvIntro": "完整简历正在整理中。当前版本可在 LinkedIn 查看。",
   "reset": "重置",
-  "noResults": "没有找到结果。",
+  "noResults": "没有结果。",
   "firstPage": "回到第一页",
   "previousPage": "上一页",
   "nextPage": "下一页",
@@ -127,5 +127,6 @@
   "reactionNeutral": "一般",
   "reactionSad": "不喜欢",
   "author": "作者",
-  "close": "关闭"
+  "close": "关闭",
+  "seoCv": "Ever Ruiz Diaz 的简历，常驻罗马的软件工程师。"
 }

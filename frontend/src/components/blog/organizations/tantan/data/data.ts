@@ -1,29 +1,6 @@
-import { z } from "zod";
 import Heart from "@lucide/svelte/icons/heart";
 import Link from "@lucide/svelte/icons/link";
 import SquareMenu from "@lucide/svelte/icons/square-menu";
-
-export const orgSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  url: z.string(),
-  founded: z.number(),
-  industry: z.string(),
-  description: z.object({
-    en: z.string(),
-    zh: z.string(),
-  }),
-  country: z.string(),
-  market: z.boolean(),
-  sponsor: z.string(),
-  source: z.string(),
-  title: z.object({
-    en: z.string(),
-    zh: z.string(),
-  }),
-});
-
-export type Organization = z.infer<typeof orgSchema>;
 
 export const iconData = [
   {

@@ -6,7 +6,7 @@ import { getLocale } from "@paraglide/runtime";
 import { getPost } from "$lib/common/getPostById";
 
 const ID = "9a5f3584-5a8a-4c22-8460-2d775d54d89b";
-const post = await getPost(ID);
+const post = getPost(ID);
 if (!post) throw new Error("Post not found");
 ---
 

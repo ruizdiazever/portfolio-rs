@@ -25,10 +25,16 @@ const projectDataSchema = z.object({
 
 type Project = z.infer<typeof projectSchema>;
 
-export async function getProjectsFromJson(): Promise<Project[]> {
+let cache: Project[] | undefined;
+
+export function getProjectsFromJson(): Project[] {
+  if (cache) return cache;
+
   const result = projectDataSchema.safeParse(projectsData);
   if (!result.success) {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }
-  return result.data.posts;
+
+  cache = result.data.posts;
+  return cache;
 }

@@ -11,6 +11,7 @@ pub mod common {
     pub mod extra_data;
     pub mod html;
     pub mod ip;
+    pub mod rate_limit;
     pub mod req;
     pub mod send_feedback;
     pub mod ui;

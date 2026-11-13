@@ -1,10 +1,7 @@
 <script lang="ts">
     import type { Week } from "./types";
-    import dayjs from "dayjs";
-    import advancedFormat from "dayjs/plugin/advancedFormat";
     import type { Snippet } from "svelte";
     import { getLocale } from "@paraglide/runtime";
-    import "dayjs/locale/zh";
 
     interface Props {
         weeks: Week[];
@@ -14,11 +11,18 @@
 
     let { weeks, totalContributions, gitHubIcon }: Props = $props();
 
-    dayjs.extend(advancedFormat);
-    dayjs.locale(getLocale() === "zh" ? "zh" : "en");
+    const locale = getLocale() === "zh" ? "zh-CN" : "en-US";
+    const dayFormatter = new Intl.DateTimeFormat(locale, {
+        month: "short",
+        day: "numeric",
+    });
+    const monthFormatter = new Intl.DateTimeFormat(locale, {
+        month: "short",
+    });
+    const columnCount = Math.max(weeks.length, 1);
 
-    const formatDate = (dateString: string) =>
-        dayjs(dateString).format(getLocale() === "zh" ? "M月D日" : "MMM Do");
+    const parseDay = (dateString: string) => new Date(`${dateString}T00:00:00`);
+    const formatDate = (dateString: string) => dayFormatter.format(parseDay(dateString));
 
     const contributionLabel = (day: Week["contributionDays"][number]) =>
         getLocale() === "zh"
@@ -29,7 +33,7 @@
     weeks.forEach((week, index) => {
         const firstDay = week.contributionDays[0]?.date;
         if (!firstDay) return;
-        const month = dayjs(firstDay).format(getLocale() === "zh" ? "M月" : "MMM");
+        const month = monthFormatter.format(parseDay(firstDay));
         if (!months.has(month)) months.set(month, index);
     });
     const monthLabels = Array.from(months).map(([month, offset]) => ({
@@ -65,7 +69,7 @@
         <div class="relative min-w-[560px]">
             <div
                 class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
-                style="grid-template-columns: repeat(51, minmax(0, 1fr))"
+                style={`grid-template-columns: repeat(${columnCount}, minmax(0, 1fr))`}
                 role="img"
                 aria-label={getLocale() === "zh" ? `${totalContributions} 个贡献在过去一年` : `${totalContributions} contributions in the last year`}
             >
@@ -90,8 +94,8 @@
             >
                 {#each monthLabels as label}
                     <div
-                        class="first:ml-0 ml-[-{(label.offset * 100) / 51}%]"
-                        style="flex: 0 0 {100 / monthLabels.length}%"
+                        class="first:ml-0"
+                        style={`flex: 0 0 ${100 / Math.max(monthLabels.length, 1)}%; margin-left: -${(label.offset * 100) / columnCount}%`}
                     >
                         {label.month}
                     </div>

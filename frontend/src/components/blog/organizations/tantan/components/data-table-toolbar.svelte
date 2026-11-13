@@ -18,6 +18,7 @@
 <div class="flex items-center justify-between">
     <div class="flex flex-1 items-center space-x-2">
         <Input
+            aria-label={m.filterByName()}
             placeholder={m.filterByName()}
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             oninput={(e) => {

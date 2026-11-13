@@ -7,7 +7,7 @@ edition = "2021"
 axum = { version = "0.8.9", features = ["macros", "tower-log"] }
 tokio = { version = "1.54.1", features = ["full"] }
 redis = { version = "1.8.1", features = ["tokio-comp"] }
-tower = { version = "0.5.3", features = ["timeout"] }
+tower = { version = "0.5.3", features = ["timeout", "util"] }
 tower-http = { version = "0.7.1", features = ["trace", "cors"] }
 reqwest = { version = "0.13.5", features = ["json"] }
 serde = { version = "1.0.229", features = ["derive"] }

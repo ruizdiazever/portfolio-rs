@@ -4,7 +4,7 @@ import { getPost } from "$lib/common/getPostById";
 import { getLocale } from "@paraglide/runtime";
 import Post from "$lib/components/blog/wasm/Wasm.astro";
 
-const post = await getPost("9a5f3584-5a8a-4c22-8460-2d775d54d89b");
+const post = getPost("9a5f3584-5a8a-4c22-8460-2d775d54d89b");
 if (!post) throw new Error("Post not found");
 const locale = getLocale();
 ---

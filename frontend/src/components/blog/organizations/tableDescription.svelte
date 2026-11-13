@@ -9,7 +9,7 @@
     <a href="#icon">{m.meaningOfIcons()}</a>
 </h2>
 
-<Table.Root class="border rounded w-full text-sm bg-white dark:bg-black">
+<Table.Root class="border rounded w-full text-sm bg-card">
     <Table.Header>
         <Table.Row class="h-8 py-2 text-md">
             <Table.Head class="py-2">{m.icon()}</Table.Head>
