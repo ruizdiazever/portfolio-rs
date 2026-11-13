@@ -38,8 +38,8 @@ conventions and keeps the surface small enough to maintain.
 | JSON-LD | every HTML page | `Person`, `WebSite` and `ProfilePage` or `WebPage` |
 | RSS | `/en/feed.xml`, `/zh/feed.xml` | Writing feed |
 | JSON Feed | `/en/feed.json`, `/zh/feed.json` | Writing feed as JSON |
-| Sitemap | `/sitemap-index.xml` | Indexable pages |
-| Robots | `/robots.txt` | Crawling and content signals |
+| Sitemap | `/sitemap-index.xml` | Indexable pages. Root-level; bypasses locale redirects |
+| Robots | `/robots.txt` | Crawling and content signals. Root-level; bypasses locale redirects |
 | Discovery links | every HTML page | `<link>` relations point to the brief, manifest and map; SSR responses also carry a `Link` header |
 
 The HTML pages remain the source of truth. The brief and manifest are generated

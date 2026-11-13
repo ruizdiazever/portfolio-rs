@@ -140,6 +140,9 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   RSS, JSON Feed and JSON-LD discovery tags.
 - `robots.txt` carries the public content signal:
   `search=yes, ai-input=yes, ai-train=no, use=reference`.
+- The sitemap, robots and machine files are root-level, not locale-prefixed.
+  Keep them in the middleware non-localized bypass so a browser document
+  request is not redirected to `/en/...` or `/zh/...`.
 - Do not add an A2A card or MCP server card unless there is a real callable
   service and an authorization model. Do not add a model, chat endpoint or
   generated claims to the agent panel.
