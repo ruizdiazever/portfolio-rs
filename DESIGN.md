@@ -53,7 +53,9 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 
 Content color is allowed in book covers, technology marks and the contribution
 graph. UI chrome uses the tokens above. Do not add a colored hover, a gradient
-behind UI text or a card shadow.
+behind UI text or a card shadow. Agent lens is the one documented exception: it
+swaps the semantic tokens for the machine palette described below. Outside that
+mode, keep the neutral system.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -63,7 +65,8 @@ by color alone.
 
 Inter Variable is loaded once through the Astro Fonts API. Use the Tailwind
 scale in `frontend/src/styles/app.css`; do not add a second family or local
-`@font-face` blocks.
+`@font-face` blocks. Agent lens is the exception: it uses the system monospace
+stack as the machine instrument, and returns to Inter when the mode ends.
 
 | Role | Size | Line height | Weight |
 | --- | --- | --- | --- |
@@ -196,15 +199,36 @@ screen-reader label; the counter and error remain associated.
 
 ### Agent lens
 
-The agent layer is exposed by a two-state control in the header. In human mode
-it shows a bot icon and `Agent`; in agent mode it shows a person icon and
-`Human`. It is a toggle button with `aria-pressed`, a visible focus ring and an
-accessible name from both action states. On small screens the label collapses to
-the icon; the name remains.
+The agent layer is exposed by a two-state icon-only control in the header. In
+human mode it shows a bot; in agent mode it shows a person. There is no visible
+label at any breakpoint. The action lives in the accessible name and changes
+with the state. The button has `aria-pressed`, a visible focus ring, a 40px
+mobile target, a 36px desktop target and a soft aura: a radial glow, a
+breathing ring and an icon drop shadow. The aura is white in human mode and
+phosphor green in machine mode. It is decorative and stops under reduced
+motion.
 
-When active, the root gets `agent-mode` and an in-flow panel appears directly
-below the header, before `main`. It is not fixed, not a dialog and not a focus
-trap. The panel pushes content down; it never covers it.
+When active, the root gets `agent-mode`. The whole page becomes a machine
+surface, not only the panel:
+
+- **Type.** The page switches to the system monospace stack. Headings and
+  buttons are uppercase; numbers stay tabular.
+- **Palette.** The light theme becomes a paper terminal; the dark theme
+  becomes a green phosphor CRT. The machine palette overrides the semantic
+  tokens, so cards, tables, filters, dialogs, inputs and the footer transform
+  together. The theme toggle remains meaningful.
+- **Shape.** Cards and controls use 2px radii. Cards use dashed borders with
+  small corner brackets. Images are grayscale. Primary actions get a restrained
+  green glow.
+- **Background.** A fixed layer draws binary rain, a 44px technical grid,
+  scanlines and a vignette. It is `aria-hidden`, pointer-events none and sits
+  behind content. All of it stops under reduced motion.
+- **Content.** Copy, links, data and reading order are unchanged. Agent mode
+  changes the instrument, not the facts.
+
+The panel is the human feedback inside machine mode. It appears directly below
+the header, before `main`, in normal flow. It is not fixed, not a dialog and not
+a focus trap. It pushes content down; it never covers it.
 
 The panel is a handshake receipt:
 
@@ -217,16 +241,16 @@ The panel is a handshake receipt:
 - A primary `Copy agent brief` action that fetches `/agent.md` and confirms in a
   polite live region. A Contact link and the note "No model, no chat, no private
   data."
-- A footer sentence: "The human site is unchanged. This layer exposes public
-  facts only."
+- A footer sentence: "The human view is one click away. This layer exposes
+  public facts only."
 
 The machine files and boundaries are documented in
 [docs/agent-readiness.md](docs/agent-readiness.md).
 
-Desktop uses three columns; mobile stacks them. The state persists in
+Desktop uses three columns; tablet and mobile stack them. The state persists in
 `localStorage` and `?mode=agent`, and is applied before first paint. The panel
-uses the same tokens, hairlines and 6px controls as the rest of the site. It
-does not introduce a second accent or a card shadow.
+uses the machine tokens and 2px controls; it does not add a second accent
+outside machine mode.
 
 ### Toast and footer
 

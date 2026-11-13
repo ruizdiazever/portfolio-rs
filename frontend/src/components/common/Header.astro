@@ -95,12 +95,12 @@ const languageLabel =
                     aria-controls="agent-dock"
                     title={m.agentMode()}
                     data-agent-toggle
-                    class="relative inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-md px-2.5 text-sm font-medium transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-[0.96] aria-pressed:bg-primary aria-pressed:text-primary-foreground md:h-9"
+                    class="agent-toggle relative inline-flex h-10 w-9 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-[0.96] aria-pressed:bg-primary aria-pressed:text-primary-foreground md:h-9 md:w-9"
                 >
                     <span class="sr-only agent-sr-agent">{m.agentEnter()}</span>
                     <span class="sr-only agent-sr-human">{m.agentExit()}</span>
                     <svg
-                        class="agent-icon-agent h-4 w-4 shrink-0"
+                        class="agent-icon-agent h-[1.2rem] w-[1.2rem] shrink-0"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -113,7 +113,7 @@ const languageLabel =
                         <path d="M12 3v4M8 12h.01M16 12h.01M9 16h6"></path>
                     </svg>
                     <svg
-                        class="agent-icon-human h-4 w-4 shrink-0"
+                        class="agent-icon-human h-[1.2rem] w-[1.2rem] shrink-0"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -125,8 +125,6 @@ const languageLabel =
                         <circle cx="12" cy="8" r="4"></circle>
                         <path d="M4 21a8 8 0 0 1 16 0"></path>
                     </svg>
-                    <span class="agent-label agent-label-agent">{m.agentAgent()}</span>
-                    <span class="agent-label agent-label-human">{m.agentHuman()}</span>
                 </button>
                 <div class="hidden md:flex items-center">
                     <Separator orientation="vertical" class="mx-2 h-6! w-0.5! bg-border!" />

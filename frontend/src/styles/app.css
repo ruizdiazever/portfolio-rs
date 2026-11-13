@@ -89,18 +89,12 @@
 }
 
 .agent-icon-human,
-.agent-sr-human,
-.agent-label-human {
-    display: none;
-}
-
-.agent-label {
+.agent-sr-human {
     display: none;
 }
 
 .agent-mode .agent-icon-agent,
-.agent-mode .agent-sr-agent,
-.agent-mode .agent-label-agent {
+.agent-mode .agent-sr-agent {
     display: none;
 }
 
@@ -109,19 +103,89 @@
     display: inline;
 }
 
-@media (min-width: 640px) {
-    .agent-label-agent {
-        display: inline;
-    }
+.agent-toggle {
+    --agent-aura: color-mix(in srgb, var(--foreground) 28%, transparent);
+    isolation: isolate;
+    box-shadow: 0 0 16px var(--agent-aura);
+}
 
-    .agent-mode .agent-label-human {
-        display: inline;
-    }
+.agent-mode .agent-toggle {
+    --agent-aura: var(--machine-aura, var(--foreground));
+}
+
+.agent-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    z-index: 0;
+    border-radius: 999px;
+    background: radial-gradient(circle, var(--agent-aura) 0%, transparent 68%);
+    filter: blur(3px);
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 200ms var(--ease-out);
+}
+
+.agent-toggle::after {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    z-index: 0;
+    border: 1px solid var(--agent-aura);
+    border-radius: 999px;
+    opacity: 0.4;
+    pointer-events: none;
+    animation: agent-aura 2.8s ease-in-out infinite;
+}
+
+.agent-toggle svg {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 4px var(--agent-aura));
+}
+
+.agent-mode .agent-toggle::before {
+    opacity: 1;
+}
+
+.agent-mode .agent-toggle::after {
+    opacity: 0.8;
+    border-color: var(--machine-accent, var(--foreground));
+}
+
+.agent-mode .agent-toggle[aria-pressed="true"] {
+    box-shadow: 0 0 18px var(--machine-glow);
+}
+
+.agent-mode .agent-toggle svg {
+    filter: drop-shadow(0 0 7px var(--machine-accent));
 }
 
 html.agent-mode #agent-mode-toggle {
     background: var(--primary);
     color: var(--primary-foreground);
+}
+
+@keyframes agent-aura {
+    0%,
+    100% {
+        transform: scale(0.92);
+        opacity: 0.35;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.65;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .agent-toggle::after {
+        animation: none;
+    }
+
+    .agent-toggle:active {
+        transform: none;
+    }
 }
 
 .theme-icon-sun {
@@ -785,5 +849,294 @@ html.agent-mode .agent-dock {
 
     .agent-copy:active {
         scale: 1;
+    }
+}
+
+/* Machine mode: a full-page phosphor terminal, not just a panel skin. */
+html.agent-mode {
+    --background: #f1f6ee;
+    --foreground: #061a0c;
+    --card: #f8fbf5;
+    --card-foreground: #061a0c;
+    --popover: #f8fbf5;
+    --popover-foreground: #061a0c;
+    --primary: #0b6b2e;
+    --primary-foreground: #f5fff6;
+    --secondary: #e3eedf;
+    --secondary-foreground: #2e5a3b;
+    --muted: #e3eedf;
+    --muted-foreground: #3e6d4e;
+    --accent: #dfeedd;
+    --accent-foreground: #061a0c;
+    --destructive: #9f1f1f;
+    --border: rgb(6 26 12 / 22%);
+    --input: #2e6d44;
+    --ring: rgb(11 107 46 / 55%);
+    --machine-bg: #f1f6ee;
+    --machine-accent: #0b6b2e;
+    --machine-aura: rgb(11 107 46 / 55%);
+    --machine-grid: rgb(11 107 46 / 12%);
+    --machine-line: rgb(11 107 46 / 22%);
+    --machine-rain: rgb(11 107 46 / 38%);
+    --machine-glow: rgb(11 107 46 / 18%);
+    color-scheme: light;
+}
+
+html.agent-mode.dark {
+    --background: #030805;
+    --foreground: #d9ffe5;
+    --card: #07120b;
+    --card-foreground: #d9ffe5;
+    --popover: #07120b;
+    --popover-foreground: #d9ffe5;
+    --primary: #8dffb0;
+    --primary-foreground: #041009;
+    --secondary: #0c1c11;
+    --secondary-foreground: #a6c9b0;
+    --muted: #0c1c11;
+    --muted-foreground: #83b996;
+    --accent: #0f2417;
+    --accent-foreground: #d9ffe5;
+    --destructive: #ff6b6b;
+    --border: rgb(141 255 176 / 22%);
+    --input: #83b996;
+    --ring: rgb(141 255 176 / 60%);
+    --machine-bg: #030805;
+    --machine-accent: #8dffb0;
+    --machine-aura: rgb(141 255 176 / 62%);
+    --machine-grid: rgb(141 255 176 / 8%);
+    --machine-line: rgb(141 255 176 / 22%);
+    --machine-rain: rgb(141 255 176 / 30%);
+    --machine-glow: rgb(141 255 176 / 20%);
+    color-scheme: dark;
+}
+
+html.agent-mode {
+    scrollbar-color: var(--machine-line) var(--machine-bg);
+}
+
+html.agent-mode body {
+    font-family:
+        ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+        "PingFang SC", "Microsoft YaHei", monospace;
+    letter-spacing: -0.01em;
+}
+
+html.agent-mode h1,
+html.agent-mode h2,
+html.agent-mode h3 {
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+}
+
+html.agent-mode button {
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+html.agent-mode ::selection {
+    background: var(--machine-accent);
+    color: var(--machine-bg);
+}
+
+html.agent-mode main,
+html.agent-mode footer,
+html.agent-mode .agent-dock {
+    position: relative;
+    z-index: 1;
+}
+
+.machine-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: none;
+    overflow: hidden;
+    background: var(--machine-bg);
+    pointer-events: none;
+}
+
+html.agent-mode .machine-layer {
+    display: block;
+}
+
+.machine-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, var(--machine-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--machine-grid) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: 0.65;
+    mask-image: radial-gradient(
+        ellipse at 50% 8%,
+        black 0%,
+        transparent 78%
+    );
+}
+
+.machine-rain {
+    position: absolute;
+    inset: -40% 0;
+}
+
+.machine-rain span {
+    position: absolute;
+    top: -30%;
+    left: var(--x);
+    display: block;
+    width: 1ch;
+    color: var(--machine-rain);
+    font-family:
+        ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+        monospace;
+    font-size: 0.6875rem;
+    line-height: 1.25;
+    letter-spacing: 0.05em;
+    opacity: var(--o);
+    white-space: normal;
+    word-break: break-all;
+    animation: machine-fall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.machine-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0 3px,
+        var(--machine-line) 3px 4px
+    );
+    opacity: 0.1;
+}
+
+.machine-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 50% 18%,
+        transparent 25%,
+        var(--machine-glow) 100%
+    );
+    opacity: 0.7;
+}
+
+@keyframes machine-fall {
+    from {
+        transform: translate3d(0, -15%, 0);
+    }
+    to {
+        transform: translate3d(0, 25%, 0);
+    }
+}
+
+html.agent-mode .bg-card {
+    background-color: color-mix(in srgb, var(--card) 88%, transparent);
+}
+
+html.agent-mode .border.rounded-lg {
+    position: relative;
+    border-style: dashed;
+}
+
+html.agent-mode .border.rounded-lg::before,
+html.agent-mode .border.rounded-lg::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-color: var(--machine-accent);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+html.agent-mode .border.rounded-lg::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+html.agent-mode .border.rounded-lg::after {
+    right: -1px;
+    bottom: -1px;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+}
+
+html.agent-mode .rounded-lg,
+html.agent-mode .rounded-md,
+html.agent-mode .rounded,
+html.agent-mode .rounded-full,
+html.agent-mode [class*="rounded-t-"] {
+    border-radius: 2px;
+}
+
+html.agent-mode .book-face,
+html.agent-mode .book-card-toggle,
+html.agent-mode .agent-copy,
+html.agent-mode .agent-close {
+    border-radius: 2px;
+}
+
+html.agent-mode .agent-copy,
+html.agent-mode .agent-toggle,
+html.agent-mode .bg-primary {
+    box-shadow: 0 0 20px var(--machine-glow);
+}
+
+html.agent-mode img {
+    filter: grayscale(1) contrast(1.08) brightness(0.93);
+}
+
+html.agent-mode .agent-kicker {
+    color: var(--machine-accent);
+}
+
+html.agent-mode .agent-ready {
+    border-color: var(--machine-accent);
+    color: var(--machine-accent);
+}
+
+html.agent-mode .agent-pulse {
+    background: var(--machine-accent);
+    box-shadow: 0 0 10px var(--machine-accent);
+}
+
+html.agent-mode .agent-dock {
+    background: color-mix(in srgb, var(--card) 94%, transparent);
+}
+
+html.agent-mode .agent-surfaces a {
+    border-bottom-style: dashed;
+}
+
+@media (hover: hover) {
+    html.agent-mode .agent-surfaces a:hover {
+        border-color: var(--machine-accent);
+    }
+
+    html.agent-mode .agent-close:hover {
+        color: var(--machine-accent);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .machine-rain span {
+        animation: none;
+    }
+}
+
+@media (max-width: 639px) {
+    html.agent-mode #navbar .site-header-inner > a p:first-child {
+        font-size: 1.125rem;
+        line-height: 1.2;
+    }
+
+    html.agent-mode #navbar .site-header-inner > a p:last-child {
+        height: auto;
+        font-size: 0.8125rem;
+        line-height: 1.3;
     }
 }

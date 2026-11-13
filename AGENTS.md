@@ -116,7 +116,8 @@ test when behavior has a user-visible contract. Use a free port for local runs; 
 The full system lives in [DESIGN.md](DESIGN.md). The short version:
 
 - Inter, system color scheme, semantic tokens, 12px cards, 6px controls, pill
-  filters, no card shadows, no second accent.
+  filters, no card shadows, no second accent in the human view. Agent lens is
+  the documented machine-palette exception.
 - Text stays readable at 320px and 200% scaling. Long content wraps or
   truncates with a way to the full value.
 - Every interactive element has a name, focus ring and keyboard path. Hover is
@@ -129,10 +130,11 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
 
 ## Agent surface
 
-- Agent lens is a public inspection mode, not a chatbot. It is a two-state
-  header control that writes `html.agent-mode`, `?mode=agent` and the
-  `portfolio-agent-mode` localStorage key. The panel is in normal flow below the
-  header, never a fixed overlay or modal.
+- Agent lens is a public inspection mode, not a chatbot. It is a two-state,
+  icon-only header control with no visible label and an aura. It writes
+  `html.agent-mode`, `?mode=agent` and the `portfolio-agent-mode` localStorage
+  key. The whole page becomes the machine surface; the panel is in normal flow
+  below the header, never a fixed overlay or modal.
 - Keep `/llms.txt`, `/agent.md` and `/agent.json` generated from the same data
   as the pages. Every HTML page carries the `describedby`, Markdown alternate,
   RSS, JSON Feed and JSON-LD discovery tags.

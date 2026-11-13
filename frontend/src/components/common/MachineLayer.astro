@@ -1,0 +1,32 @@
+---
+const bits = (seed: number) =>
+    Array.from({ length: 160 }, (_, index) =>
+        (seed * 17 + index * 11 + (index % 7)) % 3 === 0 ? "1" : "0",
+    ).join("");
+
+const columns = Array.from({ length: 22 }, (_, index) => {
+    const left = 2 + ((index * 4.6 + (index % 3) * 1.1) % 96);
+    return {
+        left: `${left}%`,
+        delay: `${-((index * 1.9) % 18)}s`,
+        duration: `${16 + (index % 7) * 2.4}s`,
+        opacity: 0.16 + (index % 5) * 0.07,
+        content: bits(index + 1),
+    };
+});
+---
+
+<div class="machine-layer" aria-hidden="true">
+    <div class="machine-grid"></div>
+    <div class="machine-rain">
+        {columns.map((column) => (
+            <span
+                style={`--x: ${column.left}; --delay: ${column.delay}; --duration: ${column.duration}; --o: ${column.opacity}`}
+            >
+                {column.content}
+            </span>
+        ))}
+    </div>
+    <div class="machine-scanlines"></div>
+    <div class="machine-vignette"></div>
+</div>

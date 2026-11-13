@@ -68,10 +68,11 @@ service exists, it should get its own discovery file and authorization model.
 
 The header button switches the ordinary site into an explicit inspection mode:
 
-- **Enter.** The control shows a bot and "Agent"; activating it adds
-  `?mode=agent`, stores the preference and renders the panel.
-- **Exit.** The control shows a person and "Human"; the close button, the same
-  control or the query parameter `mode=human` returns to the human view.
+- **Enter.** The icon-only control shows a bot; activating it adds
+  `?mode=agent`, stores the preference and renders the machine page and its
+  handshake panel. There is no visible text label.
+- **Exit.** The icon switches to a person; the close button, the same control or
+  the query parameter `mode=human` returns to the human view.
 - **Persistence.** The state lives in `localStorage` and in the URL. The root
   class is applied in the head before the first paint, so there is no flash of
   the wrong mode. Internal navigation keeps the mode.
@@ -82,13 +83,44 @@ The header button switches the ordinary site into an explicit inspection mode:
   region. It does not call a model.
 - **Layout.** The panel is in normal document flow below the header, not a
   fixed overlay. It never covers the page. On desktop it uses three columns; on
-  mobile it stacks and the page follows below. The page keeps its scroll,
-  focus order and reading flow.
-- **Motion.** A 200ms rise on enter, a slow status dot and a 0.96 press scale.
-  All of it is removed under `prefers-reduced-motion`.
+  tablet and mobile it stacks and the page follows below. The page keeps its
+  scroll, focus order and reading flow.
+- **Machine surface.** The rest of the page changes too: monospace type,
+  uppercase headings and buttons, 2px corners, dashed cards with corner
+  brackets, grayscale images, a paper-terminal light theme and a green phosphor
+  dark theme. A fixed `aria-hidden` layer adds binary rain, a technical grid,
+  scanlines and a vignette behind the content.
+- **Aura.** The header icon has a radial glow, a breathing ring and a drop
+  shadow, stronger in machine mode. The ring stops under reduced motion.
+- **Motion.** A 200ms rise on enter, a slow status dot, the binary drift and a
+  0.96 press scale. All of it is removed under `prefers-reduced-motion`.
 
-The human site is unchanged. Agent lens is a reading instrument, not a chat
-window.
+The human view is one click away. Agent lens is a reading instrument, not a
+chat window.
+
+## Visual direction
+
+Machine mode takes the board out of the ordinary site without turning it into a
+generic hacker template. The references were the green-screen CRT terminal, the
+terminal portfolio as an editor surface and the sharp, mono-heavy developer
+tool aesthetic. The result is a quiet instrument: light paper terminal or dark
+phosphor CRT, binary rain at low opacity, a technical grid, scanlines, sharp
+corners and a single green signal.
+
+The panel stays a receipt, not a chat. The page is the machine.
+
+Visual references:
+
+- [Ruben Marcus, cyberpunk terminal portfolio](https://www.awwwards.com/sites/rubenmarcus-dev-portfolio):
+  ASCII, terminal language and a strong hero, translated here into a quiet
+  machine layer.
+- [Chronus terminal portfolio](https://github.com/jondmarien/portfolio-site):
+  sparse editor chrome and a technical identity without generic cyberpunk.
+- [CRT_BLOG](https://heroor.github.io/crt-blog/): green phosphor, scanlines and
+  a screen-as-surface point of view.
+- [Tensorlake design breakdown](https://designsorcery.com/captures/tensorlake.ai/DESIGN.md):
+  sharp radius, monospace utility and one high-contrast green as the only
+  technical voltage.
 
 ## Verification
 

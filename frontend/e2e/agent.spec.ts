@@ -143,6 +143,39 @@ test.describe("agent surfaces", () => {
     expect(clipboard).toContain("# Ever Ruiz Diaz");
   });
 
+  test("machine mode transforms the page and keeps the header in one row", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ colorScheme: "dark" });
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en");
+    await page.locator("[data-agent-toggle]").click();
+    await page.waitForTimeout(250);
+
+    await expect(page.locator(".machine-layer")).toBeVisible();
+    await expect(page.locator("[data-agent-toggle] .agent-label")).toHaveCount(0);
+
+    const machine = await page.evaluate(() => ({
+      font: getComputedStyle(document.body).fontFamily,
+      header: document.querySelector("#navbar")?.getBoundingClientRect().height,
+      theme: document
+        .querySelector('meta[name="theme-color"]')
+        ?.getAttribute("content"),
+      overflow:
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth,
+    }));
+    expect(machine.font).toMatch(/mono/i);
+    expect(machine.header).toBeLessThan(100);
+    expect(machine.theme).toBe("#030805");
+    expect(machine.overflow).toBe(false);
+
+    await page.emulateMedia({ colorScheme: "light" });
+    await expect(
+      page.locator('meta[name="theme-color"]'),
+    ).toHaveAttribute("content", "#f1f6ee");
+  });
+
   test("agent panel survives 200 percent text scaling", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en?mode=agent");
