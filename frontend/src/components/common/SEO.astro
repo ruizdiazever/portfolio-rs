@@ -44,6 +44,63 @@ const localizedHref = (lang: string) => {
 const LOCALES = ["en", "zh"] as const;
 
 const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
+const personImage = media("site/avatar-192.webp");
+const isProfilePage = /^\/(en|zh)\/?$/.test(Astro.url.pathname);
+const language = LOCALE[getLocale()];
+const personId = new URL("/#person", Astro.site).href;
+const websiteId = new URL("/#website", Astro.site).href;
+const pageId = `${canonicalURL.href}#webpage`;
+const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Person",
+            "@id": personId,
+            name: "Ever Ruiz Diaz",
+            url: new URL(`/${getLocale()}`, Astro.site).href,
+            image: personImage,
+            jobTitle: "Software Engineer",
+            description: m.aboutP1(),
+            address: {
+                "@type": "PostalAddress",
+                addressLocality: "Rome",
+                addressCountry: "IT",
+            },
+            sameAs: [
+                "https://www.linkedin.com/in/everdev/",
+                "https://github.com/ruizdiazever",
+                "https://x.com/everruizdiazo",
+            ],
+            knowsAbout: [
+                "Rust",
+                "TypeScript",
+                "platform engineering",
+                "distributed systems",
+                "design systems",
+                "Postgres",
+            ],
+        },
+        {
+            "@type": "WebSite",
+            "@id": websiteId,
+            url: new URL(`/${getLocale()}`, Astro.site).href,
+            name: seoConfig.siteName,
+            inLanguage: language,
+            publisher: { "@id": personId },
+        },
+        {
+            "@type": isProfilePage ? "ProfilePage" : "WebPage",
+            "@id": pageId,
+            url: canonicalURL.href,
+            name: title,
+            description,
+            isPartOf: { "@id": websiteId },
+            about: { "@id": personId },
+            inLanguage: language,
+            dateModified: new Date().toISOString(),
+        },
+    ],
+}).replaceAll("<", "\\u003c");
 ---
 
 <meta charset="UTF-8" />
@@ -106,6 +163,21 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 <link rel="apple-touch-icon" href={media("site/icons/apple-touch-icon.png")} />
 <link rel="icon" href={media("site/icons/favicon.ico")} sizes="32x32" />
 <link rel="canonical" href={canonicalURL.href} />
+<link rel="describedby" type="text/plain" href="/llms.txt" />
+<link rel="alternate" type="text/markdown" href="/agent.md" title="Agent brief" />
+<link rel="alternate" type="application/json" href="/agent.json" title="Agent manifest" />
+<link
+    rel="alternate"
+    type="application/rss+xml"
+    href={`/${getLocale()}/feed.xml`}
+    title="RSS feed"
+/>
+<link
+    rel="alternate"
+    type="application/feed+json"
+    href={`/${getLocale()}/feed.json`}
+    title="JSON Feed"
+/>
 {
     LOCALES.map((lang) => (
         <link rel="alternate" hreflang={lang} href={localizedHref(lang)} />
@@ -143,6 +215,8 @@ const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
 <meta property="og:description" content={description} />
 <meta property="og:site_name" content={seoConfig.siteName} />
 <meta property="og:locale" content={LOCALE[getLocale()]} />
+
+<script type="application/ld+json" set:html={jsonLd} />
 
 <!-- Robots -->
 <meta name="robots" content="index, follow" />

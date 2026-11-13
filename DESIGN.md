@@ -194,6 +194,40 @@ Native `<dialog>` opened with `showModal()`, named with `aria-labelledby`, with
 behind is inert by the platform. The message field has a visible or
 screen-reader label; the counter and error remain associated.
 
+### Agent lens
+
+The agent layer is exposed by a two-state control in the header. In human mode
+it shows a bot icon and `Agent`; in agent mode it shows a person icon and
+`Human`. It is a toggle button with `aria-pressed`, a visible focus ring and an
+accessible name from both action states. On small screens the label collapses to
+the icon; the name remains.
+
+When active, the root gets `agent-mode` and an in-flow panel appears directly
+below the header, before `main`. It is not fixed, not a dialog and not a focus
+trap. The panel pushes content down; it never covers it.
+
+The panel is a handshake receipt:
+
+- A status eyebrow and a `Ready` pill, with a quiet pulse that stops under
+  reduced motion.
+- A public profile block: name, one-line summary, project, note and book counts,
+  and the last content date.
+- A six-item surface list: `llms.txt`, `Agent brief`, `Agent manifest`, `RSS
+  feed`, `Sitemap` and `Robots and content policy`.
+- A primary `Copy agent brief` action that fetches `/agent.md` and confirms in a
+  polite live region. A Contact link and the note "No model, no chat, no private
+  data."
+- A footer sentence: "The human site is unchanged. This layer exposes public
+  facts only."
+
+The machine files and boundaries are documented in
+[docs/agent-readiness.md](docs/agent-readiness.md).
+
+Desktop uses three columns; mobile stacks them. The state persists in
+`localStorage` and `?mode=agent`, and is applied before first paint. The panel
+uses the same tokens, hairlines and 6px controls as the rest of the site. It
+does not introduce a second accent or a card shadow.
+
 ### Toast and footer
 
 Toasts follow the active theme and stay neutral. The footer mirrors the header
@@ -269,6 +303,9 @@ area.
   imports.
 - Run the review in [docs/skills/SKILLS.md](docs/skills/SKILLS.md) before
   claiming a UI change is verified.
+- Agent files and JSON-LD are data, not decoration. Keep them in sync with the
+  page data and keep `docs/agent-readiness.md` current.
+- Do not add an A2A or MCP surface without a real callable service.
 
 ## Review checklist
 
@@ -280,6 +317,7 @@ For every UI change, inspect the actual page in both themes:
 - Shared component consumers, not only the edited surface.
 - The full page composition, not only the isolated component.
 - The keyboard path, accessible names and focus visibility.
+- Agent lens at 320px and 200%, with the panel in flow and no content hidden.
 - No clipped content, hidden action, horizontal page scroll or overlapping
   label.
 - No state carried by color or motion alone.

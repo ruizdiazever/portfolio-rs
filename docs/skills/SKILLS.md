@@ -5,8 +5,9 @@ repository. It is not a second `AGENTS.md`, and it does not restate skill
 instructions. The skill catalog installed in the current DeepSeek Harness
 session is authoritative; this page says which owner to load and in what order.
 
-Read it with [AGENTS.md](../../AGENTS.md), [DESIGN.md](../../DESIGN.md) and the
-public [README.md](../../README.md).
+Read it with [AGENTS.md](../../AGENTS.md), [DESIGN.md](../../DESIGN.md), the
+[agent readiness note](../agent-readiness.md) and the public
+[README.md](../../README.md).
 
 ## Installed capability
 
@@ -121,6 +122,13 @@ This is the DeepSeek Harness UI change workflow. See the
 [UI skill](https://github.com/deepseek-ai/deepseek-harness/blob/master/.agents/skills/dsh-client-ui-ux/SKILL.md)
 and the
 [review cookbook](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cookbook/reviewing-ui-design.md).
+
+## Agent surfaces
+
+Agent readiness is a product surface, not a skill. The owner is
+[docs/agent-readiness.md](../agent-readiness.md). Keep the agent panel, the
+machine files and the discovery tags in the same change as the content they
+describe. See `AGENTS.md` for the invariants.
 
 ## What DeepSeek Harness does with these files
 

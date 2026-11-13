@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("performance budget", () => {
-  test("home ships no client JS and a small initial payload", async ({
+  test("home ships a small client payload", async ({
     page,
   }) => {
     await page.goto("/en", { waitUntil: "networkidle" });

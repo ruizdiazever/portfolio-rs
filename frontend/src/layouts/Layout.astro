@@ -4,6 +4,7 @@ import { getLocale } from "@paraglide/runtime";
 import Footer from "$lib/components/common/Footer.astro";
 import Header from "$lib/components/common/Header.astro";
 import SEO from "$lib/components/common/SEO.astro";
+import AgentDock from "$lib/components/common/AgentDock.astro";
 import * as m from "@paraglide/messages.js";
 import "$lib/styles/app.css";
 
@@ -88,6 +89,29 @@ const {
                 window
                     .matchMedia("(prefers-color-scheme: dark)")
                     .addEventListener("change", sync);
+                new MutationObserver(sync).observe(
+                    document.documentElement,
+                    { attributes: true, attributeFilter: ["class"] },
+                );
+            })();
+        </script>
+        <script is:inline>
+            (() => {
+                const key = "portfolio-agent-mode";
+                const query = new URLSearchParams(window.location.search).get("mode");
+                let stored = null;
+                try {
+                    stored = localStorage.getItem(key);
+                } catch {}
+                const enabled =
+                    query === "agent" ||
+                    (query !== "human" && stored === "agent");
+                document.documentElement.classList.toggle("agent-mode", enabled);
+                if (query === "agent" || query === "human") {
+                    try {
+                        localStorage.setItem(key, query);
+                    } catch {}
+                }
             })();
         </script>
     </head>
@@ -99,6 +123,7 @@ const {
             {m.skipToContent()}
         </a>
         {showHeader && <Header wide={!maxWithMd} />}
+        {showHeader && <AgentDock />}
         <main
             id="main"
             tabindex="-1"

@@ -8,6 +8,8 @@ This file is the operational entry point. Read it with:
 - [DESIGN.md](DESIGN.md): the visual system, components, states and UI rules.
 - [docs/skills/SKILLS.md](docs/skills/SKILLS.md): the skill routing map and UI
   review process.
+- [docs/agent-readiness.md](docs/agent-readiness.md): the agent-facing surfaces,
+  boundaries and Agent lens design.
 - [README.md](README.md): the public description. Keep it short.
 
 DeepSeek Harness loads the root `AGENTS.md` as durable workspace instructions,
@@ -74,8 +76,8 @@ pnpm -C frontend test:e2e
 ```
 
 Playwright covers routing, 320px layout, SEO, S3 assets, books, language,
-feedback, theme behavior and the organizations table. Add a test when behavior
-has a user-visible contract. Use a free port for local runs; do not assume
+feedback, theme behavior, the organizations table and the agent surfaces. Add a
+test when behavior has a user-visible contract. Use a free port for local runs; do not assume
 `4321` or `4322` is available.
 
 ## Architecture invariants
@@ -124,6 +126,25 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
 - Search the actual page and both themes before changing spacing, typography,
   color or interaction. Follow the review evidence in
   [docs/skills/SKILLS.md](docs/skills/SKILLS.md).
+
+## Agent surface
+
+- Agent lens is a public inspection mode, not a chatbot. It is a two-state
+  header control that writes `html.agent-mode`, `?mode=agent` and the
+  `portfolio-agent-mode` localStorage key. The panel is in normal flow below the
+  header, never a fixed overlay or modal.
+- Keep `/llms.txt`, `/agent.md` and `/agent.json` generated from the same data
+  as the pages. Every HTML page carries the `describedby`, Markdown alternate,
+  RSS, JSON Feed and JSON-LD discovery tags.
+- `robots.txt` carries the public content signal:
+  `search=yes, ai-input=yes, ai-train=no, use=reference`.
+- Do not add an A2A card or MCP server card unless there is a real callable
+  service and an authorization model. Do not add a model, chat endpoint or
+  generated claims to the agent panel.
+- The brief and manifest are public. Never add private email, admin state,
+  analytics identifiers or session data to them.
+- Run the agent Playwright spec when changing the panel, the endpoints, the
+  manifest shape or the discovery headers.
 
 ## Environment and secrets
 
