@@ -37,6 +37,20 @@ test.describe("agent surfaces", () => {
     );
   });
 
+  test("machine files are not locale-redirected", async ({ page }) => {
+    for (const path of [
+      "/sitemap-index.xml",
+      "/robots.txt",
+      "/llms.txt",
+      "/agent.md",
+      "/agent.json",
+    ]) {
+      const response = await page.goto(path);
+      expect(response?.status()).toBe(200);
+      expect(new URL(page.url()).pathname).toBe(path);
+    }
+  });
+
   test("exposes agent links, JSON-LD and a Link header", async ({
     page,
     request,
