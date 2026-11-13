@@ -71,14 +71,17 @@ agent receives:
 
 - **Enter.** The icon-only control switches from a bot to a person. It adds
   `?mode=agent`, stores the preference and replaces the human page with the
-  generated `/agent.md` document. There is no visible label.
+  generated agent brief for the current locale. There is no visible label.
 - **Exit.** The icon, the query parameter `mode=human` or the `Human view`
   action in the document returns to the normal site.
 - **Persistence.** The state lives in `localStorage` and in the URL. The root
   class is applied in the head before the first paint. Navigation keeps it.
-- **Document.** The main landmark renders the raw Markdown in a monospace
-  `<pre>`, at most 86 characters wide. It keeps the `#` headings, lists and
-  URLs; that is the point. The header stays for controls, the footer hides.
+- **Document.** The main landmark renders the generated Markdown in a
+  monospace `<pre>`, at most 86 characters wide. It keeps the `#` headings,
+  lists and URLs; that is the point. English uses the English canonical copy;
+  Chinese uses native Chinese labels, profile, work, writing and reading copy.
+  `/agent.md` and `/agent.json` remain the English canonical files. The header
+  stays for controls, the footer hides.
 - **Toolbar.** A hairline row names `text/markdown`, shows the line count and
   offers `Copy agent brief`, `agent.md` and `Human view`. Copy confirms in a
   polite live region. There is no panel, dashboard, binary layer or palette

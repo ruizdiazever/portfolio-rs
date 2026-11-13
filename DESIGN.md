@@ -208,8 +208,9 @@ When active, the root gets `agent-mode`. The header stays so the reader can
 leave or change theme and language. The human page and footer are hidden. The
 main landmark shows one plain-text document:
 
-- The content is the raw `/agent.md` brief, generated from the same post,
-  project and book data as the human pages.
+- The content is the generated agent brief for the current locale, built from
+  the same post, project and book data as the human pages. `/agent.md` and
+  `/agent.json` remain the English canonical files.
 - The document is monospace, 0.875rem, 1.7 line height and at most 86
   characters wide. Long URLs wrap. It scrolls with the page; there is no card,
   image, terminal palette or animation.

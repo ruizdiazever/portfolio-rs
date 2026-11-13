@@ -134,8 +134,9 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   icon-only header control with no visible label, styled exactly like the theme
   control. It writes `html.agent-mode`, `?mode=agent` and the
   `portfolio-agent-mode` localStorage key. The human page and footer are
-  replaced by the raw `/agent.md` document inside `main`; there is no machine
-  palette, binary layer, panel or aura.
+  replaced by the generated agent brief for the current locale inside `main`;
+  `/agent.md` and `/agent.json` remain the English canonical files. There is no
+  machine palette, binary layer, panel or aura.
 - Keep `/llms.txt`, `/agent.md` and `/agent.json` generated from the same data
   as the pages. Every HTML page carries the `describedby`, Markdown alternate,
   RSS, JSON Feed and JSON-LD discovery tags.

@@ -51,8 +51,9 @@ The browser talks to the API through Caddy on the same origin. The Astro server 
 The site publishes a public machine layer for agents: [`/llms.txt`](https://www.everdev.it/llms.txt),
 [`/agent.md`](https://www.everdev.it/agent.md), [`/agent.json`](https://www.everdev.it/agent.json),
 JSON-LD, RSS and JSON Feeds. The header's **Agent lens** replaces the human
-page with the raw Markdown an agent receives, with a copy action and a way back.
-It is a reader, not a chatbot. See
+page with the plain-text agent brief for the current locale, with a copy action
+and a way back. `/agent.md` remains the English canonical file. It is a reader,
+not a chatbot. See
 [docs/agent-readiness.md](docs/agent-readiness.md).
 
 ## The flow

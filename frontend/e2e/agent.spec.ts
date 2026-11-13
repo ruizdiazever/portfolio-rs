@@ -118,6 +118,19 @@ test.describe("agent surfaces", () => {
     await expect(page).not.toHaveURL(/mode=agent/);
   });
 
+  test("localizes the agent document in Chinese", async ({ page }) => {
+    await page.goto("/zh?mode=agent");
+
+    const document = page.locator(".agent-plain-text");
+    await expect(document).toContainText("## 精选工作");
+    await expect(document).toContainText("常驻罗马的软件工程师");
+    await expect(document).toContainText("## 使用边界");
+    await expect(document).not.toContainText("## Selected work");
+    await expect(page.locator(".agent-text-toolbar")).toContainText(
+      "agent.md (EN)",
+    );
+  });
+
   test("the header control matches the other icon buttons", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en");
