@@ -111,17 +111,18 @@
 
 .agent-mode .agent-toggle {
     --agent-aura: var(--machine-aura, var(--foreground));
+    box-shadow: 0 0 30px var(--machine-aura);
 }
 
 .agent-toggle::before {
     content: "";
     position: absolute;
-    inset: 2px;
+    inset: -4px;
     z-index: 0;
     border-radius: 999px;
-    background: radial-gradient(circle, var(--agent-aura) 0%, transparent 68%);
-    filter: blur(3px);
-    opacity: 0.6;
+    background: radial-gradient(circle, var(--agent-aura) 0%, transparent 62%);
+    filter: blur(5px);
+    opacity: 0.45;
     pointer-events: none;
     transition: opacity 200ms var(--ease-out);
 }
@@ -129,11 +130,11 @@
 .agent-toggle::after {
     content: "";
     position: absolute;
-    inset: 5px;
+    inset: 2px;
     z-index: 0;
     border: 1px solid var(--agent-aura);
     border-radius: 999px;
-    opacity: 0.4;
+    opacity: 0.35;
     pointer-events: none;
     animation: agent-aura 2.8s ease-in-out infinite;
 }
@@ -149,12 +150,9 @@
 }
 
 .agent-mode .agent-toggle::after {
-    opacity: 0.8;
+    inset: 0;
+    opacity: 0.9;
     border-color: var(--machine-accent, var(--foreground));
-}
-
-.agent-mode .agent-toggle[aria-pressed="true"] {
-    box-shadow: 0 0 18px var(--machine-glow);
 }
 
 .agent-mode .agent-toggle svg {
@@ -1139,4 +1137,8 @@ html.agent-mode .agent-surfaces a {
         font-size: 0.8125rem;
         line-height: 1.3;
     }
+}
+
+html.agent-mode .agent-toggle {
+    box-shadow: 0 0 30px var(--machine-aura);
 }
