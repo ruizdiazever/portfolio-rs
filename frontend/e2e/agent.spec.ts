@@ -86,47 +86,50 @@ test.describe("agent surfaces", () => {
     expect(response.headers()["link"]).toContain("/agent.md");
   });
 
-  test("switches modes from the header and keeps the panel in flow", async ({
-    page,
-  }) => {
+  test("switches to a plain Markdown document and back", async ({ page }) => {
     await page.goto("/en");
 
     const toggle = page.locator("[data-agent-toggle]");
-    const panel = page.locator("[data-agent-dock]");
+    const view = page.locator("[data-agent-view]");
+    const human = page.locator(".human-view");
     await expect(toggle).toHaveAttribute("aria-pressed", "false");
-    await expect(panel).toBeHidden();
+    await expect(view).toBeHidden();
+    await expect(human).toBeVisible();
 
     await toggle.click();
     await expect(toggle).toHaveAttribute("aria-pressed", "true");
-    await expect(panel).toBeVisible();
+    await expect(view).toBeVisible();
+    await expect(human).toBeHidden();
+    await expect(page.locator("footer")).toBeHidden();
     await expect(page).toHaveURL(/mode=agent/);
     await expect(page.locator("#agent-mode-announcer")).toHaveText(
       "Agent lens on. Public context is ready.",
     );
-
-    await page.waitForTimeout(250);
-    const inFlow = await page.evaluate(() => {
-      const dock = document.querySelector("[data-agent-dock]")!;
-      const main = document.querySelector("main")!;
-      return {
-        dockBottom: dock.getBoundingClientRect().bottom,
-        mainTop: main.getBoundingClientRect().top,
-        overflow:
-          document.documentElement.scrollWidth >
-          document.documentElement.clientWidth,
-      };
-    });
-    expect(inFlow.mainTop).toBeGreaterThanOrEqual(inFlow.dockBottom - 1);
-    expect(inFlow.overflow).toBe(false);
+    await expect(page.locator(".agent-plain-text")).toContainText(
+      "# Ever Ruiz Diaz",
+    );
+    await expect(page.locator(".agent-plain-text")).toContainText("## Selected work");
 
     await page.locator("[data-agent-close]").click();
-    await expect(panel).toBeHidden();
+    await expect(view).toBeHidden();
+    await expect(human).toBeVisible();
     await expect(toggle).toHaveAttribute("aria-pressed", "false");
     await expect(toggle).toBeFocused();
     await expect(page).not.toHaveURL(/mode=agent/);
   });
 
-  test("survives 320px and exposes the copy receipt", async ({
+  test("the header control matches the other icon buttons", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en");
+
+    const agent = await page.locator("[data-agent-toggle]").boundingBox();
+    const theme = await page.locator("#theme-toggle").boundingBox();
+    expect(agent?.width).toBe(theme?.width);
+    expect(agent?.height).toBe(theme?.height);
+    await expect(page.locator("[data-agent-toggle] .agent-label")).toHaveCount(0);
+  });
+
+  test("agent view is plain text at 320px with a copy receipt", async ({
     page,
     context,
   }) => {
@@ -136,7 +139,8 @@ test.describe("agent surfaces", () => {
 
     const toggle = page.locator("[data-agent-toggle]");
     await expect(toggle).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("[data-agent-dock]")).toBeVisible();
+    await expect(page.locator("[data-agent-view]")).toBeVisible();
+    await expect(page.locator(".human-view")).toBeHidden();
 
     const width = await page.evaluate(() => ({
       scroll: document.documentElement.scrollWidth,
@@ -144,11 +148,12 @@ test.describe("agent surfaces", () => {
     }));
     expect(width.scroll).toBeLessThanOrEqual(width.client);
 
+    const plainText = page.locator(".agent-plain-text");
+    await expect(plainText).toContainText("# Ever Ruiz Diaz");
+    expect(await plainText.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/mono/i);
+
     const copyButton = page.locator("[data-agent-copy]");
     await expect(copyButton).toBeVisible();
-    const copyBox = await copyButton.boundingBox();
-    expect(copyBox?.width).toBeGreaterThan(120);
-
     await copyButton.click();
     await expect(page.locator("#agent-copy-status")).toContainText(
       "Agent brief copied.",
@@ -157,40 +162,7 @@ test.describe("agent surfaces", () => {
     expect(clipboard).toContain("# Ever Ruiz Diaz");
   });
 
-  test("machine mode transforms the page and keeps the header in one row", async ({
-    page,
-  }) => {
-    await page.emulateMedia({ colorScheme: "dark" });
-    await page.setViewportSize({ width: 320, height: 844 });
-    await page.goto("/en");
-    await page.locator("[data-agent-toggle]").click();
-    await page.waitForTimeout(250);
-
-    await expect(page.locator(".machine-layer")).toBeVisible();
-    await expect(page.locator("[data-agent-toggle] .agent-label")).toHaveCount(0);
-
-    const machine = await page.evaluate(() => ({
-      font: getComputedStyle(document.body).fontFamily,
-      header: document.querySelector("#navbar")?.getBoundingClientRect().height,
-      theme: document
-        .querySelector('meta[name="theme-color"]')
-        ?.getAttribute("content"),
-      overflow:
-        document.documentElement.scrollWidth >
-        document.documentElement.clientWidth,
-    }));
-    expect(machine.font).toMatch(/mono/i);
-    expect(machine.header).toBeLessThan(100);
-    expect(machine.theme).toBe("#030805");
-    expect(machine.overflow).toBe(false);
-
-    await page.emulateMedia({ colorScheme: "light" });
-    await expect(
-      page.locator('meta[name="theme-color"]'),
-    ).toHaveAttribute("content", "#f1f6ee");
-  });
-
-  test("agent panel survives 200 percent text scaling", async ({ page }) => {
+  test("agent view survives 200 percent text scaling", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en?mode=agent");
     await page.evaluate(() => {
@@ -203,7 +175,7 @@ test.describe("agent surfaces", () => {
     }));
     expect(width.scroll).toBeLessThanOrEqual(width.client);
     await expect(page.locator("[data-agent-copy]")).toBeVisible();
-    await expect(page.locator("[data-agent-dock]")).toBeVisible();
+    await expect(page.locator("[data-agent-view]")).toBeVisible();
   });
 
   test("keeps the mode across pages and localizes the control", async ({
@@ -211,7 +183,7 @@ test.describe("agent surfaces", () => {
   }) => {
     await page.goto("/en?mode=agent");
     await page.goto("/en/sections/books");
-    await expect(page.locator("[data-agent-dock]")).toBeVisible();
+    await expect(page.locator("[data-agent-view]")).toBeVisible();
     await expect(page.locator("[data-agent-toggle]")).toHaveAttribute(
       "aria-pressed",
       "true",
@@ -225,6 +197,6 @@ test.describe("agent surfaces", () => {
     await toggle.click();
     await expect(toggle).toHaveAttribute("aria-pressed", "true");
     await expect(toggle).toHaveAccessibleName(/退出代理视角/);
-    await expect(page.locator("[data-agent-dock]")).toContainText("代理视角");
+    await expect(page.locator("[data-agent-view]")).toContainText("代理视角");
   });
 });

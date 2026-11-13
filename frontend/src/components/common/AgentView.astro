@@ -1,0 +1,150 @@
+---
+import { getLocale } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
+import { agentMarkdown, getAgentManifest } from "$lib/common/agent";
+
+const locale = getLocale() === "zh" ? "zh" : "en";
+const markdown = agentMarkdown(getAgentManifest(locale));
+const lineCount = markdown.split("\n").length;
+---
+
+<p
+    id="agent-mode-announcer"
+    class="sr-only"
+    role="status"
+    aria-live="polite"
+></p>
+
+<section
+    id="agent-text-view"
+    class="agent-text-view"
+    aria-label={m.agentMode()}
+    data-agent-view
+    data-agent-enabled={m.agentEnabled()}
+    data-agent-disabled={m.agentDisabled()}
+    data-agent-copied={m.agentCopied()}
+    data-agent-copy-failed={m.agentCopyFailed()}
+>
+    <p class="sr-only" role="heading" aria-level="1">
+        {m.agentMode()}: Ever Ruiz Diaz
+    </p>
+
+    <div class="agent-text-toolbar">
+        <div class="agent-text-meta">
+            <span class="agent-text-kicker">{m.agentMode()}</span>
+            <span class="agent-text-type">text/markdown</span>
+            <span class="agent-text-separator" aria-hidden="true">/</span>
+            <span>{m.agentLineCount({ count: lineCount })}</span>
+        </div>
+        <div class="agent-text-actions">
+            <button
+                type="button"
+                class="agent-text-action"
+                data-agent-copy
+            >
+                <span data-agent-copy-label>{m.agentCopyBrief()}</span>
+            </button>
+            <a class="agent-text-action" href="/agent.md">agent.md</a>
+            <button
+                type="button"
+                class="agent-text-action"
+                data-agent-close
+            >
+                {m.agentHumanView()}
+            </button>
+        </div>
+    </div>
+
+    <p
+        id="agent-copy-status"
+        class="agent-text-status"
+        role="status"
+        aria-live="polite"
+    ></p>
+
+    <pre class="agent-plain-text">{markdown}</pre>
+</section>
+
+<script>
+    const root = document.documentElement;
+    const toggle = document.querySelector<HTMLButtonElement>("[data-agent-toggle]");
+    const close = document.querySelector<HTMLButtonElement>("[data-agent-close]");
+    const view = document.querySelector<HTMLElement>("[data-agent-view]");
+    const announcer = document.getElementById("agent-mode-announcer");
+    const copy = document.querySelector<HTMLButtonElement>("[data-agent-copy]");
+    const copyLabel = copy?.querySelector<HTMLElement>("[data-agent-copy-label]");
+    const copyStatus = document.getElementById("agent-copy-status");
+    const storageKey = "portfolio-agent-mode";
+
+    const enabledText = view?.dataset.agentEnabled ?? "";
+    const disabledText = view?.dataset.agentDisabled ?? "";
+    const copiedText = view?.dataset.agentCopied ?? "";
+    const copyFailedText = view?.dataset.agentCopyFailed ?? "";
+
+    const isEnabled = () => root.classList.contains("agent-mode");
+
+    function syncChrome(enabled: boolean) {
+        toggle?.setAttribute("aria-pressed", String(enabled));
+        if (announcer) announcer.textContent = enabled ? enabledText : disabledText;
+    }
+
+    function syncUrl(enabled: boolean) {
+        const url = new URL(window.location.href);
+        if (enabled) url.searchParams.set("mode", "agent");
+        else url.searchParams.delete("mode");
+        history.replaceState(null, "", url);
+    }
+
+    function setMode(enabled: boolean, options: { announce?: boolean; url?: boolean } = {}) {
+        root.classList.toggle("agent-mode", enabled);
+        try {
+            localStorage.setItem(storageKey, enabled ? "agent" : "human");
+        } catch {}
+        if (options.url !== false) syncUrl(enabled);
+        if (options.announce !== false) syncChrome(enabled);
+        else toggle?.setAttribute("aria-pressed", String(enabled));
+        if (enabled) {
+            const reduced = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+            window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+        }
+    }
+
+    toggle?.addEventListener("click", () => setMode(!isEnabled()));
+    close?.addEventListener("click", () => {
+        setMode(false);
+        toggle?.focus();
+    });
+    toggle?.setAttribute("aria-pressed", String(isEnabled()));
+
+    window.addEventListener("popstate", () => {
+        const mode = new URL(window.location.href).searchParams.get("mode");
+        if (mode === "agent" || mode === "human") {
+            setMode(mode === "agent", { announce: false, url: false });
+        }
+    });
+
+    copy?.addEventListener("click", async () => {
+        if (!copyLabel || !copyStatus) return;
+        const original = copyLabel.textContent ?? "";
+        try {
+            const text = document.querySelector<HTMLElement>(
+                ".agent-plain-text",
+            )?.textContent;
+            if (!text) throw new Error("agent brief unavailable");
+            if (!navigator.clipboard?.writeText) {
+                throw new Error("clipboard unavailable");
+            }
+            await navigator.clipboard.writeText(text);
+            copyLabel.textContent = copiedText;
+            copyStatus.textContent = copiedText;
+            window.setTimeout(() => {
+                copyLabel.textContent = original;
+                copyStatus.textContent = "";
+            }, 2500);
+        } catch {
+            copyStatus.textContent = copyFailedText;
+        }
+    });
+</script>

@@ -53,9 +53,8 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 
 Content color is allowed in book covers, technology marks and the contribution
 graph. UI chrome uses the tokens above. Do not add a colored hover, a gradient
-behind UI text or a card shadow. Agent lens is the one documented exception: it
-swaps the semantic tokens for the machine palette described below. Outside that
-mode, keep the neutral system.
+behind UI text or a card shadow. Agent lens keeps the same neutral system; only
+the content changes.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -65,8 +64,8 @@ by color alone.
 
 Inter Variable is loaded once through the Astro Fonts API. Use the Tailwind
 scale in `frontend/src/styles/app.css`; do not add a second family or local
-`@font-face` blocks. Agent lens is the exception: it uses the system monospace
-stack as the machine instrument, and returns to Inter when the mode ends.
+`@font-face` blocks. The raw agent document is the one place where the system
+monospace stack is appropriate.
 
 | Role | Size | Line height | Weight |
 | --- | --- | --- | --- |
@@ -199,58 +198,34 @@ screen-reader label; the counter and error remain associated.
 
 ### Agent lens
 
-The agent layer is exposed by a two-state icon-only control in the header. In
-human mode it shows a bot; in agent mode it shows a person. There is no visible
-label at any breakpoint. The action lives in the accessible name and changes
-with the state. The button has `aria-pressed`, a visible focus ring, a 40px
-mobile target, a 36px desktop target and a soft aura: a radial glow, a
-breathing ring and an icon drop shadow. The aura is white in human mode and
-phosphor green in machine mode. It is decorative and stops under reduced
-motion.
+The agent layer is exposed by a two-state icon-only control in the header. It
+uses the same size, radius, hover, active and focus treatment as the theme
+control. There is no aura, no special fill and no visible label at any
+breakpoint. The icon switches between a bot and a person; the action lives in
+the accessible name and `aria-pressed`.
 
-When active, the root gets `agent-mode`. The whole page becomes a machine
-surface, not only the panel:
+When active, the root gets `agent-mode`. The header stays so the reader can
+leave or change theme and language. The human page and footer are hidden. The
+main landmark shows one plain-text document:
 
-- **Type.** The page switches to the system monospace stack. Headings and
-  buttons are uppercase; numbers stay tabular.
-- **Palette.** The light theme becomes a paper terminal; the dark theme
-  becomes a green phosphor CRT. The machine palette overrides the semantic
-  tokens, so cards, tables, filters, dialogs, inputs and the footer transform
-  together. The theme toggle remains meaningful.
-- **Shape.** Cards and controls use 2px radii. Cards use dashed borders with
-  small corner brackets. Images are grayscale. Primary actions get a restrained
-  green glow.
-- **Background.** A fixed layer draws binary rain, a 44px technical grid,
-  scanlines and a vignette. It is `aria-hidden`, pointer-events none and sits
-  behind content. All of it stops under reduced motion.
-- **Content.** Copy, links, data and reading order are unchanged. Agent mode
-  changes the instrument, not the facts.
-
-The panel is the human feedback inside machine mode. It appears directly below
-the header, before `main`, in normal flow. It is not fixed, not a dialog and not
-a focus trap. It pushes content down; it never covers it.
-
-The panel is a handshake receipt:
-
-- A status eyebrow and a `Ready` pill, with a quiet pulse that stops under
-  reduced motion.
-- A public profile block: name, one-line summary, project, note and book counts,
-  and the last content date.
-- A six-item surface list: `llms.txt`, `Agent brief`, `Agent manifest`, `RSS
-  feed`, `Sitemap` and `Robots and content policy`.
-- A primary `Copy agent brief` action that fetches `/agent.md` and confirms in a
-  polite live region. A Contact link and the note "No model, no chat, no private
-  data."
-- A footer sentence: "The human view is one click away. This layer exposes
-  public facts only."
+- The content is the raw `/agent.md` brief, generated from the same post,
+  project and book data as the human pages.
+- The document is monospace, 0.8125rem, 1.7 line height and at most 86
+  characters wide. Long URLs wrap. It scrolls with the page; there is no card,
+  image, terminal palette or animation.
+- A single hairline toolbar names the surface as `text/markdown`, shows the
+  line count, and offers `Copy agent brief`, `agent.md` and `Human view`.
+- Copy confirms in a polite live region and restores the label after 2.5
+  seconds. `Human view` returns focus to the header control.
+- The state persists in `localStorage` and `?mode=agent`, applied before first
+  paint. The human view stays hidden from assistive technology; the text view
+  stays hidden when the mode is off.
+- The mode adds no entrance animation or decorative motion. The header press
+  scale is the same as every other button; scroll-to-top honors
+  `prefers-reduced-motion`.
 
 The machine files and boundaries are documented in
 [docs/agent-readiness.md](docs/agent-readiness.md).
-
-Desktop uses three columns; tablet and mobile stack them. The state persists in
-`localStorage` and `?mode=agent`, and is applied before first paint. The panel
-uses the machine tokens and 2px controls; it does not add a second accent
-outside machine mode.
 
 ### Toast and footer
 
@@ -341,7 +316,8 @@ For every UI change, inspect the actual page in both themes:
 - Shared component consumers, not only the edited surface.
 - The full page composition, not only the isolated component.
 - The keyboard path, accessible names and focus visibility.
-- Agent lens at 320px and 200%, with the panel in flow and no content hidden.
+- Agent lens at 320px and 200%, with the human view hidden and the plain-text
+  document readable.
 - No clipped content, hidden action, horizontal page scroll or overlapping
   label.
 - No state carried by color or motion alone.

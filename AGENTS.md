@@ -116,8 +116,8 @@ test when behavior has a user-visible contract. Use a free port for local runs; 
 The full system lives in [DESIGN.md](DESIGN.md). The short version:
 
 - Inter, system color scheme, semantic tokens, 12px cards, 6px controls, pill
-  filters, no card shadows, no second accent in the human view. Agent lens is
-  the documented machine-palette exception.
+  filters, no card shadows, no second accent. Agent lens uses the same neutral
+  system; only the content changes.
 - Text stays readable at 320px and 200% scaling. Long content wraps or
   truncates with a way to the full value.
 - Every interactive element has a name, focus ring and keyboard path. Hover is
@@ -131,10 +131,11 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
 ## Agent surface
 
 - Agent lens is a public inspection mode, not a chatbot. It is a two-state,
-  icon-only header control with no visible label and an aura. It writes
-  `html.agent-mode`, `?mode=agent` and the `portfolio-agent-mode` localStorage
-  key. The whole page becomes the machine surface; the panel is in normal flow
-  below the header, never a fixed overlay or modal.
+  icon-only header control with no visible label, styled exactly like the theme
+  control. It writes `html.agent-mode`, `?mode=agent` and the
+  `portfolio-agent-mode` localStorage key. The human page and footer are
+  replaced by the raw `/agent.md` document inside `main`; there is no machine
+  palette, binary layer, panel or aura.
 - Keep `/llms.txt`, `/agent.md` and `/agent.json` generated from the same data
   as the pages. Every HTML page carries the `describedby`, Markdown alternate,
   RSS, JSON Feed and JSON-LD discovery tags.
@@ -145,10 +146,10 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   request is not redirected to `/en/...` or `/zh/...`.
 - Do not add an A2A card or MCP server card unless there is a real callable
   service and an authorization model. Do not add a model, chat endpoint or
-  generated claims to the agent panel.
+  generated claims to the agent view.
 - The brief and manifest are public. Never add private email, admin state,
   analytics identifiers or session data to them.
-- Run the agent Playwright spec when changing the panel, the endpoints, the
+- Run the agent Playwright spec when changing the text view, the endpoints, the
   manifest shape or the discovery headers.
 
 ## Environment and secrets
