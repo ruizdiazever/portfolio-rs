@@ -522,7 +522,7 @@ html.agent-mode footer {
     font-family:
         ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
         monospace;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-variant-ligatures: none;
     line-height: 1.7;
     tab-size: 2;
@@ -546,10 +546,5 @@ html.agent-mode footer {
 
     .agent-text-actions {
         gap: 2px 12px;
-    }
-
-    .agent-plain-text {
-        font-size: 0.78125rem;
-        line-height: 1.65;
     }
 }

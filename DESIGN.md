@@ -210,7 +210,7 @@ main landmark shows one plain-text document:
 
 - The content is the raw `/agent.md` brief, generated from the same post,
   project and book data as the human pages.
-- The document is monospace, 0.8125rem, 1.7 line height and at most 86
+- The document is monospace, 0.875rem, 1.7 line height and at most 86
   characters wide. Long URLs wrap. It scrolls with the page; there is no card,
   image, terminal palette or animation.
 - A single hairline toolbar names the surface as `text/markdown`, shows the

@@ -72,7 +72,6 @@ const lineCount = markdown.split("\n").length;
     const view = document.querySelector<HTMLElement>("[data-agent-view]");
     const announcer = document.getElementById("agent-mode-announcer");
     const copy = document.querySelector<HTMLButtonElement>("[data-agent-copy]");
-    const copyLabel = copy?.querySelector<HTMLElement>("[data-agent-copy-label]");
     const copyStatus = document.getElementById("agent-copy-status");
     const storageKey = "portfolio-agent-mode";
 
@@ -126,8 +125,7 @@ const lineCount = markdown.split("\n").length;
     });
 
     copy?.addEventListener("click", async () => {
-        if (!copyLabel || !copyStatus) return;
-        const original = copyLabel.textContent ?? "";
+        if (!copy || !copyStatus) return;
         try {
             const text = document.querySelector<HTMLElement>(
                 ".agent-plain-text",
@@ -137,10 +135,8 @@ const lineCount = markdown.split("\n").length;
                 throw new Error("clipboard unavailable");
             }
             await navigator.clipboard.writeText(text);
-            copyLabel.textContent = copiedText;
             copyStatus.textContent = copiedText;
             window.setTimeout(() => {
-                copyLabel.textContent = original;
                 copyStatus.textContent = "";
             }, 2500);
         } catch {
