@@ -32,7 +32,7 @@ test.describe("320px layout", () => {
 
     const section = page.locator("section").filter({ hasText: "Daily tools" });
     await section.scrollIntoViewIfNeeded();
-    await expect(section.locator("svg[data-ui-icon]")).toHaveCount(6);
+    await expect(section.locator("svg[data-ui-icon]")).toHaveCount(8);
 
     const overflowing = await section.evaluate((element) => {
       const selected = element.querySelectorAll("a, a span, a svg");

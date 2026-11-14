@@ -143,5 +143,7 @@
   "agentEnabled": "Agent lens on. Public context is ready.",
   "agentDisabled": "Agent lens off. You are back on the human site.",
   "agentHumanView": "Human view",
-  "agentLineCount": "{count} lines"
+  "agentLineCount": "{count} lines",
+  "dailyToolLaptop": "laptop",
+  "dailyToolCodingAgent": "coding agent"
 }

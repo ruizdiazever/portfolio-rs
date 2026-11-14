@@ -143,5 +143,7 @@
   "agentEnabled": "代理视角已开启，公开上下文已就绪。",
   "agentDisabled": "代理视角已关闭，回到人类界面。",
   "agentHumanView": "人类视图",
-  "agentLineCount": "{count} 行"
+  "agentLineCount": "{count} 行",
+  "dailyToolLaptop": "笔记本电脑",
+  "dailyToolCodingAgent": "编程智能体"
 }

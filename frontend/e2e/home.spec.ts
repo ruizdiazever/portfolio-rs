@@ -36,9 +36,21 @@ test.describe("home", () => {
       "href",
       "https://github.com/deepseek-ai/deepseek-harness",
     );
+    await expect(
+      page.getByRole("link", { name: "Claude Code Desktop coding agent" }),
+    ).toHaveAttribute(
+      "href",
+      "https://code.claude.com/docs/en/desktop-quickstart",
+    );
+    await expect(
+      page.getByRole("link", { name: "MacBook Pro 16 laptop" }),
+    ).toHaveAttribute(
+      "href",
+      "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch",
+    );
     const dailyTools = page.locator("section").filter({ hasText: "Daily tools" });
     const icons = dailyTools.locator("svg[data-ui-icon]");
-    await expect(icons).toHaveCount(6);
+    await expect(icons).toHaveCount(8);
     const iconHrefs = await icons
       .locator("use")
       .evaluateAll((uses) =>
@@ -46,11 +58,13 @@ test.describe("home", () => {
       );
     expect(iconHrefs).toEqual([
       "#tool-deepseek",
+      "#tool-claude",
       "#tool-firefox",
       "#tool-bitwarden",
       "#tool-docker",
       "#tool-warp",
       "#tool-zedindustries",
+      "#tool-apple",
     ]);
     const headings = (await page.locator("main h2").allTextContents()).map(
       (heading) => heading.trim(),
@@ -83,6 +97,12 @@ test.describe("home", () => {
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "DeepSeek Harness 智能体工作台" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Claude Code Desktop 编程智能体" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "MacBook Pro 16 笔记本电脑" }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "Zed 编辑器" }),
