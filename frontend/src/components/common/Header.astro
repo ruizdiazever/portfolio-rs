@@ -6,6 +6,7 @@ import { getLocale } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import MorphIcon from "morphicons/astro";
 import { Bot, Sun } from "lucide";
+import { languageIcons } from "$lib/common/languageIcons";
 
 interface Props {
     wide?: boolean;
@@ -28,6 +29,7 @@ const languageLabel =
     otherLocale === "zh"
         ? `${languageName}, ${m.switchToChinese()}`
         : `${languageName}, ${m.switchToEnglish()}`;
+const languageIcon = otherLocale === "zh" ? languageIcons.zh : languageIcons.en;
 ---
 
 <nav
@@ -53,9 +55,15 @@ const languageLabel =
                     hreflang={otherLocale}
                     aria-label={languageLabel}
                     title={languageLabel}
-                    class="inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9"
+                    class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
                 >
-                    {languageName}
+                    <MorphIcon
+                        id="language-morph"
+                        icon={languageIcon}
+                        size={20}
+                        strokeWidth={1.8}
+                        reducedMotion="user"
+                    />
                 </a>
                 <button
                     id="theme-toggle"

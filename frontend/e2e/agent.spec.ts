@@ -157,14 +157,39 @@ test.describe("agent surfaces", () => {
       .not.toBe(agentBefore);
   });
 
+  test("language control uses the target-language icon", async ({ page }) => {
+    await page.goto("/en");
+    const toChinese = page.getByRole("link", {
+      name: /中文, Switch to Chinese/,
+    });
+    await expect(toChinese).toHaveAttribute("href", "/zh");
+    const chinesePath = await toChinese
+      .locator("#language-morph path")
+      .getAttribute("d");
+
+    await page.goto("/zh");
+    const toEnglish = page.getByRole("link", { name: /^EN,/ });
+    await expect(toEnglish).toHaveAttribute("href", "/en");
+    const englishPath = await toEnglish
+      .locator("#language-morph path")
+      .getAttribute("d");
+
+    expect(englishPath).not.toBe(chinesePath);
+  });
+
   test("the header control matches the other icon buttons", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en");
 
     const agent = await page.locator("[data-agent-toggle]").boundingBox();
     const theme = await page.locator("#theme-toggle").boundingBox();
+    const language = await page
+      .getByRole("link", { name: /中文, Switch to Chinese/ })
+      .boundingBox();
     expect(agent?.width).toBe(theme?.width);
     expect(agent?.height).toBe(theme?.height);
+    expect(language?.width).toBe(theme?.width);
+    expect(language?.height).toBe(theme?.height);
     await expect(page.locator("[data-agent-toggle] .agent-label")).toHaveCount(0);
   });
 

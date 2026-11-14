@@ -123,7 +123,8 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
 - Every interactive element has a name, focus ring and keyboard path. Hover is
   an enhancement, never the only way to reach content.
 - Stateful icons use Morphicons with Lucide icon data: header theme, Agent lens
-  and table sorting. Keep `reducedMotion="user"`; do not duplicate the same
+  and table sorting. The language link uses the in-repo `中` and `A` IconNodes,
+  showing the target language. Keep `reducedMotion="user"`; do not duplicate the same
   states as static SVGs.
 - Motion stays between 150 and 200ms for UI; the book flip is 620ms. Honor
   `prefers-reduced-motion`; no auto-rotating text.

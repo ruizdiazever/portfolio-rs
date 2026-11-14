@@ -128,9 +128,10 @@ width.
 ### Header
 
 Solid `background`, no blur. A two-line wordmark in 510 weight. Mobile controls
-are 40px; desktop controls are 36px. The language control has visible text; the
-theme and Agent lens controls are icon-only with accessible names, not visible
-labels.
+are 40px; desktop controls are 36px. The language, theme and Agent lens controls
+are icon-only with accessible names, not visible labels. The language control is
+a Morphicon between `中` and `A`, showing the target language; it never uses a
+flag. It is 20px, `reducedMotion="user"` and same size as the theme control.
 
 Stateful header icons use Morphicons with Lucide icon data. The theme control
 morphs `Sun` to `Moon`; Agent lens morphs `Bot` to `User`. Both are 20px,
