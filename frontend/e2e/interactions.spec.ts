@@ -177,6 +177,45 @@ test.describe("interactions", () => {
     ).toHaveAttribute("href", "/zh/sections/books");
   });
 
+  test("type scale stays within the editorial steps", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/en/sections/books");
+    const bookTitle = await page
+      .locator("h1")
+      .first()
+      .evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
+    expect(bookTitle).toBe(36);
+    expect(
+      await page.locator("main p").first().evaluate((element) =>
+        parseFloat(getComputedStyle(element).fontSize),
+      ),
+    ).toBe(16);
+
+    await page.goto("/en");
+    const sectionTitle = page.getByRole("heading", {
+      name: "Daily tools",
+      exact: true,
+    });
+    expect(
+      await sectionTitle.evaluate((element) =>
+        parseFloat(getComputedStyle(element).fontSize),
+      ),
+    ).toBe(28);
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en");
+    expect(
+      await page.getByRole("heading", { name: "Daily tools", exact: true }).evaluate(
+        (element) => parseFloat(getComputedStyle(element).fontSize),
+      ),
+    ).toBe(24);
+    await page.goto("/en/sections/books");
+    expect(
+      await page.locator("h1").first().evaluate((element) =>
+        parseFloat(getComputedStyle(element).fontSize),
+      ),
+    ).toBe(28);
+  });
+
   test("contribution card has breathing room and a legend", async ({
     page,
   }) => {

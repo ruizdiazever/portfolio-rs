@@ -71,17 +71,25 @@ monospace stack is appropriate.
 | --- | --- | --- | --- |
 | Caption, metadata | 13px | 1.5 | 400 to 510 |
 | Body, long form | 16px | 1.6 | 400 |
-| Lead | 18 to 20px | 1.4 | 400 |
-| Card title | 16 to 24px | 1.3 | 510 |
-| Subheading | 24 to 30px | 1.2 | 510 |
-| Section title | 32 to 44px | 1.15 | 510 |
-| Page title | 40 to 48px | 1.08 | 510 |
+| Lead, intro | 18px | 1.5 | 400 |
+| Card title | 18 to 20px | 1.4 | 510 |
+| Subheading | 20 to 24px | 1.3 | 510 |
+| Section title | 24 to 28px | 1.25 | 510 |
+| Page title | 28 to 36px | 1.15 | 510 |
+
+The reference for this restraint is [pheralb.dev](https://pheralb.dev/): 16px
+body, 20px section headings, a 30 to 36px post title and no display size above
+36px. The full study and the token table are in
+[docs/typography.md](docs/typography.md). Keep page titles at or below 36px and
+section titles at or below 28px.
 
 Rules:
 
 - Weights are 400, 510 and 590. Avoid 700 and 800.
 - Display tracking is `-0.022em`; medium sizes use `-0.012em`; uppercase
   microcopy uses `0.08em` to `0.1em`.
+- The scale steps at the layout breakpoints. Do not use a separate fluid display
+  size for every viewport; it makes line breaks unpredictable.
 - Enable `cv01` and `ss03`; use `font-variant-numeric: slashed-zero` and
   `tabular-nums` for counters, dates and table figures.
 - Long-form copy is 60 to 75 characters per line. Use `text-wrap: balance` on
