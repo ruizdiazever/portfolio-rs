@@ -25,7 +25,7 @@ This is the code behind [everdev.it](https://www.everdev.it). It is a bilingual 
 
 | Layer | What |
 | --- | --- |
-| Frontend | Astro 7 SSR, Svelte 5, TailwindCSS 4, shadcn-svelte, Paraglide (EN/ZH) |
+| Frontend | Astro 7 SSR, Svelte 5, TailwindCSS 4, shadcn-svelte, Paraglide (EN/ZH), Morphicons |
 | API | Rust, Axum, Redis, feedback email |
 | Media | RustFS S3 |
 | Edge | Caddy, automatic TLS |

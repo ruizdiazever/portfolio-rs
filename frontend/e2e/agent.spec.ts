@@ -131,6 +131,32 @@ test.describe("agent surfaces", () => {
     );
   });
 
+  test("header icons morph between their states", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "dark" });
+    await page.goto("/en");
+
+    const themePath = page.locator("#theme-morph path");
+    const agentPath = page.locator("#agent-morph path");
+    await expect(page.locator("#theme-morph")).toHaveAttribute(
+      "reduced-motion",
+      "user",
+    );
+    const themeBefore = await themePath.getAttribute("d");
+    const agentBefore = await agentPath.getAttribute("d");
+
+    await page.locator("#theme-toggle").click();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await expect
+      .poll(() => themePath.getAttribute("d"))
+      .not.toBe(themeBefore);
+
+    await page.locator("[data-agent-toggle]").click();
+    await expect(page.locator("[data-agent-view]")).toBeVisible();
+    await expect
+      .poll(() => agentPath.getAttribute("d"))
+      .not.toBe(agentBefore);
+  });
+
   test("the header control matches the other icon buttons", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en");

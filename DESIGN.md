@@ -120,9 +120,17 @@ width.
 ### Header
 
 Solid `background`, no blur. A two-line wordmark in 510 weight. Mobile controls
-are 40px; desktop controls are 36px. The language and theme controls have
-visible names, not only glyphs. The theme control exposes both action states in
-the markup and resolves them from the color-scheme meta and media query.
+are 40px; desktop controls are 36px. The language control has visible text; the
+theme and Agent lens controls are icon-only with accessible names, not visible
+labels.
+
+Stateful header icons use Morphicons with Lucide icon data. The theme control
+morphs `Sun` to `Moon`; Agent lens morphs `Bot` to `User`. Both are 20px,
+`spring="snappy"`, and `reducedMotion="user"`, so the OS preference is honored.
+The theme script switches with `set()` on initial paint and `morphTo()` after a
+click or system change. The SVG is server-rendered, so there is no layout shift
+while the custom element upgrades. Do not keep a second hand-drawn copy of these
+states.
 
 ### Section links
 
@@ -185,8 +193,10 @@ Organization and icon tables keep names on one line where they are compared,
 but descriptions and long values wrap. Long values retain access to the full
 string through a title or a detail surface. Empty results use a localized empty
 state. Pagination, column visibility, sorting and filtering have text labels or
-accessible names; menus are localized. Tables never force the page wider than
-the viewport; the table wrapper scrolls if necessary.
+accessible names; menus are localized. The sort header icon is a 16px Morphicon
+between `ChevronsUpDown`, `ArrowUp` and `ArrowDown`, with `reducedMotion="user"`.
+Tables never force the page wider than the viewport; the table wrapper scrolls
+if necessary.
 
 ### Feedback dialog
 

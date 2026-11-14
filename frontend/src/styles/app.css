@@ -88,64 +88,29 @@
     display: none;
 }
 
-.agent-icon-human,
 .agent-sr-human {
     display: none;
 }
 
-.agent-mode .agent-icon-agent,
 .agent-mode .agent-sr-agent {
     display: none;
 }
 
-.agent-mode .agent-icon-human,
 .agent-mode .agent-sr-human {
     display: inline;
-}
-
-.theme-icon-sun {
-    transform: rotate(0deg) scale(1);
-}
-
-.theme-icon-moon {
-    transform: rotate(90deg) scale(0);
 }
 
 :root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-label-light {
     display: inline;
 }
 
-:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-icon-sun {
-    transform: rotate(-90deg) scale(0);
-}
-
-:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-icon-moon {
-    transform: rotate(0deg) scale(1);
-}
-
 :root:has(> head > meta[name="color-scheme"][content="light"]) .theme-label-dark {
     display: inline;
-}
-
-:root:has(> head > meta[name="color-scheme"][content="light"]) .theme-icon-sun {
-    transform: rotate(0deg) scale(1);
-}
-
-:root:has(> head > meta[name="color-scheme"][content="light"]) .theme-icon-moon {
-    transform: rotate(90deg) scale(0);
 }
 
 @media (prefers-color-scheme: dark) {
     :root:has(> head > meta[name="color-scheme"][content="light dark"]) .theme-label-light {
         display: inline;
-    }
-
-    :root:has(> head > meta[name="color-scheme"][content="light dark"]) .theme-icon-sun {
-        transform: rotate(-90deg) scale(0);
-    }
-
-    :root:has(> head > meta[name="color-scheme"][content="light dark"]) .theme-icon-moon {
-        transform: rotate(0deg) scale(1);
     }
 }
 

@@ -8,6 +8,12 @@
     import ArrowDown from "@lucide/svelte/icons/arrow-down";
     import ArrowUp from "@lucide/svelte/icons/arrow-up";
     import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
+    import { MorphIcon } from "morphicons/svelte";
+    import {
+        ArrowDown as ArrowDownData,
+        ArrowUp as ArrowUpData,
+        ChevronsUpDown as ChevronsUpDownData,
+    } from "lucide";
     import type { HTMLAttributes } from "svelte/elements";
     import type { Column } from "@tanstack/table-core";
     import type { WithoutChildren } from "bits-ui";
@@ -47,13 +53,17 @@
                         <span>
                             {title}
                         </span>
-                        {#if column.getIsSorted() === "desc"}
-                            <ArrowDown aria-hidden="true" />
-                        {:else if column.getIsSorted() === "asc"}
-                            <ArrowUp aria-hidden="true" />
-                        {:else}
-                            <ChevronsUpDown aria-hidden="true" />
-                        {/if}
+                        <MorphIcon
+                            icon={column.getIsSorted() === "desc"
+                                ? ArrowDownData
+                                : column.getIsSorted() === "asc"
+                                  ? ArrowUpData
+                                  : ChevronsUpDownData}
+                            size={16}
+                            strokeWidth={1.8}
+                            reducedMotion="user"
+                            data-sort-morph
+                        />
                     </Button>
                 {/snippet}
             </DropdownMenu.Trigger>

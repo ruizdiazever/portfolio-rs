@@ -245,6 +245,21 @@ test.describe("interactions", () => {
     expect(pageWidth.scroll).toBeLessThanOrEqual(pageWidth.client);
   });
 
+  test("sort icon morphs with the selected order", async ({ page }) => {
+    await page.goto("/en/blog/organizations-using-rust");
+    await expect(page.getByRole("cell", { name: "AWS", exact: true })).toBeVisible({
+      timeout: 15_000,
+    });
+
+    const icon = page.locator("[data-sort-morph]").first();
+    const before = await icon.locator("path").getAttribute("d");
+    await page.getByRole("button", { name: /Name/ }).first().click();
+    await page.getByRole("menuitem", { name: "Ascending" }).click();
+    await expect
+      .poll(() => icon.locator("path").getAttribute("d"))
+      .not.toBe(before);
+  });
+
   test("sort menu copy follows the current locale", async ({ page }) => {
     await page.goto("/zh/blog/organizations-using-rust");
     await expect(page.getByRole("cell", { name: "AWS", exact: true })).toBeVisible({

@@ -66,6 +66,9 @@ const lineCount = markdown.split("\n").length;
 </section>
 
 <script>
+    import type { MorphIconElement } from "morphicons/element";
+    import { Bot, User } from "lucide";
+
     const root = document.documentElement;
     const toggle = document.querySelector<HTMLButtonElement>("[data-agent-toggle]");
     const close = document.querySelector<HTMLButtonElement>("[data-agent-close]");
@@ -73,6 +76,9 @@ const lineCount = markdown.split("\n").length;
     const announcer = document.getElementById("agent-mode-announcer");
     const copy = document.querySelector<HTMLButtonElement>("[data-agent-copy]");
     const copyStatus = document.getElementById("agent-copy-status");
+    const agentIcon = document.getElementById(
+        "agent-morph",
+    ) as MorphIconElement | null;
     const storageKey = "portfolio-agent-mode";
 
     const enabledText = view?.dataset.agentEnabled ?? "";
@@ -81,6 +87,14 @@ const lineCount = markdown.split("\n").length;
     const copyFailedText = view?.dataset.agentCopyFailed ?? "";
 
     const isEnabled = () => root.classList.contains("agent-mode");
+    const agentIconFor = (enabled: boolean) => (enabled ? User : Bot);
+
+    function applyAgentIcon(enabled: boolean, animate: boolean) {
+        if (!agentIcon || typeof agentIcon.set !== "function") return;
+        const icon = agentIconFor(enabled);
+        if (animate) agentIcon.morphTo(icon);
+        else agentIcon.set(icon);
+    }
 
     function syncChrome(enabled: boolean) {
         toggle?.setAttribute("aria-pressed", String(enabled));
@@ -102,6 +116,7 @@ const lineCount = markdown.split("\n").length;
         if (options.url !== false) syncUrl(enabled);
         if (options.announce !== false) syncChrome(enabled);
         else toggle?.setAttribute("aria-pressed", String(enabled));
+        applyAgentIcon(enabled, true);
         if (enabled) {
             const reduced = window.matchMedia(
                 "(prefers-reduced-motion: reduce)",
@@ -116,6 +131,9 @@ const lineCount = markdown.split("\n").length;
         toggle?.focus();
     });
     toggle?.setAttribute("aria-pressed", String(isEnabled()));
+    customElements.whenDefined("morph-icon").then(() => {
+        applyAgentIcon(isEnabled(), false);
+    });
 
     window.addEventListener("popstate", () => {
         const mode = new URL(window.location.href).searchParams.get("mode");

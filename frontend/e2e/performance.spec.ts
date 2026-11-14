@@ -27,7 +27,8 @@ test.describe("performance budget", () => {
     });
 
     expect(metrics.resources).toBeLessThan(12);
-    expect(metrics.scripts).toBeLessThanOrEqual(2);
+    // Header scripts plus the Morphicons custom-element bootstrap.
+    expect(metrics.scripts).toBeLessThanOrEqual(3);
     expect(metrics.fonts).toHaveLength(1);
     expect(metrics.fonts[0]).toMatch(/\.woff2$/);
     expect(
