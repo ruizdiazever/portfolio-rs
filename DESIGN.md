@@ -190,14 +190,24 @@ a polite status region.
 
 ### Contribution graph
 
-A compact 52 or 53 week calendar. Column count and month offsets come from the
-data, never a fixed 51. Dates, totals and month labels use `Intl`. Cells are
-square and scale with the grid; the card uses its content height rather than a
-fixed height. A `Less` to `More` legend sits under the month labels. The graph
-scrolls horizontally on narrow screens; provide a visible scrollbar or a fade at
-the trailing edge. An empty data set is an error state, not a zero count. The
-GitHub link is at least 28px. Keep at least 24px between the card and the
-section links below.
+A 53 week by 7 day GitHub-style calendar. Columns and month offsets come from
+the data, never a fixed 51. Dates, totals and month labels use `Intl`. Months sit
+above the grid; `Mon`, `Wed` and `Fri` sit to the left. Use 9px square cells with
+a 3px gap and a fixed pitch so the graph keeps GitHub's rhythm instead of
+stretching cells. The graph scrolls horizontally on narrow screens while the
+weekday labels stay fixed; a fade and swipe cue make the overflow visible. A
+`Less` to `More` legend sits under the grid, with the count documentation link
+opposite it. The card uses its content height; keep at least 24px between it and
+the section links below. The GitHub profile link is at least 32px.
+
+The activity overview below the grid is a shadcn-svelte `Collapsible`, closed by
+default, with a 180ms slide that becomes instant under reduced motion. The
+trigger includes a short public contribution count. The expanded panel holds
+owner chips, the top repositories, a public-only note, four absolute counts and
+a four-axis radar chart for commits, pull requests, issues and code review. The
+panel stacks on mobile and uses a top-aligned two-column layout from `md`. Only
+public GitHub data is available from the GraphQL token, so label it explicitly
+and never infer private percentages from the calendar total.
 
 ### Tables
 

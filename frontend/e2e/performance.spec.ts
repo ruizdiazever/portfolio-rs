@@ -15,6 +15,9 @@ test.describe("performance budget", () => {
         scripts: resources.filter(
           (entry) => entry.initiatorType === "script",
         ).length,
+        scriptBytes: resources
+          .filter((entry) => entry.initiatorType === "script")
+          .reduce((total, entry) => total + entry.transferSize, 0),
         fonts: resources
           .filter((entry) => entry.name.endsWith(".woff2"))
           .map((entry) => entry.name.split("/").pop()),
@@ -26,9 +29,10 @@ test.describe("performance budget", () => {
       };
     });
 
-    expect(metrics.resources).toBeLessThan(12);
-    // Header scripts plus the Morphicons custom-element bootstrap.
-    expect(metrics.scripts).toBeLessThanOrEqual(3);
+    expect(metrics.resources).toBeLessThan(15);
+    // Header scripts, the Morphicons bootstrap and the contribution island.
+    expect(metrics.scripts).toBeLessThanOrEqual(10);
+    expect(metrics.scriptBytes).toBeLessThan(200_000);
     expect(metrics.fonts).toHaveLength(1);
     expect(metrics.fonts[0]).toMatch(/\.woff2$/);
     expect(

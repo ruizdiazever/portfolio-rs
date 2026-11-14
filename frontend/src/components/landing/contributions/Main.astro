@@ -2,12 +2,9 @@
 import GithubContributions from "./GithubContributions.svelte";
 import { GITHUB_TOKEN } from "astro:env/server";
 import { getGithubContributions } from "$lib/common/githubContributions";
-import { Icon } from "astro-icon/components";
 
-const { weeks, totalContributions } =
+const { weeks, totalContributions, activity } =
     await getGithubContributions(GITHUB_TOKEN);
 ---
 
-<GithubContributions {weeks} {totalContributions}>
-    <Icon name="github" size={18} slot="gitHubIcon" aria-hidden="true" />
-</GithubContributions>
+<GithubContributions {weeks} {totalContributions} {activity} client:visible />

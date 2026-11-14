@@ -216,6 +216,55 @@ test.describe("interactions", () => {
     ).toBe(28);
   });
 
+  test("contribution activity overview collapses and expands", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+    const card = page.locator("[data-contributions]");
+    await card.scrollIntoViewIfNeeded();
+    await expect(
+      card.getByRole("link", { name: "View GitHub profile" }),
+    ).toHaveAttribute("href", "https://github.com/ruizdiazever");
+    const trigger = card.getByRole("button", { name: /Activity overview/ });
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(card.getByText("Public repositories only")).toBeVisible();
+    await expect(
+      card.getByRole("img", { name: /Public contribution activity/ }),
+    ).toBeVisible();
+
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("contribution activity stacks without overflowing on mobile", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en");
+    const card = page.locator("[data-contributions]");
+    await card.scrollIntoViewIfNeeded();
+    await expect(
+      card.getByRole("link", { name: "View GitHub profile" }),
+    ).toHaveAttribute("href", "https://github.com/ruizdiazever");
+    const trigger = card.getByRole("button", { name: /Activity overview/ });
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(card.getByText("Public repositories only")).toBeVisible();
+    await expect(
+      card.getByRole("img", { name: /Public contribution activity/ }),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth >
+          document.documentElement.clientWidth,
+      ),
+    ).toBe(false);
+  });
+
   test("contribution card has breathing room and a legend", async ({
     page,
   }) => {

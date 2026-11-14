@@ -147,5 +147,18 @@
   "dailyToolLaptop": "laptop",
   "dailyToolCodingAgent": "coding agent",
   "contributionsLess": "Less",
-  "contributionsMore": "More"
+  "contributionsMore": "More",
+  "activityOverview": "Activity overview",
+  "activityPublicNote": "Public repositories only",
+  "contributedTo": "Contributed to",
+  "andOneOtherRepository": "and one other repository",
+  "andOtherRepositories": "and {count} other repositories",
+  "publicContributions": "{count} public contributions",
+  "noContributionActivity": "No public contribution activity in the last year.",
+  "codeReview": "Code review",
+  "issues": "Issues",
+  "pullRequests": "Pull requests",
+  "commits": "Commits",
+  "learnHowWeCount": "Learn how we count contributions",
+  "viewGithubProfile": "View GitHub profile"
 }

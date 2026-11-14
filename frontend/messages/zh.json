@@ -147,5 +147,18 @@
   "dailyToolLaptop": "笔记本电脑",
   "dailyToolCodingAgent": "编程智能体",
   "contributionsLess": "少",
-  "contributionsMore": "多"
+  "contributionsMore": "多",
+  "activityOverview": "活动概览",
+  "activityPublicNote": "仅限公开仓库",
+  "contributedTo": "贡献于",
+  "andOneOtherRepository": "以及另外 1 个仓库",
+  "andOtherRepositories": "以及另外 {count} 个仓库",
+  "publicContributions": "{count} 次公开贡献",
+  "noContributionActivity": "过去一年没有公开贡献活动。",
+  "codeReview": "代码审查",
+  "issues": "议题",
+  "pullRequests": "拉取请求",
+  "commits": "提交",
+  "learnHowWeCount": "了解我们如何统计贡献",
+  "viewGithubProfile": "查看 GitHub 主页"
 }
