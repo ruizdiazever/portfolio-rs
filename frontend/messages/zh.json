@@ -145,5 +145,7 @@
   "agentHumanView": "人类视图",
   "agentLineCount": "{count} 行",
   "dailyToolLaptop": "笔记本电脑",
-  "dailyToolCodingAgent": "编程智能体"
+  "dailyToolCodingAgent": "编程智能体",
+  "contributionsLess": "少",
+  "contributionsMore": "多"
 }

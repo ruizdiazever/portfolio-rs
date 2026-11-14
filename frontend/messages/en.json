@@ -145,5 +145,7 @@
   "agentHumanView": "Human view",
   "agentLineCount": "{count} lines",
   "dailyToolLaptop": "laptop",
-  "dailyToolCodingAgent": "coding agent"
+  "dailyToolCodingAgent": "coding agent",
+  "contributionsLess": "Less",
+  "contributionsMore": "More"
 }

@@ -13,6 +13,8 @@
     let { weeks, totalContributions, gitHubIcon }: Props = $props();
 
     const locale = getLocale() === "zh" ? "zh-CN" : "en-US";
+    const numberFormatter = new Intl.NumberFormat(locale);
+    const formattedTotal = numberFormatter.format(totalContributions);
     const dayFormatter = new Intl.DateTimeFormat(locale, {
         month: "short",
         day: "numeric",
@@ -44,13 +46,14 @@
 </script>
 
 <div
-    class="border rounded-lg px-2 sm:px-6 py-3 relative mt-3 h-auto md:h-[220px]"
+    class="border rounded-lg bg-card p-4 sm:p-5 relative mt-3"
+    data-contributions
 >
-    <div class="flex justify-between items-center mb-4">
+    <div class="flex justify-between items-center mb-5">
         <div
             class="text-sm font-medium text-foreground text-center sm:text-left tabular-nums"
         >
-            {totalContributions}
+            {formattedTotal}
             {getLocale() === "zh"
                 ? "个贡献在过去一年"
                 : "contributions in the last year"}
@@ -78,12 +81,12 @@
                         class="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5"
                         style={`grid-template-columns: repeat(${columnCount}, minmax(0, 1fr))`}
                         role="img"
-                        aria-label={getLocale() === "zh" ? `${totalContributions} 个贡献在过去一年` : `${totalContributions} contributions in the last year`}
+                        aria-label={getLocale() === "zh" ? `${formattedTotal} 个贡献在过去一年` : `${formattedTotal} contributions in the last year`}
                     >
                         {#each weeks as week}
                             {#each week.contributionDays as day}
                                 <div
-                                    class="w-2 h-2 sm:w-3 sm:h-3 rounded-sm border"
+                                    class="aspect-square w-full rounded-sm border"
                                     class:opacity-50={day.contributionCount === 0}
                                     style="background-color: rgba(38, 166, 65, {Math.min(
                                         day.contributionCount / 10,
@@ -118,6 +121,19 @@
         <p class="mt-2 text-xs text-muted-foreground sm:hidden">
             {m.swipeContributions()}
         </p>
+        <div class="mt-3 flex items-center justify-end gap-2 text-xs text-muted-foreground">
+            <span>{m.contributionsLess()}</span>
+            <div class="flex items-center gap-1" aria-hidden="true">
+                {#each [0, 1, 2, 3, 4] as level}
+                    <span
+                        class="size-2.5 rounded-sm border"
+                        class:opacity-50={level === 0}
+                        style="background-color: rgba(38, 166, 65, {level / 4})"
+                    ></span>
+                {/each}
+            </div>
+            <span>{m.contributionsMore()}</span>
+        </div>
     {/if}
 </div>
 

@@ -177,6 +177,25 @@ test.describe("interactions", () => {
     ).toHaveAttribute("href", "/zh/sections/books");
   });
 
+  test("contribution card has breathing room and a legend", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+
+    const gap = await page.evaluate(() => {
+      const card = document.querySelector("[data-contributions]");
+      const sections = document.querySelector("[data-sections]");
+      if (!card || !sections) return -1;
+      return (
+        sections.getBoundingClientRect().top -
+        card.getBoundingClientRect().bottom
+      );
+    });
+    expect(gap).toBeGreaterThanOrEqual(20);
+    await expect(page.getByText("Less", { exact: true })).toBeVisible();
+    await expect(page.getByText("More", { exact: true })).toBeVisible();
+  });
+
   test("contribution grid matches the number of weeks", async ({ page }) => {
     await page.goto("/en");
 

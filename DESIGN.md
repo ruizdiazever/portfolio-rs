@@ -182,10 +182,13 @@ a polite status region.
 ### Contribution graph
 
 A compact 52 or 53 week calendar. Column count and month offsets come from the
-data, never a fixed 51. Dates and month labels use `Intl.DateTimeFormat`. The
-graph scrolls horizontally on narrow screens; provide a visible scrollbar or a
-fade at the trailing edge. An empty data set is an error state, not a zero
-count. The GitHub link is at least 28px.
+data, never a fixed 51. Dates, totals and month labels use `Intl`. Cells are
+square and scale with the grid; the card uses its content height rather than a
+fixed height. A `Less` to `More` legend sits under the month labels. The graph
+scrolls horizontally on narrow screens; provide a visible scrollbar or a fade at
+the trailing edge. An empty data set is an error state, not a zero count. The
+GitHub link is at least 28px. Keep at least 24px between the card and the
+section links below.
 
 ### Tables
 
