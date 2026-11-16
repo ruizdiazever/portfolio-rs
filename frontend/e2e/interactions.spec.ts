@@ -102,6 +102,42 @@ test.describe("interactions", () => {
     );
   });
 
+  test("book covers stay monochrome until the card is hovered or focused", async ({
+    page,
+  }) => {
+    await page.goto("/en/sections/books?filter=all");
+    const cards = page.locator(".book-card:not(.hidden)");
+    const card = cards.first();
+    const cover = card.locator(".book-front img").first();
+    await cover.scrollIntoViewIfNeeded();
+    await expect(cover).toHaveCSS("filter", "grayscale(1)");
+
+    await card.hover();
+    await expect(cover).toHaveCSS("filter", "grayscale(0)");
+    await expect(
+      cards.nth(1).locator(".book-front img").first(),
+    ).toHaveCSS("filter", "grayscale(1)");
+
+    await page.mouse.move(0, 0);
+    await expect(cover).toHaveCSS("filter", "grayscale(1)");
+
+    await card.locator(".book-card-toggle").focus();
+    await expect(cover).toHaveCSS("filter", "grayscale(0)");
+  });
+
+  test("about portrait stays monochrome until hovered", async ({ page }) => {
+    await page.goto("/en/sections/about");
+    const portrait = page.locator('img[alt="Ever Ruiz Diaz"]').first();
+    await portrait.scrollIntoViewIfNeeded();
+    await expect(portrait).toHaveCSS("filter", "grayscale(1)");
+
+    await portrait.hover();
+    await expect(portrait).toHaveCSS("filter", "grayscale(0)");
+
+    await page.mouse.move(0, 0);
+    await expect(portrait).toHaveCSS("filter", "grayscale(1)");
+  });
+
   test("technology tags link out", async ({ page }) => {
     await page.goto("/en");
     const tag = page.locator("[data-tech]").first();

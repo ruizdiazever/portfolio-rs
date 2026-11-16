@@ -52,13 +52,11 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 | `--destructive` | semantic red | `#eb5757` | Errors only |
 
 Content color is allowed in book covers, technology marks, the contribution
-graph and the footer mascot. Technology marks stay grayscale until their card is
-hovered or focused; the contribution graph and the footer mascot stay monochrome
-until their area is hovered or focused. All then show their content color. Shape,
-position and the accessible name carry the meaning, so color is never the only
-cue. UI chrome uses the tokens above. Do not add a colored hover, a gradient
-behind UI text or a card shadow. Agent lens keeps the same neutral system; only
-the content changes.
+graph, the about portrait and the footer mascot, but it is revealed on demand:
+these surfaces stay monochrome until hovered or focused. Shape, position and the
+accessible name carry the meaning, so color is never the only cue. UI chrome uses
+the tokens above. Do not add a colored hover, a gradient behind UI text or a card
+shadow. Agent lens keeps the same neutral system; only the content changes.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -178,7 +176,8 @@ hovered or contains focus, then show their brand color.
 
 ### Book card
 
-The card is a 3D flip surface with perspective 1200px.
+The card is a 3D flip surface with perspective 1200px. The cover stays grayscale
+until the card is hovered or focused, then shows its color over 200ms.
 
 - Front: cover, title, author, year and type. A small `FLIP` hint sits on the
   cover and is decorative for assistive technology.

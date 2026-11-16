@@ -91,7 +91,7 @@ const cards = books.map((book) => ({
                                     height={400}
                                     sizes="(min-width: 768px) 25vw, 90vw"
                                     alt={book.title}
-                                    class="w-full h-full object-contain p-4 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                                    class="w-full h-full object-contain p-4 grayscale transition-[filter,transform] duration-200 ease-out group-hover:scale-[1.02] group-hover:grayscale-0 group-focus-within:grayscale-0"
                                 />
                                 <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                                 <span
