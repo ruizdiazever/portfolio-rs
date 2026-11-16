@@ -412,6 +412,19 @@ test.describe("interactions", () => {
     await expect(grid).toHaveCSS("filter", "grayscale(1)");
   });
 
+  test("footer mascot stays monochrome until hovered", async ({ page }) => {
+    await page.goto("/en");
+    const mascot = page.locator('footer img[alt*="mascot"]');
+    await mascot.scrollIntoViewIfNeeded();
+    await expect(mascot).toHaveCSS("filter", "grayscale(1)");
+
+    await mascot.hover();
+    await expect(mascot).toHaveCSS("filter", "grayscale(0)");
+
+    await page.mouse.move(0, 0);
+    await expect(mascot).toHaveCSS("filter", "grayscale(1)");
+  });
+
   test("mobile layout keeps project links and the graph cue visible", async ({
     page,
   }) => {

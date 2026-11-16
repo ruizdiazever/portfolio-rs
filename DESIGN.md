@@ -51,13 +51,14 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 | `--accent` | `#f1f1f1` | `#23252a` | Hover and selected surfaces |
 | `--destructive` | semantic red | `#eb5757` | Errors only |
 
-Content color is allowed in book covers, technology marks and the contribution
-graph. Technology marks stay grayscale until their card is hovered or focused;
-the contribution graph stays monochrome until its area is hovered or focused.
-Both then show their content color. Shape, position and the accessible summary
-carry the meaning, so color is never the only cue. UI chrome uses the tokens
-above. Do not add a colored hover, a gradient behind UI text or a card shadow.
-Agent lens keeps the same neutral system; only the content changes.
+Content color is allowed in book covers, technology marks, the contribution
+graph and the footer mascot. Technology marks stay grayscale until their card is
+hovered or focused; the contribution graph and the footer mascot stay monochrome
+until their area is hovered or focused. All then show their content color. Shape,
+position and the accessible name carry the meaning, so color is never the only
+cue. UI chrome uses the tokens above. Do not add a colored hover, a gradient
+behind UI text or a card shadow. Agent lens keeps the same neutral system; only
+the content changes.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -274,7 +275,7 @@ The machine files and boundaries are documented in
 
 Toasts follow the active theme and stay neutral. The footer mirrors the header
 width, keeps the mascot and copyright readable, and respects the bottom safe
-area.
+area. The mascot stays grayscale until its row is hovered, then shows its color.
 
 ## States
 

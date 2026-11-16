@@ -21,7 +21,7 @@ const { wide = false } = Astro.props;
                 <Social />
             </div>
             <div
-                class="flex justify-center items-center text-muted-foreground sm:justify-start text-sm gap-2 hover:text-foreground transition-colors"
+                class="group flex justify-center items-center text-muted-foreground sm:justify-start text-sm gap-2 hover:text-foreground transition-colors"
             >
                 <Media
                     path="site/mascot"
@@ -30,7 +30,7 @@ const { wide = false } = Astro.props;
                     height={19}
                     sizes="32px"
                     alt="Rust Evangelist Strike Force mascot"
-                    class="w-8 h-auto"
+                    class="w-8 h-auto grayscale transition-[filter] duration-150 ease-out group-hover:grayscale-0"
                 />
                 {m.rustLover()}
             </div>
