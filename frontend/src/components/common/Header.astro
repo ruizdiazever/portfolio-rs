@@ -171,12 +171,12 @@ const languageIcon = otherLocale === "zh" ? languageIcons.zh : languageIcons.en;
                 meta.content = override ? (dark ? "dark" : "light") : "light dark";
             }
 
-            const themeColor = document.querySelector<HTMLMetaElement>(
+            const themeColors = document.querySelectorAll<HTMLMetaElement>(
                 'meta[name="theme-color"]',
             );
-            if (themeColor) {
+            themeColors.forEach((themeColor) => {
                 themeColor.content = dark ? "#08090a" : "#ffffff";
-            }
+            });
 
             applyThemeIcon(dark, animate);
 

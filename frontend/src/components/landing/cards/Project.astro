@@ -16,23 +16,23 @@ const technologies = getTechnologiesFromJson();
 let { url, title, repository, description, tech }: Props = Astro.props;
 ---
 
-<article class="group relative block w-full">
+<article class="group relative h-full w-full">
     <div
-        class="relative p-2 flex
+        class="relative flex h-full p-2
         border rounded-lg bg-card hover:border-foreground/30 hover:bg-muted/30
         transition-[border-color,background-color] duration-150 ease-out"
     >
-        <div class="flex flex-col px-2 my-2 gap-2 pr-10 pt-0!">
-            <LinkTitle title={title} url={url} />
-            {
-                repository !== "" && (
-                    <span>
+        <div class="my-2 flex w-full flex-col gap-2 px-2">
+            <div class="flex items-start justify-between gap-3">
+                <LinkTitle title={title} url={url} />
+                {
+                    repository !== "" && (
                         <a
                             href={repository}
                             rel="noopener"
                             target="_blank"
                             aria-label={getLocale() === "zh" ? `${title} 的 GitHub 仓库` : `${title} on GitHub`}
-                            class="absolute top-3 right-3 inline-flex size-7 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
+                            class="inline-flex size-7 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
                         >
                             <Icon
                                 name="github"
@@ -41,29 +41,31 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                                 height="1.2em"
                             />
                         </a>
-                    </span>
-                )
-            }
+                    )
+                }
+            </div>
             <p class="text-md text-card-foreground pb-1 line-clamp-3">
                 {description}
             </p>
-            <div class="flex flex-wrap gap-2">
+            <div class="mt-auto flex flex-wrap gap-2" data-tech-list>
                 {
-                    tech.map((n) => {
-                        if (!technologies[n]) return null;
+                    tech.map((name) => {
+                        const technology = technologies[name];
+                        if (!technology) return null;
 
                         return (
                             <a
-                                href={technologies[n].url}
+                                href={technology.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={technologies[n].name}
-                                title={technologies[n].description[getLocale()]}
+                                aria-label={technology.name}
+                                title={technology.description[getLocale()]}
                                 data-tech
-                                class="inline-flex size-7 items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+                                data-tech-item
+                                class="inline-flex size-7 shrink-0 items-center justify-center text-muted-foreground grayscale transition-[filter,opacity] duration-150 ease-out group-hover:grayscale-0 group-focus-within:grayscale-0"
                             >
                                 <Icon
-                                    name={n}
+                                    name={name}
                                     aria-hidden="true"
                                     width="1.3em"
                                     height="1.3em"
@@ -72,7 +74,91 @@ let { url, title, repository, description, tech }: Props = Astro.props;
                         );
                     })
                 }
+                <span
+                    class="inline-flex h-7 min-w-7 shrink-0 items-center justify-center text-xs font-medium text-muted-foreground tabular-nums"
+                    data-tech-more
+                    hidden
+                >
+                    <span data-tech-more-count></span>
+                    <span class="sr-only" data-tech-more-names></span>
+                </span>
             </div>
         </div>
     </div>
 </article>
+
+<script>
+    const fitTechList = (list: HTMLElement) => {
+        const items = Array.from(
+            list.querySelectorAll<HTMLElement>("[data-tech-item]"),
+        );
+        const badge = list.querySelector<HTMLElement>("[data-tech-more]");
+        const count = badge?.querySelector<HTMLElement>(
+            "[data-tech-more-count]",
+        );
+        const names = badge?.querySelector<HTMLElement>(
+            "[data-tech-more-names]",
+        );
+        if (!badge || !count || !names || items.length === 0) return;
+
+        for (const item of items) item.hidden = false;
+        badge.hidden = true;
+
+        const available = list.clientWidth;
+        if (available === 0) return;
+
+        const gap = Number.parseFloat(getComputedStyle(list).columnGap) || 0;
+        const widths = items.map((item) => item.getBoundingClientRect().width);
+        const iconsWidth = (visible: number) =>
+            widths.slice(0, visible).reduce((sum, width) => sum + width, 0) +
+            gap * Math.max(0, visible - 1);
+        const label = (item: HTMLElement) =>
+            item.getAttribute("aria-label") ?? "";
+
+        if (iconsWidth(items.length) <= available) return;
+
+        badge.hidden = false;
+        for (let visible = items.length - 1; visible >= 0; visible -= 1) {
+            count.textContent = `+${items.length - visible}`;
+            const badgeWidth = badge.getBoundingClientRect().width;
+            const rowWidth =
+                visible === 0
+                    ? badgeWidth
+                    : iconsWidth(visible) + gap + badgeWidth;
+
+            if (visible === 0 || rowWidth <= available - 1) {
+                const hidden = items.slice(visible).map(label).filter(Boolean);
+                items.forEach((item, index) => {
+                    item.hidden = index >= visible;
+                });
+                badge.title = hidden.join(", ");
+                names.textContent = `, ${hidden.join(", ")}`;
+                return;
+            }
+        }
+    };
+
+    const fitAllTechLists = () => {
+        document
+            .querySelectorAll<HTMLElement>("[data-tech-list]")
+            .forEach(fitTechList);
+    };
+
+    const lists = document.querySelectorAll<HTMLElement>("[data-tech-list]");
+    if (lists.length > 0) {
+        let frame = 0;
+        const scheduleFit = () => {
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                fitAllTechLists();
+            });
+        };
+
+        const observer = new ResizeObserver(scheduleFit);
+        for (const list of lists) observer.observe(list);
+        document.fonts.ready.then(scheduleFit);
+        window.addEventListener("load", scheduleFit);
+        scheduleFit();
+    }
+</script>

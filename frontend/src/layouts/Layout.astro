@@ -73,15 +73,19 @@ const {
         />
         <script is:inline>
             (() => {
-                const meta = document.querySelector('meta[name="theme-color"]');
-                if (!meta) return;
+                const metas = document.querySelectorAll(
+                    'meta[name="theme-color"]',
+                );
+                if (!metas.length) return;
 
                 const sync = () => {
-                    meta.setAttribute(
-                        "content",
-                        document.documentElement.classList.contains("dark")
-                            ? "#08090a"
-                            : "#ffffff",
+                    const color = document.documentElement.classList.contains(
+                        "dark",
+                    )
+                        ? "#08090a"
+                        : "#ffffff";
+                    metas.forEach((meta) =>
+                        meta.setAttribute("content", color),
                     );
                 };
 

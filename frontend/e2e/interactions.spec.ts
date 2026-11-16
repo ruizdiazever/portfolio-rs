@@ -89,6 +89,101 @@ test.describe("interactions", () => {
     await expect(tag).toHaveAccessibleName(/.+/);
   });
 
+  test("technology marks collapse into a count when they do not fit", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.goto("/en");
+    const cards = page.locator("#work article");
+    const cardCount = await cards.count();
+    expect(cardCount).toBeGreaterThan(0);
+
+    for (let index = 0; index < cardCount; index += 1) {
+      const card = cards.nth(index);
+      const total = await card.locator("[data-tech-item]").count();
+      const more = card.locator("[data-tech-more]");
+      await expect(more).toBeVisible();
+      const countText = (
+        await more.locator("[data-tech-more-count]").textContent()
+      )?.trim();
+      expect(countText).toMatch(/^\+\d+$/);
+      const hiddenCount = Number(countText?.slice(1));
+      expect(hiddenCount).toBeGreaterThan(0);
+
+      await expect(
+        card.locator("[data-tech-item]:not([hidden])"),
+      ).toHaveCount(total - hiddenCount);
+      await expect(more).toHaveAttribute("title", /\S/);
+
+      const hiddenLabels = await card
+        .locator("[data-tech-item][hidden]")
+        .evaluateAll((links) =>
+          links.map((link) => link.getAttribute("aria-label")),
+        );
+      expect(await more.getAttribute("title")).toBe(
+        hiddenLabels.filter(Boolean).join(", "),
+      );
+
+      const rows = await card
+        .locator("[data-tech-item]:not([hidden])")
+        .evaluateAll(
+          (links) =>
+            new Set(
+              links.map((link) => Math.round(link.getBoundingClientRect().top)),
+            ).size,
+        );
+      expect(rows).toBe(1);
+    }
+
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await expect(cards.first().locator("[data-tech-more]")).toBeHidden();
+
+    for (let index = 0; index < cardCount; index += 1) {
+      const card = cards.nth(index);
+      const total = await card.locator("[data-tech-item]").count();
+      const more = card.locator("[data-tech-more]");
+      const visible = await card
+        .locator("[data-tech-item]:not([hidden])")
+        .count();
+
+      if (await more.isVisible()) {
+        const countText = (
+          await more.locator("[data-tech-more-count]").textContent()
+        )?.trim();
+        expect(Number(countText?.slice(1))).toBe(total - visible);
+      } else {
+        expect(visible).toBe(total);
+      }
+    }
+  });
+
+  test("project cards share height and reveal brand color on hover and focus", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/en");
+    const cards = page.locator("#work article");
+    const heights = await cards.evaluateAll((elements) =>
+      elements.map((element) => element.getBoundingClientRect().height),
+    );
+    expect(new Set(heights).size).toBe(1);
+
+    const firstTech = cards.first().locator("[data-tech]").first();
+    await expect(firstTech).toHaveCSS("filter", "grayscale(1)");
+    await cards.first().hover();
+    await expect(firstTech).toHaveCSS("filter", "grayscale(0)");
+    await expect(
+      cards.nth(1).locator("[data-tech]").first(),
+    ).toHaveCSS("filter", "grayscale(1)");
+
+    await page.mouse.move(0, 0);
+    await cards.nth(2).locator("h3 a").focus();
+    await expect(
+      cards.nth(2).locator("[data-tech]").first(),
+    ).toHaveCSS("filter", "grayscale(0)");
+    await expect(firstTech).toHaveCSS("filter", "grayscale(1)");
+  });
+
   test("theme follows the system and the override persists", async ({
     page,
   }) => {
@@ -96,7 +191,7 @@ test.describe("interactions", () => {
     await page.goto("/en");
     const html = page.locator("html");
     const colorScheme = page.locator('meta[name="color-scheme"]');
-    const themeColor = page.locator('meta[name="theme-color"]');
+    const themeColor = page.locator('meta[name="theme-color"]').first();
 
     await expect(html).toHaveClass(/dark/);
     await expect(colorScheme).toHaveAttribute("content", "light dark");
@@ -130,7 +225,7 @@ test.describe("interactions", () => {
     await page.goto("/en");
     const html = page.locator("html");
     const colorScheme = page.locator('meta[name="color-scheme"]');
-    const themeColor = page.locator('meta[name="theme-color"]');
+    const themeColor = page.locator('meta[name="theme-color"]').first();
 
     await expect(html).not.toHaveClass(/dark/);
     await expect(colorScheme).toHaveAttribute("content", "light dark");

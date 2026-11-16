@@ -94,12 +94,20 @@ const postViews = await Promise.all(
             {m.software()}
         </h2>
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-6"
+            class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:auto-rows-fr"
             transition:name="software-grid"
         >
             {
-                projects.map((entry) => (
-                    <div transition:name={`project-${entry.title}`}>
+                projects.map((entry, index) => (
+                    <div
+                        class={`h-full lg:col-span-2 ${
+                            projects.length % 2 === 1 &&
+                            index === projects.length - 1
+                                ? "lg:col-start-2"
+                                : ""
+                        }`}
+                        transition:name={`project-${entry.title}`}
+                    >
                         <Project
                             url={`/${getLocale()}${entry.url}`}
                             title={entry.title}

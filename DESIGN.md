@@ -52,9 +52,11 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 | `--destructive` | semantic red | `#eb5757` | Errors only |
 
 Content color is allowed in book covers, technology marks and the contribution
-graph. UI chrome uses the tokens above. Do not add a colored hover, a gradient
-behind UI text or a card shadow. Agent lens keeps the same neutral system; only
-the content changes.
+graph. Technology marks stay grayscale until their card is hovered or focused,
+then show their brand color. The mark shape and the accessible name carry the
+meaning, so color is never the only cue. UI chrome uses the tokens above. Do not
+add a colored hover, a gradient behind UI text or a card shadow. Agent lens keeps
+the same neutral system; only the content changes.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -161,9 +163,14 @@ decorative and never the only status cue.
 
 ### Project cards
 
-A bordered card with a title, a three-line description, a repository link and
-wrapped technology links. Technology targets are at least 24px and wrap instead
-of overflowing. The full description lives on the project page.
+A bordered card with a title, a three-line description, a repository link and a
+technology row. Technology targets are at least 24px. The row stays on one line:
+when the remaining marks do not fit they collapse into a `+N` count, and the
+count names the hidden marks on hover and for screen readers. The full
+description and stack live on the project page. Cards in the grid share height
+and keep their technology row on the same baseline; an odd last card centers
+under the pair. Technology marks stay grayscale until the card is hovered or
+contains focus, then show their brand color.
 
 ### Book card
 

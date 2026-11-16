@@ -2,6 +2,7 @@ import { z } from "zod";
 import technologiesData from "$lib/assets/technologies.json";
 
 const technologySchema = z.object({
+  aliases: z.array(z.string()).optional(),
   name: z.string(),
   description: z.object({
     en: z.string(),
@@ -26,6 +27,15 @@ export function getTechnologiesFromJson(): Record<string, Technology> {
     throw new Error(`Invalid JSON structure: ${result.error.message}`);
   }
 
-  cache = result.data.technologies;
+  const technologies = result.data.technologies;
+  const resolved: Record<string, Technology> = { ...technologies };
+
+  for (const technology of Object.values(technologies)) {
+    for (const alias of technology.aliases ?? []) {
+      resolved[alias] ??= technology;
+    }
+  }
+
+  cache = resolved;
   return cache;
 }

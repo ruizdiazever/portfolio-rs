@@ -226,7 +226,7 @@
     }
 
     a {
-        @apply transition-[color,opacity] duration-150 ease-out hover:opacity-75;
+        @apply transition-[color,opacity] duration-150 ease-out hover:opacity-75 active:opacity-75;
     }
 
     h1,
