@@ -168,9 +168,9 @@ technology row. Technology targets are at least 24px. The row stays on one line:
 when the remaining marks do not fit they collapse into a `+N` count, and the
 count names the hidden marks on hover and for screen readers. The full
 description and stack live on the project page. Cards in the grid share height
-and keep their technology row on the same baseline; an odd last card centers
-under the pair. Technology marks stay grayscale until the card is hovered or
-contains focus, then show their brand color.
+and keep their technology row on the same baseline; a trailing odd card stays
+in the leading column. Technology marks stay grayscale until the card is
+hovered or contains focus, then show their brand color.
 
 ### Book card
 
