@@ -135,7 +135,7 @@
         </a>
     </div>
 
-    <div class="px-4 pb-4">
+    <div class="group px-4 pb-4">
         {#if weeks.length === 0}
             <p
                 class="flex h-[100px] items-center justify-center text-sm text-muted-foreground"
@@ -177,7 +177,7 @@
                                 {/each}
                             </div>
                             <div
-                                class="grid grid-flow-col grid-rows-7 gap-[3px]"
+                                class="grid grid-flow-col grid-rows-7 gap-[3px] grayscale transition-[filter] duration-150 ease-out group-hover:grayscale-0 group-focus-within:grayscale-0"
                                 style={`grid-template-columns: repeat(${columnCount}, ${cellSize}px)`}
                                 role="img"
                                 aria-label={getLocale() === "zh"
@@ -216,7 +216,10 @@
                 </a>
                 <div class="flex items-center justify-end gap-2">
                     <span>{m.contributionsLess()}</span>
-                    <div class="flex items-center gap-1" aria-hidden="true">
+                    <div
+                        class="flex items-center gap-1 grayscale transition-[filter] duration-150 ease-out group-hover:grayscale-0 group-focus-within:grayscale-0"
+                        aria-hidden="true"
+                    >
                         {#each levels as level}
                             <span
                                 class="size-2.5 rounded-[2px] border border-border"

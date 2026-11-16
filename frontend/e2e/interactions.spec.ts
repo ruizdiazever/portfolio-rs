@@ -397,6 +397,21 @@ test.describe("interactions", () => {
     );
   });
 
+  test("contribution graph stays monochrome until hovered", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+    const grid = page.locator('[role="img"][aria-label*="contributions"]');
+    await grid.scrollIntoViewIfNeeded();
+    await expect(grid).toHaveCSS("filter", "grayscale(1)");
+
+    await grid.hover();
+    await expect(grid).toHaveCSS("filter", "grayscale(0)");
+
+    await page.mouse.move(0, 0);
+    await expect(grid).toHaveCSS("filter", "grayscale(1)");
+  });
+
   test("mobile layout keeps project links and the graph cue visible", async ({
     page,
   }) => {

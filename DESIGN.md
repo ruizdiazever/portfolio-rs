@@ -52,11 +52,12 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 | `--destructive` | semantic red | `#eb5757` | Errors only |
 
 Content color is allowed in book covers, technology marks and the contribution
-graph. Technology marks stay grayscale until their card is hovered or focused,
-then show their brand color. The mark shape and the accessible name carry the
-meaning, so color is never the only cue. UI chrome uses the tokens above. Do not
-add a colored hover, a gradient behind UI text or a card shadow. Agent lens keeps
-the same neutral system; only the content changes.
+graph. Technology marks stay grayscale until their card is hovered or focused;
+the contribution graph stays monochrome until its area is hovered or focused.
+Both then show their content color. Shape, position and the accessible summary
+carry the meaning, so color is never the only cue. UI chrome uses the tokens
+above. Do not add a colored hover, a gradient behind UI text or a card shadow.
+Agent lens keeps the same neutral system; only the content changes.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -204,8 +205,10 @@ a 3px gap and a fixed pitch so the graph keeps GitHub's rhythm instead of
 stretching cells. The graph scrolls horizontally on narrow screens while the
 weekday labels stay fixed; a fade and swipe cue make the overflow visible. A
 `Less` to `More` legend sits under the grid, with the count documentation link
-opposite it. The card uses its content height; keep at least 24px between it and
-the section links below. The GitHub profile link is at least 32px.
+opposite it. The graph and the legend stay monochrome until the graph area is
+hovered or focused, then reveal the green activity levels. The card uses its
+content height; keep at least 24px between it and the section links below. The
+GitHub profile link is at least 32px.
 
 The activity overview below the grid is a shadcn-svelte `Collapsible`, closed by
 default, with a 180ms slide that becomes instant under reduced motion. The
