@@ -161,7 +161,9 @@ title is an `h3` on the home page and an `h2` on the Writing page. Metadata is
 
 A timeline with a dot aligned to the date line. Dates are `tabular-nums`. The
 role is an `h3`; the company link is external and clearly underlined. The dot is
-decorative and never the only status cue.
+opaque so the rule never shows through it, and its fill marks the current role.
+The dot is decorative and never the only status cue, since the dates carry the
+same information.
 
 ### Project cards
 

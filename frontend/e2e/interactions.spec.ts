@@ -44,6 +44,26 @@ test.describe("interactions", () => {
     }
   });
 
+  test("experience dots are opaque over the timeline rule", async ({ page }) => {
+    await page.goto("/en");
+
+    const dots = await page.evaluate(() =>
+      Array.from(document.querySelectorAll("[data-timeline-dot]")).map(
+        (dot) => ({
+          background: getComputedStyle(dot).backgroundColor,
+          opacity: getComputedStyle(dot).opacity,
+        }),
+      ),
+    );
+
+    expect(dots.length).toBeGreaterThan(0);
+    for (const dot of dots) {
+      expect(dot.opacity).toBe("1");
+      expect(dot.background).not.toMatch(/rgba\(/);
+      expect(dot.background).not.toMatch(/\/\s*[\d.]+\s*\)/);
+    }
+  });
+
   test("book cards flip in place", async ({ page }) => {
     await page.goto("/en/sections/books");
 

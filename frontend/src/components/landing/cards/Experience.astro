@@ -26,7 +26,7 @@ let {
 
 <div class="relative z-10 grid gap-1">
     <div
-        class={`absolute left-0 top-[5px] z-20 aspect-square w-3 -translate-x-[29.5px] rounded-full ring-[3px] ring-background ${current ? "bg-foreground/70" : "bg-foreground/20"}`}
+        class={`absolute left-0 top-[5px] z-20 aspect-square w-3 -translate-x-[29.5px] rounded-full ring-[3px] ring-background ${current ? "is-current" : ""}`}
         data-timeline-dot
     >
     </div>
@@ -41,3 +41,21 @@ let {
         {description}
     </div>
 </div>
+
+<style>
+    [data-timeline-dot] {
+        background-color: color-mix(
+            in srgb,
+            var(--foreground) 20%,
+            var(--background)
+        );
+    }
+
+    [data-timeline-dot].is-current {
+        background-color: color-mix(
+            in srgb,
+            var(--foreground) 70%,
+            var(--background)
+        );
+    }
+</style>
