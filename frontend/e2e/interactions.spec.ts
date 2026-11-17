@@ -138,6 +138,35 @@ test.describe("interactions", () => {
     await expect(portrait).toHaveCSS("filter", "grayscale(1)");
   });
 
+  test("home avatar stays monochrome until hovered", async ({ page }) => {
+    await page.goto("/en");
+    const avatar = page.locator('img[alt="Ever Ruiz Diaz"]').first();
+    await avatar.scrollIntoViewIfNeeded();
+    await expect(avatar).toHaveCSS("filter", "grayscale(1)");
+
+    await avatar.hover();
+    await expect(avatar).toHaveCSS("filter", "grayscale(0)");
+
+    await page.mouse.move(0, 0);
+    await expect(avatar).toHaveCSS("filter", "grayscale(1)");
+  });
+
+  test("back links animate their arrow icon", async ({ page }) => {
+    await page.goto("/en/projects/berli-system");
+    const back = page.getByRole("link", { name: "Back to selected work" });
+    const icon = back.locator("svg");
+    await expect(icon).toHaveCount(1);
+    await expect(icon).toHaveAttribute("aria-hidden", "true");
+    await expect(icon).toHaveCSS("translate", "none");
+
+    await back.hover();
+    await expect(icon).toHaveCSS("translate", "-1.5px");
+
+    await page.goto("/en/sections/cv");
+    const home = page.getByRole("link", { name: "Go back home" });
+    await expect(home.locator("svg")).toHaveCount(1);
+  });
+
   test("technology tags link out", async ({ page }) => {
     await page.goto("/en");
     const tag = page.locator("[data-tech]").first();

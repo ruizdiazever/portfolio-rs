@@ -25,8 +25,16 @@ import { getLocale } from "@paraglide/runtime";
             />
         </a>
         <p class="pt-6 text-sm">
-            <a href={`/${getLocale()}`} class="text-muted-foreground hover:text-foreground">
-                ← {m.goHome()}
+            <a
+                href={`/${getLocale()}`}
+                class="group inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
+            >
+                <Icon
+                    name="arrow-left"
+                    aria-hidden="true"
+                    class="size-4 duration-150 ease-out group-hover:-translate-x-[1.5px]"
+                />
+                {m.goHome()}
             </a>
         </p>
     </div>

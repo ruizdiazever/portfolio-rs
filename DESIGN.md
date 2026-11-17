@@ -52,11 +52,12 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 | `--destructive` | semantic red | `#eb5757` | Errors only |
 
 Content color is allowed in book covers, technology marks, the contribution
-graph, the about portrait and the footer mascot, but it is revealed on demand:
-these surfaces stay monochrome until hovered or focused. Shape, position and the
-accessible name carry the meaning, so color is never the only cue. UI chrome uses
-the tokens above. Do not add a colored hover, a gradient behind UI text or a card
-shadow. Agent lens keeps the same neutral system; only the content changes.
+graph, the home avatar, the about portrait and the footer mascot, but it is
+revealed on demand: these surfaces stay monochrome until hovered or focused.
+Shape, position and the accessible name carry the meaning, so color is never the
+only cue. UI chrome uses the tokens above. Do not add a colored hover, a gradient
+behind UI text or a card shadow. Agent lens keeps the same neutral system; only
+the content changes.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -148,6 +149,13 @@ states.
 A bordered card row with a label and a trailing arrow. The whole row is the
 link. Hover changes the border and surface; focus uses the global ring; active
 presses to a subtle scale.
+
+### Back links
+
+A text link with the `arrow-left` icon before the label, used to return to the
+previous page or section. The label names the destination and the icon is
+decorative. On hover the icon nudges 1.5px in the direction of travel, matching
+the title arrows, and the unselected text brightens to the foreground.
 
 ### Writing cards
 

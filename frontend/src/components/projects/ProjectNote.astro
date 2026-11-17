@@ -1,5 +1,6 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 import { getLocale } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import { projectDetails } from "$lib/common/projectDetails";
@@ -20,9 +21,13 @@ const locale = getLocale();
     <article class="mt-10 max-w-[68ch]">
         <a
             href={`/${locale}#work`}
-            class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+            class="group inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
         >
-            <span aria-hidden="true">←</span>
+            <Icon
+                name="arrow-left"
+                aria-hidden="true"
+                class="size-4 duration-150 ease-out group-hover:-translate-x-[1.5px]"
+            />
             {m.projectBack()}
         </a>
 
