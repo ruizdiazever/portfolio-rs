@@ -11,6 +11,27 @@ import playformCompress from "@playform/compress";
 import rehypeClassNames from "rehype-class-names";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
 
+/**
+ * The trust pages answer at the root for agents that probe /about, /contact and
+ * /privacy. Astro's i18n routing only serves page routes under a locale prefix,
+ * and routes injected by an integration live outside that rule, so they are
+ * injected instead of placed in src/pages.
+ */
+const trustAliasRoutes = {
+  name: "trust-alias-routes",
+  hooks: {
+    "astro:config:setup": ({ injectRoute }) => {
+      for (const [pattern, entrypoint, prerender] of [
+        ["/about", "./src/aliases/about.astro", false],
+        ["/contact", "./src/aliases/contact.astro", false],
+        ["/privacy", "./src/aliases/privacy.astro", false],
+      ]) {
+        injectRoute({ pattern, entrypoint, prerender });
+      }
+    },
+  },
+};
+
 export default defineConfig({
   markdown: {
     processor: unified({
@@ -100,6 +121,7 @@ export default defineConfig({
   },
   compressHTML: true,
   integrations: [
+    trustAliasRoutes,
     svelte(),
     mdx(),
     icon(),
@@ -117,12 +139,6 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
-    },
-  },
-  redirects: {
-    "/": {
-      status: 302,
-      destination: "/en",
     },
   },
   security: {

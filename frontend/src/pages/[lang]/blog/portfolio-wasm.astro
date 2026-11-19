@@ -1,6 +1,7 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
 import { getPost } from "$lib/common/getPostById";
+import { articleMeta } from "$lib/common/schema";
 import { getLocale } from "@paraglide/runtime";
 import Post from "$lib/components/blog/wasm/Wasm.astro";
 
@@ -12,6 +13,7 @@ const locale = getLocale();
 <Layout
     title={`${post.title[locale]} · Ever Ruiz Diaz`}
     description={post.description[locale]}
+    article={articleMeta(post)}
 >
     <Post />
 </Layout>

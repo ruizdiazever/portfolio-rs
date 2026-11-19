@@ -1,9 +1,19 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
 import Landing from "$lib/components/landing/Landing.astro";
+import Faq from "$lib/components/sections/Faq.astro";
+import { faqEntries } from "$lib/common/faq";
 import * as m from "@paraglide/messages.js";
+
+const faq = faqEntries();
 ---
 
-<Layout title={m.titleHome()} description={m.seoHome()}>
+<Layout
+    title={m.titleHome()}
+    description={m.seoHome()}
+    pageType="ProfilePage"
+    faq={faq}
+>
     <Landing />
+    <Faq entries={faq} />
 </Layout>

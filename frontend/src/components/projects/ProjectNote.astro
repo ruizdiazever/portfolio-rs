@@ -17,6 +17,11 @@ const locale = getLocale();
 <Layout
     title={`${project.title} · Ever Ruiz Diaz`}
     description={project.tagline[locale]}
+    project={{
+        name: project.title,
+        repository: project.repository,
+        technologies: project.stack,
+    }}
 >
     <article class="mt-10 max-w-[68ch]">
         <a

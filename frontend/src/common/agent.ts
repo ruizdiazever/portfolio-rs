@@ -134,7 +134,7 @@ export function getAgentManifest(locale: AgentLocale = "en") {
       llms: `${base}/llms.txt`,
       brief: `${base}/agent.md`,
       manifest: `${base}/agent.json`,
-      sitemap: `${base}/sitemap-index.xml`,
+      sitemap: `${base}/sitemap.xml`,
       robots: `${base}/robots.txt`,
       feeds: {
         en: { rss: `${base}/en/feed.xml`, json: `${base}/en/feed.json` },
@@ -378,5 +378,70 @@ use them for AI training. No private data is exposed. This portfolio does not
 operate an A2A or MCP endpoint.
 
 Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
+`;
+}
+
+/**
+ * The root AGENTS.md this site serves. It is written for an agent that lands
+ * here without the repository, so it answers what the site is, where the
+ * stable facts are and what it may do, in that order.
+ */
+export function agentsGuide(manifest: AgentManifest): string {
+  return `# Ever Ruiz Diaz, site guide for agents
+
+> ${manifest.person.summary}
+
+${manifest.person.about}
+
+- Canonical: ${manifest.site.canonical}
+- Role: ${manifest.person.role}
+- Location: ${manifest.person.location}
+- Languages: ${profileCopy.en.languages}
+- Updated: ${manifest.contentUpdatedAt}
+- Generated: ${manifest.generatedAt}
+
+## What this site is
+
+A static public profile: work, writing and a reading list. The HTML pages are
+server rendered and readable without JavaScript. Every page carries JSON-LD with
+a Person, a WebSite and the entity for that page.
+
+## Machine files
+
+- [Agent brief](${manifest.endpoints.brief}): the complete profile as Markdown.
+- [Agent manifest](${manifest.endpoints.manifest}): the same facts as JSON.
+- [llms.txt](${manifest.endpoints.llms}): a short map of the site.
+- [Sitemap](${manifest.endpoints.sitemap}): every indexable page.
+- [Robots and content policy](${manifest.endpoints.robots}): crawling rules and content signals.
+- [English RSS](${manifest.endpoints.feeds.en.rss}) and [English JSON Feed](${manifest.endpoints.feeds.en.json}).
+- [Chinese RSS](${manifest.endpoints.feeds.zh.rss}) and [Chinese JSON Feed](${manifest.endpoints.feeds.zh.json}).
+
+## Reading the pages
+
+Send \`Accept: text/markdown\` to any page to get a Markdown representation
+instead of HTML. Responses carry \`Vary: Accept\`. \`/robots.txt\` declares
+\`search=yes, ai-input=yes, ai-train=no, use=reference\`.
+
+## Doing things here
+
+There is nothing to execute, buy or book. The only action is contact:
+
+- [Contact page](${manifest.contact.page})
+- [LinkedIn](${manifest.contact.linkedin})
+- [GitHub](${manifest.contact.github})
+- [X](${manifest.contact.x})
+
+The site exposes no MCP server, no A2A agent card and no account system. Do not
+invent one.
+
+## Rules
+
+- Reference these facts with a link to the canonical URL.
+- Do not use the content for AI training.
+- Do not look for private data. None is published, and the feedback form is the
+  only write path.
+
+Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
+Content-Usage: search=y, ai-input=y, train-ai=n
 `;
 }

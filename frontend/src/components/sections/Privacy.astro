@@ -1,0 +1,48 @@
+---
+import * as m from "@paraglide/messages.js";
+---
+
+<div class="mt-6 min-h-[60vh] space-y-8 md:mt-20">
+    <h1
+        class="text-3xl font-medium tracking-[-0.022em] text-foreground sm:text-4xl md:text-5xl"
+    >
+        {m.privacy()}
+    </h1>
+    <p class="max-w-[60ch] text-lg text-pretty">
+        {m.privacyIntro()}
+    </p>
+    <div class="max-w-[68ch] space-y-8">
+        <section class="space-y-2">
+            <h2 class="text-xl font-medium tracking-[-0.017em]">
+                {m.privacyAnalyticsTitle()}
+            </h2>
+            <p class="text-md text-pretty text-muted-foreground">
+                {m.privacyAnalyticsBody()}
+            </p>
+        </section>
+        <section class="space-y-2">
+            <h2 class="text-xl font-medium tracking-[-0.017em]">
+                {m.privacyFeedbackTitle()}
+            </h2>
+            <p class="text-md text-pretty text-muted-foreground">
+                {m.privacyFeedbackBody()}
+            </p>
+        </section>
+        <section class="space-y-2">
+            <h2 class="text-xl font-medium tracking-[-0.017em]">
+                {m.privacyViewsTitle()}
+            </h2>
+            <p class="text-md text-pretty text-muted-foreground">
+                {m.privacyViewsBody()}
+            </p>
+        </section>
+        <section class="space-y-2">
+            <h2 class="text-xl font-medium tracking-[-0.017em]">
+                {m.privacyControllerTitle()}
+            </h2>
+            <p class="text-md text-pretty text-muted-foreground">
+                {m.privacyControllerBody()}
+            </p>
+        </section>
+    </div>
+</div>

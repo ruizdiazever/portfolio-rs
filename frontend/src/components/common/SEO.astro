@@ -5,6 +5,16 @@ import { seoConfig } from "$lib/common/seoConfig";
 import { media } from "$lib/common/media";
 import "$lib/styles/app.css";
 import * as m from "@paraglide/messages.js";
+import {
+    blogPostingNode,
+    coreGraph,
+    faqNode,
+    projectNode,
+    type ArticleMeta,
+    type FaqEntry,
+    type ProjectMeta,
+} from "$lib/common/schema";
+import type { Locale } from "$lib/common/siteRoutes";
 
 interface Props {
     title: string;
@@ -12,6 +22,11 @@ interface Props {
     preloadImgLCP?: string;
     canonical?: string;
     image?: string;
+    /** The schema.org type of this page. ProfilePage is the home page's type. */
+    pageType?: string;
+    article?: ArticleMeta;
+    faq?: FaqEntry[];
+    project?: ProjectMeta;
 }
 
 const {
@@ -20,6 +35,10 @@ const {
     preloadImgLCP,
     canonical,
     image,
+    pageType = "WebPage",
+    article,
+    faq = [],
+    project,
 } = Astro.props;
 
 const pagePath = Astro.url.pathname
@@ -31,11 +50,14 @@ const defaultImage = new URL(
 ).href;
 const ogImage = image ?? defaultImage;
 
-const canonicalPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const requestPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const canonicalURL = canonical
     ? new URL(canonical, Astro.site)
-    : new URL(canonicalPath, Astro.site);
+    : new URL(requestPath, Astro.site);
 
+// Alternates follow the canonical URL, so a root alias points at its localized
+// page instead of advertising the alias twice.
+const canonicalPath = new URL(canonicalURL.href).pathname.replace(/\/+$/, "") || "/";
 const localizedHref = (lang: string) => {
     const path = canonicalPath.replace(/^\/(en|zh)(?=\/|$)/, `/${lang}`);
     return new URL(path, Astro.site).href;
@@ -43,68 +65,32 @@ const localizedHref = (lang: string) => {
 
 const LOCALES = ["en", "zh"] as const;
 
-const ogType = Astro.url.pathname.includes("blog") ? "article" : "website";
-const personImage = media("site/avatar-192.webp");
-const isProfilePage = /^\/(en|zh)\/?$/.test(Astro.url.pathname);
-const language = LOCALE[getLocale()];
-const personId = new URL("/#person", Astro.site).href;
-const websiteId = new URL("/#website", Astro.site).href;
-const pageId = `${canonicalURL.href}#webpage`;
+const ogType = article ? "article" : "website";
+const locale = getLocale() as Locale;
+const origin = Astro.site?.origin ?? seoConfig.baseURL;
+
+const schemaContext = {
+    origin,
+    locale,
+    url: canonicalURL.href,
+    title,
+    description,
+    image: ogImage,
+};
+
 const jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
-        {
-            "@type": "Person",
-            "@id": personId,
-            name: "Ever Ruiz Diaz",
-            url: new URL(`/${getLocale()}`, Astro.site).href,
-            image: personImage,
-            jobTitle: "Software Engineer",
-            description: m.aboutP1(),
-            address: {
-                "@type": "PostalAddress",
-                addressLocality: "Rome",
-                addressCountry: "IT",
-            },
-            sameAs: [
-                "https://www.linkedin.com/in/everdev/",
-                "https://github.com/ruizdiazever",
-                "https://x.com/everruizdiazo",
-            ],
-            knowsAbout: [
-                "Rust",
-                "TypeScript",
-                "platform engineering",
-                "distributed systems",
-                "design systems",
-                "Postgres",
-            ],
-        },
-        {
-            "@type": "WebSite",
-            "@id": websiteId,
-            url: new URL(`/${getLocale()}`, Astro.site).href,
-            name: seoConfig.siteName,
-            inLanguage: language,
-            publisher: { "@id": personId },
-        },
-        {
-            "@type": isProfilePage ? "ProfilePage" : "WebPage",
-            "@id": pageId,
-            url: canonicalURL.href,
-            name: title,
-            description,
-            isPartOf: { "@id": websiteId },
-            about: { "@id": personId },
-            inLanguage: language,
-            dateModified: new Date().toISOString(),
-        },
+        ...coreGraph({ ...schemaContext, pageType }),
+        ...(article ? [blogPostingNode(schemaContext, article)] : []),
+        ...(project ? [projectNode(schemaContext, project)] : []),
+        ...(faq.length ? [faqNode(schemaContext, faq)] : []),
     ],
 }).replaceAll("<", "\\u003c");
 ---
 
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
 <script is:inline>
     (() => {
@@ -224,6 +210,26 @@ const jsonLd = JSON.stringify({
 <meta property="og:description" content={description} />
 <meta property="og:site_name" content={seoConfig.siteName} />
 <meta property="og:locale" content={LOCALE[getLocale()]} />
+{
+    article && (
+        <>
+            <meta
+                property="article:published_time"
+                content={article.published}
+            />
+            <meta
+                property="article:modified_time"
+                content={article.modified ?? article.published}
+            />
+            {article.section && (
+                <meta property="article:section" content={article.section} />
+            )}
+            {article.tags?.map((tag) => (
+                <meta property="article:tag" content={tag} />
+            ))}
+        </>
+    )
+}
 
 <script type="application/ld+json" set:html={jsonLd} />
 
@@ -233,4 +239,4 @@ const jsonLd = JSON.stringify({
 
 <!-- Additional Meta Tags -->
 <meta name="msapplication-config" content="/browserconfig.xml" />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href="/sitemap.xml" />

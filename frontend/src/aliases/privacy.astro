@@ -1,0 +1,17 @@
+---
+/**
+ * The root alias an agent probes at /privacy. The canonical URL points at the
+ * localized page.
+ */
+import Layout from "$lib/layouts/Layout.astro";
+import PrivacyComponent from "$lib/components/sections/Privacy.astro";
+import * as m from "@paraglide/messages.js";
+---
+
+<Layout
+    title={m.titlePrivacy()}
+    description={m.seoPrivacy()}
+    canonical="/en/sections/privacy"
+>
+    <PrivacyComponent />
+</Layout>

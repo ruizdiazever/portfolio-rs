@@ -1,0 +1,18 @@
+---
+/**
+ * The root alias an agent probes at /about. It renders the English copy and
+ * points its canonical at the localized page, which stays canonical.
+ */
+import Layout from "$lib/layouts/Layout.astro";
+import AboutComponent from "$lib/components/sections/About.astro";
+import * as m from "@paraglide/messages.js";
+---
+
+<Layout
+    title={m.titleAbout()}
+    description={m.seoAbout()}
+    canonical="/en/sections/about"
+    pageType="AboutPage"
+>
+    <AboutComponent />
+</Layout>

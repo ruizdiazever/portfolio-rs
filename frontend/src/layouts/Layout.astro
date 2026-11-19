@@ -7,6 +7,7 @@ import SEO from "$lib/components/common/SEO.astro";
 import AgentView from "$lib/components/common/AgentView.astro";
 import * as m from "@paraglide/messages.js";
 import "$lib/styles/app.css";
+import type { ArticleMeta, FaqEntry, ProjectMeta } from "$lib/common/schema";
 
 interface Props {
     description?: string;
@@ -18,6 +19,10 @@ interface Props {
     showHeader?: boolean;
     showFooter?: boolean;
     maxWithMd?: boolean;
+    pageType?: string;
+    article?: ArticleMeta;
+    faq?: FaqEntry[];
+    project?: ProjectMeta;
 }
 const {
     title,
@@ -28,6 +33,10 @@ const {
     showHeader = true,
     showFooter = true,
     maxWithMd = true,
+    pageType,
+    article,
+    faq,
+    project,
 } = Astro.props;
 ---
 
@@ -70,6 +79,10 @@ const {
             preloadImgLCP={preloadImgLCP}
             canonical={canonical}
             image={image}
+            pageType={pageType}
+            article={article}
+            faq={faq}
+            project={project}
         />
         <script is:inline>
             (() => {

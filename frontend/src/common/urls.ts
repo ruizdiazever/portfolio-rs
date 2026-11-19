@@ -7,6 +7,7 @@ export function getUrls() {
     cv: `/${locale}/sections/cv`,
     books: `/${locale}/sections/books`,
     contact: `/${locale}/sections/contact`,
+    privacy: `/${locale}/sections/privacy`,
     home: `/${locale}`,
     articles: `/${locale}/blog/articles`,
   };

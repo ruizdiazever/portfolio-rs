@@ -32,82 +32,85 @@ const languageLabel =
 const languageIcon = otherLocale === "zh" ? languageIcons.zh : languageIcons.en;
 ---
 
-<nav
-    id="navbar"
-    class="sticky top-0 w-full bg-background z-50 antialiased transition-colors duration-200"
-    on:separator-change={handleSeparatorChange}
->
-    <div class="w-full">
-        <div
-            class={`site-header-inner flex flex-wrap items-center justify-between gap-y-2 ${wide ? "max-w-(--breakpoint-lg)" : "max-w-(--breakpoint-md)"} mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4`}
-        >
-            <a href={`/${getLocale()}/`} class="flex min-w-0 flex-col items-start">
-                <p class="text-lg font-medium tracking-[-0.012em] text-foreground md:text-xl">
-                    Ever Ruiz Diaz
-                </p>
-                <p class="text-secondary-foreground text-md h-[32px]">
-                    <Tagline />
-                </p>
-            </a>
-            <div class="flex shrink-0 items-center">
-                <a
-                    href={languageHref}
-                    hreflang={otherLocale}
-                    aria-label={languageLabel}
-                    title={languageLabel}
-                    class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
-                >
-                    <MorphIcon
-                        id="language-morph"
-                        icon={languageIcon}
-                        size={20}
-                        strokeWidth={1.8}
-                        reducedMotion="user"
-                    />
+<header>
+    <nav
+        id="navbar"
+        aria-label={m.navPrimary()}
+        class="sticky top-0 w-full bg-background z-50 antialiased transition-colors duration-200"
+        on:separator-change={handleSeparatorChange}
+    >
+        <div class="w-full">
+            <div
+                class={`site-header-inner flex flex-wrap items-center justify-between gap-y-2 ${wide ? "max-w-(--breakpoint-lg)" : "max-w-(--breakpoint-md)"} mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4`}
+            >
+                <a href={`/${getLocale()}/`} class="flex min-w-0 flex-col items-start">
+                    <p class="text-lg font-medium tracking-[-0.012em] text-foreground md:text-xl">
+                        Ever Ruiz Diaz
+                    </p>
+                    <p class="text-secondary-foreground text-md h-[32px]">
+                        <Tagline />
+                    </p>
                 </a>
-                <button
-                    id="theme-toggle"
-                    type="button"
-                    class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
-                >
-                    <span class="sr-only theme-label-light">{m.switchToLight()}</span>
-                    <span class="sr-only theme-label-dark">{m.switchToDark()}</span>
-                    <MorphIcon
-                        id="theme-morph"
-                        icon={Sun}
-                        size={20}
-                        strokeWidth={1.8}
-                        reducedMotion="user"
-                    />
-                </button>
-                <button
-                    id="agent-mode-toggle"
-                    type="button"
-                    aria-pressed="false"
-                    aria-controls="agent-text-view"
-                    title={m.agentMode()}
-                    data-agent-toggle
-                    class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
-                >
-                    <span class="sr-only agent-sr-agent">{m.agentEnter()}</span>
-                    <span class="sr-only agent-sr-human">{m.agentExit()}</span>
-                    <MorphIcon
-                        id="agent-morph"
-                        icon={Bot}
-                        size={20}
-                        strokeWidth={1.7}
-                        reducedMotion="user"
-                    />
-                </button>
-                <div class="hidden md:flex items-center">
-                    <Separator orientation="vertical" class="mx-2 h-6! w-0.5! bg-border!" />
-                    <Social />
+                <div class="flex shrink-0 items-center">
+                    <a
+                        href={languageHref}
+                        hreflang={otherLocale}
+                        aria-label={languageLabel}
+                        title={languageLabel}
+                        class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
+                    >
+                        <MorphIcon
+                            id="language-morph"
+                            icon={languageIcon}
+                            size={20}
+                            strokeWidth={1.8}
+                            reducedMotion="user"
+                        />
+                    </a>
+                    <button
+                        id="theme-toggle"
+                        type="button"
+                        class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
+                    >
+                        <span class="sr-only theme-label-light">{m.switchToLight()}</span>
+                        <span class="sr-only theme-label-dark">{m.switchToDark()}</span>
+                        <MorphIcon
+                            id="theme-morph"
+                            icon={Sun}
+                            size={20}
+                            strokeWidth={1.8}
+                            reducedMotion="user"
+                        />
+                    </button>
+                    <button
+                        id="agent-mode-toggle"
+                        type="button"
+                        aria-pressed="false"
+                        aria-controls="agent-text-view"
+                        title={m.agentMode()}
+                        data-agent-toggle
+                        class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
+                    >
+                        <span class="sr-only agent-sr-agent">{m.agentEnter()}</span>
+                        <span class="sr-only agent-sr-human">{m.agentExit()}</span>
+                        <MorphIcon
+                            id="agent-morph"
+                            icon={Bot}
+                            size={20}
+                            strokeWidth={1.7}
+                            reducedMotion="user"
+                        />
+                    </button>
+                    <div class="hidden md:flex items-center">
+                        <Separator orientation="vertical" class="mx-2 h-6! w-0.5! bg-border!" />
+                        <Social />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {showSeparator && <Separator />}
-</nav>
+        {showSeparator && <Separator />}
+    </nav>
+</header>
 
 <script>
     import type { MorphIconElement } from "morphicons/element";

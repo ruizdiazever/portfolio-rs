@@ -2,6 +2,16 @@
 import Layout from "$lib/layouts/Layout.astro";
 import * as m from "@paraglide/messages.js";
 import { Icon } from "astro-icon/components";
+import Faq from "$lib/components/sections/Faq.astro";
+import { faqEntries } from "$lib/common/faq";
+
+const faq = faqEntries();
+
+interface Props {
+    canonical?: string;
+}
+
+const { canonical } = Astro.props;
 
 const channels = [
     {
@@ -15,7 +25,13 @@ const channels = [
 ];
 ---
 
-<Layout title={m.titleContact()} description={m.seoContact()}>
+<Layout
+    title={m.titleContact()}
+    description={m.seoContact()}
+    pageType="ContactPage"
+    faq={faq}
+    canonical={canonical}
+>
     <div class="mt-6 min-h-[60vh] space-y-6 md:mt-20">
         <h1
             class="text-3xl font-medium tracking-[-0.022em] sm:text-4xl md:text-5xl"
@@ -45,5 +61,6 @@ const channels = [
                 ))
             }
         </div>
+        <Faq entries={faq} />
     </div>
 </Layout>

@@ -42,6 +42,13 @@ const staticPages: Record<string, OgContent> = {
         description: "Books, papers, and comics I keep within reach.",
         footer: "Books, papers, comics",
     },
+    "sections/privacy": {
+        kicker: "Privacy",
+        title: "Privacy",
+        description:
+            "Cookieless analytics, view counts, and the feedback you choose to send.",
+        footer: "Rome, Italy",
+    },
     "sections/cv": {
         kicker: "CV",
         title: "Ever Ruiz Diaz",

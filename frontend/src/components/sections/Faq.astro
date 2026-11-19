@@ -1,0 +1,33 @@
+---
+import * as m from "@paraglide/messages.js";
+import type { FaqEntry } from "$lib/common/schema";
+
+interface Props {
+    entries: FaqEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<section aria-labelledby="questions-title" class="mt-16">
+    <h2
+        id="questions-title"
+        class="mb-6 text-2xl font-medium tracking-[-0.022em] md:text-3xl"
+    >
+        {m.faqTitle()}
+    </h2>
+    <dl class="grid gap-4 sm:grid-cols-2">
+        {
+            entries.map((entry) => (
+                <div class="rounded-xl border border-border bg-card p-5">
+                    <dt class="text-base font-medium text-foreground">
+                        {entry.question}
+                    </dt>
+                    <dd class="mt-2 text-sm leading-relaxed text-pretty text-muted-foreground">
+                        {entry.answer}
+                    </dd>
+                </div>
+            ))
+        }
+    </dl>
+</section>

@@ -122,7 +122,6 @@ const cards = books.map((book) => ({
 
                         <div
                             class="book-face book-back rounded-lg border border-border bg-card transition-colors duration-150 ease-out group-hover:border-foreground/30"
-                            aria-hidden="true"
                             inert
                         >
                             <div class="flex h-full flex-col p-4">
@@ -282,8 +281,8 @@ const cards = books.map((book) => ({
                         flipped ? backLabel : flipLabel,
                     );
                     toggle.style.pointerEvents = flipped ? "none" : "";
-                    front.setAttribute("aria-hidden", String(flipped));
-                    back.setAttribute("aria-hidden", String(!flipped));
+                    // inert hides the face from assistive tech and the tab order
+                    // at once, so aria-hidden would only contradict it.
                     front.toggleAttribute("inert", flipped);
                     back.toggleAttribute("inert", !flipped);
                 };

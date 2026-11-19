@@ -2,12 +2,20 @@
 import * as m from "@paraglide/messages.js";
 import Media from "$lib/components/common/Media.astro";
 import Social from "$lib/components/common/Social.astro";
+import { getUrls } from "$lib/common/urls";
 
 interface Props {
     wide?: boolean;
 }
 
 const { wide = false } = Astro.props;
+
+const urls = getUrls();
+const links = [
+    { href: urls.about, label: m.about() },
+    { href: urls.contact, label: m.contact() },
+    { href: urls.privacy, label: m.privacy() },
+];
 ---
 
 <footer>
@@ -43,5 +51,30 @@ const { wide = false } = Astro.props;
                 }
             </p>
         </div>
+        <nav
+            aria-label={m.footerNav()}
+            class="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t pt-4 text-sm text-muted-foreground md:justify-between"
+        >
+            <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+                {
+                    links.map((link) => (
+                        <li>
+                            <a
+                                href={link.href}
+                                class="underline decoration-border underline-offset-4 transition-colors duration-150 ease-out hover:text-foreground hover:decoration-foreground"
+                            >
+                                {link.label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+            <a
+                href="/llms.txt"
+                class="underline decoration-border underline-offset-4 transition-colors duration-150 ease-out hover:text-foreground hover:decoration-foreground"
+            >
+                llms.txt
+            </a>
+        </nav>
     </div>
 </footer>

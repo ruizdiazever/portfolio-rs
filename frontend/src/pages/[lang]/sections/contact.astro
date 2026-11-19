@@ -1,10 +1,5 @@
 ---
 import ContactComponent from "$lib/components/sections/Contact.astro";
 
-export const prerender = true;
-export function getStaticPaths() {
-    return [{ params: { lang: "en" } }, { params: { lang: "zh" } }];
-}
 ---
-
 <ContactComponent />

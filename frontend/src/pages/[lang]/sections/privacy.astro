@@ -1,0 +1,13 @@
+---
+import Layout from "$lib/layouts/Layout.astro";
+import PrivacyComponent from "$lib/components/sections/Privacy.astro";
+import * as m from "@paraglide/messages.js";
+---
+
+<Layout
+    title={m.titlePrivacy()}
+    description={m.seoPrivacy()}
+    pageType="WebPage"
+>
+    <PrivacyComponent />
+</Layout>
