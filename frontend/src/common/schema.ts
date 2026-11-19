@@ -6,6 +6,8 @@ import type { Locale } from "$lib/common/siteRoutes";
 export type FaqEntry = { question: string; answer: string };
 
 export type ArticleMeta = {
+  /** The article title without the site suffix the document title carries. */
+  headline: string;
   /** ISO date the piece was published. */
   published: string;
   /** ISO date it last changed, same as `published` when it never did. */
@@ -53,7 +55,8 @@ export function coreGraph({
       url: home,
       image: media("site/avatar-192.webp"),
       jobTitle: "Software Engineer",
-      description,
+      description:
+        "Software engineer in Rome. Rust, TypeScript and systems that have to work.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Rome",
@@ -101,7 +104,7 @@ export function blogPostingNode(
   return {
     "@type": "BlogPosting",
     "@id": `${context.url}#article`,
-    headline: context.title,
+    headline: article.headline,
     description: context.description,
     url: context.url,
     mainEntityOfPage: { "@id": `${context.url}#webpage` },
@@ -129,9 +132,13 @@ export function blogPostingNode(
 }
 
 /** The dates and tags a post carries, in the shape the graph wants. */
-export function articleMeta(post: { date: Date; tags: string[] }): ArticleMeta {
+export function articleMeta(
+  post: { title: Record<string, string>; date: Date; tags: string[] },
+  locale: "en" | "zh",
+): ArticleMeta {
   const published = post.date.toISOString();
   return {
+    headline: post.title[locale],
     published,
     modified: published,
     section: post.tags[0],

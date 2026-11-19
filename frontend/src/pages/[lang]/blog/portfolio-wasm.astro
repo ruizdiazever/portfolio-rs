@@ -13,7 +13,7 @@ const locale = getLocale();
 <Layout
     title={`${post.title[locale]} · Ever Ruiz Diaz`}
     description={post.description[locale]}
-    article={articleMeta(post)}
+    article={articleMeta(post, locale)}
 >
     <Post />
 </Layout>
