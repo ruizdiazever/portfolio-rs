@@ -39,7 +39,9 @@ test.describe("performance budget", () => {
       await page.evaluate(() => getComputedStyle(document.body).fontFamily),
     ).toMatch(/^Inter/);
     expect(metrics.iconCdn).toBe(0);
-    expect(metrics.htmlBytes).toBeLessThan(300_000);
+    // 315 KB: the home page carries the FAQ answers agents read, and the
+    // FAQPage graph repeats the same text.
+    expect(metrics.htmlBytes).toBeLessThan(315_000);
     expect(metrics.dom).toBeLessThan(1_300);
     await expect(
       page.locator('[role="img"][aria-label*="contributions"]'),

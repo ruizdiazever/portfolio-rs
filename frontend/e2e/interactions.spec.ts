@@ -77,14 +77,8 @@ test.describe("interactions", () => {
     await expect(toggle).toBeFocused();
     await expect(toggle).toHaveAttribute("aria-pressed", "true");
     await expect(card).toHaveClass(/is-flipped/);
-    await expect(card.locator(".book-front")).toHaveAttribute(
-      "aria-hidden",
-      "true",
-    );
-    await expect(card.locator(".book-back")).toHaveAttribute(
-      "aria-hidden",
-      "false",
-    );
+    await expect(card.locator(".book-front")).toHaveAttribute("inert", "");
+    await expect(card.locator(".book-back")).not.toHaveAttribute("inert", "");
     await expect(card.locator(".book-back h2")).toHaveText(title);
     await expect(toggle).toHaveAttribute(
       "aria-label",
@@ -96,10 +90,7 @@ test.describe("interactions", () => {
     await expect(toggle).toBeFocused();
     await expect(toggle).toHaveAttribute("aria-pressed", "false");
     await expect(card).not.toHaveClass(/is-flipped/);
-    await expect(card.locator(".book-front")).toHaveAttribute(
-      "aria-hidden",
-      "false",
-    );
+    await expect(card.locator(".book-front")).not.toHaveAttribute("inert", "");
   });
 
   test("book covers stay monochrome until the card is hovered or focused", async ({

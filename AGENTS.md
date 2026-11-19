@@ -144,18 +144,37 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
 - Keep `/llms.txt`, `/agent.md` and `/agent.json` generated from the same data
   as the pages. Every HTML page carries the `describedby`, Markdown alternate,
   RSS, JSON Feed and JSON-LD discovery tags.
-- `robots.txt` carries the public content signal:
-  `search=yes, ai-input=yes, ai-train=no, use=reference`.
-- The sitemap, robots and machine files are root-level, not locale-prefixed.
-  Keep them in the middleware non-localized bypass so a browser document
-  request is not redirected to `/en/...` or `/zh/...`.
-- Do not add an A2A card or MCP server card unless there is a real callable
-  service and an authorization model. Do not add a model, chat endpoint or
-  generated claims to the agent view.
-- The brief and manifest are public. Never add private email, admin state,
-  analytics identifiers or session data to them.
-- Run the agent Playwright spec when changing the text view, the endpoints, the
-  manifest shape or the discovery headers.
+- `robots.txt` carries the public content signal and the AIPREF line:
+  `search=yes, ai-input=yes, ai-train=no, use=reference` and
+  `search=y, ai-input=y, train-ai=n`. It points at `/sitemap.xml`.
+- `/sitemap.xml` is the urlset with hreflang alternates; `/sitemap-index.xml`
+  indexes it. The page list lives in `src/common/siteRoutes.ts`.
+- `/AGENTS.md` is the site guide for visiting agents. It is not this file: this
+  one is for people and agents working on the repository.
+- The sitemap, robots, sitemap index, agent guide and machine files are
+  root-level, not locale-prefixed. Keep them in the middleware root bypass so a
+  browser document request is not redirected to `/en/...` or `/zh/...`.
+- `/about`, `/contact` and `/privacy` answer at the root in English. Astro only
+  serves page routes under a locale prefix, so those aliases are injected
+  routes (`astro.config.mjs`), not files in `src/pages`. Their canonical URL is
+  the localized page.
+- Any HTML page answers `Accept: text/markdown` with Markdown and `Vary: Accept`.
+  Keep the conversion in `src/common/markdown.ts`; do not hand-write a second
+  copy of a page.
+- The app owns `Content-Security-Policy`. The edge owns HSTS, `nosniff`, frame
+  options and `Referrer-Policy`. If the edge starts sending CSP too, remove the
+  app header in the same change; two policies intersect.
+- The FAQ JSON-LD and the visible questions read `src/common/faq.ts`. Never let
+  the graph describe a question the page does not show.
+- Do not add an A2A card, MCP server card, OpenAPI or API catalog unless there
+  is a real callable service. The portfolio has none, and adding the document
+  turns the API category on and changes the score. Do not add a model, chat
+  endpoint or generated claims to the agent view.
+- The brief, manifest and agent guide are public. Never add private email,
+  admin state, analytics identifiers or session data to them.
+- Run `e2e/agent.spec.ts` and `e2e/agent-readiness.spec.ts` when changing the
+  text view, the endpoints, the manifest shape, the discovery headers or the
+  trust pages.
 
 ## Environment and secrets
 

@@ -35,11 +35,13 @@ conventions and keeps the surface small enough to maintain.
 | `llms.txt` | `/llms.txt` | Orientation, profile summary and links to the important resources |
 | Agent brief | `/agent.md` | Complete plain-text profile with work, writing, reading and contact |
 | Agent manifest | `/agent.json` | The same facts as validated JSON: profile, capabilities, endpoints, counts and signals |
-| JSON-LD | every HTML page | `Person`, `WebSite` and `ProfilePage` or `WebPage` |
+| JSON-LD | every HTML page | `Person`, `WebSite` and the page entity: `ProfilePage`, `BlogPosting`, `CollectionPage`, `AboutPage`, `ContactPage` or `SoftwareSourceCode`. Home and contact carry `FAQPage` |
 | RSS | `/en/feed.xml`, `/zh/feed.xml` | Writing feed |
 | JSON Feed | `/en/feed.json`, `/zh/feed.json` | Writing feed as JSON |
-| Sitemap | `/sitemap-index.xml` | Indexable pages. Root-level; bypasses locale redirects |
-| Robots | `/robots.txt` | Crawling and content signals. Root-level; bypasses locale redirects |
+| Sitemap | `/sitemap.xml` | Indexable pages, with hreflang alternates. `/sitemap-index.xml` indexes it. Root-level; bypasses locale redirects |
+| Robots | `/robots.txt` | Crawling, AI crawler groups and content signals. Root-level; bypasses locale redirects |
+| Agent guide | `/AGENTS.md` | What the site offers and what an agent may do, in Markdown |
+| Trust pages | `/about`, `/contact`, `/privacy` | Real content at the root; canonical to the localized page |
 | Discovery links | every HTML page | `<link>` relations point to the brief, manifest and map; SSR responses also carry a `Link` header |
 
 The HTML pages remain the source of truth. The brief and manifest are generated
@@ -54,10 +56,27 @@ silently leave the machine files behind.
 Content-Signal: search=yes, ai-input=yes, ai-train=no, use=reference
 ```
 
-The manifest repeats the same policy in machine-readable form. The intent is
-plain: retrieval and citation are welcome with a link; training is not. The
-site exposes no private email, no admin data, no analytics identifiers and no
-session data.
+`Content-Usage` repeats the same policy in the AIPREF draft syntax. The
+manifest states it in JSON. The intent is plain: retrieval and citation are
+welcome with a link; training is not. The site exposes no private email, no
+admin data, no analytics identifiers and no session data.
+
+## Readable by machines
+
+- **Content negotiation.** Any HTML page answers `Accept: text/markdown` with a
+  Markdown version of that page and `Vary: Accept`. `/` returns the curated
+  brief, because it is a redirect with no body of its own. The app owns the
+  conversion (`src/common/markdown.ts`), so a page-level `.md` file cannot drift.
+- **Trust pages.** `/about`, `/contact` and `/privacy` answer at the root, in
+  English, with the canonical URL pointing at the localized page. Agents probe
+  those three paths before they recommend a site, and Astro only serves page
+  routes under a locale prefix, so the root aliases are injected routes.
+- **FAQ.** The home page and the contact page answer four real questions in
+  visible copy and in `FAQPage` JSON-LD. Both read `src/common/faq.ts`.
+- **Security headers.** The edge owns HSTS, `nosniff`, frame options and
+  `Referrer-Policy`. The app adds `Content-Security-Policy`, because it knows
+  the inline theme scripts, the self-hosted fonts, the S3 media origin and the
+  Plausible host. Every HTML response, including the root aliases, carries it.
 
 There is deliberately **no MCP server and no A2A agent card**. Those protocols
 describe callable services. This portfolio has nothing to execute on behalf of
@@ -97,6 +116,9 @@ The human view is one click away. Agent lens is a reader, not a chat window.
 - Playwright covers the endpoint content, the JSON-LD graph, the `Link` header,
   the header toggle, URL state, persistence, the 320px layout and clipboard
   copy.
+- `e2e/agent-readiness.spec.ts` covers the sitemap, robots groups, `AGENTS.md`,
+  Markdown negotiation, the CSP, the root trust pages, the FAQ graph, author
+  attribution and the accessibility surface of every page type.
 - The panel is checked in both themes at 1440 and 320, and with English and Chinese labels.
 - The agent text view is keyboard reachable and every control has an accessible
   name.
@@ -105,12 +127,8 @@ The human view is one click away. Agent lens is a reader, not a chat window.
 ## Deliberate gaps
 
 - **No page-by-page `.md` files.** The curated `/agent.md` is the canonical
-  Markdown surface. Duplicating every page by hand would create a second source
-  of truth; if the archive grows, a generated page-level Markdown route is the
-  next step.
-- **No `Accept: text/markdown` negotiation.** That requires a server-side HTML
-  to Markdown pipeline. The brief is explicit and cheap to fetch; the site does
-  not pretend every page has a negotiated representation.
+  Markdown surface; a page answers negotiation from its own rendered HTML
+  instead of a hand-written twin that would drift.
 - **No MCP or A2A.** See boundaries above.
 - **No booking or payments.** The contact route is the action; there is no
   calendar or checkout to automate.

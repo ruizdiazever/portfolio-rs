@@ -7,15 +7,16 @@ test.describe("seo", () => {
     expect(response.status()).toBe(200);
 
     const body = await response.text();
-    expect(body).toContain("Sitemap: https://www.everdev.it/sitemap-index.xml");
+    expect(body).toContain("Sitemap: https://www.everdev.it/sitemap.xml");
   });
 
   test("sitemap covers every localized page", async ({ request }) => {
-    const response = await request.get("/sitemap-index.xml");
+    const response = await request.get("/sitemap.xml");
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain("xml");
 
     const body = await response.text();
+    expect(body).toContain("<urlset");
     for (const locale of ["en", "zh"]) {
       for (const path of [
         "",
@@ -23,6 +24,7 @@ test.describe("seo", () => {
         "/sections/books",
         "/sections/contact",
         "/sections/cv",
+        "/sections/privacy",
         "/blog/articles",
         "/blog/hardware/minisforum-ms-01",
         "/blog/organizations-using-rust",
@@ -36,6 +38,10 @@ test.describe("seo", () => {
     }
     expect(body).toContain('hreflang="en"');
     expect(body).toContain('hreflang="zh"');
+
+    const index = await request.get("/sitemap-index.xml");
+    expect(index.status()).toBe(200);
+    expect(await index.text()).toContain("<sitemapindex");
   });
 
   test("open graph images are generated on demand", async ({ page, request }) => {
