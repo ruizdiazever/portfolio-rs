@@ -501,6 +501,34 @@ test.describe("interactions", () => {
     await expect(mascot).toHaveCSS("filter", "grayscale(1)");
   });
 
+  test("footer mascot aligns with its links and copyright", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+
+    const offsets = await page.evaluate(() => {
+      const mascot = document.querySelector('footer img[alt*="mascot"]');
+      const link = document.querySelector("footer nav a");
+      const copyright = document.querySelector(".site-footer-inner > div > p");
+      if (!mascot || !link || !copyright) {
+        throw new Error("footer is missing its mascot, links or copyright");
+      }
+      const mascotRect = mascot.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      const copyrightRect = copyright.getBoundingClientRect();
+      return {
+        left: mascotRect.left - linkRect.left,
+        center:
+          mascotRect.top +
+          mascotRect.height / 2 -
+          (copyrightRect.top + copyrightRect.height / 2),
+      };
+    });
+
+    expect(Math.abs(offsets.left)).toBeLessThan(1);
+    expect(Math.abs(offsets.center)).toBeLessThan(1);
+  });
+
   test("mobile layout keeps project links and the graph cue visible", async ({
     page,
   }) => {
