@@ -73,6 +73,9 @@
     --sidebar-accent-foreground: light-dark(#000000, #ffffff);
     --sidebar-border: light-dark(rgb(0 0 0 / 12%), #23252a);
     --sidebar-ring: light-dark(rgb(0 0 0 / 40%), #8a8f98);
+
+    /* Machine view entrance only. The document itself stays neutral. */
+    --machine-signal: #5cff8a;
 }
 
 :root:has(> head > meta[name="color-scheme"][content="dark"]) {
@@ -86,18 +89,6 @@
 .theme-label-light,
 .theme-label-dark {
     display: none;
-}
-
-.agent-sr-human {
-    display: none;
-}
-
-.agent-mode .agent-sr-agent {
-    display: none;
-}
-
-.agent-mode .agent-sr-human {
-    display: inline;
 }
 
 :root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-label-light {
@@ -394,122 +385,386 @@ pre {
     @apply md:text-lg font-semibold;
 }
 
-/* Agent view: the portfolio as the plain Markdown an agent receives. */
-.agent-text-view {
-    display: none;
-    width: 100%;
-    max-width: 86ch;
-    margin-inline: auto;
-    padding: 2rem 0 4rem;
+/* Machine view: the portfolio as the Markdown an agent reads, dark only.
+   The green is a transient entrance signal; the document itself is neutral. */
+html[data-view="machine"] body {
+    background: var(--background);
 }
 
-html.agent-mode .agent-text-view {
+html[data-view="machine"] body > header,
+html[data-view="machine"] body > footer,
+html[data-view="machine"] .human-view {
+    display: none;
+}
+
+html[data-view="machine"] main {
+    display: block;
+    max-width: none;
+    padding: 0;
+    gap: 0;
+    justify-content: initial;
+    overflow: visible;
+}
+
+.machine-view {
+    display: none;
+    min-height: 100svh;
+    color: var(--card-foreground);
+    font-family:
+        ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+        monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+html[data-view="machine"] .machine-view {
     display: block;
 }
 
-html.agent-mode .human-view,
-html.agent-mode footer {
-    display: none;
+.machine-view:focus,
+.machine-view:focus-visible {
+    outline: none;
 }
 
-.agent-text-toolbar {
+.machine-column {
+    width: 100%;
+    max-width: 720px;
+    min-height: 100svh;
+    margin-inline: auto;
+    padding: 40px 24px 120px;
+    border-inline: 1px solid var(--border);
+}
+
+.machine-head {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 8px 20px;
-    padding-bottom: 12px;
+    gap: 24px;
+    padding-bottom: 24px;
     border-bottom: 1px solid var(--border);
+    transition: border-color 300ms var(--ease-out);
 }
 
-.agent-text-meta {
+.machine-meta {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.machine-kicker {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 8px;
-    font-size: 0.75rem;
-    line-height: 1.4;
-    color: var(--muted-foreground);
-}
-
-.agent-text-kicker {
+    gap: 6px 10px;
+    margin: 0;
+    color: var(--foreground);
+    font-family: inherit;
     font-size: 0.6875rem;
     font-weight: 590;
     letter-spacing: 0.1em;
+    line-height: 1.4;
     text-transform: uppercase;
-    color: var(--foreground);
 }
 
-.agent-text-type,
-.agent-text-separator {
-    font-size: 0.6875rem;
+.machine-format {
     color: var(--muted-foreground);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
 }
 
-.agent-text-actions {
+.machine-title {
+    margin: 4px 0 0;
+    color: var(--foreground);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.machine-source,
+.machine-note {
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.machine-note {
+    max-width: 60ch;
+}
+
+.machine-actions {
     display: flex;
+    flex: none;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4px 14px;
+    gap: 8px 12px;
 }
 
-.agent-text-action {
+.machine-copy {
     display: inline-flex;
-    min-height: 28px;
+    min-height: 32px;
     align-items: center;
-    padding: 0;
-    border: 0;
-    background: none;
+    padding: 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
     color: var(--foreground);
     font: inherit;
     font-size: 0.75rem;
-    line-height: 1.3;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        border-color 150ms var(--ease-out),
+        background-color 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .machine-copy:hover {
+        border-color: var(--muted-foreground);
+        background: var(--accent);
+    }
+}
+
+.machine-file {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
     text-decoration: underline;
     text-decoration-color: var(--border);
     text-underline-offset: 3px;
-    cursor: pointer;
+    transition: color 150ms var(--ease-out);
 }
 
-@media (hover: hover) {
-    .agent-text-action:hover {
+@media (hover: hover) and (pointer: fine) {
+    .machine-file:hover {
+        color: var(--foreground);
         text-decoration-color: var(--foreground);
     }
 }
 
-.agent-plain-text {
-    max-width: 100%;
-    text-align: left;
-    margin: 0;
-    padding: 20px 0 48px;
+.machine-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 28px;
+    color: var(--card-foreground);
     overflow-wrap: anywhere;
-    white-space: pre-wrap;
-    color: var(--foreground);
-    font-family:
-        ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
-        monospace;
-    font-size: 0.875rem;
-    font-variant-ligatures: none;
-    line-height: 1.7;
-    tab-size: 2;
+    transition:
+        color 450ms var(--ease-out),
+        text-shadow 450ms var(--ease-out);
 }
 
-.agent-text-status {
-    min-height: 1.2em;
-    margin-top: 8px;
-    font-size: 0.75rem;
+.machine-line {
+    margin: 0;
+    transition: color 450ms var(--ease-out);
+}
+
+.machine-h1,
+.machine-h2,
+.machine-h3 {
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.machine-h1 {
+    font-size: 0.875rem;
+}
+
+.machine-h2 {
+    margin-top: 24px;
+}
+
+.machine-h3 {
+    margin-top: 16px;
+}
+
+.machine-quote {
     color: var(--muted-foreground);
 }
 
+.machine-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition:
+        color 150ms var(--ease-out),
+        text-decoration-color 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .machine-link:hover {
+        color: var(--foreground);
+        text-decoration-color: var(--foreground);
+    }
+}
+
+.machine-body .is-untyped {
+    display: none;
+}
+
+html.machine-intro .machine-body {
+    visibility: hidden;
+}
+
+.machine-view.is-typing .machine-head {
+    border-bottom-color: var(--machine-signal);
+}
+
+.machine-view.is-typing .machine-body {
+    color: var(--machine-signal);
+    text-shadow: 0 0 18px rgb(92 255 138 / 18%);
+}
+
+.machine-view.is-typing .machine-line,
+.machine-view.is-typing .machine-line .machine-link {
+    color: var(--machine-signal);
+}
+
+.machine-cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    margin-left: 2px;
+    vertical-align: -0.18em;
+    background: var(--machine-signal);
+    animation: machine-blink 1s steps(1) infinite;
+}
+
+@keyframes machine-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.machine-view ::selection {
+    background: var(--foreground);
+    color: var(--background);
+}
+
+.view-switch {
+    position: fixed;
+    z-index: 60;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--card-foreground);
+    font-family:
+        ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+        monospace;
+    font-size: 0.75rem;
+    line-height: 1;
+    transform: translateX(-50%);
+}
+
+.view-switch-option {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted-foreground);
+    font: inherit;
+    cursor: pointer;
+    transition:
+        background-color 150ms var(--ease-out),
+        color 150ms var(--ease-out);
+}
+
+.view-switch-option[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--foreground);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .view-switch-option:not([aria-pressed="true"]):hover {
+        background: var(--accent);
+        color: var(--foreground);
+    }
+}
+
+.view-switch-dot {
+    width: 7px;
+    height: 7px;
+    flex: none;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+}
+
+.view-switch-option[aria-pressed="true"] .view-switch-dot {
+    background: currentColor;
+    box-shadow: inset 0 0 0 1px var(--card);
+}
+
+.view-switch-kbd {
+    margin-left: 2px;
+    padding: 0 8px 0 10px;
+    border-left: 1px solid var(--border);
+    color: var(--muted-foreground);
+    font-size: 0.6875rem;
+}
+
+.view-switch-kbd kbd {
+    font: inherit;
+}
+
+.view-switch-option:focus-visible,
+.machine-copy:focus-visible,
+.machine-file:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+}
+
 @media (max-width: 639px) {
-    .agent-text-view {
-        padding-top: 1.25rem;
+    .machine-column {
+        padding: 24px 20px 104px;
+        border-inline: 0;
     }
 
-    .agent-text-toolbar {
-        align-items: flex-start;
+    .machine-head {
+        flex-direction: column;
+        gap: 16px;
     }
 
-    .agent-text-actions {
-        gap: 2px 12px;
+    .machine-actions {
+        width: 100%;
+    }
+
+    .view-switch-kbd {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .machine-head,
+    .machine-body,
+    .machine-line,
+    .machine-link {
+        transition: none;
+    }
+
+    .machine-cursor {
+        animation: none;
+    }
+
+    html.machine-intro .machine-body {
+        visibility: visible;
     }
 }

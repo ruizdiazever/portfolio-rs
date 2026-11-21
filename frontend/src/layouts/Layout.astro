@@ -4,7 +4,7 @@ import { getLocale } from "@paraglide/runtime";
 import Footer from "$lib/components/common/Footer.astro";
 import Header from "$lib/components/common/Header.astro";
 import SEO from "$lib/components/common/SEO.astro";
-import AgentView from "$lib/components/common/AgentView.astro";
+import MachineView from "$lib/components/common/MachineView.astro";
 import * as m from "@paraglide/messages.js";
 import "$lib/styles/app.css";
 import type { ArticleMeta, FaqEntry, ProjectMeta } from "$lib/common/schema";
@@ -92,11 +92,12 @@ const {
                 if (!metas.length) return;
 
                 const sync = () => {
-                    const color = document.documentElement.classList.contains(
-                        "dark",
-                    )
-                        ? "#08090a"
-                        : "#ffffff";
+                    const root = document.documentElement;
+                    const color =
+                        root.dataset.view === "machine" ||
+                        root.classList.contains("dark")
+                            ? "#08090a"
+                            : "#ffffff";
                     metas.forEach((meta) =>
                         meta.setAttribute("content", color),
                     );
@@ -114,19 +115,91 @@ const {
         </script>
         <script is:inline>
             (() => {
-                const key = "portfolio-agent-mode";
-                const query = new URLSearchParams(window.location.search).get("mode");
+                const root = document.documentElement;
+                const url = new URL(window.location.href);
+                const params = url.searchParams;
+                const legacyAgent = params.get("mode") === "agent";
+                const query = params.get("view");
+                const legacyHuman =
+                    params.get("mode") === "human" && !query;
+                const key = "portfolio-view";
+                const oldKey = "portfolio-agent-mode";
+
                 let stored = null;
                 try {
                     stored = localStorage.getItem(key);
+                    if (stored !== "machine" && stored !== "human") {
+                        const previous = localStorage.getItem(oldKey);
+                        if (previous === "agent") stored = "machine";
+                        else if (previous === "human") stored = "human";
+                    }
                 } catch {}
-                const enabled =
-                    query === "agent" ||
-                    (query !== "human" && stored === "agent");
-                document.documentElement.classList.toggle("agent-mode", enabled);
-                if (query === "agent" || query === "human") {
+
+                const machine =
+                    legacyAgent ||
+                    query === "machine" ||
+                    (!legacyHuman &&
+                        query !== "human" &&
+                        stored === "machine");
+                const fromUrl = legacyAgent || query === "machine";
+
+                if (machine) {
+                    root.setAttribute("data-view", "machine");
+                    root.classList.add("dark");
+
+                    const scheme = document.querySelector(
+                        'meta[name="color-scheme"]',
+                    );
+                    if (scheme) scheme.setAttribute("content", "dark");
+
+                    const reduce = window.matchMedia(
+                        "(prefers-reduced-motion: reduce)",
+                    ).matches;
+                    if (fromUrl && !reduce) {
+                        root.classList.add("machine-intro");
+                        window.setTimeout(
+                            () => root.classList.remove("machine-intro"),
+                            4_000,
+                        );
+                    }
+                } else {
+                    root.removeAttribute("data-view");
+                }
+
+                if (legacyAgent) {
+                    params.delete("mode");
+                    params.set("view", "machine");
+                } else if (legacyHuman) {
+                    params.delete("mode");
+                    params.delete("view");
+                } else if (query === "human") {
+                    params.delete("view");
+                }
+                params.delete("mode");
+
+                if (
+                    legacyAgent ||
+                    legacyHuman ||
+                    query === "machine" ||
+                    query === "human"
+                ) {
                     try {
-                        localStorage.setItem(key, query);
+                        localStorage.setItem(
+                            key,
+                            machine ? "machine" : "human",
+                        );
+                        localStorage.removeItem(oldKey);
+                    } catch {}
+                    const search = params.toString();
+                    window.history.replaceState(
+                        null,
+                        "",
+                        `${url.pathname}${search ? `?${search}` : ""}${url.hash}`,
+                    );
+                } else if (stored === "machine" || stored === "human") {
+                    try {
+                        localStorage.setItem(key, stored);
+                        localStorage.removeItem(oldKey);
                     } catch {}
                 }
             })();
@@ -148,7 +221,7 @@ const {
             <div class="human-view flex w-full flex-col gap-4">
                 <slot />
             </div>
-            <AgentView />
+            <MachineView />
         </main>
         {showFooter && <Footer wide={!maxWithMd} />}
     </body>

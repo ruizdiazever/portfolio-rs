@@ -83,39 +83,47 @@ describe callable services. This portfolio has nothing to execute on behalf of
 an agent, so publishing a server card would be a false promise. If a future
 service exists, it should get its own discovery file and authorization model.
 
-## Agent lens
+## Machine view
 
-The header control switches the site into a reader for the exact plain text an
-agent receives:
+The header's Terminal button and `?view=machine` open a reader for the exact
+Markdown brief an agent receives:
 
-- **Enter.** The icon-only control switches from a bot to a person. It adds
-  `?mode=agent`, stores the preference and replaces the human page with the
-  generated agent brief for the current locale. There is no visible label.
-- **Exit.** The icon, the query parameter `mode=human` or the `Human view`
-  action in the document returns to the normal site.
-- **Persistence.** The state lives in `localStorage` and in the URL. The root
-  class is applied in the head before the first paint. Navigation keeps it.
-- **Document.** The main landmark renders the generated Markdown in a
-  monospace `<pre>`, at most 86 characters wide. It keeps the `#` headings,
-  lists and URLs; that is the point. English uses the English canonical copy;
-  Chinese uses native Chinese labels, profile, work, writing and reading copy.
-  `/agent.md` and `/agent.json` remain the English canonical files. The header
-  stays for controls, the footer hides.
-- **Toolbar.** A hairline row names `text/markdown`, shows the line count and
-  offers `Copy agent brief`, `agent.md` and `Human view`. Copy confirms in a
-  polite live region. There is no panel, dashboard, binary layer or palette
-  switch.
-- **Motion.** The mode adds no decorative motion. The header button keeps the
-  shared press feedback, and scroll-to-top honors reduced motion.
+- **Entry.** The icon-only control opens the view, or `Shift+M` toggles it. The
+  old `?mode=agent` URL canonicalizes to `?view=machine` and `?mode=human`
+  returns to Human. There is no visible label on the header control.
+- **Exit.** The floating Human/Machine switch or `Shift+M` returns to the
+  normal site, restores the stored or system theme and returns focus to the
+  header control.
+- **Persistence.** The state lives in `localStorage('portfolio-view')` and in
+  the URL. `html[data-view="machine"]` is applied in the head before the first
+  paint. Navigation keeps it. The old storage key migrates on read.
+- **Document.** The human page, header and footer are hidden. The main landmark
+  renders a 720px monospace column with the generated brief for the current
+  locale, dark only. It keeps the `#` headings, lists and URLs. English uses
+  the English canonical copy; Chinese uses native Chinese labels, profile,
+  work, writing and reading copy. `/agent.md` and `/agent.json` remain the
+  English canonical files.
+- **Head.** The document names itself `text/markdown`, shows the source URL and
+  a one-sentence note, and offers Copy as Markdown and the `agent.md` link. Copy
+  writes the exact Markdown source and confirms in the button and a polite live
+  region.
+- **Motion.** The first screen types in green with a cursor and a green hairline,
+  then the rest appears and the document settles to neutral. Scroll, touch, a
+  key or a pointer finishes it; `prefers-reduced-motion` skips it. Green is
+  never used for static chrome.
+- **Dark only.** The color-scheme meta and the dark class are forced while the
+  view is active and restored on exit. The header, footer, theme and language
+  controls are hidden.
 
-The human view is one click away. Agent lens is a reader, not a chat window.
+The human view is one switch away. The machine view is a reader, not a chat
+window.
 
 ## Verification
 
 - `pnpm -C frontend build` completes with no errors.
 - Playwright covers the endpoint content, the JSON-LD graph, the `Link` header,
-  the header toggle, URL state, persistence, the 320px layout and clipboard
-  copy.
+  the header control, the floating switch, URL state, persistence, the 320px
+  layout, both system themes, reduced motion and clipboard copy.
 - `e2e/agent-readiness.spec.ts` covers the sitemap, robots groups, `AGENTS.md`,
   Markdown negotiation, the CSP, the root trust pages, the FAQ graph, author
   attribution and the accessibility surface of every page type.

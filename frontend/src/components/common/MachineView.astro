@@ -1,0 +1,491 @@
+---
+import { getLocale } from "@paraglide/runtime";
+import * as m from "@paraglide/messages.js";
+import { agentMarkdown, getAgentManifest } from "$lib/common/agent";
+import { seoConfig } from "$lib/common/seoConfig";
+
+const locale = getLocale() === "zh" ? "zh" : "en";
+const markdown = agentMarkdown(getAgentManifest(locale));
+const source = new URL(`/${locale}`, seoConfig.baseURL).href;
+---
+
+<section
+    id="machine-view"
+    class="machine-view"
+    aria-label={m.machineView()}
+    data-machine-view
+    data-base={seoConfig.baseURL}
+    tabindex="-1"
+    data-machine-on={m.machineEnabled()}
+    data-machine-off={m.machineDisabled()}
+    data-copied={m.machineCopied()}
+    data-copy-failed={m.machineCopyFailed()}
+>
+    <div class="machine-column">
+        <div class="machine-head">
+            <div class="machine-meta">
+                <p class="machine-kicker">
+                    {m.machineView()}<span class="machine-format">text/markdown</span>
+                </p>
+                <p class="machine-title">Ever Ruiz Diaz</p>
+                <p class="machine-source">{source}</p>
+                <p class="machine-note">{m.machineNote()}</p>
+            </div>
+            <div class="machine-actions">
+                <button
+                    type="button"
+                    class="machine-copy"
+                    data-machine-copy
+                >
+                    <span data-machine-copy-label>{m.machineCopy()}</span>
+                </button>
+                <a class="machine-file" href="/agent.md">
+                    agent.md{locale === "zh" ? " (EN)" : ""}
+                </a>
+            </div>
+        </div>
+
+        <p
+            id="machine-status"
+            class="machine-status sr-only"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+        <div class="machine-body" data-machine-body></div>
+    </div>
+
+    <pre class="machine-markdown" data-machine-source hidden>{markdown}</pre>
+
+    <div class="view-switch" role="group" aria-label={m.machineSwitch()}>
+        <button
+            type="button"
+            class="view-switch-option"
+            data-view-switch="human"
+            aria-pressed="false"
+            aria-keyshortcuts="Shift+M"
+        >
+            <span class="view-switch-dot" aria-hidden="true"></span>
+            {m.machineHuman()}
+        </button>
+        <button
+            type="button"
+            class="view-switch-option"
+            data-view-switch="machine"
+            aria-pressed="true"
+            aria-keyshortcuts="Shift+M"
+        >
+            <span class="view-switch-dot" aria-hidden="true"></span>
+            {m.machineMachine()}
+        </button>
+        <span class="view-switch-kbd" aria-hidden="true"><kbd>⇧M</kbd></span>
+    </div>
+
+    <p
+        id="machine-announcer"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+    ></p>
+</section>
+
+<script>
+    const root = document.documentElement;
+    const view = document.querySelector<HTMLElement>("[data-machine-view]");
+    const body = document.querySelector<HTMLElement>("[data-machine-body]");
+    const source = document.querySelector<HTMLElement>("[data-machine-source]");
+    const announcer = document.getElementById("machine-announcer");
+    const status = document.getElementById("machine-status");
+    const copy = document.querySelector<HTMLButtonElement>("[data-machine-copy]");
+    const copyLabel = document.querySelector<HTMLElement>(
+        "[data-machine-copy-label]",
+    );
+    const copyText = copyLabel?.textContent ?? "";
+    const viewButtons = [
+        ...document.querySelectorAll<HTMLButtonElement>("[data-view-switch]"),
+    ];
+    const toggle = document.querySelector<HTMLButtonElement>(
+        "[data-machine-toggle]",
+    );
+    const storageKey = "portfolio-view";
+    const legacyKey = "portfolio-agent-mode";
+    const reduce = () =>
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMachine = () => root.dataset.view === "machine";
+
+    const announced = {
+        on: view?.dataset.machineOn ?? "",
+        off: view?.dataset.machineOff ?? "",
+        copied: view?.dataset.copied ?? "",
+        failed: view?.dataset.copyFailed ?? "",
+    };
+
+    let finishTyping: (() => void) | null = null;
+
+    function escapeHtml(value: string): string {
+        return value
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#39;");
+    }
+
+    function machineHref(url: string): string {
+        const base = view?.dataset.base;
+        if (!base || !url.startsWith(base)) return url;
+        try {
+            const parsed = new URL(url);
+            if (!/^\/(en|zh)(\/|$)/.test(parsed.pathname)) return url;
+            if (
+                /\.(?:xml|json|txt)$/.test(parsed.pathname) ||
+                /\/feed\./.test(parsed.pathname)
+            ) {
+                return url;
+            }
+            parsed.searchParams.set("view", "human");
+            return parsed.href;
+        } catch {
+            return url;
+        }
+    }
+
+    function linkify(value: string): string {
+        return value.replace(/https?:\/\/[^\s<]+/g, (url) => {
+            const href = machineHref(url);
+            return `<a class="machine-link" href="${href}">${url}</a>`;
+        });
+    }
+
+    function buildBody() {
+        if (!body || !source) return;
+        const text = source.textContent ?? "";
+        const fragment = document.createDocumentFragment();
+        for (const raw of text.split("\n")) {
+            const line = raw.trimEnd();
+            if (!line.trim()) continue;
+            const kind = line.startsWith("### ")
+                ? "h3"
+                : line.startsWith("## ")
+                  ? "h2"
+                  : line.startsWith("# ")
+                    ? "h1"
+                    : line.startsWith("> ")
+                      ? "quote"
+                      : line.startsWith("- ")
+                        ? "li"
+                        : "p";
+            const heading = kind === "h1" || kind === "h2" || kind === "h3";
+            const element = document.createElement(
+                kind === "quote" ? "blockquote" : "p",
+            );
+            element.className = `machine-line machine-${kind}`;
+            element.dataset.machineLine = "";
+            if (heading) {
+                element.setAttribute("role", "heading");
+                element.setAttribute(
+                    "aria-level",
+                    kind === "h1" ? "1" : kind === "h2" ? "2" : "3",
+                );
+            }
+            if (kind === "h1") element.id = "machine-title";
+            element.innerHTML = linkify(escapeHtml(line));
+            fragment.appendChild(element);
+        }
+        body.replaceChildren(fragment);
+    }
+
+    function storedTheme(): "light" | "dark" | null {
+        try {
+            const value = localStorage.getItem("mode-watcher-mode");
+            return value === "light" || value === "dark" ? value : null;
+        } catch {
+            return null;
+        }
+    }
+
+    function syncTheme(machine: boolean) {
+        const meta = document.querySelector<HTMLMetaElement>(
+            'meta[name="color-scheme"]',
+        );
+        if (machine) {
+            root.classList.add("dark");
+            if (meta) meta.content = "dark";
+            for (const themeColor of document.querySelectorAll<HTMLMetaElement>(
+                'meta[name="theme-color"]',
+            )) {
+                themeColor.content = "#08090a";
+            }
+            return;
+        }
+        const stored = storedTheme();
+        const dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        root.classList.toggle("dark", dark);
+        if (meta) meta.content = stored ?? "light dark";
+        for (const themeColor of document.querySelectorAll<HTMLMetaElement>(
+            'meta[name="theme-color"]',
+        )) {
+            themeColor.content = dark ? "#08090a" : "#ffffff";
+        }
+    }
+
+    function syncSwitch(machine: boolean) {
+        for (const button of viewButtons) {
+            button.setAttribute(
+                "aria-pressed",
+                String(
+                    button.dataset.viewSwitch === (machine ? "machine" : "human"),
+                ),
+            );
+        }
+    }
+
+    function syncUrl(machine: boolean) {
+        const url = new URL(window.location.href);
+        if (machine) {
+            url.searchParams.set("view", "machine");
+            url.searchParams.delete("mode");
+        } else {
+            url.searchParams.delete("view");
+            url.searchParams.delete("mode");
+        }
+        window.history.replaceState(null, "", url);
+    }
+
+    function persist(machine: boolean) {
+        try {
+            localStorage.setItem(storageKey, machine ? "machine" : "human");
+            localStorage.removeItem(legacyKey);
+        } catch {}
+    }
+
+    function syncChrome(machine: boolean) {
+        syncSwitch(machine);
+        if (announcer) {
+            announcer.textContent = machine ? announced.on : announced.off;
+        }
+    }
+
+    function setView(
+        machine: boolean,
+        options: { intro?: boolean; focus?: boolean } = {},
+    ) {
+        if (finishTyping) finishTyping();
+        if (machine) {
+            buildBody();
+            if (options.intro && !reduce()) {
+                root.classList.add("machine-intro");
+                window.setTimeout(
+                    () => root.classList.remove("machine-intro"),
+                    4_000,
+                );
+            } else {
+                root.classList.remove("machine-intro");
+            }
+            root.dataset.view = "machine";
+            syncTheme(true);
+            if (options.intro && !reduce()) startIntro();
+        } else {
+            root.classList.remove("machine-intro");
+            delete root.dataset.view;
+            syncTheme(false);
+            window.dispatchEvent(new Event("portfolio:theme"));
+        }
+        syncChrome(machine);
+        persist(machine);
+        syncUrl(machine);
+        window.scrollTo({ top: 0, behavior: "auto" });
+
+        if (options.focus) {
+            window.requestAnimationFrame(() => {
+                if (machine) {
+                    view?.focus({ preventScroll: true });
+                } else {
+                    (toggle ?? document.getElementById("main"))?.focus({
+                        preventScroll: true,
+                    });
+                }
+            });
+        }
+    }
+
+    function startIntro() {
+        if (!body || reduce()) {
+            root.classList.remove("machine-intro");
+            return;
+        }
+        const nodes: Array<{ node: Text; full: string; block: HTMLElement }> = [];
+        const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+            const text = node as Text;
+            if (!text.nodeValue?.trim()) continue;
+            const block = text.parentElement?.closest<HTMLElement>(
+                "[data-machine-line]",
+            );
+            if (!block) continue;
+            nodes.push({ node: text, full: text.nodeValue, block });
+        }
+        if (!nodes.length) {
+            root.classList.remove("machine-intro");
+            return;
+        }
+
+        const blocks = [
+            ...body.querySelectorAll<HTMLElement>("[data-machine-line]"),
+        ];
+        for (const block of blocks) block.classList.add("is-untyped");
+        for (const item of nodes) item.node.nodeValue = "";
+        body.setAttribute("aria-busy", "true");
+        root.classList.remove("machine-intro");
+        view?.classList.add("is-typing");
+
+        const cursor = document.createElement("span");
+        cursor.className = "machine-cursor";
+        cursor.setAttribute("aria-hidden", "true");
+
+        let index = 0;
+        let position = 0;
+        let speed = 1;
+        let frame = 0;
+        let done = false;
+        const started = performance.now();
+
+        const cleanup = () => {
+            window.removeEventListener("wheel", finish);
+            window.removeEventListener("touchmove", finish);
+            window.removeEventListener("keydown", finish);
+            window.removeEventListener("pointerdown", finish);
+            cursor.remove();
+            view?.classList.remove("is-typing");
+            body.removeAttribute("aria-busy");
+            finishTyping = null;
+        };
+
+        const finish = () => {
+            if (done) return;
+            done = true;
+            window.cancelAnimationFrame(frame);
+            for (const item of nodes) item.node.nodeValue = item.full;
+            for (const block of blocks) block.classList.remove("is-untyped");
+            cleanup();
+        };
+        finishTyping = finish;
+
+        for (const event of ["wheel", "touchmove", "keydown", "pointerdown"]) {
+            window.addEventListener(event, finish, { passive: true });
+        }
+
+        const tick = () => {
+            let budget = Math.max(1, Math.round(speed));
+            speed = Math.min(speed + 0.35, 24);
+            while (budget > 0 && index < nodes.length) {
+                const item = nodes[index];
+                item.block.classList.remove("is-untyped");
+                const take = Math.min(budget, item.full.length - position);
+                position += take;
+                budget -= take;
+                item.node.nodeValue = item.full.slice(0, position);
+                item.node.parentNode?.insertBefore(cursor, item.node.nextSibling);
+                if (position >= item.full.length) {
+                    index += 1;
+                    position = 0;
+                }
+            }
+            if (index >= nodes.length) {
+                finish();
+                return;
+            }
+            const rect = cursor.getBoundingClientRect();
+            if (
+                rect.top > window.innerHeight * 0.92 ||
+                performance.now() - started > 2_400
+            ) {
+                finish();
+                return;
+            }
+            frame = window.requestAnimationFrame(tick);
+        };
+
+        frame = window.requestAnimationFrame(tick);
+    }
+
+    function toggleView() {
+        setView(!isMachine(), { intro: !isMachine(), focus: true });
+    }
+
+    document.addEventListener("click", (event) => {
+        const target = event.target as HTMLElement | null;
+        const entry = target?.closest<HTMLElement>("[data-machine-toggle]");
+        if (entry) {
+            event.preventDefault();
+            setView(true, { intro: true, focus: true });
+            return;
+        }
+        const option = target?.closest<HTMLButtonElement>("[data-view-switch]");
+        if (option) {
+            const next = option.dataset.viewSwitch === "machine";
+            if (next !== isMachine()) {
+                setView(next, { intro: next, focus: true });
+            }
+        }
+    });
+
+    window.addEventListener("keydown", (event) => {
+        const target = event.target as HTMLElement | null;
+        if (
+            target &&
+            (target.isContentEditable ||
+                /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))
+        ) {
+            return;
+        }
+        if (
+            event.shiftKey &&
+            !event.metaKey &&
+            !event.ctrlKey &&
+            !event.altKey &&
+            event.key.toLowerCase() === "m"
+        ) {
+            event.preventDefault();
+            toggleView();
+        }
+    });
+
+    if (isMachine()) {
+        buildBody();
+        syncSwitch(true);
+        syncTheme(true);
+        if (root.classList.contains("machine-intro")) {
+            window.requestAnimationFrame(startIntro);
+        }
+    } else {
+        syncSwitch(false);
+    }
+
+    copy?.addEventListener("click", async () => {
+        const markdown = source?.textContent ?? "";
+        if (!markdown || !copyLabel) return;
+        try {
+            if (!navigator.clipboard?.writeText) {
+                throw new Error("clipboard unavailable");
+            }
+            await navigator.clipboard.writeText(markdown);
+            copyLabel.textContent = announced.copied;
+            if (status) status.textContent = announced.copied;
+            window.setTimeout(() => {
+                copyLabel.textContent = copyText;
+                if (status) status.textContent = "";
+            }, 1_600);
+        } catch {
+            copyLabel.textContent = announced.failed;
+            if (status) status.textContent = announced.failed;
+            window.setTimeout(() => {
+                copyLabel.textContent = copyText;
+                if (status) status.textContent = "";
+            }, 2_000);
+        }
+    });
+</script>
