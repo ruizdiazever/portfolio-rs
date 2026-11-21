@@ -3,6 +3,7 @@ import Layout from "$lib/layouts/Layout.astro";
 import * as m from "@paraglide/messages.js";
 import { Icon } from "astro-icon/components";
 import Faq from "$lib/components/sections/Faq.astro";
+import PageHeader from "$lib/components/common/PageHeader.astro";
 import { faqEntries } from "$lib/common/faq";
 
 const faq = faqEntries();
@@ -32,35 +33,36 @@ const channels = [
     faq={faq}
     canonical={canonical}
 >
-    <div class="mt-6 min-h-[60vh] space-y-6 md:mt-20">
-        <h1
-            class="text-3xl font-medium tracking-[-0.022em] sm:text-4xl md:text-5xl"
+    <div class="min-h-[60vh] pb-16">
+        <PageHeader
+            title={m.contact()}
+            description={m.contactIntro()}
         >
-            {m.contact()}
-        </h1>
-        <div class="max-w-[60ch] space-y-4 text-lg">
-            <p>{m.contactIntro()}</p>
-            <p class="text-md text-muted-foreground">{m.contactNote()}</p>
-        </div>
-        <div class="flex flex-wrap gap-x-6 gap-y-3 pt-2">
-            {
-                channels.map((channel) => (
-                    <a
-                        href={channel.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="group inline-flex items-center gap-1 font-medium text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
-                    >
-                        {channel.label}
-                        <Icon
-                            name="arrow-right"
-                            aria-hidden="true"
-                            class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                        />
-                    </a>
-                ))
-            }
-        </div>
+            <div class="space-y-4">
+                <p class="max-w-[60ch] text-md text-muted-foreground">
+                    {m.contactNote()}
+                </p>
+                <div class="flex flex-wrap gap-x-6 gap-y-3 pt-1">
+                    {
+                        channels.map((channel) => (
+                            <a
+                                href={channel.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group inline-flex items-center gap-1 text-md font-medium text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
+                            >
+                                {channel.label}
+                                <Icon
+                                    name="arrow-right"
+                                    aria-hidden="true"
+                                    class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                                />
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </PageHeader>
         <Faq entries={faq} />
     </div>
 </Layout>

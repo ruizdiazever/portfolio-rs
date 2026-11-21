@@ -1,17 +1,12 @@
 ---
+import PageHeader from "$lib/components/common/PageHeader.astro";
 import * as m from "@paraglide/messages.js";
 ---
 
-<div class="mt-6 min-h-[60vh] space-y-8 md:mt-20">
-    <h1
-        class="text-3xl font-medium tracking-[-0.022em] text-foreground sm:text-4xl md:text-5xl"
-    >
-        {m.privacy()}
-    </h1>
-    <p class="max-w-[60ch] text-lg text-pretty">
-        {m.privacyIntro()}
-    </p>
-    <div class="max-w-[68ch] space-y-8">
+<div class="min-h-[60vh] pb-16">
+    <PageHeader title={m.privacy()} description={m.privacyIntro()} />
+
+    <div class="mt-10 max-w-[68ch] space-y-8">
         <section class="space-y-2">
             <h2 class="text-xl font-medium tracking-[-0.017em]">
                 {m.privacyAnalyticsTitle()}

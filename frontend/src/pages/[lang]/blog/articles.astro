@@ -4,6 +4,7 @@ import Blog from "$lib/components/landing/cards/Blog.astro";
 import { getPosts } from "$lib/common/getPosts.ts";
 import { getLocale } from "@paraglide/runtime";
 import Divider from "$lib/components/common/Divider.astro";
+import PageHeader from "$lib/components/common/PageHeader.astro";
 import { getVisitRequest } from "$lib/common/getViews.ts";
 import * as m from "@paraglide/messages.js";
 
@@ -18,8 +19,20 @@ const postViews = await Promise.all(
     description={m.seoWriting()}
     pageType="CollectionPage"
 >
-    <div class="min-h-screen mt-20">
-        <h1 class="text-3xl font-medium tracking-[-0.022em] sm:text-4xl md:text-5xl mb-8">{m.articles()}</h1>
+    <div class="min-h-[60vh] pb-16">
+        <PageHeader
+            title={m.articles()}
+            description={m.writingIntro()}
+        >
+            <a
+                href={`/${getLocale()}/feed.xml`}
+                rel="alternate"
+                type="application/rss+xml"
+                class="inline-flex text-md font-medium text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
+            >
+                {m.rss()}
+            </a>
+        </PageHeader>
         <Divider />
         {
             posts

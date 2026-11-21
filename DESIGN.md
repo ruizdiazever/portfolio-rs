@@ -148,6 +148,24 @@ click or system change. The SVG is server-rendered, so there is no layout shift
 while the custom element upgrades. Do not keep a second hand-drawn copy of these
 states.
 
+### Page header
+
+Top-level section pages use one shared header, left aligned to the page's
+content column. It carries the page's only `h1` at the editorial page size
+(28/32/36px), an optional 18px lead capped at 60 characters, and an optional
+row for the page's actions or filters. The top offset is the same on every
+section so the title lands in the same place when moving between pages. Titles
+use `text-wrap: balance`; leads use `text-wrap: pretty`.
+
+The Library is wider than the reading pages, so its header starts at the card
+grid's leading edge rather than the 768px column. Filters sit in the header's
+action row and share that edge. The Writing index carries its RSS link in the
+same row.
+
+Project pages keep the compact page title because they are subpages with a back
+link and status above the title. Articles keep the centered reading header.
+Those are deliberate context variants, not a second page-title system.
+
 ### Section links
 
 A bordered card row with a label and a trailing arrow. The whole row is the
@@ -209,9 +227,10 @@ stays grayscale until the card is hovered or focused, then shows its color over
 ### Filter pills
 
 Outlined, 14px, 510 weight, fully rounded. Inactive uses `border-border`;
-active uses `bg-primary` and `text-primary-foreground`. No yellow. Filtering is
-reflected in the query string, and the number of visible items is announced in
-a polite status region.
+active uses `bg-primary` and `text-primary-foreground`. No yellow. The Library
+opens on Technical, the default URL is `?filter=technical`, and filtering is
+reflected in the query string. The number of visible items is announced in a
+polite status region.
 
 ### Contribution graph
 

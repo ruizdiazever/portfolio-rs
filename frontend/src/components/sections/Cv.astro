@@ -1,41 +1,22 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
+import PageHeader from "$lib/components/common/PageHeader.astro";
 import * as m from "@paraglide/messages.js";
 import { Icon } from "astro-icon/components";
-import { getLocale } from "@paraglide/runtime";
 ---
 
 <Layout title={m.titleCv()} description={m.seoCv()}>
-    <div class="mt-10 max-w-[60ch] space-y-4">
-        <h1 class="text-3xl font-medium tracking-[-0.022em] sm:text-4xl">
-            {m.cv()}
-        </h1>
-        <p class="text-lg text-secondary-foreground">{m.cvIntro()}</p>
-        <a
-            href="https://www.linkedin.com/in/everdev/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1 font-medium text-foreground underline decoration-foreground/30 underline-offset-4 hover:decoration-foreground"
-        >
-            LinkedIn
-            <Icon
-                name="arrow-right"
-                aria-hidden="true"
-                class="h-4 w-4"
-            />
-        </a>
-        <p class="pt-6 text-sm">
+    <div class="min-h-[60vh] pb-16">
+        <PageHeader title={m.cv()} description={m.cvIntro()}>
             <a
-                href={`/${getLocale()}`}
-                class="group inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
+                href="https://www.linkedin.com/in/everdev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-md font-medium text-foreground underline decoration-foreground/30 underline-offset-4 hover:decoration-foreground"
             >
-                <Icon
-                    name="arrow-left"
-                    aria-hidden="true"
-                    class="size-4 duration-150 ease-out group-hover:-translate-x-[1.5px]"
-                />
-                {m.goHome()}
+                LinkedIn
+                <Icon name="arrow-right" aria-hidden="true" class="h-4 w-4" />
             </a>
-        </p>
+        </PageHeader>
     </div>
 </Layout>

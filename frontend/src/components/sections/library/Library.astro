@@ -2,6 +2,7 @@
 import { books } from "./books";
 import { games, steamPoster, steamStore } from "./games";
 import Media from "$lib/components/common/Media.astro";
+import PageHeader from "$lib/components/common/PageHeader.astro";
 import * as m from "@paraglide/messages.js";
 import { getLocale } from "@paraglide/runtime";
 
@@ -44,7 +45,25 @@ type Card = {
     paper: boolean;
     comic: boolean;
     finished: boolean;
+    visible: boolean;
 };
+
+const filterKeys = [
+    "all",
+    "game",
+    "book",
+    "technical",
+    "paper",
+    "comic",
+] as const;
+type FilterKey = (typeof filterKeys)[number];
+
+const requestedFilter = Astro.url.searchParams.get("filter");
+const initialFilter: FilterKey = filterKeys.includes(
+    requestedFilter as FilterKey,
+)
+    ? (requestedFilter as FilterKey)
+    : "technical";
 
 const cards: Card[] = [
     ...games.map((game): Card => ({
@@ -63,6 +82,7 @@ const cards: Card[] = [
         paper: false,
         comic: false,
         finished: true,
+        visible: initialFilter === "all" || initialFilter === "game",
     })),
     ...books.map((book): Card => ({
         kind: "book",
@@ -79,10 +99,16 @@ const cards: Card[] = [
         paper: book.paper,
         comic: book.comic,
         finished: false,
+        visible:
+            initialFilter === "all" ||
+            initialFilter === "book" ||
+            (initialFilter === "technical" && book.technical) ||
+            (initialFilter === "paper" && book.paper) ||
+            (initialFilter === "comic" && book.comic),
     })),
 ];
 
-const filters = [
+const filters: Array<{ key: FilterKey; label: string }> = [
     { key: "all", label: m.all() },
     { key: "game", label: m.games() },
     { key: "book", label: m.books() },
@@ -92,42 +118,44 @@ const filters = [
 ];
 ---
 
-<div class="mx-auto w-full min-w-0 px-4 sm:px-6 lg:px-8 py-8 space-y-6 max-w-(--breakpoint-lg)">
-    <h1
-        class="text-3xl text-center font-medium tracking-[-0.022em] sm:text-4xl md:text-5xl"
-    >
-        <span class="block">{m.library()}</span>
-    </h1>
-    <p class="mx-auto max-w-[52ch] text-center text-md text-secondary-foreground">
-        {m.libraryIntro()}
-    </p>
+<div class="mx-auto w-full min-w-0 max-w-(--breakpoint-lg) px-4 pb-16 sm:px-6 lg:px-8">
+    <PageHeader title={m.library()} description={m.libraryIntro()}>
+        <div class="space-y-3">
+            <div class="flex flex-wrap gap-2">
+                {
+                    filters.map((filter) => (
+                        <button
+                            type="button"
+                            class="rounded-full border border-border px-4 py-2 text-sm font-medium transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
+                            data-filter={filter.key}
+                            aria-pressed={
+                                filter.key === initialFilter
+                                    ? "true"
+                                    : "false"
+                            }
+                        >
+                            {filter.label}
+                        </button>
+                    ))
+                }
+            </div>
+            <p
+                id="book-filter-status"
+                class="sr-only"
+                role="status"
+                aria-live="polite"
+            ></p>
+        </div>
+    </PageHeader>
 
-    <div class="flex flex-wrap justify-center gap-2 mb-8">
-        {
-            filters.map((filter) => (
-                <button
-                    type="button"
-                    class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
-                    data-filter={filter.key}
-                    aria-pressed={filter.key === "all" ? "true" : "false"}
-                >
-                    {filter.label}
-                </button>
-            ))
-        }
-    </div>
-    <p
-        id="book-filter-status"
-        class="sr-only"
-        role="status"
-        aria-live="polite"
-    ></p>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {
             cards.map((card) => (
                 <div
-                    class="book-card group relative w-full"
+                    class:list={[
+                        "book-card group relative w-full",
+                        { hidden: !card.visible },
+                    ]}
                     transition:name={`library-card-${card.title}`}
                     data-kind={card.kind}
                     data-game={card.kind === "game"}
@@ -292,7 +320,7 @@ const filters = [
             "paper",
             "comic",
         ];
-        const DEFAULT_FILTER: FilterType = "all";
+        const DEFAULT_FILTER: FilterType = "technical";
 
         const buttons =
             document.querySelectorAll<HTMLButtonElement>("[data-filter]");
@@ -347,7 +375,17 @@ const filters = [
             applyFilter(filterFromUrl());
         });
 
-        applyFilter(filterFromUrl());
+        const initialFilter = filterFromUrl();
+        applyFilter(initialFilter);
+        const initialUrl = new URL(location.href);
+        const requestedFilter = initialUrl.searchParams.get("filter");
+        if (
+            !requestedFilter ||
+            !FILTERS.includes(requestedFilter as FilterType)
+        ) {
+            initialUrl.searchParams.set("filter", initialFilter);
+            history.replaceState({ filter: initialFilter }, "", initialUrl);
+        }
 
         document
             .querySelectorAll<HTMLButtonElement>(".book-card-toggle")

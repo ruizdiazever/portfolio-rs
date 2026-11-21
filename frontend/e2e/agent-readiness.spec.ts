@@ -225,7 +225,7 @@ test.describe("accessibility surface", () => {
     for (const path of ["/en", "/en/sections/library", "/about", "/contact"]) {
       await page.goto(path);
       await expect(page.locator("h1")).toHaveCount(1);
-      await expect(page.locator("header")).toHaveCount(1);
+      await expect(page.getByRole("banner")).toHaveCount(1);
       await expect(page.locator("main")).toHaveCount(1);
       await expect(page.locator("footer")).toHaveCount(1);
       const hidden = await page

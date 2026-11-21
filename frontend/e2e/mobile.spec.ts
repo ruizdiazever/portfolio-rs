@@ -4,7 +4,12 @@ test.use({ viewport: { width: 320, height: 800 } });
 
 test.describe("320px layout", () => {
   for (const path of [
+    "/en/sections/about",
     "/en/sections/library",
+    "/en/sections/contact",
+    "/en/sections/cv",
+    "/en/sections/privacy",
+    "/en/blog/articles",
     "/en/blog/organizations-using-rust",
     "/en/blog/hardware/minisforum-ms-01",
   ]) {
