@@ -121,6 +121,9 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   filters, no card shadows, no second accent. The machine view is the deliberate
   exception: dark only, with a transient green entrance that settles to the
   neutral document.
+- Top-level section pages use the shared `PageHeader`: one `h1`, an optional
+  18px lead and an optional action row, left aligned to the page content. Project
+  pages and articles keep their compact reading variants.
 - Text stays readable at 320px and 200% scaling. Long content wraps or
   truncates with a way to the full value.
 - Every interactive element has a name, focus ring and keyboard path. Hover is

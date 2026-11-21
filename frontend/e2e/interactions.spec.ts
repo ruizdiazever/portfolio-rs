@@ -152,10 +152,6 @@ test.describe("interactions", () => {
 
     await back.hover();
     await expect(icon).toHaveCSS("translate", "-1.5px");
-
-    await page.goto("/en/sections/cv");
-    const home = page.getByRole("link", { name: "Go back home" });
-    await expect(home.locator("svg")).toHaveCount(1);
   });
 
   test("technology tags link out", async ({ page }) => {
@@ -345,7 +341,10 @@ test.describe("interactions", () => {
     ).toHaveAttribute("href", "/zh/sections/about");
     await expect(
       page.getByRole("link", { name: "收藏", exact: true }).first(),
-    ).toHaveAttribute("href", "/zh/sections/library");
+    ).toHaveAttribute(
+      "href",
+      "/zh/sections/library?filter=technical",
+    );
   });
 
   test("type scale stays within the editorial steps", async ({ page }) => {
@@ -357,10 +356,10 @@ test.describe("interactions", () => {
       .evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
     expect(bookTitle).toBe(36);
     expect(
-      await page.locator("main p").first().evaluate((element) =>
+      await page.locator("[data-page-lead]").first().evaluate((element) =>
         parseFloat(getComputedStyle(element).fontSize),
       ),
-    ).toBe(16);
+    ).toBe(18);
 
     await page.goto("/en");
     const sectionTitle = page.getByRole("heading", {
@@ -558,6 +557,32 @@ test.describe("interactions", () => {
     expect(width.scroll).toBeLessThanOrEqual(width.client);
   });
 
+  test("200 percent text scaling keeps section headers inside the viewport", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    for (const path of [
+      "/en/sections/about",
+      "/en/sections/library",
+      "/en/sections/contact",
+      "/en/sections/cv",
+      "/en/sections/privacy",
+      "/en/blog/articles",
+    ]) {
+      await page.goto(path);
+      await page.evaluate(() => {
+        document.documentElement.style.fontSize = "32px";
+      });
+      const width = await page.evaluate(() => ({
+        scroll: document.documentElement.scrollWidth,
+        client: document.documentElement.clientWidth,
+      }));
+      expect(width.scroll, `${path} at 200%`).toBeLessThanOrEqual(
+        width.client,
+      );
+    }
+  });
+
   test("long blog tables scroll inside their own wrapper", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en/blog/portfolio-wasm");
@@ -673,6 +698,15 @@ test.describe("interactions", () => {
     const comics = page.locator("[data-comic='true']");
     expect(await technical.count()).toBeGreaterThan(0);
 
+    await expect(page).toHaveURL(
+      /\/en\/sections\/library\?filter=technical$/,
+    );
+    await expect(
+      page.getByRole("button", { name: "Technical", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(technical.first()).toBeVisible();
+    await expect(comics.first()).toBeHidden();
+
     await page.getByRole("button", { name: "Comics", exact: true }).click();
     await expect(page).toHaveURL(/\/en\/sections\/library\?filter=comic$/);
     await expect(
@@ -689,9 +723,11 @@ test.describe("interactions", () => {
     await expect(technical.first()).toBeHidden();
 
     await page.goBack();
-    await expect(page).toHaveURL(/\/en\/sections\/library$/);
+    await expect(page).toHaveURL(
+      /\/en\/sections\/library\?filter=technical$/,
+    );
     await expect(
-      page.getByRole("button", { name: "All", exact: true }),
+      page.getByRole("button", { name: "Technical", exact: true }),
     ).toHaveAttribute("aria-pressed", "true");
     await expect(technical.first()).toBeVisible();
     await expect(page.locator("#book-filter-status")).toHaveText(

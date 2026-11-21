@@ -6,6 +6,7 @@ export function getUrls() {
     about: `/${locale}/sections/about`,
     cv: `/${locale}/sections/cv`,
     library: `/${locale}/sections/library`,
+    libraryDefault: `/${locale}/sections/library?filter=technical`,
     contact: `/${locale}/sections/contact`,
     privacy: `/${locale}/sections/privacy`,
     home: `/${locale}`,

@@ -1,0 +1,34 @@
+---
+interface Props {
+    title: string;
+    description?: string;
+    class?: string;
+}
+
+const { title, description, class: className } = Astro.props;
+---
+
+<header
+    class:list={["pt-10 sm:pt-12 md:pt-16", className]}
+    data-page-header
+>
+    <div class="max-w-[68ch] space-y-4">
+        <h1
+            class="text-balance text-3xl font-medium tracking-[-0.022em] text-foreground sm:text-4xl md:text-5xl"
+            data-page-title
+        >
+            {title}
+        </h1>
+        {
+            description && (
+                <p
+                    class="max-w-[60ch] text-pretty text-lg leading-[1.5] text-secondary-foreground"
+                    data-page-lead
+                >
+                    {description}
+                </p>
+            )
+        }
+        <slot />
+    </div>
+</header>

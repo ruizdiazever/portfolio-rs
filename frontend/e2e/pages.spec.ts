@@ -43,6 +43,38 @@ test("the old books URL redirects to the library", async ({
   await expect(page.locator("h1")).toHaveText("Library");
 });
 
+test("top-level section pages share one page header", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  const sectionPages = [
+    ["/en/sections/about", "About"],
+    ["/en/sections/contact", "Contact"],
+    ["/en/sections/cv", "CV"],
+    ["/en/sections/privacy", "Privacy"],
+    ["/en/sections/library", "Library"],
+    ["/en/blog/articles", "Writing"],
+  ] as const;
+
+  const tops: number[] = [];
+  for (const [path, title] of sectionPages) {
+    await page.goto(path);
+    const header = page.locator("[data-page-header]");
+    await expect(header).toHaveCount(1);
+    const heading = header.locator("[data-page-title]");
+    await expect(heading).toHaveCount(1);
+    await expect(heading).toHaveText(title);
+    await expect(heading).toHaveCSS("font-size", "36px");
+    await expect(heading).toHaveCSS("text-align", "start");
+    const lead = header.locator("[data-page-lead]");
+    await expect(lead).toHaveCount(1);
+    await expect(lead).toHaveCSS("font-size", "18px");
+    const box = await heading.boundingBox();
+    expect(box).not.toBeNull();
+    tops.push(Math.round(box!.y));
+  }
+
+  expect(new Set(tops).size, `header tops: ${tops.join(", ")}`).toBe(1);
+});
+
 test.describe("pages", () => {
   for (const { path, heading, text } of pages) {
     test(`${path} renders`, async ({ page }) => {

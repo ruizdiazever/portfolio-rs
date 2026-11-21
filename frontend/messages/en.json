@@ -192,5 +192,7 @@
   "steam": "Steam",
   "viewOnSteam": "View on Steam",
   "seoLibrary": "Games, books, papers, and comics Ever Ruiz Diaz keeps within reach.",
-  "titleLibrary": "Library · Ever Ruiz Diaz"
+  "titleLibrary": "Library · Ever Ruiz Diaz",
+  "aboutIntro": "Software engineer in Rome. Rust, TypeScript and systems that have to work.",
+  "rss": "RSS feed"
 }

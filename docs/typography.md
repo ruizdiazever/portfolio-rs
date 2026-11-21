@@ -63,12 +63,15 @@ The applied roles:
   would break the reading rhythm and the 320px measure.
 - **Page titles stop at 36px.** The old 60px page titles were competing with the
   content. The new page title is 2.25 times the body, close to pheralb.dev's
-  36px post title.
+  36px post title. Top-level section pages use the editorial step; project
+  detail keeps the compact step and articles keep the post step.
 - **Section titles are 24px to 28px.** They stay clearly below the page title
   and above the 18px to 20px card title. The extra 4px at desktop is enough to
   separate the section from the card.
 - **Article titles are 28px to 32px.** An article title is a reading entry
-  point, not a billboard. The body and the meta row stay close to it.
+  point, not a billboard. The body and the meta row stay close to it. The
+  Writing index itself uses the editorial page title because it is a top-level
+  section, not an article.
 - **Card titles are 18px to 20px.** Project and post titles remain easy to scan
   without becoming display type.
 - **Line height tightens with size.** 1.6 for body, 1.4 for card titles, 1.25

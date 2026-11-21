@@ -192,5 +192,7 @@
   "steam": "Steam",
   "viewOnSteam": "在 Steam 查看",
   "seoLibrary": "Ever Ruiz Diaz 通关的游戏、随手可及的书、论文与漫画。",
-  "titleLibrary": "收藏 · Ever Ruiz Diaz"
+  "titleLibrary": "收藏 · Ever Ruiz Diaz",
+  "aboutIntro": "常驻罗马的软件工程师，做 Rust、TypeScript 和必须可靠运行的系统。",
+  "rss": "RSS 订阅"
 }
