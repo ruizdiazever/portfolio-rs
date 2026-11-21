@@ -664,11 +664,45 @@ html.machine-intro .machine-file {
     color: var(--machine-signal);
 }
 
-.machine-view.is-settling .machine-head,
-.machine-view.is-settling .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
-.machine-view.is-settling .machine-copy,
-.machine-view.is-settling .machine-file {
-    transition-duration: 450ms;
+/* The scan keeps the text green ahead of its core and reveals each line in
+   its normal colour as it passes. */
+.machine-view.is-revealing .machine-head:not(.is-revealed) {
+    border-bottom-color: var(--machine-signal);
+}
+
+.machine-view.is-revealing .machine-head .machine-kicker:not(.is-revealed),
+.machine-view.is-revealing .machine-head .machine-kicker:not(.is-revealed) .machine-format,
+.machine-view.is-revealing .machine-head .machine-title:not(.is-revealed),
+.machine-view.is-revealing .machine-head .machine-source:not(.is-revealed),
+.machine-view.is-revealing .machine-head .machine-note:not(.is-revealed) {
+    color: var(--machine-signal);
+}
+
+.machine-view.is-revealing .machine-copy:not(.is-revealed) {
+    border-color: color-mix(in oklab, var(--machine-signal) 45%, transparent);
+    color: var(--machine-signal);
+}
+
+.machine-view.is-revealing .machine-file:not(.is-revealed) {
+    color: var(--machine-signal);
+    text-decoration-color: color-mix(in oklab, var(--machine-signal) 55%, transparent);
+}
+
+.machine-view.is-revealing .machine-line:not(.is-revealed) {
+    color: var(--machine-signal);
+    text-shadow: 0 0 18px rgb(92 255 138 / 18%);
+}
+
+.machine-view.is-revealing .machine-line:not(.is-revealed) .machine-link {
+    color: var(--machine-signal);
+}
+
+.machine-view.is-revealing .machine-head,
+.machine-view.is-revealing .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
+.machine-view.is-revealing .machine-copy,
+.machine-view.is-revealing .machine-file,
+.machine-view.is-revealing .machine-line {
+    transition-duration: 100ms;
 }
 
 .machine-view.is-settling .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note) {
@@ -694,29 +728,8 @@ html.machine-intro .machine-file {
     );
 }
 
-.machine-view.is-settling .machine-scan {
+.machine-view.is-revealing .machine-scan {
     will-change: transform, opacity;
-    animation: machine-scan 700ms var(--ease-in-out) both;
-}
-
-@keyframes machine-scan {
-    0% {
-        opacity: 0;
-        transform: translateY(-140px);
-    }
-
-    12% {
-        opacity: 1;
-    }
-
-    82% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(100svh);
-    }
 }
 
 @keyframes machine-head-glitch {
@@ -877,8 +890,16 @@ html.machine-intro .machine-file {
         animation: none;
     }
 
-    .machine-view.is-settling .machine-scan {
+    .machine-view.is-revealing .machine-scan {
         display: none;
+    }
+
+    .machine-view.is-revealing .machine-head,
+    .machine-view.is-revealing .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
+    .machine-view.is-revealing .machine-copy,
+    .machine-view.is-revealing .machine-file,
+    .machine-view.is-revealing .machine-line {
+        transition: none;
     }
 
     html.machine-intro .machine-body {

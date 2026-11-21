@@ -109,10 +109,10 @@ Markdown brief an agent receives:
   region.
 - **Motion.** The head, body, copy action and agent.md link start in green. The
   first screen types in with a cursor and a green hairline; when it finishes, a
-  green scanline sweeps the viewport and the head decodes as the document
-  settles to neutral. Scroll, touch, a key or a pointer finishes it without the
-  settle; `prefers-reduced-motion` skips the entrance. Green never becomes
-  permanent chrome.
+  green scanline sweeps the viewport and leaves each line behind its core in the
+  normal colour. The head decodes as the core passes. Scroll, touch, a key or a
+  pointer finishes it without the scan; `prefers-reduced-motion` skips the
+  entrance. Green never becomes permanent chrome.
 - **Dark only.** The color-scheme meta and the dark class are forced while the
   view is active and restored on exit. The header, footer, theme and language
   controls are hidden.

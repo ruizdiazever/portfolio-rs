@@ -155,10 +155,11 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   Human/Machine switch are the only controls.
 - The brief types in once per URL entry in the transient green. The machine
   head, the copy action and the agent.md link enter in the same green. When the
-  first screen finishes, a green scanline sweeps the viewport and the head
-  decodes to the neutral document. Reduced motion skips the whole entrance;
-  scroll, touch, a key or a pointer finishes it without the settle. The green
-  never becomes permanent UI chrome.
+  first screen finishes, a green scanline sweeps the viewport and leaves each
+  line behind its core in the normal colour; the head decodes as the core
+  passes. Reduced motion skips the whole entrance; scroll, touch, a key or a
+  pointer finishes it without the scan. The green never becomes permanent UI
+  chrome.
 - `/agent.md` and `/agent.json` remain the English canonical files. The view
   exposes no model, chat endpoint, A2A server or MCP server, and no generated
   claims. No private data enters the brief.

@@ -206,6 +206,38 @@ test.describe("agent surfaces", () => {
       "rgb(92, 255, 138)",
     );
     await expect(machine).toHaveClass(/is-settling/, { timeout: 6_000 });
+    await expect
+      .poll(
+        async () =>
+          page.evaluate(() => {
+            const lines = [
+              ...document.querySelectorAll<HTMLElement>(
+                "[data-machine-line]",
+              ),
+            ];
+            const shown = lines.filter((line) =>
+              line.classList.contains("is-revealed"),
+            );
+            const ahead = lines.filter(
+              (line) => !line.classList.contains("is-revealed"),
+            );
+            return {
+              progressive: shown.length > 0 && ahead.length > 0,
+              shownColor: shown[0]
+                ? getComputedStyle(shown[0]).color
+                : null,
+              aheadColor: ahead[0]
+                ? getComputedStyle(ahead[0]).color
+                : null,
+            };
+          }),
+        { timeout: 2_000 },
+      )
+      .toMatchObject({
+        progressive: true,
+        shownColor: "rgb(255, 255, 255)",
+        aheadColor: "rgb(92, 255, 138)",
+      });
     await expect(machine).not.toHaveClass(/is-settling/, { timeout: 6_000 });
     await expect(machine).not.toHaveClass(/is-typing/);
     await expect(page.locator(".machine-kicker")).toHaveCSS(
