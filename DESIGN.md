@@ -19,7 +19,7 @@ The skill routing and review process are in
    white on dark and black on light. There is no yellow, acid lime or second
    accent.
 4. **Interaction is explicit.** Content is reachable by a visible control.
-   Nothing important exists only behind hover, and book notes are reached by a
+   Nothing important exists only behind hover, and card notes are reached by a
    click or keyboard flip.
 5. **Motion explains state.** Transitions are short, interruptible and
    removable. Reduced motion keeps the state change and drops the movement.
@@ -51,7 +51,7 @@ value removes the override. `color-scheme` is `light dark` on `:root`; the
 | `--accent` | `#f1f1f1` | `#23252a` | Hover and selected surfaces |
 | `--destructive` | semantic red | `#eb5757` | Errors only |
 
-Content color is allowed in book covers, technology marks, the contribution
+Content color is allowed in library covers, technology marks, the contribution
 graph, the home avatar, the about portrait and the footer mascot, but it is
 revealed on demand: these surfaces stay monochrome until hovered or focused.
 Shape, position and the accessible name carry the meaning, so color is never the
@@ -108,8 +108,8 @@ Rules:
 ## Layout and spacing
 
 Use a 4px base with common steps of 8, 12, 16, 24, 32, 48 and 64px. The reading
-column is 768px; Books may use 1024px with the header and footer matching that
-width.
+column is 768px; the library may use 1024px with the header and footer matching
+that width.
 
 - Cards use 12px radii; buttons and inputs 6px; badges 4px; filters are pills.
 - Content cards have no shadows. Use `border-border`, changing to
@@ -120,8 +120,8 @@ width.
   share the leading edge; actions align to the trailing edge.
 - At 320px, content must reflow without clipping, horizontal page scroll or
   hidden actions. At 200% text scaling, the same applies.
-- Use the supported breakpoints: 640, 768 and 1024px. Books use one column on
-  small screens, two at `md`, four at `lg`.
+- Use the supported breakpoints: 640, 768 and 1024px. The library uses one
+  column on small screens, two at `md`, four at `lg`.
 - The header is sticky. Its height is part of `scroll-padding-top`, so focused
   anchors are not hidden under it.
 - Safe areas are respected on mobile with `env(safe-area-inset-*)`; the viewport
@@ -186,18 +186,21 @@ and keep their technology row on the same baseline; a trailing odd card stays
 in the leading column. Technology marks stay grayscale until the card is
 hovered or contains focus, then show their brand color.
 
-### Book card
+### Library card
 
-The card is a 3D flip surface with perspective 1200px. The cover stays grayscale
-until the card is hovered or focused, then shows its color over 200ms.
+The card is a 3D flip surface with perspective 1200px. The cover or game capsule
+stays grayscale until the card is hovered or focused, then shows its color over
+200ms. Book covers come from S3; Steam capsules load from Steam's CDN.
 
-- Front: cover, title, author, year and type. A small `FLIP` hint sits on the
-  cover and is decorative for assistive technology.
-- Back: notes, title, author, description and a two-column metadata grid. It
-  fills the same box as the front.
+- Front: cover or capsule, title, creator, year, type and, for a game, a
+  `Finished` tag. A small `FLIP` hint sits on the art and is decorative for
+  assistive technology.
+- Back: notes, title, creator, description and a two-column metadata grid. For a
+  game, a link to its Steam store page follows the grid. It fills the same box
+  as the front.
 - Clicking the front, or pressing Enter or Space on the card control, flips it.
   The back contains a real `Flip back` control. No dialog opens.
-- The hidden face is `aria-hidden` and `inert`; the trigger reports
+- The hidden face is `inert`; the trigger reports
   `aria-pressed`. The focus ring is visible.
 - Cards in a row share height. The back is scrollable if content exceeds the
   card; the overlay must not block that scroll.
@@ -207,7 +210,7 @@ until the card is hovered or focused, then shows its color over 200ms.
 
 Outlined, 14px, 510 weight, fully rounded. Inactive uses `border-border`;
 active uses `bg-primary` and `text-primary-foreground`. No yellow. Filtering is
-reflected in the query string, and the number of visible books is announced in
+reflected in the query string, and the number of visible items is announced in
 a polite status region.
 
 ### Contribution graph
@@ -401,7 +404,7 @@ evidence requirements:
 
 - No yellow or acid-lime selector.
 - No hardcoded root `color-scheme: light` or `color-scheme: dark`; map the meta.
-- No modal for book details.
+- No modal for library details.
 - No auto-rotating or auto-updating text without a pause control.
 - No hover-only content.
 - No card shadows.

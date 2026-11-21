@@ -1,0 +1,433 @@
+---
+import { books } from "./books";
+import { games, steamPoster, steamStore } from "./games";
+import Media from "$lib/components/common/Media.astro";
+import * as m from "@paraglide/messages.js";
+import { getLocale } from "@paraglide/runtime";
+
+const genreZh: Record<string, string> = {
+    "Science Fiction": "科幻",
+    "Literary Fiction": "文学",
+    "Political Satire": "政治讽喻",
+    "Technical Paper": "技术论文",
+    Fantasy: "奇幻",
+    Biography: "传记",
+    Technical: "技术",
+    Comics: "漫画",
+    Comedy: "喜剧",
+    Adventure: "冒险",
+    FPS: "第一人称射击",
+    VR: "VR",
+    Platformer: "平台跳跃",
+    RPG: "角色扮演",
+    Puzzle: "解谜",
+    Narrative: "叙事",
+};
+
+const locale = getLocale();
+const byline = (prefix: string, name: string) =>
+    `${prefix}${locale === "zh" ? "" : " "}${name}`;
+
+type Card = {
+    kind: "book" | "game";
+    title: string;
+    byline: string;
+    year: number;
+    genre: string;
+    description: string;
+    type: string;
+    format: string;
+    cover?: string;
+    steamAppId?: number;
+    steamHref?: string;
+    technical: boolean;
+    paper: boolean;
+    comic: boolean;
+    finished: boolean;
+};
+
+const cards: Card[] = [
+    ...games.map((game): Card => ({
+        kind: "game",
+        title: game.title,
+        byline: byline(m.byDeveloper(), game.developer),
+        year: game.year,
+        genre: locale === "zh" ? (genreZh[game.genre] ?? game.genre) : game.genre,
+        description:
+            locale === "zh" ? game.descriptionZh : game.description,
+        type: m.game(),
+        format: m.steam(),
+        steamAppId: game.steamAppId,
+        steamHref: steamStore(game.steamAppId),
+        technical: false,
+        paper: false,
+        comic: false,
+        finished: true,
+    })),
+    ...books.map((book): Card => ({
+        kind: "book",
+        title: book.title,
+        byline: byline(m.by(), book.author),
+        year: book.publishedYear,
+        genre: locale === "zh" ? (genreZh[book.genre] ?? book.genre) : book.genre,
+        description:
+            locale === "zh" ? book.descriptionZh : book.description,
+        type: book.technical ? m.technical() : m.nonTechnical(),
+        format: book.paper ? m.paper() : m.digital(),
+        cover: book.cover,
+        technical: book.technical,
+        paper: book.paper,
+        comic: book.comic,
+        finished: false,
+    })),
+];
+
+const filters = [
+    { key: "all", label: m.all() },
+    { key: "game", label: m.games() },
+    { key: "book", label: m.books() },
+    { key: "technical", label: m.technical() },
+    { key: "paper", label: m.papers() },
+    { key: "comic", label: m.comics() },
+];
+---
+
+<div class="mx-auto w-full min-w-0 px-4 sm:px-6 lg:px-8 py-8 space-y-6 max-w-(--breakpoint-lg)">
+    <h1
+        class="text-3xl text-center font-medium tracking-[-0.022em] sm:text-4xl md:text-5xl"
+    >
+        <span class="block">{m.library()}</span>
+    </h1>
+    <p class="mx-auto max-w-[52ch] text-center text-md text-secondary-foreground">
+        {m.libraryIntro()}
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+        {
+            filters.map((filter) => (
+                <button
+                    type="button"
+                    class="px-4 py-2 rounded-full border border-border font-medium text-sm transition-[color,background-color,border-color,transform] duration-150 ease-out hover:border-foreground/40 active:scale-[0.98] aria-pressed:bg-primary aria-pressed:text-primary-foreground"
+                    data-filter={filter.key}
+                    aria-pressed={filter.key === "all" ? "true" : "false"}
+                >
+                    {filter.label}
+                </button>
+            ))
+        }
+    </div>
+    <p
+        id="book-filter-status"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+    ></p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {
+            cards.map((card) => (
+                <div
+                    class="book-card group relative w-full"
+                    transition:name={`library-card-${card.title}`}
+                    data-kind={card.kind}
+                    data-game={card.kind === "game"}
+                    data-book={card.kind === "book"}
+                    data-technical={card.technical}
+                    data-paper={card.paper}
+                    data-comic={card.comic}
+                >
+                    <div class="book-flip">
+                        <div class="book-face book-front flex flex-col rounded-lg border border-border bg-card transition-[border-color,background-color] duration-150 ease-out group-hover:border-foreground/30 group-hover:bg-muted/20 group-focus-within:border-foreground/30">
+                            <div class="relative aspect-3/4 w-full overflow-hidden rounded-t-[11px]">
+                                {card.kind === "book" ? (
+                                    <Media
+                                        path={card.cover ?? ""}
+                                        widths={[480]}
+                                        width={300}
+                                        height={400}
+                                        sizes="(min-width: 768px) 25vw, 90vw"
+                                        alt={card.title}
+                                        class="w-full h-full object-contain p-4 grayscale transition-[filter,transform] duration-200 ease-out group-hover:scale-[1.02] group-hover:grayscale-0 group-focus-within:grayscale-0"
+                                    />
+                                ) : (
+                                    <img
+                                        src={steamPoster(card.steamAppId ?? 0)}
+                                        alt={card.title}
+                                        width={600}
+                                        height={900}
+                                        sizes="(min-width: 768px) 25vw, 90vw"
+                                        loading="lazy"
+                                        decoding="async"
+                                        data-steam-poster
+                                        class="w-full h-full object-contain p-4 grayscale transition-[filter,transform] duration-200 ease-out group-hover:scale-[1.02] group-hover:grayscale-0 group-focus-within:grayscale-0"
+                                    />
+                                )}
+                                <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                                <span
+                                    class="absolute right-3 top-3 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/80 backdrop-blur"
+                                    aria-hidden="true"
+                                >
+                                    {m.flip()}
+                                </span>
+                            </div>
+
+                            <div class="flex flex-1 flex-col p-4">
+                                <h2 class="mb-2 line-clamp-2 text-md font-medium leading-[1.35] tracking-[-0.01em] text-foreground">
+                                    {card.title}
+                                </h2>
+                                <p class="mb-4 line-clamp-1 text-sm text-muted-foreground">
+                                    {card.byline}
+                                </p>
+                                <div class="mt-auto flex flex-wrap gap-2">
+                                    <span class="rounded bg-secondary px-2 py-1 text-xs">
+                                        {card.year}
+                                    </span>
+                                    <span class="rounded bg-secondary px-2 py-1 text-xs">
+                                        {card.type}
+                                    </span>
+                                    {card.finished && (
+                                        <span class="rounded bg-secondary px-2 py-1 text-xs">
+                                            {m.finished()}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="book-face book-back rounded-lg border border-border bg-card transition-colors duration-150 ease-out group-hover:border-foreground/30"
+                            inert
+                        >
+                            <div class="flex h-full flex-col p-4">
+                                <div class="flex items-center justify-between gap-3 text-[11px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                                    <span>{m.bookNotes()}</span>
+                                    <span>{card.year}</span>
+                                </div>
+                                <div class="my-auto py-4">
+                                    <h2 class="text-md font-medium leading-[1.3] tracking-[-0.01em] text-foreground">
+                                        {card.title}
+                                    </h2>
+                                    <p class="mt-1 text-xs text-muted-foreground">
+                                        {card.byline}
+                                    </p>
+                                    <p class="mt-3 text-xs leading-relaxed text-secondary-foreground">
+                                        {card.description}
+                                    </p>
+                                    <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border pt-3">
+                                        <div>
+                                            <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                                {card.kind === "game" ? m.released() : m.published()}
+                                            </dt>
+                                            <dd class="mt-0.5 text-xs text-foreground">
+                                                {card.year}
+                                            </dd>
+                                        </div>
+                                        <div>
+                                            <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                                {m.type()}
+                                            </dt>
+                                            <dd class="mt-0.5 text-xs text-foreground">
+                                                {card.type}
+                                            </dd>
+                                        </div>
+                                        <div>
+                                            <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                                {m.format()}
+                                            </dt>
+                                            <dd class="mt-0.5 text-xs text-foreground">
+                                                {card.format}
+                                            </dd>
+                                        </div>
+                                        <div>
+                                            <dt class="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                                                {m.genre()}
+                                            </dt>
+                                            <dd class="mt-0.5 text-xs text-foreground">
+                                                {card.genre}
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                    {card.kind === "game" && card.steamHref && (
+                                        <a
+                                            href={card.steamHref}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="mt-3 inline-flex text-xs text-muted-foreground underline decoration-border underline-offset-4 transition-colors duration-150 ease-out hover:text-foreground hover:decoration-foreground"
+                                        >
+                                            {m.viewOnSteam()}
+                                        </a>
+                                    )}
+                                </div>
+                                <button
+                                    type="button"
+                                    class="book-card-back-toggle mx-auto mt-3 rounded-full border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground transition-[color,border-color,transform] duration-150 ease-out hover:border-foreground/30 hover:text-foreground active:scale-[0.97]"
+                                >
+                                    {m.tapToCover()}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="book-card-toggle absolute inset-0 z-20 cursor-pointer rounded-lg active:bg-foreground/5"
+                        aria-label={`${card.title}, ${m.flip()}`}
+                        data-flip-label={`${card.title}, ${m.flip()}`}
+                        data-back-label={`${card.title}, ${m.tapToCover()}`}
+                        aria-pressed="false"
+                    ></button>
+                </div>
+            ))
+        }
+    </div>
+
+    <script>
+        type FilterType = "all" | "game" | "book" | "technical" | "paper" | "comic";
+
+        const FILTERS: FilterType[] = [
+            "all",
+            "game",
+            "book",
+            "technical",
+            "paper",
+            "comic",
+        ];
+        const DEFAULT_FILTER: FilterType = "all";
+
+        const buttons =
+            document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+        const cards = document.querySelectorAll<HTMLElement>(".book-card");
+
+        const filterFromUrl = (): FilterType => {
+            const value = new URLSearchParams(location.search).get("filter");
+            return value && FILTERS.includes(value as FilterType)
+                ? (value as FilterType)
+                : DEFAULT_FILTER;
+        };
+
+        const applyFilter = (filter: FilterType, updateUrl = false) => {
+            buttons.forEach((button) => {
+                const active = button.dataset.filter === filter;
+                button.setAttribute("aria-pressed", String(active));
+            });
+
+            cards.forEach((card) => {
+                const visible =
+                    filter === "all" ||
+                    card.getAttribute(`data-${filter}`) === "true";
+                card.classList.toggle("hidden", !visible);
+            });
+
+            const status = document.getElementById("book-filter-status");
+            if (status) {
+                const visible = Array.from(cards).filter(
+                    (card) => !card.classList.contains("hidden"),
+                ).length;
+                status.textContent =
+                    document.documentElement.lang === "zh"
+                        ? `显示 ${visible} 项`
+                        : `Showing ${visible} ${visible === 1 ? "item" : "items"}`;
+            }
+
+            if (!updateUrl) return;
+
+            const url = new URL(location.href);
+            if (url.searchParams.get("filter") === filter) return;
+            url.searchParams.set("filter", filter);
+            history.pushState({ filter }, "", url);
+        };
+
+        buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+                applyFilter(button.dataset.filter as FilterType, true);
+            });
+        });
+
+        window.addEventListener("popstate", () => {
+            applyFilter(filterFromUrl());
+        });
+
+        applyFilter(filterFromUrl());
+
+        document
+            .querySelectorAll<HTMLButtonElement>(".book-card-toggle")
+            .forEach((toggle) => {
+                const card = toggle.closest<HTMLElement>(".book-card");
+                const front = card?.querySelector<HTMLElement>(".book-front");
+                const back = card?.querySelector<HTMLElement>(".book-back");
+                if (!card || !front || !back) return;
+
+                const flipLabel = toggle.dataset.flipLabel ?? "";
+                const backLabel = toggle.dataset.backLabel ?? "";
+
+                const backToggle = card.querySelector<HTMLButtonElement>(
+                    ".book-card-back-toggle",
+                );
+
+                const setFlipped = (flipped: boolean) => {
+                    card.classList.toggle("is-flipped", flipped);
+                    toggle.setAttribute("aria-pressed", String(flipped));
+                    toggle.setAttribute(
+                        "aria-label",
+                        flipped ? backLabel : flipLabel,
+                    );
+                    toggle.style.pointerEvents = flipped ? "none" : "";
+                    // inert hides the face from assistive tech and the tab order
+                    // at once, so aria-hidden would only contradict it.
+                    front.toggleAttribute("inert", flipped);
+                    back.toggleAttribute("inert", !flipped);
+                };
+
+                setFlipped(false);
+                toggle.addEventListener("click", () => {
+                    setFlipped(!card.classList.contains("is-flipped"));
+                });
+                backToggle?.addEventListener("click", () => {
+                    setFlipped(false);
+                    toggle.focus();
+                });
+            });
+    </script>
+</div>
+
+<style>
+    .book-card {
+        height: 100%;
+        perspective: 1200px;
+    }
+
+    .book-flip {
+        position: relative;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 620ms cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+
+    .book-card.is-flipped .book-flip {
+        transform: rotateY(180deg);
+    }
+
+    .book-face {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .book-front {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .book-back {
+        position: absolute;
+        inset: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        transform: rotateY(180deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .book-flip {
+            transition: none;
+        }
+    }
+</style>

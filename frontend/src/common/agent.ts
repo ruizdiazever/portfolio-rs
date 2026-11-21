@@ -1,7 +1,8 @@
 import { media } from "./media";
 import { getPosts } from "./getPosts";
 import { getProjectsFromJson } from "./getProjectCards";
-import { books } from "$lib/components/sections/books/data";
+import { books } from "$lib/components/sections/library/books";
+import { games, steamPoster, steamStore } from "$lib/components/sections/library/games";
 import { seoConfig } from "./seoConfig";
 
 export type AgentLocale = "en" | "zh";
@@ -28,7 +29,7 @@ const profileCopy = {
     summary:
       "Software engineer in Rome. Rust, TypeScript and systems that have to work.",
     about:
-      "Ever Ruiz Diaz is a software engineer in Rome. He builds Rust and TypeScript systems, platform APIs and interfaces. He is currently building BERLi, a work OS for projects, timesheets and HR. He writes about Rust, infrastructure and design, and keeps a public reading list.",
+      "Ever Ruiz Diaz is a software engineer in Rome. He builds Rust and TypeScript systems, platform APIs and interfaces. He is currently building BERLi, a work OS for projects, timesheets and HR. He writes about Rust, infrastructure and design, and keeps a public library of books and games.",
     role: "Software Engineer",
     location: "Rome, Italy",
     languages: "English, Chinese",
@@ -37,7 +38,7 @@ const profileCopy = {
     summary:
       "常驻罗马的软件工程师，做 Rust、TypeScript 和必须可靠运行的系统。",
     about:
-      "Ever Ruiz Diaz 是常驻罗马的软件工程师，构建 Rust 和 TypeScript 系统、平台 API 与界面。他目前在做 BERLi，一个面向项目、工时和人事的工作操作系统。他写 Rust、基础设施和设计，并维护一份公开阅读清单。",
+      "Ever Ruiz Diaz 是常驻罗马的软件工程师，构建 Rust 和 TypeScript 系统、平台 API 与界面。他目前在做 BERLi，一个面向项目、工时和人事的工作操作系统。他写 Rust、基础设施和设计，并维护一个公开的书与游戏收藏。",
     role: "软件工程师",
     location: "罗马，意大利",
     languages: "英文、中文",
@@ -53,6 +54,14 @@ const genreZh: Record<string, string> = {
   Biography: "传记",
   Technical: "技术",
   Comics: "漫画",
+  Comedy: "喜剧",
+  Adventure: "冒险",
+  FPS: "第一人称射击",
+  VR: "VR",
+  Platformer: "平台跳跃",
+  RPG: "角色扮演",
+  Puzzle: "解谜",
+  Narrative: "叙事",
 };
 
 const formatZh = {
@@ -108,6 +117,17 @@ export function getAgentManifest(locale: AgentLocale = "en") {
     };
   });
 
+  const played = games.map((game) => ({
+    title: game.title,
+    developer: game.developer,
+    year: game.year,
+    genre: locale === "zh" ? (genreZh[game.genre] ?? game.genre) : game.genre,
+    notes: locale === "zh" ? game.descriptionZh : game.description,
+    store: steamStore(game.steamAppId),
+    poster: steamPoster(game.steamAppId),
+    status: "finished",
+  }));
+
   return {
     schemaVersion: "1.0",
     generatedAt,
@@ -129,7 +149,14 @@ export function getAgentManifest(locale: AgentLocale = "en") {
       knowsAbout,
       sameAs: [profileLinks.linkedin, profileLinks.github, profileLinks.x],
     },
-    capabilities: ["profile", "selected-work", "writing", "reading", "contact"],
+    capabilities: [
+      "profile",
+      "selected-work",
+      "writing",
+      "games",
+      "reading",
+      "contact",
+    ],
     endpoints: {
       llms: `${base}/llms.txt`,
       brief: `${base}/agent.md`,
@@ -145,10 +172,12 @@ export function getAgentManifest(locale: AgentLocale = "en") {
     counts: {
       projects: work.length,
       writing: writing.length,
+      games: played.length,
       reading: reading.length,
     },
     work,
     writing,
+    games: played,
     reading,
     contact: {
       page: absolute(`/${locale}/sections/contact`),
@@ -187,6 +216,7 @@ export function agentMarkdown(manifest: AgentManifest): string {
         profileImage: "头像",
         work: "精选工作",
         writing: "写作",
+        games: "游戏",
         reading: "阅读",
         contact: "联系",
         machineFiles: "机器可读文件",
@@ -196,6 +226,11 @@ export function agentMarkdown(manifest: AgentManifest): string {
         technologies: "技术",
         notPublic: "未公开",
         published: "发布",
+        developer: "开发商",
+        released: "发行",
+        genre: "类型",
+        store: "商店",
+        finished: "已通关",
         read: "阅读",
         minutes: "分钟",
         tags: "标签",
@@ -219,6 +254,7 @@ export function agentMarkdown(manifest: AgentManifest): string {
         profileImage: "Profile image",
         work: "Selected work",
         writing: "Writing",
+        games: "Games",
         reading: "Reading",
         contact: "Contact",
         machineFiles: "Machine files",
@@ -228,6 +264,11 @@ export function agentMarkdown(manifest: AgentManifest): string {
         technologies: "Technologies",
         notPublic: "not public",
         published: "Published",
+        developer: "Developer",
+        released: "Released",
+        genre: "Genre",
+        store: "Store",
+        finished: "Finished",
         read: "Read",
         minutes: "minutes",
         tags: "Tags",
@@ -253,6 +294,13 @@ export function agentMarkdown(manifest: AgentManifest): string {
     .map(
       (item) =>
         `### ${item.name}\n\n${item.description}\n\n- ${labels.url}: ${item.url}\n- ${labels.published}: ${item.published}\n- ${labels.read}: ${item.readMinutes} ${labels.minutes}\n- ${labels.tags}: ${item.tags.join(", ")}`,
+    )
+    .join("\n\n");
+
+  const played = manifest.games
+    .map(
+      (item) =>
+        `### ${item.title}\n\n${item.notes}\n\n- ${labels.developer}: ${item.developer}\n- ${labels.released}: ${item.year}\n- ${labels.genre}: ${item.genre}\n- ${labels.store}: ${item.store}`,
     )
     .join("\n\n");
 
@@ -287,6 +335,10 @@ ${work}
 ## ${labels.writing}
 
 ${writing}
+
+## ${labels.games}
+
+${played}
 
 ## ${labels.reading}
 
@@ -327,6 +379,12 @@ export function llmsText(manifest: AgentManifest): string {
         `- [${item.name}](${item.url}): ${item.description} (${item.published}, ${item.readMinutes} min)`,
     )
     .join("\n");
+  const played = manifest.games
+    .map(
+      (item) =>
+        `- [${item.title}](${item.store}): ${item.notes} (${item.developer}, ${item.year})`,
+    )
+    .join("\n");
   const reading = manifest.reading
     .map(
       (item) =>
@@ -344,7 +402,7 @@ selected work and the writing without scraping the visual site.
 
 ## Agent files
 
-- [Agent brief](${manifest.endpoints.brief}): A complete plain-text profile with work, writing, reading and contact.
+- [Agent brief](${manifest.endpoints.brief}): A complete plain-text profile with work, writing, games, reading and contact.
 - [Structured manifest](${manifest.endpoints.manifest}): The same facts as validated JSON.
 - [RSS feed](${manifest.endpoints.feeds.en.rss}): English writing feed.
 - [JSON Feed](${manifest.endpoints.feeds.en.json}): English writing feed as JSON.
@@ -359,6 +417,10 @@ ${work}
 ## Writing
 
 ${writing}
+
+## Games
+
+${played}
 
 ## Reading
 
@@ -402,7 +464,7 @@ ${manifest.person.about}
 
 ## What this site is
 
-A static public profile: work, writing and a reading list. The HTML pages are
+A static public profile: work, writing, and a library of books and games. The HTML pages are
 server rendered and readable without JavaScript. Every page carries JSON-LD with
 a Person, a WebSite and the entity for that page.
 

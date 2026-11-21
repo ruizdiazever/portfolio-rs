@@ -60,8 +60,8 @@ test.describe("assets", () => {
     expect(response.status()).toBe(200);
   });
 
-  test("no content images are served by the app", async ({ page }) => {
-    for (const path of ["/en", "/en/sections/books", "/en/blog/hardware/minisforum-ms-01", "/en/blog/portfolio-wasm"]) {
+  test("content images come from S3 or the Steam capsule host", async ({ page }) => {
+    for (const path of ["/en", "/en/sections/library", "/en/blog/hardware/minisforum-ms-01", "/en/blog/portfolio-wasm"]) {
       await page.goto(path);
 
       const sources = await page.locator("img:not([data-ui-icon])").evaluateAll((images) =>
@@ -70,9 +70,13 @@ test.describe("assets", () => {
 
       expect(sources.length).toBeGreaterThan(0);
       for (const src of sources) {
-        expect(src, `${path} image ${src}`).toMatch(
-          /^https:\/\/s3\.berli\.app\/portfolio\/v1\//,
+        const steam = /^https:\/\/cdn\.akamai\.steamstatic\.com\/steam\/apps\/\d+\/library_600x900_2x\.jpg$/.test(
+          src,
         );
+        expect(
+          steam || /^https:\/\/s3\.berli\.app\/portfolio\/v1\//.test(src),
+          `${path} image ${src}`,
+        ).toBe(true);
         const response = await page.request.get(src);
         expect(response.status(), `${path} image ${src}`).toBe(200);
       }

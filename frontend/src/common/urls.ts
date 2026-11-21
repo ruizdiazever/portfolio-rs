@@ -5,7 +5,7 @@ export function getUrls() {
   return {
     about: `/${locale}/sections/about`,
     cv: `/${locale}/sections/cv`,
-    books: `/${locale}/sections/books`,
+    library: `/${locale}/sections/library`,
     contact: `/${locale}/sections/contact`,
     privacy: `/${locale}/sections/privacy`,
     home: `/${locale}`,

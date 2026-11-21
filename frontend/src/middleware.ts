@@ -44,8 +44,9 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
   "script-src 'self' 'unsafe-inline' https://plausible.berli.app",
   "style-src 'self' 'unsafe-inline'",
-  // Repository avatars come from GitHub in the contributions island.
-  "img-src 'self' data: blob: https://s3.berli.app https://avatars.githubusercontent.com https://plausible.berli.app",
+  // Repository avatars come from GitHub in the contributions island; game
+  // capsules are the one content image served by a third party.
+  "img-src 'self' data: blob: https://s3.berli.app https://avatars.githubusercontent.com https://cdn.akamai.steamstatic.com https://plausible.berli.app",
   "font-src 'self' data:",
   "media-src 'self' https://s3.berli.app",
   "connect-src 'self' https://plausible.berli.app",
@@ -104,6 +105,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
   if (machinePaths.has(pathname)) return next();
+
+  // The library used to be the books page. Keep the old links working and
+  // carry a filter query across to the new route.
+  if (/^\/(en|zh)\/sections\/books\/?$/.test(pathname)) {
+    const target = new URL(context.url);
+    target.pathname = pathname.replace(/\/sections\/books\/?$/, "/sections/library");
+    return new Response(null, {
+      status: 301,
+      headers: { Location: `${target.pathname}${target.search}` },
+    });
+  }
 
   const wantsMarkdown =
     context.request.method === "GET" &&
