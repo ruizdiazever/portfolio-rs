@@ -280,13 +280,15 @@ transient green entrance. The document itself settles to the neutral system.
 - **Entrance.** On a URL entry or a switch to Machine, the head, the body, the
   copy action and the agent.md link enter in `--machine-signal` green. The body
   types its first screen with a block cursor and a green hairline under the
-  head. When the first screen finishes, a green scanline sweeps the viewport and
-  a short glyph decode resolves the head while the document settles to neutral
-  over 450ms. It stops after at most 2.4 seconds, at the first screen or on
-  scroll, touch, a key or a pointer; a skip goes straight to neutral without
-  the scan. `prefers-reduced-motion` skips the whole entrance. The green only
-  exists during the entrance and settle; it never becomes permanent text, links
-  or controls.
+  head. When the first screen finishes, a green scanline sweeps the viewport:
+  text ahead of its bright core stays green, and each line behind the core is
+  left in its normal colour. The head also decodes as the core passes. The scan
+  takes about a second, then the rest of the document is revealed. It stops
+  after at most 2.4 seconds of typing, at the first screen or on scroll, touch,
+  a key or a pointer; a skip goes straight to neutral without the scan.
+  `prefers-reduced-motion` skips the whole entrance. The green only exists
+  during the entrance and scan; it never becomes permanent text, links or
+  controls.
 - **Copy.** Copies the exact Markdown source rather than the rendered text and
   confirms in the button and a polite live region.
 - **State.** `localStorage('portfolio-view')` and `?view=machine`, applied before

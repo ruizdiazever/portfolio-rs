@@ -102,6 +102,7 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
     const view = document.querySelector<HTMLElement>("[data-machine-view]");
     const body = document.querySelector<HTMLElement>("[data-machine-body]");
     const head = document.querySelector<HTMLElement>(".machine-head");
+    const scan = document.querySelector<HTMLElement>(".machine-scan");
     const source = document.querySelector<HTMLElement>("[data-machine-source]");
     const announcer = document.getElementById("machine-announcer");
     const status = document.getElementById("machine-status");
@@ -130,8 +131,11 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
     };
 
     let finishTyping: ((instant?: boolean) => void) | null = null;
-    let settleTimer = 0;
     let decodeRestore: (() => void) | null = null;
+    let revealFrame = 0;
+    let revealTimer = 0;
+    let revealTargets: HTMLElement[] = [];
+    let revealHead: HTMLElement | null = null;
 
     function escapeHtml(value: string): string {
         return value
@@ -269,25 +273,139 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
         return !/[A-Za-z0-9\u3400-\u9fff]/.test(char);
     }
 
+    function cancelReveal() {
+        window.cancelAnimationFrame(revealFrame);
+        window.clearTimeout(revealTimer);
+        revealFrame = 0;
+        revealTimer = 0;
+        for (const target of revealTargets) {
+            target.classList.remove("is-revealed");
+        }
+        revealHead?.classList.remove("is-revealed");
+        revealTargets = [];
+        revealHead = null;
+        view?.classList.remove("is-revealing", "is-settling");
+        if (scan) {
+            scan.style.transform = "";
+            scan.style.opacity = "";
+        }
+    }
+
+    function finishReveal() {
+        for (const target of revealTargets) {
+            target.classList.add("is-revealed");
+        }
+        revealHead?.classList.add("is-revealed");
+        if (scan) scan.style.opacity = "0";
+        window.clearTimeout(revealTimer);
+        revealTimer = window.setTimeout(() => {
+            decodeRestore?.();
+            view?.classList.remove("is-revealing", "is-settling");
+            for (const target of revealTargets) {
+                target.classList.remove("is-revealed");
+            }
+            revealHead?.classList.remove("is-revealed");
+            revealTargets = [];
+            revealHead = null;
+            revealFrame = 0;
+            revealTimer = 0;
+            if (scan) {
+                scan.style.transform = "";
+                scan.style.opacity = "";
+            }
+        }, 150);
+    }
+
+    function startReveal() {
+        if (!view || !scan || !body) return;
+        const headTargets = [
+            ...document.querySelectorAll<HTMLElement>(
+                ".machine-head .machine-kicker, .machine-head .machine-title, .machine-head .machine-source, .machine-head .machine-note, .machine-head .machine-copy, .machine-head .machine-file",
+            ),
+        ];
+        const lines = [
+            ...body.querySelectorAll<HTMLElement>("[data-machine-line]"),
+        ];
+        revealTargets = [...headTargets, ...lines];
+        revealHead = head;
+        if (!revealTargets.length) {
+            finishReveal();
+            return;
+        }
+
+        for (const target of revealTargets) {
+            target.classList.remove("is-revealed");
+        }
+        revealHead?.classList.remove("is-revealed");
+
+        const positions = revealTargets.map(
+            (target) =>
+                target.getBoundingClientRect().top + window.scrollY,
+        );
+        const headBottom = revealHead
+            ? revealHead.getBoundingClientRect().bottom + window.scrollY
+            : Number.POSITIVE_INFINITY;
+        // The CSS band is 140px tall and its bright core is its midpoint.
+        const duration = 950;
+        const started = performance.now();
+        const ease = (value: number) =>
+            value < 0.5
+                ? 4 * value * value * value
+                : 1 - Math.pow(-2 * value + 2, 3) / 2;
+
+        const tick = (now: number) => {
+            const progress = Math.min(1, (now - started) / duration);
+            const eased = ease(progress);
+            const top = -140 + (window.innerHeight + 140) * eased;
+            scan.style.transform = `translate3d(0, ${top}px, 0)`;
+            scan.style.opacity =
+                progress < 0.08
+                    ? String(progress / 0.08)
+                    : progress > 0.92
+                      ? String((1 - progress) / 0.08)
+                      : "1";
+
+            const core = window.scrollY + top + 70;
+            for (let index = 0; index < revealTargets.length; index += 1) {
+                const target = revealTargets[index];
+                if (
+                    !target.classList.contains("is-revealed") &&
+                    positions[index] <= core
+                ) {
+                    target.classList.add("is-revealed");
+                }
+            }
+            if (
+                revealHead &&
+                !revealHead.classList.contains("is-revealed") &&
+                core >= headBottom
+            ) {
+                revealHead.classList.add("is-revealed");
+            }
+
+            if (progress < 1) {
+                revealFrame = window.requestAnimationFrame(tick);
+            } else {
+                finishReveal();
+            }
+        };
+
+        revealFrame = window.requestAnimationFrame(tick);
+    }
+
     function settle() {
         if (!view) return;
         view.classList.remove("is-typing");
         if (reduce()) return;
-        view.classList.add("is-settling");
+        cancelReveal();
+        view.classList.add("is-settling", "is-revealing");
         decodeHead();
-        window.clearTimeout(settleTimer);
-        settleTimer = window.setTimeout(() => {
-            view.classList.remove("is-settling");
-            decodeRestore?.();
-            settleTimer = 0;
-        }, 720);
+        startReveal();
     }
 
     function cancelSettle() {
-        window.clearTimeout(settleTimer);
-        settleTimer = 0;
+        cancelReveal();
         decodeRestore?.();
-        view?.classList.remove("is-settling");
     }
 
     function storedTheme(): "light" | "dark" | null {
