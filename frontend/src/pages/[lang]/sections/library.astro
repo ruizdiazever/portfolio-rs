@@ -1,14 +1,14 @@
 ---
 import Layout from "$lib/layouts/Layout.astro";
-import BooksComponent from "$lib/components/sections/books/Books.astro";
+import LibraryComponent from "$lib/components/sections/library/Library.astro";
 import * as m from "@paraglide/messages.js";
 
 ---
 <Layout
-    title={m.titleReading()}
-    description={m.seoReading()}
+    title={m.titleLibrary()}
+    description={m.seoLibrary()}
     maxWithMd={false}
     pageType="CollectionPage"
 >
-    <BooksComponent />
+    <LibraryComponent />
 </Layout>

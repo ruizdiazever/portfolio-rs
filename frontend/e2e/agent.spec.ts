@@ -361,7 +361,7 @@ test.describe("agent surfaces", () => {
   }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/en?view=machine");
-    await page.goto("/en/sections/books");
+    await page.goto("/en/sections/library");
     await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
     await expect(page.locator("[data-machine-view]")).toBeVisible();
     await expect(page.locator(".view-switch")).toBeVisible();

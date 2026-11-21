@@ -16,7 +16,7 @@ export interface OgContent {
 const home: OgContent = {
     kicker: "Software engineer in Rome",
     title: "Ever Ruiz Diaz",
-    description: "Selected work, writing, and reading, in one quiet place.",
+    description: "Selected work, writing, and a small library, in one quiet place.",
     footer: "Rome, Italy",
 };
 
@@ -36,11 +36,11 @@ const staticPages: Record<string, OgContent> = {
             "A systems problem, a Rust project, or a role in mind. Tell me what you are building.",
         footer: "Rome, Italy",
     },
-    "sections/books": {
-        kicker: "Reading",
-        title: "Reading",
-        description: "Books, papers, and comics I keep within reach.",
-        footer: "Books, papers, comics",
+    "sections/library": {
+        kicker: "Library",
+        title: "Library",
+        description: "Games, books, papers, and comics I keep within reach.",
+        footer: "Games, books, papers, comics",
     },
     "sections/privacy": {
         kicker: "Privacy",

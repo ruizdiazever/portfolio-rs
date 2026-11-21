@@ -21,7 +21,7 @@ test.describe("seo", () => {
       for (const path of [
         "",
         "/sections/about",
-        "/sections/books",
+        "/sections/library",
         "/sections/contact",
         "/sections/cv",
         "/sections/privacy",

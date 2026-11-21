@@ -65,7 +65,7 @@ test.describe("interactions", () => {
   });
 
   test("book cards flip in place", async ({ page }) => {
-    await page.goto("/en/sections/books");
+    await page.goto("/en/sections/library");
 
     const card = page.locator(".book-card:not(.hidden)").first();
     const toggle = card.locator(".book-card-toggle");
@@ -96,7 +96,7 @@ test.describe("interactions", () => {
   test("book covers stay monochrome until the card is hovered or focused", async ({
     page,
   }) => {
-    await page.goto("/en/sections/books?filter=all");
+    await page.goto("/en/sections/library?filter=all");
     const cards = page.locator(".book-card:not(.hidden)");
     const card = cards.first();
     const cover = card.locator(".book-front img").first();
@@ -344,13 +344,13 @@ test.describe("interactions", () => {
       page.getByRole("link", { name: "关于", exact: true }).first(),
     ).toHaveAttribute("href", "/zh/sections/about");
     await expect(
-      page.getByRole("link", { name: "阅读", exact: true }).first(),
-    ).toHaveAttribute("href", "/zh/sections/books");
+      page.getByRole("link", { name: "收藏", exact: true }).first(),
+    ).toHaveAttribute("href", "/zh/sections/library");
   });
 
   test("type scale stays within the editorial steps", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/sections/books");
+    await page.goto("/en/sections/library");
     const bookTitle = await page
       .locator("h1")
       .first()
@@ -379,7 +379,7 @@ test.describe("interactions", () => {
         (element) => parseFloat(getComputedStyle(element).fontSize),
       ),
     ).toBe(24);
-    await page.goto("/en/sections/books");
+    await page.goto("/en/sections/library");
     expect(
       await page.locator("h1").first().evaluate((element) =>
         parseFloat(getComputedStyle(element).fontSize),
@@ -546,7 +546,7 @@ test.describe("interactions", () => {
 
   test("200 percent text scaling does not clip book pages", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 844 });
-    await page.goto("/en/sections/books");
+    await page.goto("/en/sections/library");
     await page.evaluate(() => {
       document.documentElement.style.fontSize = "32px";
     });
@@ -634,22 +634,54 @@ test.describe("interactions", () => {
     ).toHaveAttribute("href", "https://x.com/everruizdiazo");
   });
 
-  test("book filters are shareable through the query string", async ({ page }) => {
-    await page.goto("/en/sections/books");
+  test("library shows finished games with Steam capsules", async ({ page }) => {
+    await page.goto("/en/sections/library");
+    await page.getByRole("button", { name: "Games", exact: true }).click();
+
+    await expect(page).toHaveURL(/\/en\/sections\/library\?filter=game$/);
+    const games = page.locator("[data-game='true']");
+    await expect(games).toHaveCount(13);
+    await expect(page.locator("#book-filter-status")).toHaveText(
+      "Showing 13 items",
+    );
+
+    const first = games.first();
+    await first.scrollIntoViewIfNeeded();
+    await expect(first.locator(".book-front h2")).toHaveText(
+      "Aperture Desk Job",
+    );
+    const poster = first.locator("img[data-steam-poster]");
+    await expect(poster).toHaveAttribute(
+      "src",
+      /cdn\.akamai\.steamstatic\.com\/steam\/apps\/1902490\/library_600x900_2x\.jpg$/,
+    );
+    await expect
+      .poll(() => poster.evaluate((image) => (image as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0);
+
+    await first.locator(".book-card-toggle").click();
+    await expect(first.getByRole("link", { name: "View on Steam" })).toHaveAttribute(
+      "href",
+      "https://store.steampowered.com/app/1902490/",
+    );
+  });
+
+  test("library filters are shareable through the query string", async ({ page }) => {
+    await page.goto("/en/sections/library");
 
     const technical = page.locator("[data-technical='true']");
     const comics = page.locator("[data-comic='true']");
     expect(await technical.count()).toBeGreaterThan(0);
 
     await page.getByRole("button", { name: "Comics", exact: true }).click();
-    await expect(page).toHaveURL(/\/en\/sections\/books\?filter=comic$/);
+    await expect(page).toHaveURL(/\/en\/sections\/library\?filter=comic$/);
     await expect(
       page.getByRole("button", { name: "Comics", exact: true }),
     ).toHaveAttribute("aria-pressed", "true");
     await expect(comics.first()).toBeVisible();
     await expect(technical.first()).toBeHidden();
     await expect(page.locator("#book-filter-status")).toHaveText(
-      /Showing \d+ books?/,
+      /Showing \d+ items?/,
     );
 
     await page.reload();
@@ -657,13 +689,13 @@ test.describe("interactions", () => {
     await expect(technical.first()).toBeHidden();
 
     await page.goBack();
-    await expect(page).toHaveURL(/\/en\/sections\/books$/);
+    await expect(page).toHaveURL(/\/en\/sections\/library$/);
     await expect(
-      page.getByRole("button", { name: "Technical", exact: true }),
+      page.getByRole("button", { name: "All", exact: true }),
     ).toHaveAttribute("aria-pressed", "true");
     await expect(technical.first()).toBeVisible();
     await expect(page.locator("#book-filter-status")).toHaveText(
-      /Showing \d+ books?/,
+      /Showing \d+ items?/,
     );
   });
 });

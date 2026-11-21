@@ -6,10 +6,10 @@ const pages: Array<{
   text?: string;
 }> = [
   { path: "/en/sections/about", heading: "About" },
-  { path: "/en/sections/books", heading: "Reading" },
+  { path: "/en/sections/library", heading: "Library" },
   { path: "/en/sections/contact", heading: "Contact", text: "Have a systems problem" },
   { path: "/zh/sections/about", heading: "关于" },
-  { path: "/zh/sections/books", heading: "阅读" },
+  { path: "/zh/sections/library", heading: "收藏" },
   { path: "/zh/sections/contact", heading: "联系" },
   { path: "/en/sections/cv", heading: "CV" },
   { path: "/en/blog/articles", heading: "Writing" },
@@ -25,6 +25,23 @@ const pages: Array<{
   { path: "/en/projects/raau-design", heading: "RAAU Design" },
   { path: "/zh/projects/berli-system", heading: "BERLi" },
 ];
+
+test("the old books URL redirects to the library", async ({
+  page,
+  request,
+}) => {
+  const response = await request.get("/en/sections/books?filter=comic", {
+    maxRedirects: 0,
+  });
+  expect(response.status()).toBe(301);
+  expect(response.headers()["location"]).toBe(
+    "/en/sections/library?filter=comic",
+  );
+
+  await page.goto("/en/sections/books?filter=comic");
+  await expect(page).toHaveURL(/\/en\/sections\/library\?filter=comic$/);
+  await expect(page.locator("h1")).toHaveText("Library");
+});
 
 test.describe("pages", () => {
   for (const { path, heading, text } of pages) {

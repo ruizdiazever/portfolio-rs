@@ -33,7 +33,7 @@ conventions and keeps the surface small enough to maintain.
 | --- | --- | --- |
 | HTML | `/{en,zh}/...` | Server-rendered pages with canonical URLs, semantic headings and visible links |
 | `llms.txt` | `/llms.txt` | Orientation, profile summary and links to the important resources |
-| Agent brief | `/agent.md` | Complete plain-text profile with work, writing, reading and contact |
+| Agent brief | `/agent.md` | Complete plain-text profile with work, writing, games, reading and contact |
 | Agent manifest | `/agent.json` | The same facts as validated JSON: profile, capabilities, endpoints, counts and signals |
 | JSON-LD | every HTML page | `Person`, `WebSite` and the page entity: `ProfilePage`, `BlogPosting`, `CollectionPage`, `AboutPage`, `ContactPage` or `SoftwareSourceCode`. Home and contact carry `FAQPage` |
 | RSS | `/en/feed.xml`, `/zh/feed.xml` | Writing feed |
@@ -45,7 +45,7 @@ conventions and keeps the surface small enough to maintain.
 | Discovery links | every HTML page | `<link>` relations point to the brief, manifest and map; SSR responses also carry a `Link` header |
 
 The HTML pages remain the source of truth. The brief and manifest are generated
-from the same validated post, project and book data, so a content change cannot
+from the same validated post, project, book and game data, so a content change cannot
 silently leave the machine files behind.
 
 ## Boundaries
@@ -101,7 +101,7 @@ Markdown brief an agent receives:
   renders a 720px monospace column with the generated brief for the current
   locale, dark only. It keeps the `#` headings, lists and URLs. English uses
   the English canonical copy; Chinese uses native Chinese labels, profile,
-  work, writing and reading copy. `/agent.md` and `/agent.json` remain the
+  work, writing, games and reading copy. `/agent.md` and `/agent.json` remain the
   English canonical files.
 - **Head.** The document names itself `text/markdown`, shows the source URL and
   a one-sentence note, and offers Copy as Markdown and the `agent.md` link. Copy

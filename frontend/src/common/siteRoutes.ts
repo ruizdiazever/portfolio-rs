@@ -11,7 +11,7 @@ export type Locale = (typeof LOCALES)[number];
 export const INDEXABLE_PAGES = [
   "",
   "/sections/about",
-  "/sections/books",
+  "/sections/library",
   "/sections/contact",
   "/sections/cv",
   "/sections/privacy",

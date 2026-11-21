@@ -75,7 +75,7 @@ pnpm -C frontend test:e2e
 (cd api && cargo build --release --locked)
 ```
 
-Playwright covers routing, 320px layout, SEO, S3 assets, books, language,
+Playwright covers routing, 320px layout, SEO, S3 assets, the library, language,
 feedback, theme behavior, the organizations table and the agent surfaces. Add a
 test when behavior has a user-visible contract. Use a free port for local runs; do not assume
 `4321` or `4322` is available.
@@ -90,7 +90,9 @@ test when behavior has a user-visible contract. Use a free port for local runs; 
   browser wrapper. Include a timeout and surface a typed failure.
 - URL builders are request-scoped. Never capture the locale at module load.
 - Static JSON is validated once and cached. Do not re-parse it for every call.
-- Requests for content come from S3. `public/` is only for root-level files.
+- Requests for content come from S3. `public/` is only for root-level files. Game
+  capsules are the one content-image exception, served by Steam's CDN and
+  allowlisted in the CSP.
 - The feedback dialog is a native `<dialog>` with `showModal()`, `autofocus`,
   `closedby` and a backdrop. Do not reintroduce a focus trap or `role="dialog"`.
 - `light-dark()` tokens and the `<meta name="color-scheme">` element own the
@@ -128,7 +130,7 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   target language. The machine view control is a static Terminal icon, not a
   stateful morph. Keep `reducedMotion="user"`; do not duplicate the same states
   as static SVGs.
-- Motion stays between 150 and 200ms for UI; the book flip is 620ms. The machine
+- Motion stays between 150 and 200ms for UI; the library card flip is 620ms. The machine
   view entrance is the one longer sequence, and it is skippable. Honor
   `prefers-reduced-motion`; no auto-rotating text.
 - Search the actual page and both themes before changing spacing, typography,
@@ -210,6 +212,8 @@ commit a real secret. `.env.template` files are safe examples.
 Originals live in `frontend/media-src/`. Generated AVIF, WebP and PNG files are
 published to `s3.berli.app/portfolio/v1` by `pnpm -C frontend media:sync`; the
 build never reads originals. Reference content with `<Media>` or `media()`.
+Game capsules are referenced directly from Steam's CDN; do not copy them into
+the media source tree.
 
 If a file changes, bump the version in `frontend/src/common/media.ts` and
 `frontend/scripts/sync-media.mjs`. Immutable caches keep the old object for a

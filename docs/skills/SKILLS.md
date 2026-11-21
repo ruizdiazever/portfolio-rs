@@ -82,9 +82,9 @@ for another. A UI review and a motion review are separate passes.
   - Body text is 16px and long-form measures stay at 60 to 75 characters.
   - 320px and 200% text scaling must not clip content or hide actions.
   - Every control has a name, a visible focus ring and a keyboard path.
-  - No hover-only content. Books flip on click, not on hover.
+  - No hover-only content. Library cards flip on click, not on hover.
   - No auto-rotating text. The header tagline is static.
-  - Motion is 150 to 200ms for UI, 620ms for the book flip, and always honors
+  - Motion is 150 to 200ms for UI, 620ms for the library card flip, and always honors
     `prefers-reduced-motion`.
   - Color is content. UI chrome stays inside the semantic tokens.
   - English and Chinese are native copy, never literal translations.

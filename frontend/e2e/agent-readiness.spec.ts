@@ -222,7 +222,7 @@ test.describe("accessibility surface", () => {
   test("each page has one h1, landmarks and no hidden focus", async ({
     page,
   }) => {
-    for (const path of ["/en", "/en/sections/books", "/about", "/contact"]) {
+    for (const path of ["/en", "/en/sections/library", "/about", "/contact"]) {
       await page.goto(path);
       await expect(page.locator("h1")).toHaveCount(1);
       await expect(page.locator("header")).toHaveCount(1);
