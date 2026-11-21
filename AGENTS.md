@@ -146,13 +146,17 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
   `main`.
 - The header control is an icon-only Terminal button with no visible label, the
   same size and styling as the theme control. It opens the view. The floating
-  switch and `Shift+M` return to Human and restore the reader's theme.
+  switch and `Shift+M` return to Human and restore the reader's theme. The
+  switch's shortcut hint uses the shadcn-svelte `Kbd` keycaps.
 - The view is dark only. The header, footer, theme and language controls are
   hidden. Copy as Markdown, the `agent.md` link, the source line and the
   Human/Machine switch are the only controls.
-- The brief types in once per URL entry in the transient green, then settles to
-  the neutral document. Reduced motion skips it; scroll, touch, a key or a
-  pointer finishes it. The green never becomes permanent UI chrome.
+- The brief types in once per URL entry in the transient green. The machine
+  head, the copy action and the agent.md link enter in the same green. When the
+  first screen finishes, a green scanline sweeps the viewport and the head
+  decodes to the neutral document. Reduced motion skips the whole entrance;
+  scroll, touch, a key or a pointer finishes it without the settle. The green
+  never becomes permanent UI chrome.
 - `/agent.md` and `/agent.json` remain the English canonical files. The view
   exposes no model, chat endpoint, A2A server or MCP server, and no generated
   claims. No private data enters the brief.

@@ -271,15 +271,19 @@ transient green entrance. The document itself settles to the neutral system.
 - **Dark only.** The color-scheme meta becomes dark, the root gets `dark`, and
   both stay dark through system changes. On exit, restore the stored or system
   theme and sync the theme control. The theme and language controls are hidden.
-- **Exit.** A floating Human/Machine switch, fixed bottom center with a `⇧M`
-  hint, returns to the human page and restores focus to the header control. The
-  switch is the only persistent chrome in the document.
-- **Entrance.** On a URL entry or a switch to Machine, the body types its first
-  screen in `--machine-signal` green with a block cursor and a green hairline
-  under the head. The rest appears when it finishes, and the text settles to
-  neutral over 450ms. It stops after at most 2.4 seconds, at the first screen or
-  on scroll, touch, a key or a pointer. `prefers-reduced-motion` skips it. The
-  green is never used for static text, links or controls.
+- **Exit.** A floating Human/Machine switch, fixed bottom center with shadcn
+  `Kbd` keycaps for `⇧M`, returns to the human page and restores focus to the
+  header control. The switch is the only persistent chrome in the document.
+- **Entrance.** On a URL entry or a switch to Machine, the head, the body, the
+  copy action and the agent.md link enter in `--machine-signal` green. The body
+  types its first screen with a block cursor and a green hairline under the
+  head. When the first screen finishes, a green scanline sweeps the viewport and
+  a short glyph decode resolves the head while the document settles to neutral
+  over 450ms. It stops after at most 2.4 seconds, at the first screen or on
+  scroll, touch, a key or a pointer; a skip goes straight to neutral without
+  the scan. `prefers-reduced-motion` skips the whole entrance. The green only
+  exists during the entrance and settle; it never becomes permanent text, links
+  or controls.
 - **Copy.** Copies the exact Markdown source rather than the rendered text and
   confirms in the button and a polite live region.
 - **State.** `localStorage('portfolio-view')` and `?view=machine`, applied before
