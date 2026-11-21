@@ -86,75 +86,161 @@ test.describe("agent surfaces", () => {
     expect(response.headers()["link"]).toContain("/agent.md");
   });
 
-  test("switches to a plain Markdown document and back", async ({ page }) => {
+  test("switches to the machine view and back", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/en");
 
-    const toggle = page.locator("[data-agent-toggle]");
-    const view = page.locator("[data-agent-view]");
+    const entry = page.locator("[data-machine-toggle]");
+    const machine = page.locator("[data-machine-view]");
     const human = page.locator(".human-view");
-    await expect(toggle).toHaveAttribute("aria-pressed", "false");
-    await expect(view).toBeHidden();
+    await expect(entry).toHaveAccessibleName("View as machine");
+    await expect(machine).toBeHidden();
     await expect(human).toBeVisible();
 
-    await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-pressed", "true");
-    await expect(view).toBeVisible();
+    await entry.click();
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(machine).toBeVisible();
     await expect(human).toBeHidden();
+    await expect(page.locator("body > header")).toBeHidden();
     await expect(page.locator("footer")).toBeHidden();
-    await expect(page).toHaveURL(/mode=agent/);
-    await expect(page.locator("#agent-mode-announcer")).toHaveText(
-      "Agent lens on. Public context is ready.",
+    await expect(page).toHaveURL(/view=machine/);
+    await expect(page.locator("#machine-announcer")).toHaveText(
+      "Machine view on. Public context is ready.",
     );
-    await expect(page.locator(".agent-plain-text")).toContainText(
+    await expect(page.locator("[data-machine-body]")).toContainText(
       "# Ever Ruiz Diaz",
     );
-    await expect(page.locator(".agent-plain-text")).toContainText("## Selected work");
+    await expect(page.locator("[data-machine-body]")).toContainText(
+      "## Selected work",
+    );
+    await expect(
+      page.locator('[data-machine-body] a[href*="/en/projects/"]').first(),
+    ).toHaveAttribute("href", /view=human/);
+    await expect(page.locator('[data-view-switch="machine"]')).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(page.locator('[data-view-switch="human"]')).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
 
-    await page.locator("[data-agent-close]").click();
-    await expect(view).toBeHidden();
+    await page.locator('[data-view-switch="human"]').click();
+    await expect(machine).toBeHidden();
     await expect(human).toBeVisible();
-    await expect(toggle).toHaveAttribute("aria-pressed", "false");
-    await expect(toggle).toBeFocused();
-    await expect(page).not.toHaveURL(/mode=agent/);
+    await expect(page.locator("body > header")).toBeVisible();
+    await expect(page).not.toHaveURL(/view=machine/);
+    await expect(entry).toBeFocused();
   });
 
-  test("localizes the agent document in Chinese", async ({ page }) => {
-    await page.goto("/zh?mode=agent");
+  test("forces dark and restores the reader theme", async ({ page }) => {
+    await page.emulateMedia({
+      colorScheme: "light",
+      reducedMotion: "reduce",
+    });
+    await page.goto("/en?view=machine");
 
-    const document = page.locator(".agent-plain-text");
-    await expect(document).toContainText("## 精选工作");
-    await expect(document).toContainText("常驻罗马的软件工程师");
-    await expect(document).toContainText("## 使用边界");
-    await expect(document).not.toContainText("## Selected work");
-    await expect(page.locator(".agent-text-toolbar")).toContainText(
-      "agent.md (EN)",
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(page.locator("body")).toHaveCSS(
+      "background-color",
+      "rgb(8, 9, 10)",
+    );
+    await expect(page.locator("body > header")).toBeHidden();
+    await expect(page.locator("footer")).toBeHidden();
+    expect(
+      await page.evaluate(
+        () => getComputedStyle(document.documentElement).colorScheme,
+      ),
+    ).toBe("dark");
+
+    await page.locator('[data-view-switch="human"]').click();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await expect(page.locator("body")).toHaveCSS(
+      "background-color",
+      "rgb(255, 255, 255)",
+    );
+    expect(
+      await page.evaluate(
+        () => getComputedStyle(document.documentElement).colorScheme,
+      ),
+    ).toBe("light dark");
+  });
+
+  test("canonicalizes the old agent URL", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en?mode=agent");
+
+    await expect(page).toHaveURL(/\/en\?view=machine$/);
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(page.locator('[data-view-switch="machine"]')).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(
+      await page.evaluate(() => localStorage.getItem("portfolio-view")),
+    ).toBe("machine");
+    expect(
+      await page.evaluate(() => localStorage.getItem("portfolio-agent-mode")),
+    ).toBeNull();
+  });
+
+  test("types the document in green, then settles neutral", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+    await page.locator("[data-machine-toggle]").click();
+
+    const machine = page.locator("[data-machine-view]");
+    await expect(machine).toHaveClass(/is-typing/);
+    await expect(page.locator("[data-machine-body]")).toHaveCSS(
+      "color",
+      "rgb(92, 255, 138)",
+    );
+    await expect(machine).not.toHaveClass(/is-typing/, { timeout: 6_000 });
+    await expect(page.locator("[data-machine-body]")).toHaveCSS(
+      "color",
+      "rgb(208, 214, 224)",
+    );
+    await expect(page.locator("[data-machine-body]")).toContainText(
+      "## Selected work",
     );
   });
 
-  test("header icons morph between their states", async ({ page }) => {
+  test("skips the entrance when reduced motion is requested", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en?view=machine");
+
+    await expect(page.locator("[data-machine-view]")).not.toHaveClass(
+      /is-typing/,
+    );
+    await expect(page.locator("[data-machine-body]")).toHaveCSS(
+      "color",
+      "rgb(208, 214, 224)",
+    );
+    await expect(page.locator("[data-machine-body]")).toContainText(
+      "## Selected work",
+    );
+  });
+
+  test("theme icon morphs with the theme", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark" });
     await page.goto("/en");
 
     const themePath = page.locator("#theme-morph path");
-    const agentPath = page.locator("#agent-morph path");
     await expect(page.locator("#theme-morph")).toHaveAttribute(
       "reduced-motion",
       "user",
     );
     const themeBefore = await themePath.getAttribute("d");
-    const agentBefore = await agentPath.getAttribute("d");
 
     await page.locator("#theme-toggle").click();
     await expect(page.locator("html")).not.toHaveClass(/dark/);
     await expect
       .poll(() => themePath.getAttribute("d"))
       .not.toBe(themeBefore);
-
-    await page.locator("[data-agent-toggle]").click();
-    await expect(page.locator("[data-agent-view]")).toBeVisible();
-    await expect
-      .poll(() => agentPath.getAttribute("d"))
-      .not.toBe(agentBefore);
   });
 
   test("language control uses the target-language icon", async ({ page }) => {
@@ -181,29 +267,32 @@ test.describe("agent surfaces", () => {
     await page.setViewportSize({ width: 320, height: 844 });
     await page.goto("/en");
 
-    const agent = await page.locator("[data-agent-toggle]").boundingBox();
+    const machine = await page.locator("[data-machine-toggle]").boundingBox();
     const theme = await page.locator("#theme-toggle").boundingBox();
     const language = await page
       .getByRole("link", { name: /中文, Switch to Chinese/ })
       .boundingBox();
-    expect(agent?.width).toBe(theme?.width);
-    expect(agent?.height).toBe(theme?.height);
+    expect(machine?.width).toBe(theme?.width);
+    expect(machine?.height).toBe(theme?.height);
     expect(language?.width).toBe(theme?.width);
     expect(language?.height).toBe(theme?.height);
-    await expect(page.locator("[data-agent-toggle] .agent-label")).toHaveCount(0);
+    await expect(page.locator("[data-machine-toggle]")).toHaveAccessibleName(
+      "View as machine",
+    );
+    await expect(page.locator("[data-machine-toggle]")).toHaveText("");
   });
 
-  test("agent view is plain text at 320px with a copy receipt", async ({
+  test("machine view is plain text at 320px with a copy receipt", async ({
     page,
     context,
   }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 320, height: 844 });
-    await page.goto("/en?mode=agent");
+    await page.goto("/en?view=machine");
 
-    const toggle = page.locator("[data-agent-toggle]");
-    await expect(toggle).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("[data-agent-view]")).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(page.locator("[data-machine-view]")).toBeVisible();
     await expect(page.locator(".human-view")).toBeHidden();
 
     const width = await page.evaluate(() => ({
@@ -212,23 +301,25 @@ test.describe("agent surfaces", () => {
     }));
     expect(width.scroll).toBeLessThanOrEqual(width.client);
 
-    const plainText = page.locator(".agent-plain-text");
-    await expect(plainText).toContainText("# Ever Ruiz Diaz");
-    expect(await plainText.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/mono/i);
+    const body = page.locator("[data-machine-body]");
+    await expect(body).toContainText("# Ever Ruiz Diaz");
+    expect(
+      await body.evaluate((element) => getComputedStyle(element).fontFamily),
+    ).toMatch(/mono/i);
 
-    const copyButton = page.locator("[data-agent-copy]");
+    const copyButton = page.locator("[data-machine-copy]");
     await expect(copyButton).toBeVisible();
     await copyButton.click();
-    await expect(page.locator("#agent-copy-status")).toContainText(
-      "Agent brief copied.",
-    );
+    await expect(copyButton).toContainText("Copied");
+    await expect(page.locator("#machine-status")).toHaveText("Copied");
     const clipboard = await page.evaluate(() => navigator.clipboard.readText());
     expect(clipboard).toContain("# Ever Ruiz Diaz");
   });
 
-  test("agent view survives 200 percent text scaling", async ({ page }) => {
+  test("machine view survives 200 percent text scaling", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 320, height: 844 });
-    await page.goto("/en?mode=agent");
+    await page.goto("/en?view=machine");
     await page.evaluate(() => {
       document.documentElement.style.fontSize = "32px";
     });
@@ -238,29 +329,84 @@ test.describe("agent surfaces", () => {
       client: document.documentElement.clientWidth,
     }));
     expect(width.scroll).toBeLessThanOrEqual(width.client);
-    await expect(page.locator("[data-agent-copy]")).toBeVisible();
-    await expect(page.locator("[data-agent-view]")).toBeVisible();
+    await expect(page.locator("[data-machine-copy]")).toBeVisible();
+    await expect(page.locator("[data-machine-view]")).toBeVisible();
+    await expect(page.locator(".view-switch")).toBeVisible();
   });
 
-  test("keeps the mode across pages and localizes the control", async ({
+  test("keeps the machine view across pages and localizes the control", async ({
     page,
   }) => {
-    await page.goto("/en?mode=agent");
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en?view=machine");
     await page.goto("/en/sections/books");
-    await expect(page.locator("[data-agent-view]")).toBeVisible();
-    await expect(page.locator("[data-agent-toggle]")).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(page.locator("[data-machine-view]")).toBeVisible();
+    await expect(page.locator(".view-switch")).toBeVisible();
 
-    await page.goto("/zh");
-    const toggle = page.locator("[data-agent-toggle]");
-    await expect(toggle).toHaveAccessibleName(/退出代理视角/);
-    await toggle.click();
-    await expect(toggle).toHaveAccessibleName(/进入代理视角/);
-    await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-pressed", "true");
-    await expect(toggle).toHaveAccessibleName(/退出代理视角/);
-    await expect(page.locator("[data-agent-view]")).toContainText("代理视角");
+    await page.goto("/zh?view=human");
+    const entry = page.locator("[data-machine-toggle]");
+    await expect(entry).toHaveAccessibleName("以机器视图查看");
+    await entry.click();
+    await expect(page.locator('[data-view-switch="machine"]')).toHaveText(
+      /机器/,
+    );
+    await expect(page.locator("[data-machine-body]")).toContainText(
+      "## 精选工作",
+    );
+    await page.locator('[data-view-switch="human"]').click();
+    await expect(entry).toBeFocused();
+  });
+
+  test("migrates the old stored agent preference", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en");
+    await page.evaluate(() => {
+      localStorage.removeItem("portfolio-view");
+      localStorage.setItem("portfolio-agent-mode", "agent");
+    });
+
+    await page.goto("/en");
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(page).toHaveURL(/\/en$/);
+    expect(
+      await page.evaluate(() => localStorage.getItem("portfolio-view")),
+    ).toBe("machine");
+    expect(
+      await page.evaluate(() => localStorage.getItem("portfolio-agent-mode")),
+    ).toBeNull();
+  });
+
+  test("canonicalizes the old human URL", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en?view=machine");
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+
+    await page.goto("/en?mode=human");
+    await expect(page.locator("html")).not.toHaveAttribute(
+      "data-view",
+      "machine",
+    );
+    await expect(page).toHaveURL(/\/en$/);
+    await expect(page.locator(".human-view")).toBeVisible();
+    expect(
+      await page.evaluate(() => localStorage.getItem("portfolio-view")),
+    ).toBe("human");
+  });
+
+  test("toggles the view with Shift+M", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en");
+
+    await page.keyboard.press("Shift+M");
+    await expect(page.locator("html")).toHaveAttribute("data-view", "machine");
+    await expect(page).toHaveURL(/view=machine/);
+
+    await page.keyboard.press("Shift+M");
+    await expect(page.locator("html")).not.toHaveAttribute(
+      "data-view",
+      "machine",
+    );
+    await expect(page).toHaveURL(/\/en$/);
   });
 });

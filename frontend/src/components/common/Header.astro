@@ -5,7 +5,7 @@ import Tagline from "$lib/components/landing/Tagline.astro";
 import { getLocale } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import MorphIcon from "morphicons/astro";
-import { Bot, Sun } from "lucide";
+import { Sun, Terminal } from "lucide";
 import { languageIcons } from "$lib/common/languageIcons";
 
 interface Props {
@@ -83,19 +83,18 @@ const languageIcon = otherLocale === "zh" ? languageIcons.zh : languageIcons.en;
                         />
                     </button>
                     <button
-                        id="agent-mode-toggle"
+                        id="machine-toggle"
                         type="button"
-                        aria-pressed="false"
-                        aria-controls="agent-text-view"
-                        title={m.agentMode()}
-                        data-agent-toggle
+                        aria-label={m.machineEnter()}
+                        aria-controls="machine-view"
+                        aria-keyshortcuts="Shift+M"
+                        title={m.machineEnter()}
+                        data-machine-toggle
                         class="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-[color,background-color,transform] duration-150 ease-out hover:bg-accent hover:text-accent-foreground active:scale-95 md:h-9 md:w-9"
                     >
-                        <span class="sr-only agent-sr-agent">{m.agentEnter()}</span>
-                        <span class="sr-only agent-sr-human">{m.agentExit()}</span>
                         <MorphIcon
-                            id="agent-morph"
-                            icon={Bot}
+                            id="machine-icon"
+                            icon={Terminal}
                             size={20}
                             strokeWidth={1.7}
                             reducedMotion="user"
@@ -168,6 +167,11 @@ const languageIcon = otherLocale === "zh" ? languageIcons.zh : languageIcons.en;
         };
 
         const setScheme = (dark: boolean, override: boolean, animate = false) => {
+            const machine = root.dataset.view === "machine";
+            if (machine) {
+                dark = true;
+                override = true;
+            }
             root.classList.add("theme-switching");
             root.classList.toggle("dark", dark);
             if (meta) {
@@ -224,6 +228,8 @@ const languageIcon = otherLocale === "zh" ? languageIcons.zh : languageIcons.en;
         window.addEventListener("storage", (event) => {
             if (event.key === key) syncFromStored(true);
         });
+
+        window.addEventListener("portfolio:theme", () => syncFromStored(false));
 
         syncFromStored();
         customElements.whenDefined("morph-icon").then(() => {

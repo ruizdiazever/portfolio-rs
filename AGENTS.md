@@ -9,7 +9,7 @@ This file is the operational entry point. Read it with:
 - [docs/skills/SKILLS.md](docs/skills/SKILLS.md): the skill routing map and UI
   review process.
 - [docs/agent-readiness.md](docs/agent-readiness.md): the agent-facing surfaces,
-  boundaries and Agent lens design.
+  boundaries and machine view design.
 - [README.md](README.md): the public description. Keep it short.
 
 DeepSeek Harness loads the root `AGENTS.md` as durable workspace instructions,
@@ -116,31 +116,46 @@ test when behavior has a user-visible contract. Use a free port for local runs; 
 The full system lives in [DESIGN.md](DESIGN.md). The short version:
 
 - Inter, system color scheme, semantic tokens, 12px cards, 6px controls, pill
-  filters, no card shadows, no second accent. Agent lens uses the same neutral
-  system; only the content changes.
+  filters, no card shadows, no second accent. The machine view is the deliberate
+  exception: dark only, with a transient green entrance that settles to the
+  neutral document.
 - Text stays readable at 320px and 200% scaling. Long content wraps or
   truncates with a way to the full value.
 - Every interactive element has a name, focus ring and keyboard path. Hover is
   an enhancement, never the only way to reach content.
-- Stateful icons use Morphicons with Lucide icon data: header theme, Agent lens
-  and table sorting. The language link uses the in-repo `中` and `A` IconNodes,
-  showing the target language. Keep `reducedMotion="user"`; do not duplicate the same
-  states as static SVGs.
-- Motion stays between 150 and 200ms for UI; the book flip is 620ms. Honor
+- Stateful icons use Morphicons with Lucide icon data: header theme and table
+  sorting. The language link uses the in-repo `中` and `A` IconNodes, showing the
+  target language. The machine view control is a static Terminal icon, not a
+  stateful morph. Keep `reducedMotion="user"`; do not duplicate the same states
+  as static SVGs.
+- Motion stays between 150 and 200ms for UI; the book flip is 620ms. The machine
+  view entrance is the one longer sequence, and it is skippable. Honor
   `prefers-reduced-motion`; no auto-rotating text.
 - Search the actual page and both themes before changing spacing, typography,
   color or interaction. Follow the review evidence in
   [docs/skills/SKILLS.md](docs/skills/SKILLS.md).
 
-## Agent surface
+## Machine view
 
-- Agent lens is a public inspection mode, not a chatbot. It is a two-state,
-  icon-only header control with no visible label, styled exactly like the theme
-  control. It writes `html.agent-mode`, `?mode=agent` and the
-  `portfolio-agent-mode` localStorage key. The human page and footer are
-  replaced by the generated agent brief for the current locale inside `main`;
-  `/agent.md` and `/agent.json` remain the English canonical files. There is no
-  machine palette, binary layer, panel or aura.
+- The machine view is a public inspection mode, not a chatbot. It lives at
+  `?view=machine`; the old `?mode=agent` link canonicalizes to it and
+  `?mode=human` returns to Human. It adds `html[data-view="machine"]`, renders a
+  floating Human/Machine switch and stores the `portfolio-view` key, migrating
+  `portfolio-agent-mode`. The human page, header and footer are hidden and the
+  generated brief for the current locale renders in a 720px mono column inside
+  `main`.
+- The header control is an icon-only Terminal button with no visible label, the
+  same size and styling as the theme control. It opens the view. The floating
+  switch and `Shift+M` return to Human and restore the reader's theme.
+- The view is dark only. The header, footer, theme and language controls are
+  hidden. Copy as Markdown, the `agent.md` link, the source line and the
+  Human/Machine switch are the only controls.
+- The brief types in once per URL entry in the transient green, then settles to
+  the neutral document. Reduced motion skips it; scroll, touch, a key or a
+  pointer finishes it. The green never becomes permanent UI chrome.
+- `/agent.md` and `/agent.json` remain the English canonical files. The view
+  exposes no model, chat endpoint, A2A server or MCP server, and no generated
+  claims. No private data enters the brief.
 - Keep `/llms.txt`, `/agent.md` and `/agent.json` generated from the same data
   as the pages. Every HTML page carries the `describedby`, Markdown alternate,
   RSS, JSON Feed and JSON-LD discovery tags.
@@ -169,11 +184,11 @@ The full system lives in [DESIGN.md](DESIGN.md). The short version:
 - Do not add an A2A card, MCP server card, OpenAPI or API catalog unless there
   is a real callable service. The portfolio has none, and adding the document
   turns the API category on and changes the score. Do not add a model, chat
-  endpoint or generated claims to the agent view.
+  endpoint or generated claims to the machine view.
 - The brief, manifest and agent guide are public. Never add private email,
   admin state, analytics identifiers or session data to them.
 - Run `e2e/agent.spec.ts` and `e2e/agent-readiness.spec.ts` when changing the
-  text view, the endpoints, the manifest shape, the discovery headers or the
+  machine view, the endpoints, the manifest shape, the discovery headers or the
   trust pages.
 
 ## Environment and secrets

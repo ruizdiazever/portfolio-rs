@@ -116,6 +116,7 @@ const jsonLd = JSON.stringify({
         document.documentElement.classList.toggle("dark", scheme === "dark");
 
         media.addEventListener("change", () => {
+            if (document.documentElement.dataset.view === "machine") return;
             try {
                 const current = localStorage.getItem("mode-watcher-mode");
                 if (current === "light" || current === "dark") return;

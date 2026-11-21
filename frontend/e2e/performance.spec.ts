@@ -29,9 +29,10 @@ test.describe("performance budget", () => {
       };
     });
 
-    expect(metrics.resources).toBeLessThan(15);
-    // Header scripts, the Morphicons bootstrap and the contribution island.
-    expect(metrics.scripts).toBeLessThanOrEqual(10);
+    expect(metrics.resources).toBeLessThan(16);
+    // Header scripts, the Morphicons bootstrap, the contribution island and the
+    // machine view reader.
+    expect(metrics.scripts).toBeLessThanOrEqual(11);
     expect(metrics.scriptBytes).toBeLessThan(200_000);
     expect(metrics.fonts).toHaveLength(1);
     expect(metrics.fonts[0]).toMatch(/\.woff2$/);

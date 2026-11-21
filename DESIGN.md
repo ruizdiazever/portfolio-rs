@@ -56,8 +56,9 @@ graph, the home avatar, the about portrait and the footer mascot, but it is
 revealed on demand: these surfaces stay monochrome until hovered or focused.
 Shape, position and the accessible name carry the meaning, so color is never the
 only cue. UI chrome uses the tokens above. Do not add a colored hover, a gradient
-behind UI text or a card shadow. Agent lens keeps the same neutral system; only
-the content changes.
+behind UI text or a card shadow. The machine view is the deliberate exception:
+it is dark only and its entrance runs in a transient green, then the document
+settles to the neutral system.
 
 Body and control pairs must meet their WCAG contrast ratio in both themes.
 Muted text is for secondary metadata, not for body copy. State is never carried
@@ -131,14 +132,17 @@ width.
 ### Header
 
 Solid `background`, no blur. A two-line wordmark in 510 weight. Mobile controls
-are 40px; desktop controls are 36px. The language, theme and Agent lens controls
-are icon-only with accessible names, not visible labels. The language control is
-a Morphicon between `中` and `A`, showing the target language; it never uses a
-flag. It is 20px, `reducedMotion="user"` and same size as the theme control.
+are 40px; desktop controls are 36px. The language, theme and machine view
+controls are icon-only with accessible names, not visible labels. The language
+control is a Morphicon between `中` and `A`, showing the target language; it
+never uses a flag. It is 20px, `reducedMotion="user"` and same size as the theme
+control.
 
 Stateful header icons use Morphicons with Lucide icon data. The theme control
-morphs `Sun` to `Moon`; Agent lens morphs `Bot` to `User`. Both are 20px,
-`spring="snappy"`, and `reducedMotion="user"`, so the OS preference is honored.
+morphs `Sun` to `Moon`. It is 20px, `spring="snappy"`, and
+`reducedMotion="user"`, so the OS preference is honored. The machine view
+control is a static `Terminal` icon, not a stateful morph; the floating
+Human/Machine switch inside the view carries the state.
 The theme script switches with `set()` on initial paint and `morphTo()` after a
 click or system change. The SVG is server-rendered, so there is no layout shift
 while the custom element upgrades. Do not keep a second hand-drawn copy of these
@@ -248,34 +252,39 @@ Native `<dialog>` opened with `showModal()`, named with `aria-labelledby`, with
 behind is inert by the platform. The message field has a visible or
 screen-reader label; the counter and error remain associated.
 
-### Agent lens
+### Machine view
 
-The agent layer is exposed by a two-state icon-only control in the header. It
-uses the same size, radius, hover, active and focus treatment as the theme
-control. There is no aura, no special fill and no visible label at any
-breakpoint. The icon switches between a bot and a person; the action lives in
-the accessible name and `aria-pressed`.
+The machine view is a reader for the exact Markdown brief an agent receives. It
+is the one deliberate departure from the neutral palette: dark only, with a
+transient green entrance. The document itself settles to the neutral system.
 
-When active, the root gets `agent-mode`. The header stays so the reader can
-leave or change theme and language. The human page and footer are hidden. The
-main landmark shows one plain-text document:
-
-- The content is the generated agent brief for the current locale, built from
-  the same post, project and book data as the human pages. `/agent.md` and
-  `/agent.json` remain the English canonical files.
-- The document is monospace, 0.875rem, 1.7 line height and at most 86
-  characters wide. Long URLs wrap. It scrolls with the page; there is no card,
-  image, terminal palette or animation.
-- A single hairline toolbar names the surface as `text/markdown`, shows the
-  line count, and offers `Copy agent brief`, `agent.md` and `Human view`.
-- Copy confirms in a polite live region that clears after 2.5 seconds. The
-  `Human view` action returns focus to the header control.
-- The state persists in `localStorage` and `?mode=agent`, applied before first
-  paint. The human view stays hidden from assistive technology; the text view
-  stays hidden when the mode is off.
-- The mode adds no entrance animation or decorative motion. The header press
-  scale is the same as every other button; scroll-to-top honors
-  `prefers-reduced-motion`.
+- **Entry.** An icon-only Terminal button in the header uses the same 36/40px
+  geometry and focus treatment as the theme control, with no visible label. It
+  opens `?view=machine`; the old `?mode=agent` link canonicalizes to it and
+  `?mode=human` returns to Human. `Shift+M` also toggles the view.
+- **Layout.** The header, footer and human page are hidden. The main landmark
+  shows a 720px mono column with 1px side rules from 640px up, 24px inset and a
+  100svh minimum. The head carries the kicker, title, source URL, a one-sentence
+  note, Copy as Markdown and the `agent.md` link. The body is the generated
+  brief, one block per line, with white headings, neutral body copy and
+  underlined URLs. Long URLs wrap.
+- **Dark only.** The color-scheme meta becomes dark, the root gets `dark`, and
+  both stay dark through system changes. On exit, restore the stored or system
+  theme and sync the theme control. The theme and language controls are hidden.
+- **Exit.** A floating Human/Machine switch, fixed bottom center with a `⇧M`
+  hint, returns to the human page and restores focus to the header control. The
+  switch is the only persistent chrome in the document.
+- **Entrance.** On a URL entry or a switch to Machine, the body types its first
+  screen in `--machine-signal` green with a block cursor and a green hairline
+  under the head. The rest appears when it finishes, and the text settles to
+  neutral over 450ms. It stops after at most 2.4 seconds, at the first screen or
+  on scroll, touch, a key or a pointer. `prefers-reduced-motion` skips it. The
+  green is never used for static text, links or controls.
+- **Copy.** Copies the exact Markdown source rather than the rendered text and
+  confirms in the button and a polite live region.
+- **State.** `localStorage('portfolio-view')` and `?view=machine`, applied before
+  first paint. The human view stays hidden from assistive technology; the
+  machine view stays hidden when off.
 
 The machine files and boundaries are documented in
 [docs/agent-readiness.md](docs/agent-readiness.md).
@@ -369,8 +378,9 @@ For every UI change, inspect the actual page in both themes:
 - Shared component consumers, not only the edited surface.
 - The full page composition, not only the isolated component.
 - The keyboard path, accessible names and focus visibility.
-- Agent lens at 320px and 200%, with the human view hidden and the plain-text
-  document readable.
+- Machine view at 320px and 200%, dark in both system themes, with the human
+  view hidden, the document readable and the floating switch and copy action
+  reachable.
 - No clipped content, hidden action, horizontal page scroll or overlapping
   label.
 - No state carried by color or motion alone.
