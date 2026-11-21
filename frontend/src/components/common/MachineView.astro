@@ -3,6 +3,7 @@ import { getLocale } from "@paraglide/runtime";
 import * as m from "@paraglide/messages.js";
 import { agentMarkdown, getAgentManifest } from "$lib/common/agent";
 import { seoConfig } from "$lib/common/seoConfig";
+import { Kbd, KbdGroup } from "$lib/components/ui/kbd";
 
 const locale = getLocale() === "zh" ? "zh" : "en";
 const markdown = agentMarkdown(getAgentManifest(locale));
@@ -55,6 +56,8 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
         <div class="machine-body" data-machine-body></div>
     </div>
 
+    <div class="machine-scan" aria-hidden="true"></div>
+
     <pre class="machine-markdown" data-machine-source hidden>{markdown}</pre>
 
     <div class="view-switch" role="group" aria-label={m.machineSwitch()}>
@@ -78,7 +81,12 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
             <span class="view-switch-dot" aria-hidden="true"></span>
             {m.machineMachine()}
         </button>
-        <span class="view-switch-kbd" aria-hidden="true"><kbd>⇧M</kbd></span>
+        <span class="view-switch-kbd" aria-hidden="true">
+            <KbdGroup>
+                <Kbd class="h-auto min-h-5 py-0.5">⇧</Kbd>
+                <Kbd class="h-auto min-h-5 py-0.5">M</Kbd>
+            </KbdGroup>
+        </span>
     </div>
 
     <p
@@ -93,6 +101,7 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
     const root = document.documentElement;
     const view = document.querySelector<HTMLElement>("[data-machine-view]");
     const body = document.querySelector<HTMLElement>("[data-machine-body]");
+    const head = document.querySelector<HTMLElement>(".machine-head");
     const source = document.querySelector<HTMLElement>("[data-machine-source]");
     const announcer = document.getElementById("machine-announcer");
     const status = document.getElementById("machine-status");
@@ -120,7 +129,9 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
         failed: view?.dataset.copyFailed ?? "",
     };
 
-    let finishTyping: (() => void) | null = null;
+    let finishTyping: ((instant?: boolean) => void) | null = null;
+    let settleTimer = 0;
+    let decodeRestore: (() => void) | null = null;
 
     function escapeHtml(value: string): string {
         return value
@@ -193,6 +204,90 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
             fragment.appendChild(element);
         }
         body.replaceChildren(fragment);
+    }
+
+    function decodeHead() {
+        if (!head || reduce()) return;
+        decodeRestore?.();
+        const nodes: Array<{ node: Text; full: string }> = [];
+        const walker = document.createTreeWalker(head, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+            const text = node as Text;
+            if (!text.nodeValue?.trim()) continue;
+            if (text.parentElement?.closest("button, a")) continue;
+            nodes.push({ node: text, full: text.nodeValue });
+        }
+        if (!nodes.length) return;
+
+        const glyphs = "01<>[]{}/\\|=+-*#$%&ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const han = "机器视图数据内容代理阅读顺序呈现";
+        const glyph = (char: string) =>
+            /[\u3400-\u9fff]/.test(char)
+                ? han[Math.floor(Math.random() * han.length)]
+                : glyphs[Math.floor(Math.random() * glyphs.length)];
+
+        head.setAttribute("aria-busy", "true");
+        const started = performance.now();
+        const duration = 520;
+        let last = 0;
+        let raf = 0;
+
+        const restore = () => {
+            window.cancelAnimationFrame(raf);
+            for (const item of nodes) item.node.nodeValue = item.full;
+            head.removeAttribute("aria-busy");
+            decodeRestore = null;
+        };
+        decodeRestore = restore;
+
+        const tick = (now: number) => {
+            const elapsed = now - started;
+            const progress = Math.min(1, elapsed / duration);
+            if (now - last > 45) {
+                last = now;
+                for (const item of nodes) {
+                    let value = "";
+                    for (const char of item.full) {
+                        value +=
+                            whitespaceOrPunctuation(char) ||
+                            Math.random() < progress
+                                ? char
+                                : glyph(char);
+                    }
+                    item.node.nodeValue = value;
+                }
+            }
+            if (elapsed < duration) raf = window.requestAnimationFrame(tick);
+            else restore();
+        };
+
+        raf = window.requestAnimationFrame(tick);
+    }
+
+    function whitespaceOrPunctuation(char: string): boolean {
+        return !/[A-Za-z0-9\u3400-\u9fff]/.test(char);
+    }
+
+    function settle() {
+        if (!view) return;
+        view.classList.remove("is-typing");
+        if (reduce()) return;
+        view.classList.add("is-settling");
+        decodeHead();
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(() => {
+            view.classList.remove("is-settling");
+            decodeRestore?.();
+            settleTimer = 0;
+        }, 720);
+    }
+
+    function cancelSettle() {
+        window.clearTimeout(settleTimer);
+        settleTimer = 0;
+        decodeRestore?.();
+        view?.classList.remove("is-settling");
     }
 
     function storedTheme(): "light" | "dark" | null {
@@ -272,7 +367,8 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
         machine: boolean,
         options: { intro?: boolean; focus?: boolean } = {},
     ) {
-        if (finishTyping) finishTyping();
+        cancelSettle();
+        if (finishTyping) finishTyping(true);
         if (machine) {
             buildBody();
             if (options.intro && !reduce()) {
@@ -353,29 +449,35 @@ const source = new URL(`/${locale}`, seoConfig.baseURL).href;
         let done = false;
         const started = performance.now();
 
+        const skip = () => finish(true);
+
         const cleanup = () => {
-            window.removeEventListener("wheel", finish);
-            window.removeEventListener("touchmove", finish);
-            window.removeEventListener("keydown", finish);
-            window.removeEventListener("pointerdown", finish);
+            window.removeEventListener("wheel", skip);
+            window.removeEventListener("touchmove", skip);
+            window.removeEventListener("keydown", skip);
+            window.removeEventListener("pointerdown", skip);
             cursor.remove();
-            view?.classList.remove("is-typing");
             body.removeAttribute("aria-busy");
             finishTyping = null;
         };
 
-        const finish = () => {
+        const finish = (instant = false) => {
             if (done) return;
             done = true;
             window.cancelAnimationFrame(frame);
             for (const item of nodes) item.node.nodeValue = item.full;
             for (const block of blocks) block.classList.remove("is-untyped");
             cleanup();
+            if (instant || reduce()) {
+                view?.classList.remove("is-typing");
+            } else {
+                settle();
+            }
         };
         finishTyping = finish;
 
         for (const event of ["wheel", "touchmove", "keydown", "pointerdown"]) {
-            window.addEventListener(event, finish, { passive: true });
+            window.addEventListener(event, skip, { passive: true });
         }
 
         const tick = () => {

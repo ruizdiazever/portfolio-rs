@@ -124,6 +124,10 @@ test.describe("agent surfaces", () => {
       "aria-pressed",
       "false",
     );
+    const keys = page.locator('.view-switch-kbd [data-slot="kbd"]');
+    await expect(keys).toHaveCount(2);
+    await expect(keys.first()).toHaveText("⇧");
+    await expect(keys.nth(1)).toHaveText("M");
 
     await page.locator('[data-view-switch="human"]').click();
     await expect(machine).toBeHidden();
@@ -193,11 +197,21 @@ test.describe("agent surfaces", () => {
 
     const machine = page.locator("[data-machine-view]");
     await expect(machine).toHaveClass(/is-typing/);
+    await expect(page.locator(".machine-kicker")).toHaveCSS(
+      "color",
+      "rgb(92, 255, 138)",
+    );
     await expect(page.locator("[data-machine-body]")).toHaveCSS(
       "color",
       "rgb(92, 255, 138)",
     );
-    await expect(machine).not.toHaveClass(/is-typing/, { timeout: 6_000 });
+    await expect(machine).toHaveClass(/is-settling/, { timeout: 6_000 });
+    await expect(machine).not.toHaveClass(/is-settling/, { timeout: 6_000 });
+    await expect(machine).not.toHaveClass(/is-typing/);
+    await expect(page.locator(".machine-kicker")).toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
     await expect(page.locator("[data-machine-body]")).toHaveCSS(
       "color",
       "rgb(208, 214, 224)",
@@ -215,6 +229,13 @@ test.describe("agent surfaces", () => {
 
     await expect(page.locator("[data-machine-view]")).not.toHaveClass(
       /is-typing/,
+    );
+    await expect(page.locator(".machine-kicker")).toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(page.locator("[data-machine-view]")).not.toHaveClass(
+      /is-settling/,
     );
     await expect(page.locator("[data-machine-body]")).toHaveCSS(
       "color",
@@ -301,6 +322,7 @@ test.describe("agent surfaces", () => {
     }));
     expect(width.scroll).toBeLessThanOrEqual(width.client);
 
+    await expect(page.locator(".view-switch-kbd")).toBeHidden();
     const body = page.locator("[data-machine-body]");
     await expect(body).toContainText("# Ever Ruiz Diaz");
     expect(

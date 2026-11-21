@@ -498,6 +498,14 @@ html[data-view="machine"] .machine-view {
     max-width: 60ch;
 }
 
+.machine-kicker,
+.machine-title,
+.machine-source,
+.machine-note,
+.machine-format {
+    transition: color 450ms var(--ease-out);
+}
+
 .machine-actions {
     display: flex;
     flex: none;
@@ -520,6 +528,7 @@ html[data-view="machine"] .machine-view {
     line-height: 1;
     cursor: pointer;
     transition:
+        color 450ms var(--ease-out),
         border-color 150ms var(--ease-out),
         background-color 150ms var(--ease-out);
 }
@@ -615,8 +624,34 @@ html.machine-intro .machine-body {
     visibility: hidden;
 }
 
+/* The header enters in the same signal as the body, then settles. */
+html.machine-intro .machine-head,
 .machine-view.is-typing .machine-head {
     border-bottom-color: var(--machine-signal);
+}
+
+html.machine-intro .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
+.machine-view.is-typing .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format) {
+    color: var(--machine-signal);
+}
+
+html.machine-intro .machine-copy,
+.machine-view.is-typing .machine-copy {
+    border-color: color-mix(in oklab, var(--machine-signal) 45%, transparent);
+    color: var(--machine-signal);
+}
+
+html.machine-intro .machine-file,
+.machine-view.is-typing .machine-file {
+    color: var(--machine-signal);
+    text-decoration-color: color-mix(in oklab, var(--machine-signal) 55%, transparent);
+}
+
+html.machine-intro .machine-head,
+html.machine-intro .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
+html.machine-intro .machine-copy,
+html.machine-intro .machine-file {
+    transition-duration: 0ms;
 }
 
 .machine-view.is-typing .machine-body {
@@ -627,6 +662,83 @@ html.machine-intro .machine-body {
 .machine-view.is-typing .machine-line,
 .machine-view.is-typing .machine-line .machine-link {
     color: var(--machine-signal);
+}
+
+.machine-view.is-settling .machine-head,
+.machine-view.is-settling .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
+.machine-view.is-settling .machine-copy,
+.machine-view.is-settling .machine-file {
+    transition-duration: 450ms;
+}
+
+.machine-view.is-settling .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note) {
+    animation: machine-head-glitch 360ms steps(2, end) 1;
+}
+
+.machine-scan {
+    position: fixed;
+    z-index: 55;
+    inset-inline: 0;
+    top: 0;
+    height: 140px;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        color-mix(in oklab, var(--machine-signal) 8%, transparent) 30%,
+        color-mix(in oklab, var(--machine-signal) 45%, transparent) 47%,
+        color-mix(in oklab, var(--machine-signal) 92%, white) 50%,
+        color-mix(in oklab, var(--machine-signal) 45%, transparent) 53%,
+        transparent 72%
+    );
+}
+
+.machine-view.is-settling .machine-scan {
+    will-change: transform, opacity;
+    animation: machine-scan 700ms var(--ease-in-out) both;
+}
+
+@keyframes machine-scan {
+    0% {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    82% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(100svh);
+    }
+}
+
+@keyframes machine-head-glitch {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-1px);
+    }
+
+    50% {
+        transform: translateX(1px);
+    }
+
+    75% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: none;
+    }
 }
 
 .machine-cursor {
@@ -714,15 +826,12 @@ html.machine-intro .machine-body {
 }
 
 .view-switch-kbd {
+    display: inline-flex;
+    align-items: center;
     margin-left: 2px;
     padding: 0 8px 0 10px;
     border-left: 1px solid var(--border);
     color: var(--muted-foreground);
-    font-size: 0.6875rem;
-}
-
-.view-switch-kbd kbd {
-    font: inherit;
 }
 
 .view-switch-option:focus-visible,
@@ -754,14 +863,22 @@ html.machine-intro .machine-body {
 
 @media (prefers-reduced-motion: reduce) {
     .machine-head,
+    .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note, .machine-format),
+    .machine-copy,
+    .machine-file,
     .machine-body,
     .machine-line,
     .machine-link {
         transition: none;
     }
 
-    .machine-cursor {
+    .machine-cursor,
+    .machine-view.is-settling .machine-head :is(.machine-kicker, .machine-title, .machine-source, .machine-note) {
         animation: none;
+    }
+
+    .machine-view.is-settling .machine-scan {
+        display: none;
     }
 
     html.machine-intro .machine-body {

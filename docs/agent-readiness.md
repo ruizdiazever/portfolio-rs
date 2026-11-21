@@ -91,9 +91,9 @@ Markdown brief an agent receives:
 - **Entry.** The icon-only control opens the view, or `Shift+M` toggles it. The
   old `?mode=agent` URL canonicalizes to `?view=machine` and `?mode=human`
   returns to Human. There is no visible label on the header control.
-- **Exit.** The floating Human/Machine switch or `Shift+M` returns to the
-  normal site, restores the stored or system theme and returns focus to the
-  header control.
+- **Exit.** The floating Human/Machine switch, with shadcn-svelte `Kbd`
+  keycaps for `Shift+M`, or `Shift+M` returns to the normal site, restores the
+  stored or system theme and returns focus to the header control.
 - **Persistence.** The state lives in `localStorage('portfolio-view')` and in
   the URL. `html[data-view="machine"]` is applied in the head before the first
   paint. Navigation keeps it. The old storage key migrates on read.
@@ -107,10 +107,12 @@ Markdown brief an agent receives:
   a one-sentence note, and offers Copy as Markdown and the `agent.md` link. Copy
   writes the exact Markdown source and confirms in the button and a polite live
   region.
-- **Motion.** The first screen types in green with a cursor and a green hairline,
-  then the rest appears and the document settles to neutral. Scroll, touch, a
-  key or a pointer finishes it; `prefers-reduced-motion` skips it. Green is
-  never used for static chrome.
+- **Motion.** The head, body, copy action and agent.md link start in green. The
+  first screen types in with a cursor and a green hairline; when it finishes, a
+  green scanline sweeps the viewport and the head decodes as the document
+  settles to neutral. Scroll, touch, a key or a pointer finishes it without the
+  settle; `prefers-reduced-motion` skips the entrance. Green never becomes
+  permanent chrome.
 - **Dark only.** The color-scheme meta and the dark class are forced while the
   view is active and restored on exit. The header, footer, theme and language
   controls are hidden.
